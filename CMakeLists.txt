@@ -18,7 +18,7 @@ include_directories ("${Quick-DER_INCLUDE_DIRS}")
 
 add_subdirectory (lib)
 
-#target_link_libraries (keehive ${EXTRA_LIBS} ${Quick-DER_LIBRARIES})
+enable_testing()
 
 add_subdirectory (test)
 
