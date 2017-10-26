@@ -1,21 +1,25 @@
 cmake_minimum_required (VERSION 3.7)
 project (keehive C)
-
-# The version number.
 set (keehive_VERSION_MAJOR 0)
 set (keehive_VERSION_MINOR 1)
 
-include (${CMAKE_ROOT}/modules/Quick-DERConfig.cmake)
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+
+find_package (Quick-DER 1.2 REQUIRED)
+#find_package (cmocka REQUIRED)
 
 configure_file (
-        "${PROJECT_SOURCE_DIR}/version.h.in"
+        "lib/version.h.in"
         "${PROJECT_BINARY_DIR}/version.h"
 )
 
-include_directories("${PROJECT_BINARY_DIR}")
-include_directories("${Quick-DER_INCLUDE_DIRS}")
+include_directories ("${PROJECT_BINARY_DIR}")
+include_directories ("${Quick-DER_INCLUDE_DIRS}")
 
-add_library(keehive RemotePKCS11.h version.h)
+add_subdirectory (lib)
 
-add_executable (test1 test.c)
-target_link_libraries (test1  ${EXTRA_LIBS} ${Quick-DER_LIBRARIES})
+#target_link_libraries (keehive ${EXTRA_LIBS} ${Quick-DER_LIBRARIES})
+
+add_subdirectory (test)
+
+
