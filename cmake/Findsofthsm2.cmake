@@ -9,7 +9,7 @@ find_package(PkgConfig)
 pkg_check_modules(PC_LIBSOFTHSM2 QUIET softhsm2)
 set(LIBSOFTHSM2_DEFINITIONS ${PC_LIBSOFTHSM2_CFLAGS_OTHER})
 
-find_path(LIBSOFTHSM2_INCLUDE_DIR softhsm2.h
+find_path(LIBSOFTHSM2_INCLUDE_DIR softhsm/pkcs11.h
         HINTS ${PC_LIBSOFTHSM2_INCLUDEDIR} ${PC_LIBSOFTHSM2_INCLUDE_DIRS}
         PATH_SUFFIXES libsofthsm2 )
 
