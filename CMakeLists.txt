@@ -6,7 +6,8 @@ set (keehive_VERSION_MINOR 1)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package (Quick-DER 1.2 REQUIRED)
-#find_package (cmocka REQUIRED)
+find_package (cmocka REQUIRED)
+find_package (softhsm2 REQUIRED)
 
 configure_file (
         "lib/version.h.in"
@@ -15,6 +16,8 @@ configure_file (
 
 include_directories ("${PROJECT_BINARY_DIR}")
 include_directories ("${Quick-DER_INCLUDE_DIRS}")
+include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
+include_directories ("${LIBSOFTHSM2_INCLUDE_DIRS}")
 
 add_subdirectory (lib)
 
