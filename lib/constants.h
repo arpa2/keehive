@@ -4,6 +4,7 @@
 typedef enum {
     KEEHIVE_E_SUCCESS,
     KEEHIVE_E_MEMORY_ERROR,
+    KEEHIVE_E_DER_ERROR,
 } KeehiveError;
 
 #endif //KEEHIVE_CONSTANTS_H
