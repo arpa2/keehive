@@ -5,6 +5,5 @@
 
 KeehiveError get_slot_list_pack();
 KeehiveError get_slot_list_unpack();
-void *  get_slot_list();
 
 #endif //KEEHIVE_KEEHIVE_H

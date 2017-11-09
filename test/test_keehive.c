@@ -16,11 +16,6 @@ static void test_get_slot_list_unpack(void **state) {
 }
 
 
-static void test_get_slot_list(void **state) {
-    get_slot_list();
-}
-
-
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_get_slot_list_pack),

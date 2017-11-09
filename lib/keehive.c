@@ -4,16 +4,7 @@
 #include "RemotePKCS11.h"
 #include "constants.h"
 
-/* these defines are required by pkcs11.h */
-#define CK_PTR *
-#define CK_DECLARE_FUNCTION(returnType, name) returnType name
-#define CK_DECLARE_FUNCTION_POINTER(returnType, name) returnType (* name)
-#define CK_CALLBACK_FUNCTION(returnType, name) returnType (* name)
-#ifndef NULL_PTR
-#define NULL_PTR 0
-#endif
 
-#include "pkcs11/pkcs11.h"
 
 
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Call getslotlist_call_t;
@@ -62,10 +53,3 @@ KeehiveError get_slot_list_unpack() {
 }
 
 
-void * get_slot_list() {
-    CK_BBOOL       tokenPresent;
-    CK_SLOT_ID_PTR pSlotList;
-    CK_ULONG_PTR   pulCount;
-    C_GetSlotList(tokenPresent, pSlotList, pulCount);
-    return 0;
-}
