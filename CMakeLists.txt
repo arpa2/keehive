@@ -7,7 +7,10 @@ set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package (Quick-DER REQUIRED)
 find_package (cmocka REQUIRED)
+
 find_package (softhsm2 REQUIRED)
+find_package (OpenSSL REQUIRED)
+find_package (SQLite3 REQUIRED)
 
 configure_file (
         "lib/version.h.in"

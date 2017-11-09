@@ -15,6 +15,7 @@
 
 #include "pkcs11/pkcs11.h"
 
+
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Call getslotlist_call_t;
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return getslotlist_return_t;
 
