@@ -17,7 +17,6 @@ configure_file (
 include_directories ("${PROJECT_BINARY_DIR}")
 include_directories ("${Quick-DER_INCLUDE_DIRS}")
 include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
-include_directories ("${LIBSOFTHSM2_INCLUDE_DIRS}")
 
 add_subdirectory (lib)
 
