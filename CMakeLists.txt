@@ -21,8 +21,9 @@ include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
 add_subdirectory (lib)
 
+option (BUILD_WRAP "Build sfothsm2 wrap" ON)
 
-if (build_wrap)
+if (BUILD_WRAP)
     find_package (softhsm2 REQUIRED)
     find_package (OpenSSL REQUIRED)
     find_package (SQLite3 REQUIRED)
