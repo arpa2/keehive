@@ -12,27 +12,27 @@
 
 
 static void test_pack_unpack(void **state) {
-    CK_ULONG pulCount = 0;
+    CK_ULONG_PTR pulCount;
     CK_BBOOL tokenPresent = TRUE;
-    uint8_t const * decptr;
+    uint8_t * packed_ptr;
     size_t len = 0;
 
-    KeehiveError error = get_slot_list_pack(&tokenPresent, &pulCount, NULL_PTR, &len);
+    KeehiveError error = get_slot_list_pack(tokenPresent, pulCount, NULL_PTR, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
-    decptr = malloc (len);
-    if (decptr == NULL) {
+    packed_ptr = malloc (len);
+    if (packed_ptr == NULL) {
         exit(1);
     }
 
-    error = get_slot_list_pack(&tokenPresent, &pulCount, decptr, &len);
+    error = get_slot_list_pack(tokenPresent, pulCount, packed_ptr, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
     getslotlist_call_t getslotlist;
-    error = get_slot_list_unpack((dercursor *) decptr, &getslotlist);
+    error = get_slot_list_unpack((dercursor *) packed_ptr, &getslotlist);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
-    free(decptr);
+    free(packed_ptr);
 }
 
 

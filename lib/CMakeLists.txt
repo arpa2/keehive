@@ -4,11 +4,11 @@ set(LIB_H
         pkcs11/pkcs11t.h
         pkcs11/pkcs11f.h
         constants.h
-        keehive.h pkcs11/pkcs11unix.h)
+        keehive.h pkcs11/pkcs11unix.h convert.h)
 
 set(LIB_SRC
         keehive.c
-)
+        convert.c)
 
 include_directories ("${PROJECT_BINARY_DIR}")
 

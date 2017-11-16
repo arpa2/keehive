@@ -21,10 +21,10 @@ static const uint8_t get_slot_list_packer[] = {
 
 KeehiveError
 get_slot_list_pack(
-        CK_BBOOL * tokenPresent,
+        CK_BBOOL tokenPresent,
         /* CK_SLOT_ID_PTR pSlotList, */
         CK_ULONG_PTR pulCount,
-        uint8_t const * decptr,
+        uint8_t * decptr,
         size_t * len
 
 );
