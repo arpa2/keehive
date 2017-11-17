@@ -34,7 +34,7 @@ get_slot_list_pack(
 
     /* receives number of slots */
     QDERBUF_ULONG_T der_pulCount;
-    getslotlist_call.pulCount = ck2qder_ulong(der_pulCount, &pulCount);
+    getslotlist_call.pulCount = ck2qder_ulong(der_pulCount, *pulCount);
 
     *len = der_pack(get_slot_list_packer, (const dercursor *) &getslotlist_call, NULL);
 
@@ -44,7 +44,7 @@ get_slot_list_pack(
     size_t status = der_pack(get_slot_list_packer, (const dercursor *) &getslotlist_call, packed_ptr + *len);
 
     if (status == 0) {
-        errno_t x = errno;
+        int x = errno;
         return KEEHIVE_E_DER_ERROR;
     }
 

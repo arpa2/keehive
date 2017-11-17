@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-#import <string.h>
+#include <string.h>
 
 
 static void test_pack_unpack(void **state) {
