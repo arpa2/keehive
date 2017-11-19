@@ -64,7 +64,7 @@ get_slot_list_unpack(
         return KEEHIVE_E_DER_ERROR;
 
     if (status == -1) {
-        errno_t x = errno;
+        int x = errno;
         return KEEHIVE_E_DER_ERROR;
     }
     return KEEHIVE_E_SUCCESS;

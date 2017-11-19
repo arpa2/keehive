@@ -18,7 +18,7 @@ set(WRAP_LINK_LIRARIES
 include_directories ("${PROJECT_BINARY_DIR}")
 include_directories (../lib)
 
-add_executable(wrap
+add_library(wrap
         ${LIB_H}
         ${LIB_SRC}
 )
