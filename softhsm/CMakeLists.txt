@@ -9,9 +9,9 @@ set(LIB_SRC
 set(WRAP_LINK_LIRARIES
         ${LIBCMOCKA_LIBRARIES}
         ${Quick-DER_LIBRARIES}
-        ${LIBSOFTHSM2_LIBRARIES}
-        ${OPENSSL_LIBRARIES}
-        ${SQLITE3_LIBRARIES}
+        # ${LIBSOFTHSM2_LIBRARIES}
+        #${OPENSSL_LIBRARIES}
+        #${SQLITE3_LIBRARIES}
         )
 
 

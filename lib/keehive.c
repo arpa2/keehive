@@ -71,8 +71,8 @@ get_slot_list_unpack(
     int repeats = 1;
     int status = der_unpack(&packed, get_slot_list_packer, (dercursor *) &getslotlist_call, repeats);
 
-    if (getslotlist_call->pulCount.derptr == NULL)
-        return KEEHIVE_E_DER_ERROR;
+    //if (getslotlist_call->pulCount.derptr == NULL)
+    //    return KEEHIVE_E_DER_ERROR;
 
     if (status == -1) {
         int x = errno;
