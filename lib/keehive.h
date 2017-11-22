@@ -32,8 +32,9 @@ get_slot_list_pack(
 
 KeehiveError
 get_slot_list_unpack(
-        dercursor * decsyntax,
-        getslotlist_call_t * getslotlist
+        uint8_t * packed_ptr,
+        size_t * len,
+        getslotlist_call_t * getslotlist_call
 );
 
 #endif //KEEHIVE_KEEHIVE_H
