@@ -33,7 +33,7 @@ get_slot_list_pack(
 KeehiveError
 get_slot_list_unpack(
         uint8_t * packed_ptr,
-        size_t * len,
+        const size_t * len,
         getslotlist_call_t * getslotlist_call
 );
 
