@@ -1,10 +1,11 @@
 
-include_directories (../lib)
-include_directories (../softhsm)
+include_directories (../src)
+
 add_executable(keehive.test test_keehive.c)
-add_executable(wrap.test test_softhsm.c)
+add_executable(wrap.test test_wrap.c)
+
 add_dependencies(keehive.test keehive.test)
-add_dependencies(wrap.test wrap.test)
+add_dependencies(wrap.test keehive.test)
 
 set(KEEHIVE_LINK_LIRARIES
         ${LIBCMOCKA_LIBRARIES}
@@ -12,7 +13,7 @@ set(KEEHIVE_LINK_LIRARIES
 )
 
 target_link_libraries(keehive.test keehive ${KEEHIVE_LINK_LIRARIES})
-target_link_libraries(wrap.test wrap ${KEEHIVE_LINK_LIRARIES})
+target_link_libraries(wrap.test keehive ${KEEHIVE_LINK_LIRARIES})
 
 add_test(keehive.test keehive.test)
 

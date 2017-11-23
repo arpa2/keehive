@@ -11,7 +11,7 @@ find_package (cmocka REQUIRED)
 
 
 configure_file (
-        "lib/version.h.in"
+        "src/version.h.in"
         "${PROJECT_BINARY_DIR}/version.h"
 )
 
@@ -19,16 +19,7 @@ include_directories ("${PROJECT_BINARY_DIR}")
 include_directories ("${Quick-DER_INCLUDE_DIRS}")
 include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
-add_subdirectory (lib)
-
-option (BUILD_WRAP "Build sfothsm2 wrap" ON)
-
-if (BUILD_WRAP)
-    find_package (softhsm2 REQUIRED)
-    find_package (OpenSSL REQUIRED)
-    find_package (SQLite3 REQUIRED)
-    add_subdirectory (softhsm)
-endif()
+add_subdirectory (src)
 
 enable_testing()
 
