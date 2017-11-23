@@ -49,7 +49,7 @@ static void test_get_info_before_init(void **state) {
 static void test_so_not_exists(void **state) {
     void *handle;
     KeehiveError status = initialize("thisdoesnotexists", &handle);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    assert_int_equal(status, KEEHIVE_E_SO_INVALID);
 }
 
 static void test_double_init(void **state) {
@@ -93,6 +93,7 @@ int main(void) {
             cmocka_unit_test(test_get_slot_list),
             cmocka_unit_test(test_get_info_before_init),
             cmocka_unit_test(test_double_init),
+            cmocka_unit_test(test_so_not_exists),
             cmocka_unit_test(test_finalize_before_init),
             cmocka_unit_test(test_double_finalize),
             cmocka_unit_test(test_get_info),
