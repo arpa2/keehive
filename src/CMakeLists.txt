@@ -4,16 +4,22 @@ set(LIB_H
         pkcs11/pkcs11.h
         pkcs11/pkcs11t.h
         pkcs11/pkcs11f.h
-        constants.h
-        keehive.h
+        types.h
+        pack.h
+        unpack.h
         wrap.h
         convert.h
+        client.h
+        server.h
 )
 
 set(LIB_SRC
-        keehive.c
+        pack.c
+        unpack.c
         wrap.c
         convert.c
+        client.c
+        server.c
 )
 
 

@@ -1,7 +1,7 @@
 #ifndef KEEHIVE_WRAP_C_H
 #define KEEHIVE_WRAP_C_H
 
-#include "constants.h"
+#include "types.h"
 #include "pkcs11/pkcs11unix.h"
 
 KeehiveError initialize(CK_FUNCTION_LIST_PTR_PTR function_list);

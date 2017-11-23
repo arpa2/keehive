@@ -2,13 +2,16 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
-#include "keehive.h"
-#include "pkcs11/pkcs11unix.h"
-
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <string.h>
+
+#include "pkcs11/pkcs11unix.h"
+#include "pack.h"
+#include "unpack.h"
+#include "types.h"
+
+
 
 
 static void test_pack_unpack(void **state) {
@@ -16,18 +19,19 @@ static void test_pack_unpack(void **state) {
     CK_BBOOL tokenPresent = TRUE;
     size_t len = 0;
 
-    KeehiveError error = get_slot_list_pack(tokenPresent, &pulCount, NULL_PTR, &len);
+    KeehiveError error = pack_C_GetSlotList_Call(tokenPresent, NULL_PTR, &pulCount, NULL_PTR, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
     uint8_t * packed_ptr = malloc (len);
     assert_non_null(packed_ptr);
 
-    error = get_slot_list_pack(tokenPresent, &pulCount, packed_ptr, &len);
+    error = pack_C_GetSlotList_Call(tokenPresent, NULL_PTR, &pulCount, packed_ptr, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
-    getslotlist_call_t getslotlist;
-    KeehiveError error2 = get_slot_list_unpack(packed_ptr, &len, &getslotlist);
+    C_GetSlotList_Call_t getslotlist;
+    KeehiveError error2 = unpack_C_GetSlotList_Call(packed_ptr, &len, &getslotlist);
     assert_int_equal(error2, KEEHIVE_E_SUCCESS);
+
 
     free(packed_ptr);
 }

@@ -1,0 +1,85 @@
+#include <stdlib.h>
+#include <quick-der/api.h>
+#include <errno.h>
+#include <stdio.h>
+#include "RemotePKCS11.h"
+#include "types.h"
+#include "pkcs11/pkcs11unix.h"
+
+#include "pack.h"
+#include "convert.h"
+
+
+KeehiveError
+pack_C_GetInfo_Call(
+        CK_INFO_PTR pInfo,
+        uint8_t * packed_ptr,
+        size_t * len
+){
+    C_GetInfo_Call_t C_GetInfo_Call;
+
+    memset (&C_GetInfo_Call, 0, sizeof (C_GetInfo_Call));
+
+    *len = der_pack(get_slot_list_packer, (const dercursor *) &C_GetInfo_Call, NULL);
+
+    if (packed_ptr == NULL_PTR)
+        return KEEHIVE_E_SUCCESS;
+
+    size_t status = der_pack(get_slot_list_packer, (const dercursor *) &C_GetInfo_Call, packed_ptr + *len);
+
+    if (status == 0) {
+        int x = errno;
+        return KEEHIVE_E_DER_ERROR;
+    }
+
+    return KEEHIVE_E_SUCCESS;
+
+}
+
+KeehiveError
+pack_C_GetSlotList_Call(
+        CK_BBOOL tokenPresent,
+        CK_SLOT_ID_PTR pSlotList,
+        CK_ULONG_PTR pulcount_ptr,
+        uint8_t * packed_ptr,
+        size_t * len
+
+) {
+    C_GetSlotList_Call_t C_GetSlotList_Call;
+
+    memset (&C_GetSlotList_Call, 0, sizeof (C_GetSlotList_Call));
+
+
+    /* only slots with tokens */
+    QDERBUF_BOOL_T der_tokenPresent;
+    memset(&der_tokenPresent, 0, sizeof(der_tokenPresent));
+    C_GetSlotList_Call.tokenPresent = ck2qder_bool(der_tokenPresent, tokenPresent);
+
+    /* receives array of slot IDs */
+    C_GetSlotList_Call.pSlotList.null.derptr = (uint8_t *) "";
+    C_GetSlotList_Call.pSlotList.null.derlen = 0;
+
+    if (pulcount_ptr == NULL_PTR)
+        return KEEHIVE_E_MEMORY_ERROR;
+
+    /* receives number of slots */
+    QDERBUF_ULONG_T der_pulCount;
+    memset(&der_pulCount, 0, sizeof(der_pulCount));
+    C_GetSlotList_Call.pulCount = ck2qder_ulong(der_pulCount, *pulcount_ptr);
+
+    *len = der_pack(get_slot_list_packer, (const dercursor *) &C_GetSlotList_Call, NULL);
+
+    if (packed_ptr == NULL_PTR)
+        return KEEHIVE_E_SUCCESS;
+
+    size_t status = der_pack(get_slot_list_packer, (const dercursor *) &C_GetSlotList_Call, packed_ptr + *len);
+
+    if (status == 0) {
+        int x = errno;
+        return KEEHIVE_E_DER_ERROR;
+    }
+
+    return KEEHIVE_E_SUCCESS;
+}
+
+
