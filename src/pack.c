@@ -20,12 +20,12 @@ pack_C_GetInfo_Call(
 
     memset (&C_GetInfo_Call, 0, sizeof (C_GetInfo_Call));
 
-    *len = der_pack(get_slot_list_packer, (const dercursor *) &C_GetInfo_Call, NULL);
+    *len = der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, NULL);
 
     if (packed_ptr == NULL_PTR)
         return KEEHIVE_E_SUCCESS;
 
-    size_t status = der_pack(get_slot_list_packer, (const dercursor *) &C_GetInfo_Call, packed_ptr + *len);
+    size_t status = der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, packed_ptr + *len);
 
     if (status == 0) {
         int x = errno;
@@ -35,6 +35,33 @@ pack_C_GetInfo_Call(
     return KEEHIVE_E_SUCCESS;
 
 }
+
+KeehiveError
+pack_C_GetInfo_Return(
+        CK_INFO_PTR pInfo,
+        uint8_t * packed_ptr,
+        size_t * len
+) {
+    C_GetInfo_Return_t C_GetInfo_Return;
+    memset (&C_GetInfo_Return, 0, sizeof (C_GetInfo_Return));
+
+    *len = der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, NULL);
+
+    if (packed_ptr == NULL_PTR)
+        return KEEHIVE_E_SUCCESS;
+
+    size_t status = der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, packed_ptr + *len);
+
+    if (status == 0) {
+        int x = errno;
+        return KEEHIVE_E_DER_ERROR;
+    }
+
+    return KEEHIVE_E_SUCCESS;
+
+}
+
+
 
 KeehiveError
 pack_C_GetSlotList_Call(
@@ -67,12 +94,12 @@ pack_C_GetSlotList_Call(
     memset(&der_pulCount, 0, sizeof(der_pulCount));
     C_GetSlotList_Call.pulCount = ck2qder_ulong(der_pulCount, *pulcount_ptr);
 
-    *len = der_pack(get_slot_list_packer, (const dercursor *) &C_GetSlotList_Call, NULL);
+    *len = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, NULL);
 
     if (packed_ptr == NULL_PTR)
         return KEEHIVE_E_SUCCESS;
 
-    size_t status = der_pack(get_slot_list_packer, (const dercursor *) &C_GetSlotList_Call, packed_ptr + *len);
+    size_t status = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, packed_ptr + *len);
 
     if (status == 0) {
         int x = errno;

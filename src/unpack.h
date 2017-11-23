@@ -10,12 +10,20 @@
 
 KeehiveError
 unpack_C_GetSlotList_Call(
-        uint8_t * packed_ptr,
-        const size_t * len,
-        DER_OVLY_RemotePKCS11_C_GetSlotList_Call * getslotlist_call
+        dercursor * packed
 );
 
-unpack_C_GetInfo_Return(packed_response, pInfo);
+
+KeehiveError
+unpack_C_GetInfo_Call(
+        dercursor * cursor
+);
+
+KeehiveError
+unpack_C_GetInfo_Return(
+        dercursor * packed,
+        CK_INFO_PTR pInfo
+);
 
 
 #endif //KEEHIVE_UNPACK_H

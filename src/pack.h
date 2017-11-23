@@ -15,6 +15,12 @@ pack_C_GetInfo_Call(
         size_t * len
 );
 
+KeehiveError
+pack_C_GetInfo_Return(
+        CK_INFO_PTR pInfo,
+        uint8_t * packed_ptr,
+        size_t * len
+);
 
 KeehiveError
 pack_C_GetSlotList_Call(

@@ -1,6 +1,7 @@
 #include "client.h"
 #include "server.h"
 #include "pack.h"
+#include "unpack.h"
 
 CK_RV
 C_GetInfo(
@@ -11,12 +12,18 @@ C_GetInfo(
     uint8_t *packed_ptr = malloc(len);
     pack_C_GetInfo_Call(pInfo, packed_ptr, &len);
 
-    dercursor packed;
-    packed.derptr = packed_ptr;
-    packed.derlen = len;
+    uint8_t * response_data;
+    size_t response_len;
 
-    uint8_t *packed_response = server_C_GetInfo(packed);
-    unpack_C_GetInfo_Return(packed_response, pInfo);
+    server_C_GetInfo(packed_ptr, len, &response_data, &response_len);
+
+    C_GetInfo_Return_t C_GetInfo_Return;
+
+    dercursor cursor;
+    cursor.derptr = response_data;
+    cursor.derlen = response_len;
+
+    unpack_C_GetInfo_Return(&cursor, pInfo);
     free(packed_ptr);
     return CKR_OK;
 }

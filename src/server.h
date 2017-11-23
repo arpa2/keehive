@@ -5,6 +5,11 @@
 
 #include "types.h"
 
-uint8_t *server_C_GetInfo(dercursor packed);
+void server_C_GetInfo(
+        uint8_t *input_packed,
+        size_t input_len,
+        uint8_t *output_packed,
+        size_t *output_len
+);
 
 #endif //KEEHIVE_SERVER_H

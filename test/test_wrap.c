@@ -86,7 +86,6 @@ static void test_double_finalize(void **state) {
 }
 
 static void test_get_info(void **state) {
-    void *handle;
     CK_INFO info;
     KeehiveError status;
     CK_FUNCTION_LIST_PTR function_list;
@@ -98,7 +97,6 @@ static void test_get_info(void **state) {
 }
 
 static void test_get_function_list(void **state) {
-    void *handle;
     KeehiveError status;
     CK_FUNCTION_LIST_PTR function_list;
     status = get_function_list(path, &function_list);

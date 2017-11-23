@@ -29,7 +29,10 @@ static void test_pack_unpack(void **state) {
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
     C_GetSlotList_Call_t getslotlist;
-    KeehiveError error2 = unpack_C_GetSlotList_Call(packed_ptr, &len, &getslotlist);
+    dercursor cursor;
+    cursor.derlen = len;
+    cursor.derptr = packed_ptr;
+    KeehiveError error2 = unpack_C_GetSlotList_Call(&cursor);
     assert_int_equal(error2, KEEHIVE_E_SUCCESS);
 
 

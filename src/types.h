@@ -11,8 +11,25 @@ typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Call C_GetSlotList_Call_t;
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return C_GetSlotList_Return_t;
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Call_pSlotList C_GetSlotList_Call_pSlotList_t;
 
-static const uint8_t get_slot_list_packer[] = {
+
+static const uint8_t C_GetInfo_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetInfo_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Return,
+        DER_PACK_END
+};
+
+
+static const uint8_t C_GetSlotList_Call_packer[] = {
         DER_PACK_RemotePKCS11_C_GetSlotList_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetSlotList_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotList_Return,
         DER_PACK_END
 };
 
