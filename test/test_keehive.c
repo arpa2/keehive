@@ -36,7 +36,11 @@ static void test_pack_unpack(void **state) {
     assert_int_equal(error2, KEEHIVE_E_SUCCESS);
 
 
+    printf("bla");
+
     free(packed_ptr);
+
+    printf("bla");
 }
 
 
