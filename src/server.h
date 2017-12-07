@@ -5,12 +5,12 @@
 
 #include "types.h"
 
-void server_C_GetInfo(
-        uint8_t *input_packed,
-        size_t input_len,
-        uint8_t *output_packed,
-        size_t *output_len
+void
+server_C_GetInfo(
+        const dercursor *cursorIn,
+        dercursor *CursorOut
 );
+
 
 void
 server_C_GetSlotList(

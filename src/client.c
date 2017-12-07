@@ -14,22 +14,18 @@ Remote_C_GetInfo(
     uint8_t *pPacked = malloc(len);
     pack_C_GetInfo_Call(pInfo, pPacked, &len);
 
-    uint8_t *response_data = malloc(MAX_BUFFER);
-    size_t response_len;
+    dercursor dercursorIn;
+    dercursorIn.derptr = pPacked;
+    dercursorIn.derlen = len;
 
-    server_C_GetInfo(pPacked, len, response_data, &response_len);
+    dercursor dercursorOut;
 
-    C_GetInfo_Return_t C_GetInfo_Return;
+    server_C_GetInfo(&dercursorIn, &dercursorOut);
 
-    dercursor cursor;
-    cursor.derptr = response_data;
-    cursor.derlen = response_len;
+    unpack_C_GetInfo_Return(&dercursorOut, pInfo);
 
-    unpack_C_GetInfo_Return(&cursor, pInfo);
     free(pPacked);
-
-    // TODO: we shouldn't free this since we are still using it, but where do we free?
-    //free(response_data);
+    free(dercursorOut.derptr);
 
     return CKR_OK;
 }

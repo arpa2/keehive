@@ -29,7 +29,7 @@ static const uint8_t C_GetSlotList_Return_packer[] = {
 
 KeehiveError
 unpack_C_GetInfo_Call(
-       dercursor * packed
+       const dercursor * packed
 ){
     C_GetInfo_Call_t * C_GetInfo_Call;
 
@@ -46,7 +46,7 @@ unpack_C_GetInfo_Call(
 
 KeehiveError
 unpack_C_GetInfo_Return(
-        dercursor * packed,
+        const dercursor * packed,
         CK_INFO_PTR pInfo
 ) {
     C_GetInfo_Return_t C_GetInfo_Return;
@@ -68,7 +68,7 @@ unpack_C_GetInfo_Return(
 
 KeehiveError
 unpack_C_GetSlotList_Call(
-        dercursor * packed
+        const dercursor * packed
 ) {
 
     C_GetSlotList_Call_t * C_GetSlotList_Call;
@@ -90,7 +90,7 @@ unpack_C_GetSlotList_Call(
 
 KeehiveError
 unpack_C_GetSlotList_Return(
-        dercursor * packed,
+        const dercursor * packed,
         CK_BBOOL tokenPresent,
         CK_SLOT_ID_PTR pSlotList,
         CK_ULONG_PTR pPulCount
