@@ -7,17 +7,15 @@
 
 void
 server_C_GetInfo(
-        const dercursor *cursorIn,
+        dercursor *cursorIn,
         dercursor *CursorOut
 );
 
 
 void
 server_C_GetSlotList(
-        uint8_t *pPacked,
-        size_t len,
-        uint8_t *response_data,
-size_t *response_len
+        dercursor *cursorIn,
+        dercursor *CursorOut
 );
 
 #endif //KEEHIVE_SERVER_H

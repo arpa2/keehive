@@ -9,7 +9,7 @@ const char path[] = "/usr/local/lib/softhsm/libsofthsm2.so";
 
 void
 server_C_GetInfo(
-        const dercursor *cursorIn,
+        dercursor *cursorIn,
         dercursor *CursorOut
 ){
 
@@ -32,16 +32,11 @@ server_C_GetInfo(
 
 void
 server_C_GetSlotList(
-        uint8_t *pPacked,
-        const size_t len,
-        uint8_t *response_data,
-        size_t *response_len
-) {
+        dercursor *cursorIn,
+        dercursor *CursorOut
+){
 
-    dercursor packed;
-    packed.derptr = pPacked;
-    packed.derlen = len;
-    unpack_C_GetSlotList_Call(&packed);
+    unpack_C_GetSlotList_Call(cursorIn);
 
     //call_C_GetSlotList()
 

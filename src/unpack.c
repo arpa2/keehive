@@ -29,7 +29,7 @@ static const uint8_t C_GetSlotList_Return_packer[] = {
 
 KeehiveError
 unpack_C_GetInfo_Call(
-       const dercursor * packed
+        const dercursor * packed
 ){
     C_GetInfo_Call_t * C_GetInfo_Call;
 
