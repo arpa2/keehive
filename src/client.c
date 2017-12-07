@@ -51,10 +51,10 @@ Remote_C_GetSlotList(
 
     server_C_GetSlotList(&dercursorIn, &dercursorOut);
 
-    unpack_C_GetSlotList_Return(&dercursorOut, tokenPresent, pSlotList, pPulCount);
+    unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
 
     free(pPacked);
-    free(dercursorOut.derptr);
+    //free(dercursorOut.derptr);
 
     return CKR_OK;
 };

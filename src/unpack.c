@@ -31,7 +31,7 @@ KeehiveError
 unpack_C_GetInfo_Call(
         const dercursor * packed
 ){
-    C_GetInfo_Call_t * C_GetInfo_Call;
+    C_GetInfo_Call_t C_GetInfo_Call;
 
     memset(&C_GetInfo_Call, 0, sizeof(C_GetInfo_Call));
     int repeats = 1;
@@ -71,17 +71,15 @@ unpack_C_GetSlotList_Call(
         const dercursor * packed
 ) {
 
-    C_GetSlotList_Call_t * C_GetSlotList_Call;
+    C_GetSlotList_Call_t C_GetSlotList_Call;
 
     memset(&C_GetSlotList_Call, 0, sizeof(C_GetSlotList_Call));
     int repeats = 1;
     int status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, repeats);
 
-    //if (getslotlist_call->pulCount.derptr == NULL)
-    //    return KEEHIVE_E_DER_ERROR;
+    C_GetSlotList_Call.tokenPresent;
 
     if (status == -1) {
-        int x = errno;
         return KEEHIVE_E_DER_ERROR;
     }
     return KEEHIVE_E_SUCCESS;
@@ -91,7 +89,6 @@ unpack_C_GetSlotList_Call(
 KeehiveError
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
-        CK_BBOOL tokenPresent,
         CK_SLOT_ID_PTR pSlotList,
         CK_ULONG_PTR pPulCount
 ) {
@@ -99,14 +96,22 @@ unpack_C_GetSlotList_Return(
 
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
 
-    //C_GetInfo_Return.pInfo = pInfo;
-
-
     int repeats = 1;
     int status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
 
-    if (status == -1) {
+    //*pSlotList = C_GetSlotList_Return.pSlotList.data
+
+    dercursor subexpr;
+    if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &subexpr)) {
+        do {
+            // bla bla
+        } while (der_iterate_next(&subexpr));
+    }
+
+    int r = der_get_int32(C_GetSlotList_Return.pulCount, (int32_t *)pPulCount);
+    if (r != 0) {
         return KEEHIVE_E_DER_ERROR;
     }
     return KEEHIVE_E_SUCCESS;
+
 }
