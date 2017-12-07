@@ -10,6 +10,29 @@
 #include "convert.h"
 
 
+
+static const uint8_t C_GetInfo_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetInfo_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Return,
+        DER_PACK_END
+};
+
+
+static const uint8_t C_GetSlotList_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotList_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetSlotList_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotList_Return,
+        DER_PACK_END
+};
+
+
 KeehiveError
 pack_C_GetInfo_Call(
         CK_INFO_PTR pInfo,
@@ -67,8 +90,8 @@ KeehiveError
 pack_C_GetSlotList_Call(
         CK_BBOOL tokenPresent,
         CK_SLOT_ID_PTR pSlotList,
-        CK_ULONG_PTR pulcount_ptr,
-        uint8_t * packed_ptr,
+        CK_ULONG_PTR pPulCount,
+        uint8_t * pPacked,
         size_t * len
 
 ) {
@@ -86,20 +109,20 @@ pack_C_GetSlotList_Call(
     C_GetSlotList_Call.pSlotList.null.derptr = (uint8_t *) "";
     C_GetSlotList_Call.pSlotList.null.derlen = 0;
 
-    if (pulcount_ptr == NULL_PTR)
+    if (pPulCount == NULL_PTR)
         return KEEHIVE_E_MEMORY_ERROR;
 
     /* receives number of slots */
     QDERBUF_ULONG_T der_pulCount;
     memset(&der_pulCount, 0, sizeof(der_pulCount));
-    C_GetSlotList_Call.pulCount = ck2qder_ulong(der_pulCount, *pulcount_ptr);
+    C_GetSlotList_Call.pulCount = ck2qder_ulong(der_pulCount, *pPulCount);
 
     *len = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, NULL);
 
-    if (packed_ptr == NULL_PTR)
+    if (pPacked == NULL_PTR)
         return KEEHIVE_E_SUCCESS;
 
-    size_t status = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, packed_ptr + *len);
+    size_t status = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, pPacked + *len);
 
     if (status == 0) {
         int x = errno;

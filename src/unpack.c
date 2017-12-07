@@ -4,6 +4,29 @@
 #include "unpack.h"
 
 
+static const uint8_t C_GetInfo_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetInfo_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetInfo_Return,
+        DER_PACK_END
+};
+
+
+static const uint8_t C_GetSlotList_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotList_Call,
+        DER_PACK_END
+};
+
+static const uint8_t C_GetSlotList_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotList_Return,
+        DER_PACK_END
+};
+
+
+
 KeehiveError
 unpack_C_GetInfo_Call(
        dercursor * packed
@@ -59,6 +82,30 @@ unpack_C_GetSlotList_Call(
 
     if (status == -1) {
         int x = errno;
+        return KEEHIVE_E_DER_ERROR;
+    }
+    return KEEHIVE_E_SUCCESS;
+}
+
+
+KeehiveError
+unpack_C_GetSlotList_Return(
+        dercursor * packed,
+        CK_BBOOL tokenPresent,
+        CK_SLOT_ID_PTR pSlotList,
+        CK_ULONG_PTR pPulCount
+) {
+    C_GetSlotList_Return_t C_GetSlotList_Return;
+
+    memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
+
+    //C_GetInfo_Return.pInfo = pInfo;
+
+
+    int repeats = 1;
+    int status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
+
+    if (status == -1) {
         return KEEHIVE_E_DER_ERROR;
     }
     return KEEHIVE_E_SUCCESS;

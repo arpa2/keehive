@@ -12,4 +12,12 @@ void server_C_GetInfo(
         size_t *output_len
 );
 
+void
+server_C_GetSlotList(
+        uint8_t *pPacked,
+        size_t len,
+        uint8_t *response_data,
+size_t *response_len
+);
+
 #endif //KEEHIVE_SERVER_H

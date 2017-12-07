@@ -1,7 +1,7 @@
 
 include_directories (../src)
 
-add_executable(keehive.test test_keehive.c)
+add_executable(keehive.test test_pack_unpack.c)
 add_executable(client.test test_client.c)
 add_executable(wrap.test test_wrap.c)
 

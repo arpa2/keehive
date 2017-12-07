@@ -35,3 +35,12 @@ server_C_GetInfo(
 
 }
 
+void
+server_C_GetSlotList(
+        uint8_t *pPacked,
+        const size_t len,
+        uint8_t *response_data,
+        size_t *response_len
+) {
+
+}
