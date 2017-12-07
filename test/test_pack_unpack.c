@@ -16,23 +16,25 @@
 
 static void test_pack_unpack(void **state) {
     CK_ULONG pulCount = 0;
-    CK_BBOOL tokenPresent = TRUE;
+    CK_BBOOL ck_tokenPresent = TRUE;
     size_t len = 0;
 
-    KeehiveError error = pack_C_GetSlotList_Call(tokenPresent, NULL_PTR, &pulCount, NULL_PTR, &len);
+    KeehiveError error = pack_C_GetSlotList_Call(ck_tokenPresent, NULL_PTR, &pulCount, NULL_PTR, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
     uint8_t * packed_ptr = malloc (len);
     assert_non_null(packed_ptr);
 
-    error = pack_C_GetSlotList_Call(tokenPresent, NULL_PTR, &pulCount, packed_ptr, &len);
+    error = pack_C_GetSlotList_Call(ck_tokenPresent, NULL_PTR, &pulCount, packed_ptr, &len);
     assert_int_equal(error, KEEHIVE_E_SUCCESS);
 
     C_GetSlotList_Call_t getslotlist;
     dercursor cursor;
     cursor.derlen = len;
     cursor.derptr = packed_ptr;
-    KeehiveError error2 = unpack_C_GetSlotList_Call(&cursor);
+
+    bool tokenPresent;
+    KeehiveError error2 = unpack_C_GetSlotList_Call(&cursor, &tokenPresent);
     assert_int_equal(error2, KEEHIVE_E_SUCCESS);
 
 

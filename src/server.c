@@ -36,8 +36,8 @@ server_C_GetSlotList(
         dercursor *CursorOut
 ){
 
-    unpack_C_GetSlotList_Call(cursorIn);
+    bool tokenPresent;
 
-    //call_C_GetSlotList()
+    unpack_C_GetSlotList_Call(cursorIn, &tokenPresent);
 
 }

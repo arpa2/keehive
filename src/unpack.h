@@ -5,16 +5,17 @@
 #include "types.h"
 #include "RemotePKCS11.h"
 
-
+#include "quick-der/api.h"
 
 
 KeehiveError
 unpack_C_GetSlotList_Call(
-        const dercursor * packed
+        const dercursor * packed,
+        bool * pTokenPresent
 );
 
 
-KeehiveError
+        KeehiveError
 unpack_C_GetInfo_Call(
         const dercursor * cursor
 );

@@ -68,7 +68,8 @@ unpack_C_GetInfo_Return(
 
 KeehiveError
 unpack_C_GetSlotList_Call(
-        const dercursor * packed
+        const dercursor * packed,
+        bool * pTokenPresent
 ) {
 
     C_GetSlotList_Call_t C_GetSlotList_Call;
@@ -77,7 +78,7 @@ unpack_C_GetSlotList_Call(
     int repeats = 1;
     int status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, repeats);
 
-    C_GetSlotList_Call.tokenPresent;
+    der_get_bool(C_GetSlotList_Call.tokenPresent, pTokenPresent);
 
     if (status == -1) {
         return KEEHIVE_E_DER_ERROR;
@@ -99,13 +100,31 @@ unpack_C_GetSlotList_Return(
     int repeats = 1;
     int status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
 
-    //*pSlotList = C_GetSlotList_Return.pSlotList.data
 
-    dercursor subexpr;
-    if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &subexpr)) {
+    if (status != 0) {
+        switch (errno) {
+            case ERANGE:
+                "gijs";
+                break;
+            case EBADMSG:
+                "gijs2";
+                break;
+        }
+        return KEEHIVE_E_DER_ERROR;
+
+    }
+    if (C_GetSlotList_Return.pSlotList.null.derptr != NULL) {
+        // There is no list
+    }
+
+    int gijs = 0;
+
+    dercursor iterator;
+    if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &iterator)) {
         do {
-            // bla bla
-        } while (der_iterate_next(&subexpr));
+            gijs++;
+            // do something with iterator.derptr
+        } while (der_iterate_next(&iterator));
     }
 
     int r = der_get_int32(C_GetSlotList_Return.pulCount, (int32_t *)pPulCount);
