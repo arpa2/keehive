@@ -6,6 +6,8 @@
 #include <string.h>
 
 
+
+
 CK_RV
 call_C_Initialize(CK_FUNCTION_LIST_PTR_PTR function_list) {
     CK_RV status = ((*function_list)->C_Initialize)(NULL_PTR);
@@ -17,23 +19,23 @@ call_C_Initialize(CK_FUNCTION_LIST_PTR_PTR function_list) {
 CK_RV
 call_C_GetSlotList(
         CK_FUNCTION_LIST_PTR_PTR function_list,
-        CK_SLOT_ID_PTR pSlotList
+        CK_SLOT_ID_PTR *pSlotList,
+        CK_ULONG_PTR pCount
 ) {
 
     CK_RV status;
-    CK_ULONG number = 0;
     CK_BBOOL tokenPresent = CK_FALSE;
 
-    status = ((*function_list)->C_GetSlotList)(CK_FALSE, NULL_PTR, &number);
+    status = ((*function_list)->C_GetSlotList)(CK_FALSE, NULL_PTR, pCount);
 
     if (status != CKR_OK)
         return CKR_KEEHIVE_SO_ERROR;
 
 
-    pSlotList = (CK_SLOT_ID_PTR)malloc(number*sizeof(CK_SLOT_ID));
-    //memset( pSlotList, 0, number * sizeof(CK_SLOT_ID) );
+    *pSlotList = (CK_SLOT_ID_PTR)malloc((*pCount)*sizeof(CK_SLOT_ID));
+    memset( *pSlotList, 0, *pCount * sizeof(CK_SLOT_ID) );
 
-    status = ((*function_list)->C_GetSlotList)(tokenPresent, pSlotList, &number);
+    status = ((*function_list)->C_GetSlotList)(tokenPresent, *pSlotList, pCount);
     if (status != CKR_OK)
         return CKR_KEEHIVE_SO_ERROR;
 

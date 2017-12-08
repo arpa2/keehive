@@ -54,16 +54,24 @@ Remote_C_GetSlotList(
     dercursorIn.derptr = pPacked;
     dercursorIn.derlen = len;
 
+    status = server_Begin();
+    if (status != CKR_OK)
+        return status;
 
     status = server_C_GetSlotList(&dercursorIn, &dercursorOut);
     if (status != CKR_OK)
         return status;
 
-
-    unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
+    status = unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
+    if (status != CKR_OK)
+        return status;
 
     free(pPacked);
-    //free(dercursorOut.derptr);
+    free(dercursorOut.derptr);
+
+    status = server_End();
+    if (status != CKR_OK)
+        return status;
 
     return CKR_OK;
 };

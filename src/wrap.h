@@ -18,15 +18,18 @@ call_C_GetSlotInfo(
 );
 
 CK_RV
-get_token_infO(
+get_token_info(
         CK_FUNCTION_LIST_PTR_PTR function_list,
         CK_SLOT_ID slotID,
         CK_TOKEN_INFO_PTR pInfo
 );
 
-CK_RV call_C_GetSlotList(
+
+CK_RV
+call_C_GetSlotList(
         CK_FUNCTION_LIST_PTR_PTR function_list,
-        CK_SLOT_ID_PTR pSlotList
+        CK_SLOT_ID_PTR *pSlotList,
+        CK_ULONG_PTR pCount
 );
 
 #endif //KEEHIVE_WRAP_C_H

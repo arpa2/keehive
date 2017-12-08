@@ -6,6 +6,9 @@
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
 
+CK_RV server_Begin();
+CK_RV server_End();
+
 
 CK_RV
 server_C_GetInfo(

@@ -34,8 +34,9 @@ pack_C_GetSlotList_Call(
 
 CK_RV
 pack_C_GetSlotList_Return(
-        CK_SLOT_ID_PTR pSlotList,
-        dercursor *Cursor
+        CK_SLOT_ID_PTR *pSlotList,
+        CK_ULONG_PTR count,
+        dercursor *cursor
 );
 
 #endif //KEEHIVE_KEEHIVE_H

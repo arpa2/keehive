@@ -146,16 +146,25 @@ pack_C_GetSlotList_Call(
 }
 
 
-
-
 CK_RV
 pack_C_GetSlotList_Return(
-        CK_SLOT_ID_PTR pSlotList,
+        CK_SLOT_ID_PTR *pSlotList,
+        CK_ULONG_PTR count,
         dercursor *cursor
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
 
-    cursor->derlen = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Return, NULL);
+    memset (&C_GetSlotList_Return, 0, sizeof (C_GetSlotList_Return));
+
+    for (int i = 0; i <= (*count); i++) {
+        CK_SLOT_ID slot = (*pSlotList)[i];
+        printf("slot: %lu\n", slot);
+    }
+
+    cursor->derlen = der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, NULL);
+
+    if (cursor->derlen == 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     cursor->derptr = malloc(cursor->derlen);
 
