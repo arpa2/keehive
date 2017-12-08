@@ -36,6 +36,7 @@ Remote_C_GetInfo(
         server_End();
         return status;
     };
+
     free(dercursorIn.derptr);
     free(dercursorOut.derptr);
 
