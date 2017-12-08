@@ -27,7 +27,7 @@ static const uint8_t C_GetSlotList_Return_packer[] = {
 
 
 
-KeehiveError
+CK_RV
 unpack_C_GetInfo_Call(
         const dercursor * packed
 ){
@@ -37,14 +37,22 @@ unpack_C_GetInfo_Call(
     int repeats = 1;
     int status = der_unpack(packed, C_GetInfo_Return_packer, (dercursor *) &C_GetInfo_Call, repeats);
 
-    if (status == -1) {
-        return KEEHIVE_E_DER_ERROR;
+    if (status != 0) {
+        switch (errno) {
+            case ERANGE:
+                return CKR_KEEHIVE_DER_RANGE_ERROR;
+            case EBADMSG:
+                return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+            default:
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        }
     }
-    return KEEHIVE_E_SUCCESS;
+
+    return CKR_OK;
 
 };
 
-KeehiveError
+CK_RV
 unpack_C_GetInfo_Return(
         const dercursor * packed,
         CK_INFO_PTR pInfo
@@ -59,14 +67,22 @@ unpack_C_GetInfo_Return(
     int repeats = 1;
     int status = der_unpack(packed, C_GetInfo_Return_packer, (dercursor *) &C_GetInfo_Return, repeats);
 
-    if (status == -1) {
-        return KEEHIVE_E_DER_ERROR;
+    if (status != 0) {
+        switch (errno) {
+            case ERANGE:
+                return CKR_KEEHIVE_DER_RANGE_ERROR;
+            case EBADMSG:
+                return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+            default:
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        }
     }
-    return KEEHIVE_E_SUCCESS;
+
+    return CKR_OK;
 
 };
 
-KeehiveError
+CK_RV
 unpack_C_GetSlotList_Call(
         const dercursor * packed,
         bool * pTokenPresent
@@ -80,14 +96,22 @@ unpack_C_GetSlotList_Call(
 
     der_get_bool(C_GetSlotList_Call.tokenPresent, pTokenPresent);
 
-    if (status == -1) {
-        return KEEHIVE_E_DER_ERROR;
+    if (status != 0) {
+        switch (errno) {
+            case ERANGE:
+                return CKR_KEEHIVE_DER_RANGE_ERROR;
+            case EBADMSG:
+                return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+            default:
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        }
     }
-    return KEEHIVE_E_SUCCESS;
+
+    return CKR_OK;
 }
 
 
-KeehiveError
+CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
         CK_SLOT_ID_PTR pSlotList,
@@ -96,23 +120,21 @@ unpack_C_GetSlotList_Return(
     C_GetSlotList_Return_t C_GetSlotList_Return;
 
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
-
+    int status;
     int repeats = 1;
-    int status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
-
+    status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
 
     if (status != 0) {
         switch (errno) {
             case ERANGE:
-                "gijs";
-                break;
+                return CKR_KEEHIVE_DER_RANGE_ERROR;
             case EBADMSG:
-                "gijs2";
-                break;
+                return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+            default:
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         }
-        return KEEHIVE_E_DER_ERROR;
-
     }
+
     if (C_GetSlotList_Return.pSlotList.null.derptr != NULL) {
         // There is no list
     }
@@ -127,10 +149,18 @@ unpack_C_GetSlotList_Return(
         } while (der_iterate_next(&iterator));
     }
 
-    int r = der_get_int32(C_GetSlotList_Return.pulCount, (int32_t *)pPulCount);
-    if (r != 0) {
-        return KEEHIVE_E_DER_ERROR;
+    status = der_get_int32(C_GetSlotList_Return.pulCount, (int32_t *)pPulCount);
+    if (status != 0) {
+        switch (errno) {
+            case ERANGE:
+                return CKR_KEEHIVE_DER_RANGE_ERROR;
+            case EBADMSG:
+                return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+            default:
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        }
     }
-    return KEEHIVE_E_SUCCESS;
+
+    return CKR_OK;
 
 }

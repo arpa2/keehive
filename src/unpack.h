@@ -8,25 +8,25 @@
 #include "quick-der/api.h"
 
 
-KeehiveError
+CK_RV
 unpack_C_GetSlotList_Call(
         const dercursor * packed,
         bool * pTokenPresent
 );
 
 
-        KeehiveError
+        CK_RV
 unpack_C_GetInfo_Call(
         const dercursor * cursor
 );
 
-KeehiveError
+CK_RV
 unpack_C_GetInfo_Return(
         const dercursor * packed,
         CK_INFO_PTR pInfo
 );
 
-KeehiveError
+CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
         CK_SLOT_ID_PTR pSlotList,

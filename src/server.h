@@ -4,15 +4,17 @@
 #define KEEHIVE_SERVER_H
 
 #include "types.h"
+#include "pkcs11/pkcs11unix.h"
 
-void
+
+CK_RV
 server_C_GetInfo(
         dercursor *cursorIn,
         dercursor *CursorOut
 );
 
 
-void
+CK_RV
 server_C_GetSlotList(
         dercursor *cursorIn,
         dercursor *CursorOut

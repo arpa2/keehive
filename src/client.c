@@ -3,12 +3,11 @@
 #include "pack.h"
 #include "unpack.h"
 
-#define MAX_BUFFER 1000
-
 CK_RV
 Remote_C_GetInfo(
         CK_INFO_PTR pInfo
 ) {
+    CK_RV status;
     size_t len = 0;
     pack_C_GetInfo_Call(pInfo, NULL_PTR, &len);
     uint8_t *pPacked = malloc(len);
@@ -20,8 +19,13 @@ Remote_C_GetInfo(
     dercursorIn.derptr = pPacked;
     dercursorIn.derlen = len;
 
-    server_C_GetInfo(&dercursorIn, &dercursorOut);
-    unpack_C_GetInfo_Return(&dercursorOut, pInfo);
+    status = server_C_GetInfo(&dercursorIn, &dercursorOut);
+    if (status != CKR_OK)
+        return status;
+
+    status = unpack_C_GetInfo_Return(&dercursorOut, pInfo);
+    if (status != CKR_OK)
+        return status;
 
     free(pPacked);
     free(dercursorOut.derptr);
@@ -37,7 +41,9 @@ Remote_C_GetSlotList(
     CK_ULONG_PTR pPulCount
 ) {
 
+    CK_RV status;
     size_t len = 0;
+
     pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, NULL_PTR, &len);
     uint8_t *pPacked = malloc(len);
     pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, pPacked, &len);
@@ -49,7 +55,10 @@ Remote_C_GetSlotList(
     dercursorIn.derlen = len;
 
 
-    server_C_GetSlotList(&dercursorIn, &dercursorOut);
+    status = server_C_GetSlotList(&dercursorIn, &dercursorOut);
+    if (status != CKR_OK)
+        return status;
+
 
     unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
 
