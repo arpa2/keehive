@@ -56,14 +56,7 @@ server_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
-
-    status = pack_C_GetInfo_Return(&info, NULL_PTR, &(CursorOut->derlen));
-    if (status != CKR_OK)
-        return status;
-
-    CursorOut->derptr = malloc(CursorOut->derlen);
-
-    status = pack_C_GetInfo_Return(&info, CursorOut->derptr, &(CursorOut->derlen));
+    status = pack_C_GetInfo_Return(&info, CursorOut);
     if (status != CKR_OK)
         return status;
 }

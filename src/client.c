@@ -8,16 +8,19 @@ Remote_C_GetInfo(
         CK_INFO_PTR pInfo
 ) {
     CK_RV status;
-    size_t len = 0;
-    pack_C_GetInfo_Call(pInfo, NULL_PTR, &len);
-    uint8_t *pPacked = malloc(len);
-    pack_C_GetInfo_Call(pInfo, pPacked, &len);
+    size_t len;
 
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    dercursorIn.derptr = pPacked;
-    dercursorIn.derlen = len;
+    status = server_Begin();
+    if (status != CKR_OK)
+        return status;
+
+
+    status = pack_C_GetInfo_Call(pInfo, &dercursorIn);
+    if (status != CKR_OK)
+        return status;
 
     status = server_C_GetInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK)
@@ -27,8 +30,12 @@ Remote_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
-    free(pPacked);
+    free(dercursorIn.derptr);
     free(dercursorOut.derptr);
+
+    status = server_End();
+    if (status != CKR_OK)
+        return status;
 
     return CKR_OK;
 }
@@ -44,15 +51,10 @@ Remote_C_GetSlotList(
     CK_RV status;
     size_t len = 0;
 
-    pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, NULL_PTR, &len);
-    uint8_t *pPacked = malloc(len);
-    pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, pPacked, &len);
-
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    dercursorIn.derptr = pPacked;
-    dercursorIn.derlen = len;
+    pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, &dercursorIn);
 
     status = server_Begin();
     if (status != CKR_OK)
@@ -66,7 +68,7 @@ Remote_C_GetSlotList(
     if (status != CKR_OK)
         return status;
 
-    free(pPacked);
+    free(dercursorIn.derptr);
     free(dercursorOut.derptr);
 
     status = server_End();

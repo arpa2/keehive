@@ -11,15 +11,13 @@
 CK_RV
 pack_C_GetInfo_Call(
         CK_INFO_PTR pInfo,
-        uint8_t * packed_ptr,
-        size_t * len
+        dercursor * cursor
 );
 
 CK_RV
 pack_C_GetInfo_Return(
         CK_INFO_PTR pInfo,
-        uint8_t * packed_ptr,
-        size_t * len
+        dercursor * cursor
 );
 
 CK_RV
@@ -27,9 +25,7 @@ pack_C_GetSlotList_Call(
         CK_BBOOL tokenPresent,
         CK_SLOT_ID_PTR pSlotList,
         CK_ULONG_PTR pulCount,
-        uint8_t * decptr,
-        size_t * len
-
+        dercursor * cursor
 );
 
 CK_RV
