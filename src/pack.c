@@ -50,10 +50,8 @@ pack_C_GetInfo_Call(
 
     cursor->derptr = malloc(cursor->derlen);
 
-    cursor->derlen = der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, cursor->derptr + cursor->derlen);
+    der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, cursor->derptr + cursor->derlen);
 
-    if (cursor->derlen == 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     return CKR_OK;
 
 }
@@ -73,11 +71,7 @@ pack_C_GetInfo_Return(
 
     cursor->derptr = malloc(cursor->derlen);
 
-    cursor->derlen = der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, cursor->derptr + cursor->derlen);
-
-    if (cursor->derlen == 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-
+    der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, cursor->derptr + cursor->derlen);
 
     return CKR_OK;
 }
@@ -120,10 +114,7 @@ pack_C_GetSlotList_Call(
 
     cursor->derptr = malloc(cursor->derlen);
 
-    cursor->derlen = der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, cursor->derptr + cursor->derlen);
-
-    if (cursor->derlen == 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+    der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, cursor->derptr + cursor->derlen);
 
     return CKR_OK;
 }
@@ -143,12 +134,9 @@ pack_C_GetSlotList_Return(
     int i;
     CK_SLOT_ID slot;
     dercursor derray [*count];
-    dercursor tmp_dercursor;
     for (i = 0; i < (*count); i++) {
         slot = (*pSlotList)[i];
-        tmp_dercursor = der_put_uint32(der_slotlist[i], (u_int32_t)slot);
-        derray[i].derlen = tmp_dercursor.derlen;
-        derray[i].derptr = der_slotlist[i];
+        derray[i] = der_put_uint32(der_slotlist[i], (u_int32_t)slot);
     }
 
     derarray prepacked_array;
@@ -161,12 +149,8 @@ pack_C_GetSlotList_Return(
 
     cursor->derptr = malloc(cursor->derlen);
 
-    cursor->derlen = der_pack(C_GetSlotList_Call_packer,
-                             (const dercursor *) &C_GetSlotList_Return,
-                             cursor->derptr + cursor->derlen);
+    der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
 
-    if (cursor->derlen == 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     FILE *filea = fopen("/tmp/dump", "w+b");
     fwrite(cursor->derptr,1,cursor->derlen,filea);

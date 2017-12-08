@@ -17,25 +17,33 @@ Remote_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
+    memset (pInfo, 0, sizeof (*pInfo));
 
     status = pack_C_GetInfo_Call(pInfo, &dercursorIn);
-    if (status != CKR_OK)
+    if (status != CKR_OK) {
+        server_End();
         return status;
+    };
 
     status = server_C_GetInfo(&dercursorIn, &dercursorOut);
-    if (status != CKR_OK)
+    if (status != CKR_OK) {
+        server_End();
         return status;
+    };
 
     status = unpack_C_GetInfo_Return(&dercursorOut, pInfo);
-    if (status != CKR_OK)
+    if (status != CKR_OK) {
+        server_End();
         return status;
-
+    };
     free(dercursorIn.derptr);
     free(dercursorOut.derptr);
 
     status = server_End();
-    if (status != CKR_OK)
+    if (status != CKR_OK) {
+        server_End();
         return status;
+    };
 
     return CKR_OK;
 }
@@ -54,19 +62,27 @@ Remote_C_GetSlotList(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, &dercursorIn);
-
     status = server_Begin();
     if (status != CKR_OK)
         return status;
 
-    status = server_C_GetSlotList(&dercursorIn, &dercursorOut);
-    if (status != CKR_OK)
+    status = pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, &dercursorIn);
+    if (status != CKR_OK) {
+        server_End();
         return status;
+    };
+
+    status = server_C_GetSlotList(&dercursorIn, &dercursorOut);
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
 
     status = unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
-    if (status != CKR_OK)
+    if (status != CKR_OK) {
+        server_End();
         return status;
+    };
 
     free(dercursorIn.derptr);
     free(dercursorOut.derptr);
