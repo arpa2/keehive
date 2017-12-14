@@ -143,11 +143,11 @@ pack_C_GetSlotList_Return(
     der_prepack (derray, *count, &prepacked_array);
     C_GetSlotList_Return.pSlotList.data.prep = prepacked_array;
 
-    uint8_t pulCount;
-    C_GetSlotList_Return.pulCount = der_put_uint32(&pulCount, (uint32_t )*count);
+    der_buf_uint32_t pulCount;
+    C_GetSlotList_Return.pulCount = der_put_uint32(pulCount, (uint32_t )*count);
 
-    uint8_t retval;
-    C_GetSlotList_Return.retval = der_put_uint32(&retval, CKR_OK);
+    der_buf_uint32_t retval;
+    C_GetSlotList_Return.retval = der_put_uint32(retval, CKR_OK);
 
     cursor->derlen = der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, NULL);
 

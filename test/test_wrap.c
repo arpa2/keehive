@@ -15,92 +15,94 @@ const char path[] = "/usr/local/lib/softhsm/libsofthsm2.so";
 
 
 static void test_initialize(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     status = call_C_Initialize(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    assert_int_equal(status, CKR_OK);
     call_C_Finalize(&function_list);
 }
 
 static void test_finalize(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Initialize(&function_list);
-    call_C_GetSlotList(&function_list);
     status = call_C_Finalize(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    assert_int_equal(status, CKR_OK);
 }
 
 static void test_get_slot_list(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Initialize(&function_list);
-    status = call_C_GetSlotList(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    CK_SLOT_ID_PTR pSlotList;
+    CK_ULONG count;
+    status = call_C_GetSlotList(&function_list, &pSlotList, &count);
+    assert_int_equal(status, CKR_OK);
     call_C_Finalize(&function_list);
+    free(pSlotList);
 }
 
 static void test_get_info_before_init(void **state) {
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     CK_INFO info;
-    KeehiveError status = call_C_GetInfo(&function_list, &info);
-    assert_int_equal(status, KEEHIVE_E_SO_ERROR);
+    CK_RV status = call_C_GetInfo(&function_list, &info);
+    assert_int_equal(status, CKR_KEEHIVE_SO_ERROR);
 }
 
 static void test_so_not_exists(void **state) {
     CK_FUNCTION_LIST_PTR function_list;
-    KeehiveError status = call_C_GetFunctionList("thisdoesnotexists", &function_list);
-    assert_int_equal(status, KEEHIVE_E_SO_INVALID);
+    CK_RV status = call_C_GetFunctionList("thisdoesnotexists", &function_list);
+    assert_int_equal(status, CKR_KEEHIVE_SO_INVALID);
 }
 
 static void test_double_init(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Initialize(&function_list);
     status = call_C_Initialize(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SO_INIT_ERROR);
+    assert_int_equal(status, CKR_KEEHIVE_SO_INIT_ERROR);
 }
 
 static void test_finalize_before_init(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Finalize(&function_list);
     status = call_C_Finalize(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SO_ERROR);
+    assert_int_equal(status, CKR_KEEHIVE_SO_ERROR);
 }
 
 static void test_double_finalize(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Initialize(&function_list);
     call_C_Finalize(&function_list);
     status = call_C_Finalize(&function_list);
-    assert_int_equal(status, KEEHIVE_E_SO_ERROR);
+    assert_int_equal(status, CKR_KEEHIVE_SO_ERROR);
 }
 
 static void test_get_info(void **state) {
     CK_INFO info;
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     call_C_GetFunctionList(path, &function_list);
     call_C_Initialize(&function_list);
     status = call_C_GetInfo(&function_list, &info);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    assert_int_equal(status, CKR_OK);
     call_C_Finalize(&function_list);
 }
 
 static void test_get_function_list(void **state) {
-    KeehiveError status;
+    CK_RV status;
     CK_FUNCTION_LIST_PTR function_list;
     status = call_C_GetFunctionList(path, &function_list);
-    assert_int_equal(status, KEEHIVE_E_SUCCESS);
+    assert_int_equal(status, CKR_OK);
     call_C_Finalize(&function_list);
 }
 
