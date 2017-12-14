@@ -62,7 +62,35 @@ pack_C_GetInfo_Return(
         dercursor * cursor
 ) {
     C_GetInfo_Return_t C_GetInfo_Return;
+
     memset (&C_GetInfo_Return, 0, sizeof (C_GetInfo_Return));
+
+
+    der_buf_char_t libraryVersion_minor;
+    der_buf_char_t libraryVersion_major;
+    der_buf_char_t cryptokiVersion_minor;
+    der_buf_char_t cryptokiVersion_major;
+    der_buf_ulong_t flags;
+
+    C_GetInfo_Return.pInfo.flags = der_put_ulong(&flags, pInfo->flags);
+    C_GetInfo_Return.pInfo.libraryVersion.minor = der_put_char(&libraryVersion_minor, pInfo->libraryVersion.minor);
+    C_GetInfo_Return.pInfo.libraryVersion.major = der_put_char(&libraryVersion_major, pInfo->libraryVersion.major);
+    C_GetInfo_Return.pInfo.cryptokiVersion.minor = der_put_char(&cryptokiVersion_minor, pInfo->cryptokiVersion.minor);
+    C_GetInfo_Return.pInfo.cryptokiVersion.major = der_put_char(&cryptokiVersion_major, pInfo->cryptokiVersion.major);
+
+    uint8_t manufacturerID_array[32];
+    dercursor manufacturerID;
+    manufacturerID.derptr = manufacturerID_array;
+    memcpy(manufacturerID.derptr, pInfo->manufacturerID, 32);
+    manufacturerID.derlen = 32;
+    C_GetInfo_Return.pInfo.manufacturerID = manufacturerID;
+
+    uint8_t libraryDescription_array[32];
+    dercursor libraryDescription;
+    libraryDescription.derptr = libraryDescription_array;
+    memcpy(libraryDescription.derptr, pInfo->libraryDescription, 32);
+    libraryDescription.derlen = 32;
+    C_GetInfo_Return.pInfo.libraryDescription = libraryDescription;
 
     cursor->derlen = der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, NULL);
 
@@ -72,7 +100,6 @@ pack_C_GetInfo_Return(
     cursor->derptr = malloc(cursor->derlen);
 
     der_pack(C_GetInfo_Return_packer, (const dercursor *) &C_GetInfo_Return, cursor->derptr + cursor->derlen);
-
     return CKR_OK;
 }
 

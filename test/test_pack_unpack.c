@@ -39,7 +39,6 @@ static void test_pack_unpack_getinfo(void **state) {
     error = unpack_C_GetInfo_Call(&cursor);
     assert_int_equal(error, CKR_OK);
     free(cursor.derptr);
-
 }
 
 

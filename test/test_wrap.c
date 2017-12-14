@@ -39,7 +39,8 @@ static void test_get_slot_list(void **state) {
     call_C_Initialize(&function_list);
     CK_SLOT_ID_PTR pSlotList;
     CK_ULONG count;
-    status = call_C_GetSlotList(&function_list, &pSlotList, &count);
+    CK_BBOOL tokenPresent = CK_TRUE;
+    status = call_C_GetSlotList(tokenPresent, &function_list, &pSlotList, &count);
     assert_int_equal(status, CKR_OK);
     call_C_Finalize(&function_list);
     free(pSlotList);

@@ -27,6 +27,10 @@ static const uint8_t C_GetSlotList_Return_packer[] = {
 };
 
 
+// always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
+// the length of the SEQUENCE
+#define REPEAT 1
+
 
 CK_RV
 unpack_C_GetInfo_Call(
@@ -54,15 +58,33 @@ unpack_C_GetInfo_Return(
 
     memset(&C_GetInfo_Return, 0, sizeof(C_GetInfo_Return));
 
-    //C_GetInfo_Return.pInfo = pInfo;
-
-
-    int repeats = 1;
-    int status = der_unpack(packed, C_GetInfo_Return_packer, (dercursor *) &C_GetInfo_Return, repeats);
-
+    int status = der_unpack(packed, C_GetInfo_Return_packer, (dercursor *) &C_GetInfo_Return, REPEAT);
     if (status != 0)
         return der_error_helper(errno);
 
+
+    status = der_get_uchar(&C_GetInfo_Return.pInfo.cryptokiVersion.major, &pInfo->cryptokiVersion.major);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetInfo_Return.pInfo.cryptokiVersion.minor, &pInfo->cryptokiVersion.minor);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetInfo_Return.pInfo.libraryVersion.major, &pInfo->libraryVersion.major);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetInfo_Return.pInfo.libraryVersion.minor, &pInfo->libraryVersion.minor);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_ulong(C_GetInfo_Return.pInfo.flags, &pInfo->flags);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    memcpy(pInfo->libraryDescription, C_GetInfo_Return.pInfo.libraryDescription.derptr, 32);
+    memcpy(pInfo->manufacturerID, C_GetInfo_Return.pInfo.manufacturerID.derptr, 32);
     return CKR_OK;
 
 };
@@ -77,8 +99,7 @@ unpack_C_GetSlotList_Call(
     C_GetSlotList_Call_t C_GetSlotList_Call;
 
     memset(&C_GetSlotList_Call, 0, sizeof(C_GetSlotList_Call));
-    int repeats = 1;
-    int status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, repeats);
+    int status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, REPEAT);
 
     der_get_bool(C_GetSlotList_Call.tokenPresent, (bool *) pTokenPresent);
 
@@ -99,8 +120,7 @@ unpack_C_GetSlotList_Return(
 
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
     int status;
-    int repeats = 1;
-    status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, repeats);
+    status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, REPEAT);
 
     if (status != 0)
         return der_error_helper(errno);
