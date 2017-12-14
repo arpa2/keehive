@@ -5,9 +5,8 @@
 #include "RemotePKCS11.h"
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
-
+#include "util.h"
 #include "pack.h"
-#include "convert.h"
 
 
 
@@ -43,6 +42,7 @@ pack_C_GetInfo_Call(
 
     memset (&C_GetInfo_Call, 0, sizeof (C_GetInfo_Call));
 
+    C_GetInfo_Call.empty = der_put_empty();
     cursor->derlen = der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, NULL);
 
     if (cursor->derlen == 0)
@@ -89,23 +89,17 @@ pack_C_GetSlotList_Call(
 
     memset (&C_GetSlotList_Call, 0, sizeof (C_GetSlotList_Call));
 
-
-    /* only slots with tokens */
-    QDERBUF_BOOL_T der_tokenPresent;
-    memset(&der_tokenPresent, 0, sizeof(der_tokenPresent));
-    C_GetSlotList_Call.tokenPresent = ck2qder_bool(der_tokenPresent, tokenPresent);
-
-    /* receives array of slot IDs */
-    C_GetSlotList_Call.pSlotList.null.derptr = (uint8_t *) "";
-    C_GetSlotList_Call.pSlotList.null.derlen = 0;
+    der_buf_bool_t der_tokenPresent = {};
+    C_GetSlotList_Call.tokenPresent = der_put_bool(der_tokenPresent, (tokenPresent==CK_TRUE));
+    C_GetSlotList_Call.pSlotList.null = der_put_empty();
 
     if (pPulCount == NULL_PTR)
         return CKR_KEEHIVE_MEMORY_ERROR;
 
     /* receives number of slots */
-    QDERBUF_ULONG_T der_pulCount;
+    der_buf_uint32_t der_pulCount;
     memset(&der_pulCount, 0, sizeof(der_pulCount));
-    C_GetSlotList_Call.pulCount = ck2qder_ulong(der_pulCount, *pPulCount);
+    C_GetSlotList_Call.pulCount = der_put_uint32(der_pulCount, (uint32_t)*pPulCount);
 
     cursor->derlen =  der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Call, NULL);
 
@@ -157,11 +151,6 @@ pack_C_GetSlotList_Return(
     cursor->derptr = malloc(cursor->derlen);
 
     der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
-
-
-    FILE *filea = fopen("/tmp/dump", "w+b");
-    fwrite(cursor->derptr,1,cursor->derlen,filea);
-    fclose (filea);
 
     return CKR_OK;
 

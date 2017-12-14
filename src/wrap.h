@@ -27,6 +27,7 @@ get_token_info(
 
 CK_RV
 call_C_GetSlotList(
+        CK_BBOOL tokenPresent,
         CK_FUNCTION_LIST_PTR_PTR function_list,
         CK_SLOT_ID_PTR *pSlotList,
         CK_ULONG_PTR pCount

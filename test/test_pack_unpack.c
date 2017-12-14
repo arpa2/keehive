@@ -12,9 +12,7 @@
 #include "types.h"
 
 
-
-
-static void test_pack_unpack(void **state) {
+static void test_pack_unpack_getslotlist(void **state) {
     CK_ULONG pulCount = 0;
     CK_BBOOL ck_tokenPresent = TRUE;
     CK_RV error;
@@ -24,7 +22,7 @@ static void test_pack_unpack(void **state) {
     error = pack_C_GetSlotList_Call(ck_tokenPresent, NULL_PTR, &pulCount, &cursor);
     assert_int_equal(error, CKR_OK);
 
-    bool unpacked_tokenPresent;
+    CK_BBOOL unpacked_tokenPresent;
     error = unpack_C_GetSlotList_Call(&cursor, &unpacked_tokenPresent);
     assert_int_equal(error, CKR_OK);
 
@@ -32,10 +30,23 @@ static void test_pack_unpack(void **state) {
 
 }
 
+static void test_pack_unpack_getinfo(void **state) {
+    CK_RV error;
+    CK_INFO info;
+    dercursor cursor;
+    error = pack_C_GetInfo_Call(&info, &cursor);
+    assert_int_equal(error, CKR_OK);
+    error = unpack_C_GetInfo_Call(&cursor);
+    assert_int_equal(error, CKR_OK);
+    free(cursor.derptr);
+
+}
+
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-        cmocka_unit_test(test_pack_unpack),
+        cmocka_unit_test(test_pack_unpack_getslotlist),
+        cmocka_unit_test(test_pack_unpack_getinfo),
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

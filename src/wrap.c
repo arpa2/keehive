@@ -18,13 +18,13 @@ call_C_Initialize(CK_FUNCTION_LIST_PTR_PTR function_list) {
 
 CK_RV
 call_C_GetSlotList(
+        CK_BBOOL tokenPresent,
         CK_FUNCTION_LIST_PTR_PTR function_list,
         CK_SLOT_ID_PTR *pSlotList,
         CK_ULONG_PTR pCount
 ) {
 
     CK_RV status;
-    CK_BBOOL tokenPresent = CK_FALSE;
 
     status = ((*function_list)->C_GetSlotList)(CK_FALSE, NULL_PTR, pCount);
 

@@ -11,7 +11,7 @@ set(LIB_H
         convert.h
         client.h
         server.h
-)
+        util.h)
 
 set(LIB_SRC
         pack.c
@@ -20,7 +20,7 @@ set(LIB_SRC
         convert.c
         client.c
         server.c
-)
+        util.h util.c)
 
 
 include_directories ("${PROJECT_BINARY_DIR}")

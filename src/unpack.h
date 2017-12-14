@@ -11,7 +11,7 @@
 CK_RV
 unpack_C_GetSlotList_Call(
         const dercursor * packed,
-        bool * pTokenPresent
+        CK_BBOOL * pTokenPresent
 );
 
 

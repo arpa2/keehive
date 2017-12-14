@@ -67,7 +67,7 @@ server_C_GetSlotList(
         dercursor *CursorOut
 ){
     CK_RV status;
-    bool tokenPresent;
+    CK_BBOOL tokenPresent = FALSE;
 
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
@@ -78,7 +78,7 @@ server_C_GetSlotList(
 
     CK_SLOT_ID_PTR pSlotList;
     CK_ULONG count;
-    status = call_C_GetSlotList(&function_list, &pSlotList, &count);
+    status = call_C_GetSlotList(tokenPresent, &function_list, &pSlotList, &count);
     if (status != CKR_OK)
         return status;
 
