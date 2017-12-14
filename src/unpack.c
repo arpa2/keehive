@@ -109,8 +109,6 @@ unpack_C_GetSlotList_Call(
     return CKR_OK;
 }
 
-#include "stdio.h"
-
 CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
@@ -123,10 +121,6 @@ unpack_C_GetSlotList_Return(
     int status;
     status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, REPEAT);
 
-    FILE *filea = fopen("/tmp/dump", "w+b");
-    fwrite(packed->derptr,1,packed->derlen,filea);
-    fclose (filea);
-
     if (status != 0)
         return der_error_helper(errno);
 
@@ -134,13 +128,16 @@ unpack_C_GetSlotList_Return(
         // There is no list
     }
 
-    int gijs = 0;
+    int i = 0;
+
+    *pSlotList = (CK_SLOT_ID_PTR) malloc(C_GetSlotList_Return.pSlotList.data.wire.derlen*sizeof(CK_SLOT_ID));
 
     dercursor iterator;
+    long unsigned int valp;
     if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &iterator)) {
         do {
-            gijs++;
-            // do something with iterator.derptr
+            i++;
+            pSlotList[i] = der_get_ulong(iterator, &valp);
         } while (der_iterate_next(&iterator));
     }
 

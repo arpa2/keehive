@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
-
+#include "stdlib.h"
 
 #include "pkcs11/pkcs11unix.h"
 #include "client.h"
@@ -19,11 +19,12 @@ static void test_client_getinfo(void **state) {
 
 static void test_client_getslotlist(void **state) {
     CK_BBOOL tokenPresent = CK_FALSE;
-    CK_SLOT_ID slotList;
+    CK_SLOT_ID *slotList;
     CK_ULONG pulCount;
 
     CK_RV status = Remote_C_GetSlotList(tokenPresent, &slotList, &pulCount);
     assert_int_equal(status, CKR_OK);
+    free(slotList);
 }
 
 

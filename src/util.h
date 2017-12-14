@@ -8,6 +8,7 @@
 
 CK_RV der_error_helper(int error);
 dercursor der_put_empty();
+dercursor der_put_null();
 int  der_get_char(dercursor *cursor, char *val );
 int der_get_uchar(dercursor *cursor, unsigned char *val );
 int der_get_long (dercursor cursor, long int *valp);

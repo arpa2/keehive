@@ -17,6 +17,15 @@ der_error_helper(const int error)
 dercursor
 der_put_empty() {
     dercursor retval;
+    retval.derptr = NULL_PTR;
+    retval.derlen = 0;
+    return retval;
+}
+
+
+dercursor
+der_put_null() {
+    dercursor retval;
     retval.derptr = (uint8_t *) "";
     retval.derlen = 0;
     return retval;

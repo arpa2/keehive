@@ -86,4 +86,7 @@ server_C_GetSlotList(
     if (status != CKR_OK)
         return status;
 
+    free(pSlotList);
+
+    return CKR_OK;
 }

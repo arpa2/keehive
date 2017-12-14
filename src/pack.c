@@ -42,7 +42,8 @@ pack_C_GetInfo_Call(
 
     memset (&C_GetInfo_Call, 0, sizeof (C_GetInfo_Call));
 
-    C_GetInfo_Call.empty = der_put_empty();
+    //C_GetInfo_Call.empty = der_put_empty();
+    C_GetInfo_Call.empty = der_put_null();
     cursor->derlen = der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, NULL);
 
     if (cursor->derlen == 0)
@@ -120,7 +121,7 @@ pack_C_GetSlotList_Call(
 
     der_buf_bool_t der_tokenPresent = {};
     C_GetSlotList_Call.tokenPresent = der_put_bool(der_tokenPresent, (tokenPresent==CK_TRUE));
-    C_GetSlotList_Call.pSlotList.null = der_put_empty();
+    C_GetSlotList_Call.pSlotList.null = der_put_null();
 
     if (pPulCount == NULL_PTR)
         return CKR_KEEHIVE_MEMORY_ERROR;
@@ -165,6 +166,8 @@ pack_C_GetSlotList_Return(
     der_prepack (derray, *count, &prepacked_array);
     C_GetSlotList_Return.pSlotList.data.prep = prepacked_array;
 
+    //C_GetSlotList_Return.pSlotList.null =  der_put_null();
+
     der_buf_uint32_t pulCount;
     C_GetSlotList_Return.pulCount = der_put_uint32(pulCount, (uint32_t )*count);
 
@@ -178,7 +181,7 @@ pack_C_GetSlotList_Return(
 
     cursor->derptr = malloc(cursor->derlen);
 
-    der_pack(C_GetSlotList_Call_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
+    der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
 
     return CKR_OK;
 
