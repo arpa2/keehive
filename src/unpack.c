@@ -109,6 +109,7 @@ unpack_C_GetSlotList_Call(
     return CKR_OK;
 }
 
+#include "stdio.h"
 
 CK_RV
 unpack_C_GetSlotList_Return(
@@ -121,6 +122,10 @@ unpack_C_GetSlotList_Return(
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
     int status;
     status = der_unpack(packed, C_GetSlotList_Return_packer, (dercursor *) &C_GetSlotList_Return, REPEAT);
+
+    FILE *filea = fopen("/tmp/dump", "w+b");
+    fwrite(packed->derptr,1,packed->derlen,filea);
+    fclose (filea);
 
     if (status != 0)
         return der_error_helper(errno);

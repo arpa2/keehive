@@ -3,13 +3,12 @@
 #include "pack.h"
 #include "unpack.h"
 
+
 CK_RV
 Remote_C_GetInfo(
         CK_INFO_PTR pInfo
 ) {
     CK_RV status;
-    size_t len;
-
     dercursor dercursorIn;
     dercursor dercursorOut;
 
@@ -31,13 +30,14 @@ Remote_C_GetInfo(
         return status;
     };
 
+    free(dercursorIn.derptr);
+
     status = unpack_C_GetInfo_Return(&dercursorOut, pInfo);
     if (status != CKR_OK) {
         server_End();
         return status;
     };
 
-    free(dercursorIn.derptr);
     free(dercursorOut.derptr);
 
     status = server_End();
@@ -58,7 +58,6 @@ Remote_C_GetSlotList(
 ) {
 
     CK_RV status;
-    size_t len = 0;
 
     dercursor dercursorIn;
     dercursor dercursorOut;
@@ -79,13 +78,14 @@ Remote_C_GetSlotList(
         return status;
     };
 
+    free(dercursorIn.derptr);
+
     status = unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
     if (status != CKR_OK) {
         server_End();
         return status;
     };
 
-    free(dercursorIn.derptr);
     free(dercursorOut.derptr);
 
     status = server_End();

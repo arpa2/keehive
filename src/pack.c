@@ -51,7 +51,6 @@ pack_C_GetInfo_Call(
     cursor->derptr = malloc(cursor->derlen);
 
     der_pack(C_GetInfo_Call_packer, (const dercursor *) &C_GetInfo_Call, cursor->derptr + cursor->derlen);
-
     return CKR_OK;
 
 }
@@ -65,7 +64,6 @@ pack_C_GetInfo_Return(
 
     memset (&C_GetInfo_Return, 0, sizeof (C_GetInfo_Return));
 
-
     der_buf_char_t libraryVersion_minor;
     der_buf_char_t libraryVersion_major;
     der_buf_char_t cryptokiVersion_minor;
@@ -77,6 +75,9 @@ pack_C_GetInfo_Return(
     C_GetInfo_Return.pInfo.libraryVersion.major = der_put_char(&libraryVersion_major, pInfo->libraryVersion.major);
     C_GetInfo_Return.pInfo.cryptokiVersion.minor = der_put_char(&cryptokiVersion_minor, pInfo->cryptokiVersion.minor);
     C_GetInfo_Return.pInfo.cryptokiVersion.major = der_put_char(&cryptokiVersion_major, pInfo->cryptokiVersion.major);
+
+    der_buf_uint32_t retval;
+    C_GetInfo_Return.retval = der_put_uint32(retval, CKR_OK);
 
     uint8_t manufacturerID_array[32];
     dercursor manufacturerID;
@@ -116,6 +117,7 @@ pack_C_GetSlotList_Call(
 
     memset (&C_GetSlotList_Call, 0, sizeof (C_GetSlotList_Call));
 
+
     der_buf_bool_t der_tokenPresent = {};
     C_GetSlotList_Call.tokenPresent = der_put_bool(der_tokenPresent, (tokenPresent==CK_TRUE));
     C_GetSlotList_Call.pSlotList.null = der_put_empty();
@@ -123,7 +125,6 @@ pack_C_GetSlotList_Call(
     if (pPulCount == NULL_PTR)
         return CKR_KEEHIVE_MEMORY_ERROR;
 
-    /* receives number of slots */
     der_buf_uint32_t der_pulCount;
     memset(&der_pulCount, 0, sizeof(der_pulCount));
     C_GetSlotList_Call.pulCount = der_put_uint32(der_pulCount, (uint32_t)*pPulCount);
