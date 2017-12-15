@@ -31,6 +31,17 @@ static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
         DER_PACK_END
 };
 
+static const derwalk C_GetSlotInfo_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotInfo_Call,
+        DER_PACK_END
+};
+
+static const derwalk C_GetSlotInfo_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotInfo_Return,
+        DER_PACK_END
+};
+
+
 
 // always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
 // the length of the SEQUENCE
@@ -102,14 +113,16 @@ unpack_C_GetSlotList_Call(
 ) {
 
     C_GetSlotList_Call_t C_GetSlotList_Call;
+    int status = 0;
 
     memset(&C_GetSlotList_Call, 0, sizeof(C_GetSlotList_Call));
-    int status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, REPEAT);
-
-    der_get_bool(C_GetSlotList_Call.tokenPresent, (bool *) pTokenPresent);
-
+    status = der_unpack(packed, C_GetSlotList_Call_packer, (dercursor *) &C_GetSlotList_Call, REPEAT);
     if (status != 0)
         return der_error_helper(errno);
+
+    status = der_get_bool(C_GetSlotList_Call.tokenPresent, (bool *) pTokenPresent);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     return CKR_OK;
 }
@@ -168,3 +181,64 @@ unpack_C_GetSlotList_Return(
     return CKR_OK;
 
 }
+
+CK_RV
+unpack_C_GetSlotInfo_Call(
+        dercursor *packed,
+        CK_SLOT_ID *pSlotId
+) {
+    C_GetSlotInfo_Call_t C_GetSlotInfo_Call;
+
+    memset(&C_GetSlotInfo_Call, 0, sizeof(C_GetSlotInfo_Call));
+
+    int status = der_unpack(packed, C_GetSlotInfo_Call_packer, (dercursor *) &C_GetSlotInfo_Call, REPEAT);
+    if (status != 0)
+        return der_error_helper(errno);
+
+    status = der_get_ulong(C_GetSlotInfo_Call.slotID, pSlotId);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+    return CKR_OK;
+}
+
+CK_RV
+unpack_C_GetSlotInfo_Return(
+        dercursor *pPacked,
+        CK_SLOT_INFO *pSlotInfo,
+        CK_RV *pRetval
+) {
+    C_GetSlotInfo_Return_t C_GetSlotInfo_Return;
+
+    memset(&C_GetSlotInfo_Return, 0, sizeof(C_GetSlotInfo_Return));
+
+    int status = der_unpack(pPacked, C_GetSlotInfo_Return_packer, (dercursor *) &C_GetSlotInfo_Return, REPEAT);
+    if (status != 0)
+        return der_error_helper(errno);
+
+
+    status = der_get_uchar(&C_GetSlotInfo_Return.pInfo.hardwareVersion.major, &pSlotInfo->hardwareVersion.major);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetSlotInfo_Return.pInfo.hardwareVersion.minor, &pSlotInfo->hardwareVersion.minor);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetSlotInfo_Return.pInfo.firmwareVersion.major, &pSlotInfo->firmwareVersion.major);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_uchar(&C_GetSlotInfo_Return.pInfo.firmwareVersion.minor, &pSlotInfo->firmwareVersion.minor);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    status = der_get_ulong(C_GetSlotInfo_Return.pInfo.flags, &pSlotInfo->flags);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_SYNTAX_ERROR;
+
+    memcpy(pSlotInfo->slotDescription, C_GetSlotInfo_Return.pInfo.slotDescription.derptr, 64);
+    memcpy(pSlotInfo->manufacturerID, C_GetSlotInfo_Return.pInfo.manufacturerID.derptr, 32);
+    return CKR_OK;
+};

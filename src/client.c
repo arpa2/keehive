@@ -59,7 +59,6 @@ Remote_C_GetSlotList(
 ) {
 
     CK_RV status;
-
     dercursor dercursorIn;
     dercursor dercursorOut;
 
@@ -95,3 +94,48 @@ Remote_C_GetSlotList(
 
     return CKR_OK;
 };
+
+
+CK_RV
+Remote_C_GetSlotInfo(
+        CK_SLOT_ID slotID,
+        CK_SLOT_INFO_PTR pInfo,
+        CK_RV *pRetval
+)
+{
+    CK_RV status;
+    dercursor dercursorIn;
+    dercursor dercursorOut;
+
+    status = server_Begin();
+    if (status != CKR_OK)
+        return status;
+
+    status = pack_C_GetSlotInfo_Call(slotID, &dercursorIn);
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    status = server_C_GetSlotInfo(&dercursorIn, &dercursorOut);
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    free(dercursorIn.derptr);
+
+    status = unpack_C_GetSlotInfo_Return(&dercursorOut, pInfo, pRetval);
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    free(dercursorOut.derptr);
+
+    status = server_End();
+    if (status != CKR_OK)
+        return status;
+
+    return CKR_OK;
+}

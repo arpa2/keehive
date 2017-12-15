@@ -95,3 +95,33 @@ server_C_GetSlotList(
 
     return CKR_OK;
 }
+
+
+
+CK_RV
+server_C_GetSlotInfo(
+        dercursor *pCursorIn,
+        dercursor *pCursorOut
+){
+    CK_RV status;
+    CK_SLOT_ID slotId;
+
+    if (function_list == NULL_PTR)
+        return CKR_KEEHIVE_SO_INIT_ERROR;
+
+    status = unpack_C_GetSlotInfo_Call(pCursorIn, &slotId);
+    if (status != CKR_OK)
+        return status;
+
+    CK_SLOT_INFO slotInfo;
+
+    status = call_C_GetSlotInfo(&function_list, slotId, &slotInfo);
+    if (status != CKR_OK)
+        return status;
+
+    status = pack_C_GetSlotInfo_Return(&slotInfo, pCursorOut);
+    if (status != CKR_OK)
+        return status;
+
+    return CKR_OK;
+}

@@ -7,7 +7,6 @@
 #include "pkcs11/pkcs11unix.h"
 #include "util.h"
 #include "pack.h"
-#include "assert.h"
 
 
 static const derwalk C_GetInfo_Call_packer[] = {
@@ -36,6 +35,18 @@ static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
 };
+
+static const derwalk C_GetSlotInfo_Call_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotInfo_Call,
+        DER_PACK_END
+};
+
+static const derwalk C_GetSlotInfo_Return_packer[] = {
+        DER_PACK_RemotePKCS11_C_GetSlotInfo_Return,
+        DER_PACK_END
+};
+
+
 
 CK_RV
 pack_C_GetInfo_Call(
@@ -146,55 +157,6 @@ pack_C_GetSlotList_Call(
 }
 
 
-
-CK_RV
-pack_slotList(
-        CK_SLOT_ID_PTR *pSlotList,
-        CK_ULONG *count,
-        uint8_t **pInnerlist,
-        size_t *pLength,
-        const derwalk *slotpack
-) {
-    int i;
-    CK_SLOT_ID slot;
-    size_t innerlen = 0;
-    size_t tmp = 0;
-    for (i = 0; i < *count; i++) {
-        slot = (*pSlotList)[i];
-        if (slot > 0xffffffff) {
-            return CKR_KEEHIVE_MEMORY_ERROR;
-        }
-        der_buf_uint32_t slotbuf;
-        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        tmp = der_pack(slotpack, &slotcrs, NULL);
-        if (tmp == 0)
-            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen += tmp;
-    }
-    *pLength = innerlen;
-    *pInnerlist = (uint8_t *)malloc(innerlen);
-    if (*pInnerlist == NULL) {
-        return CKR_KEEHIVE_MEMORY_ERROR;
-    }
-    while (i-- > 0) {
-        assert(innerlen >= 0);
-        slot = (*pSlotList)[i];
-        if (slot > 0xffffffff) {
-            return CKR_KEEHIVE_MEMORY_ERROR;
-        }
-        der_buf_uint32_t slotbuf;
-        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        tmp = der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
-        if (tmp == 0)
-            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen -= tmp;
-    }
-    assert(innerlen == 0);
-
-    return CKR_OK;
-
-}
-
 CK_RV
 pack_C_GetSlotList_Return(
         CK_SLOT_ID_PTR *pSlotList,
@@ -237,4 +199,80 @@ pack_C_GetSlotList_Return(
 
     return CKR_OK;
 
+}
+
+
+CK_RV
+pack_C_GetSlotInfo_Call(
+        CK_SLOT_ID slotID,
+        dercursor *cursor
+) {
+    C_GetSlotInfo_Call_t C_GetSlotInfo_Call;
+    memset (&C_GetSlotInfo_Call, 0, sizeof (C_GetSlotInfo_Call));
+    der_buf_ulong_t slotID_store;
+    C_GetSlotInfo_Call.slotID = der_put_ulong(&slotID_store, slotID);
+    cursor->derlen =  der_pack(C_GetSlotInfo_Call_packer, (const dercursor *) &C_GetSlotInfo_Call, NULL);
+
+    if (cursor->derlen == 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    cursor->derptr = malloc(cursor->derlen);
+    der_pack(C_GetSlotInfo_Call_packer, (const dercursor *) &C_GetSlotInfo_Call, cursor->derptr + cursor->derlen);
+    return CKR_OK;
+}
+
+CK_RV
+pack_C_GetSlotInfo_Return(
+        CK_SLOT_INFO *pSlotInfo,
+        dercursor *pCursor
+) {
+    C_GetSlotInfo_Return_t C_GetSlotInfo_Return;
+
+    memset (&C_GetSlotInfo_Return, 0, sizeof (C_GetSlotInfo_Return));
+
+    der_buf_ulong_t flags;
+    C_GetSlotInfo_Return.pInfo.flags = der_put_ulong(&flags, pSlotInfo->flags);
+
+    der_buf_uint32_t retval;
+    C_GetSlotInfo_Return.retval = der_put_uint32(retval, CKR_OK);
+
+    der_buf_char_t firmwareVersion_minor;
+    der_buf_char_t firmwareVersion_major;
+    C_GetSlotInfo_Return.pInfo.firmwareVersion.minor = der_put_char(&firmwareVersion_minor, pSlotInfo->firmwareVersion.minor);
+    C_GetSlotInfo_Return.pInfo.firmwareVersion.major = der_put_char(&firmwareVersion_major, pSlotInfo->firmwareVersion.major);
+
+    der_buf_char_t hardwareVersion_minor;
+    der_buf_char_t hardwareVersion_major;
+    C_GetSlotInfo_Return.pInfo.hardwareVersion.minor = der_put_char(&hardwareVersion_minor, pSlotInfo->hardwareVersion.minor);
+    C_GetSlotInfo_Return.pInfo.hardwareVersion.major = der_put_char(&hardwareVersion_major, pSlotInfo->hardwareVersion.major);
+
+    uint8_t manufacturerID_array[32];
+    dercursor manufacturerID;
+    manufacturerID.derptr = manufacturerID_array;
+    memcpy(manufacturerID.derptr, pSlotInfo->manufacturerID, 32);
+    manufacturerID.derlen = 32;
+    C_GetSlotInfo_Return.pInfo.manufacturerID = manufacturerID;
+
+    uint8_t slotDescription_array[64];
+    dercursor slotDescription;
+    slotDescription.derptr = slotDescription_array;
+    memcpy(slotDescription.derptr, pSlotInfo->slotDescription, 64);
+    slotDescription.derlen = 64;
+    C_GetSlotInfo_Return.pInfo.slotDescription = slotDescription;
+
+    pCursor->derlen = der_pack(C_GetSlotInfo_Return_packer, (const dercursor *) &C_GetSlotInfo_Return, NULL);
+
+    if (pCursor->derlen == 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    pCursor->derptr = malloc(pCursor->derlen);
+
+    der_pack(C_GetSlotInfo_Return_packer, (const dercursor *) &C_GetSlotInfo_Return, pCursor->derptr + pCursor->derlen);
+
+    FILE *filea = fopen("/tmp/packed", "w+b");
+    fwrite(pCursor->derptr,1,pCursor->derlen,filea);
+    fclose (filea);
+
+
+    return CKR_OK;
 }

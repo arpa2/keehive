@@ -34,4 +34,16 @@ pack_C_GetSlotList_Return(
         dercursor *cursor
 );
 
+CK_RV
+pack_C_GetSlotInfo_Call(
+        CK_SLOT_ID slotID,
+        dercursor *cursor
+);
+
+CK_RV
+pack_C_GetSlotInfo_Return(
+        CK_SLOT_INFO *pSlotInfo,
+        dercursor *pCursor
+);
+
 #endif //KEEHIVE_KEEHIVE_H

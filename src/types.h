@@ -12,6 +12,9 @@ typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return C_GetSlotList_Return_t;
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList C_GetSlotList_Return_pSlotList_t;
 
 
+typedef DER_OVLY_RemotePKCS11_C_GetSlotInfo_Call C_GetSlotInfo_Call_t;
+typedef DER_OVLY_RemotePKCS11_C_GetSlotInfo_Return C_GetSlotInfo_Return_t;
+
 
 #define CKR_KEEHIVE_MEMORY_ERROR       (0 | CKR_VENDOR_DEFINED)
 #define CKR_KEEHIVE_SO_INVALID         (1 | CKR_VENDOR_DEFINED)

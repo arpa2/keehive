@@ -23,4 +23,12 @@ server_C_GetSlotList(
         dercursor *CursorOut
 );
 
+
+CK_RV
+server_C_GetSlotInfo(
+        dercursor *pCursorIn,
+        dercursor *pCursorOut
+);
+
+
 #endif //KEEHIVE_SERVER_H
