@@ -134,10 +134,13 @@ unpack_C_GetSlotList_Return(
 
     int i = 0;
     dercursor iterator;
-    long unsigned int valp;
+    CK_SLOT_ID valp;
     if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &iterator)) {
         do {
-            *pSlotList[i] = (CK_SLOT_ID) der_get_ulong(iterator, &valp);
+            status = der_get_ulong(iterator, &valp);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            (*pSlotList)[i] = valp;
             i++;
         } while (der_iterate_next(&iterator));
     }
