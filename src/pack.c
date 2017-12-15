@@ -7,7 +7,7 @@
 #include "pkcs11/pkcs11unix.h"
 #include "util.h"
 #include "pack.h"
-
+#include "assert.h"
 
 
 static const uint8_t C_GetInfo_Call_packer[] = {
@@ -109,7 +109,6 @@ pack_C_GetInfo_Return(
 CK_RV
 pack_C_GetSlotList_Call(
         CK_BBOOL tokenPresent,
-        CK_SLOT_ID_PTR pSlotList,
         CK_ULONG_PTR pPulCount,
         dercursor * cursor
 
@@ -143,29 +142,63 @@ pack_C_GetSlotList_Call(
 }
 
 
+
+CK_RV
+pack_slotList(
+        CK_SLOT_ID_PTR *pSlotList,
+        CK_ULONG *count,
+        uint8_t **pInnerlist,
+        size_t *pLength
+) {
+    int i;
+    CK_SLOT_ID slot;
+    size_t innerlen = 0;
+    derwalk slotpack[] = {DER_PACK_STORE, DER_TAG_INTEGER, DER_PACK_END};
+    for (i = 0; i < *count; i++) {
+        slot = (*pSlotList)[i];
+        if (slot != (uint32_t) slot) {
+            return CKR_KEEHIVE_MEMORY_ERROR;
+        }
+        der_buf_uint32_t slotbuf;
+        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
+        innerlen += der_pack(slotpack, &slotcrs, NULL);
+    }
+    *pLength = innerlen;
+    *pInnerlist = (uint8_t *)malloc(innerlen);
+    if (*pInnerlist == NULL) {
+        return CKR_KEEHIVE_MEMORY_ERROR;
+    }
+    while (i-- > 0) {
+        assert(innerlen >= 0);
+        slot = (*pSlotList)[i];
+        if (slot != (uint32_t) slot) {
+            return CKR_KEEHIVE_MEMORY_ERROR;
+        }
+        der_buf_uint32_t slotbuf;
+        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
+        innerlen -= der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
+    }
+    assert(innerlen == 0);
+}
+
 CK_RV
 pack_C_GetSlotList_Return(
         CK_SLOT_ID_PTR *pSlotList,
-        CK_ULONG_PTR count,
+        CK_ULONG *count,
         dercursor *cursor
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
 
     memset (&C_GetSlotList_Return, 0, sizeof (C_GetSlotList_Return));
 
-    der_buf_uint32_t der_slotlist[*count];
-    int i;
-    CK_SLOT_ID slot;
-    dercursor derray [*count];
-    for (i = 0; i < (*count); i++) {
-        slot = (*pSlotList)[i];
-        derray[i] = der_put_uint32(der_slotlist[i], (u_int32_t)slot);
-    }
+    uint8_t *innerlist;
+    size_t length;
+    pack_slotList(pSlotList, count, &innerlist, &length);
 
-    derarray prepacked_array;
-    der_prepack (derray, *count, &prepacked_array);
-    C_GetSlotList_Return.pSlotList.data.prep = prepacked_array;
+    C_GetSlotList_Return.pSlotList.data.wire.derptr = innerlist;
+    C_GetSlotList_Return.pSlotList.data.wire.derlen = length;
 
+    // if there is no list, this should be set:
     //C_GetSlotList_Return.pSlotList.null =  der_put_null();
 
     der_buf_uint32_t pulCount;
@@ -182,6 +215,12 @@ pack_C_GetSlotList_Return(
     cursor->derptr = malloc(cursor->derlen);
 
     der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
+
+    /*
+    FILE *filea = fopen("/tmp/packed", "w+b");
+    fwrite(cursor->derptr,1,cursor->derlen,filea);
+    fclose (filea);
+    */
 
     return CKR_OK;
 

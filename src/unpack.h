@@ -29,7 +29,7 @@ unpack_C_GetInfo_Return(
 CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
-        CK_SLOT_ID_PTR pSlotList,
+        CK_SLOT_ID_PTR *pSlotList,
         CK_ULONG_PTR pPulCount
 );
 

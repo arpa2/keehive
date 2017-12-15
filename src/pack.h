@@ -23,7 +23,6 @@ pack_C_GetInfo_Return(
 CK_RV
 pack_C_GetSlotList_Call(
         CK_BBOOL tokenPresent,
-        CK_SLOT_ID_PTR pSlotList,
         CK_ULONG_PTR pulCount,
         dercursor * cursor
 );
@@ -31,7 +30,7 @@ pack_C_GetSlotList_Call(
 CK_RV
 pack_C_GetSlotList_Return(
         CK_SLOT_ID_PTR *pSlotList,
-        CK_ULONG_PTR count,
+        CK_ULONG * count,
         dercursor *cursor
 );
 

@@ -66,7 +66,7 @@ Remote_C_GetSlotList(
     if (status != CKR_OK)
         return status;
 
-    status = pack_C_GetSlotList_Call(tokenPresent, pSlotList, pPulCount, &dercursorIn);
+    status = pack_C_GetSlotList_Call(tokenPresent, pPulCount, &dercursorIn);
     if (status != CKR_OK) {
         server_End();
         return status;

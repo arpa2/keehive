@@ -19,7 +19,7 @@ static void test_pack_unpack_getslotlist(void **state) {
 
     dercursor cursor;
 
-    error = pack_C_GetSlotList_Call(ck_tokenPresent, NULL_PTR, &pulCount, &cursor);
+    error = pack_C_GetSlotList_Call(ck_tokenPresent, &pulCount, &cursor);
     assert_int_equal(error, CKR_OK);
 
     CK_BBOOL unpacked_tokenPresent;

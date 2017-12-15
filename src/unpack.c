@@ -109,10 +109,12 @@ unpack_C_GetSlotList_Call(
     return CKR_OK;
 }
 
+#include "stdio.h"
+
 CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
-        CK_SLOT_ID_PTR pSlotList,
+        CK_SLOT_ID_PTR *pSlotList,
         CK_ULONG_PTR pPulCount
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
@@ -128,16 +130,15 @@ unpack_C_GetSlotList_Return(
         // There is no list
     }
 
-    int i = 0;
-
     *pSlotList = (CK_SLOT_ID_PTR) malloc(C_GetSlotList_Return.pSlotList.data.wire.derlen*sizeof(CK_SLOT_ID));
 
+    int i = 0;
     dercursor iterator;
     long unsigned int valp;
     if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &iterator)) {
         do {
+            *pSlotList[i] = (CK_SLOT_ID) der_get_ulong(iterator, &valp);
             i++;
-            pSlotList[i] = der_get_ulong(iterator, &valp);
         } while (der_iterate_next(&iterator));
     }
 
