@@ -9,6 +9,7 @@ typedef DER_OVLY_RemotePKCS11_C_GetInfo_Return C_GetInfo_Return_t;
 
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Call C_GetSlotList_Call_t;
 typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return C_GetSlotList_Return_t;
+typedef DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList C_GetSlotList_Return_pSlotList_t;
 
 
 

@@ -5,24 +5,29 @@
 #include "util.h"
 
 
-static const uint8_t C_GetInfo_Call_packer[] = {
+static const derwalk C_GetInfo_Call_packer[] = {
         DER_PACK_RemotePKCS11_C_GetInfo_Call,
         DER_PACK_END
 };
 
-static const uint8_t C_GetInfo_Return_packer[] = {
+static const derwalk C_GetInfo_Return_packer[] = {
         DER_PACK_RemotePKCS11_C_GetInfo_Return,
         DER_PACK_END
 };
 
 
-static const uint8_t C_GetSlotList_Call_packer[] = {
+static const derwalk C_GetSlotList_Call_packer[] = {
         DER_PACK_RemotePKCS11_C_GetSlotList_Call,
         DER_PACK_END
 };
 
-static const uint8_t C_GetSlotList_Return_packer[] = {
+static const derwalk C_GetSlotList_Return_packer[] = {
         DER_PACK_RemotePKCS11_C_GetSlotList_Return,
+        DER_PACK_END
+};
+
+static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
 };
 
@@ -109,15 +114,16 @@ unpack_C_GetSlotList_Call(
     return CKR_OK;
 }
 
-#include "stdio.h"
 
 CK_RV
 unpack_C_GetSlotList_Return(
         const dercursor * packed,
         CK_SLOT_ID_PTR *pSlotList,
-        CK_ULONG_PTR pPulCount
+        CK_ULONG_PTR pPulCount,
+        CK_RV *pRetval
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
+
 
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
     int status;
@@ -128,19 +134,29 @@ unpack_C_GetSlotList_Return(
 
     if (C_GetSlotList_Return.pSlotList.null.derptr != NULL) {
         // There is no list
+        *pSlotList = NULL_PTR;
     }
 
     *pSlotList = (CK_SLOT_ID_PTR) malloc(C_GetSlotList_Return.pSlotList.data.wire.derlen*sizeof(CK_SLOT_ID));
 
+    status = der_get_ulong(C_GetSlotList_Return.retval, pRetval);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
     int i = 0;
     dercursor iterator;
-    CK_SLOT_ID valp;
+    dercursor slotcrs;
+    CK_SLOT_ID slot;
+
     if (der_iterate_first(&C_GetSlotList_Return.pSlotList.data.wire, &iterator)) {
         do {
-            status = der_get_ulong(iterator, &valp);
+            status = der_unpack(&iterator, C_GetSlotList_Return_pSlotList_packer, &slotcrs, REPEAT);
             if (status == -1)
                 return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-            (*pSlotList)[i] = valp;
+            status = der_get_ulong(slotcrs, &slot);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            (*pSlotList)[i] = slot;
             i++;
         } while (der_iterate_next(&iterator));
     }

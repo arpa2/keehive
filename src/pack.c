@@ -10,27 +10,32 @@
 #include "assert.h"
 
 
-static const uint8_t C_GetInfo_Call_packer[] = {
+static const derwalk C_GetInfo_Call_packer[] = {
         DER_PACK_RemotePKCS11_C_GetInfo_Call,
         DER_PACK_END
 };
 
-static const uint8_t C_GetInfo_Return_packer[] = {
+static const derwalk C_GetInfo_Return_packer[] = {
         DER_PACK_RemotePKCS11_C_GetInfo_Return,
         DER_PACK_END
 };
 
 
-static const uint8_t C_GetSlotList_Call_packer[] = {
+static const derwalk C_GetSlotList_Call_packer[] = {
         DER_PACK_RemotePKCS11_C_GetSlotList_Call,
         DER_PACK_END
 };
 
-static const uint8_t C_GetSlotList_Return_packer[] = {
+static const derwalk C_GetSlotList_Return_packer[] = {
         DER_PACK_RemotePKCS11_C_GetSlotList_Return,
         DER_PACK_END
 };
 
+
+static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
 
 CK_RV
 pack_C_GetInfo_Call(
@@ -117,7 +122,6 @@ pack_C_GetSlotList_Call(
 
     memset (&C_GetSlotList_Call, 0, sizeof (C_GetSlotList_Call));
 
-
     der_buf_bool_t der_tokenPresent = {};
     C_GetSlotList_Call.tokenPresent = der_put_bool(der_tokenPresent, (tokenPresent==CK_TRUE));
     C_GetSlotList_Call.pSlotList.null = der_put_null();
@@ -148,13 +152,13 @@ pack_slotList(
         CK_SLOT_ID_PTR *pSlotList,
         CK_ULONG *count,
         uint8_t **pInnerlist,
-        size_t *pLength
+        size_t *pLength,
+        const derwalk *slotpack
 ) {
     int i;
     CK_SLOT_ID slot;
     size_t innerlen = 0;
     size_t tmp = 0;
-    derwalk slotpack[] = {DER_PACK_STORE | DER_TAG_INTEGER, DER_PACK_END};
     for (i = 0; i < *count; i++) {
         slot = (*pSlotList)[i];
         if (slot > 0xffffffff) {
@@ -203,7 +207,8 @@ pack_C_GetSlotList_Return(
 
     uint8_t *innerlist = NULL;
     size_t length = 0;
-    CK_RV status = pack_slotList(pSlotList, count, &innerlist, &length);
+
+    CK_RV status = pack_slotList(pSlotList, count, &innerlist, &length, C_GetSlotList_Return_pSlotList_packer);
     if (status != CKR_OK)
         return status;
 

@@ -54,7 +54,8 @@ CK_RV
 Remote_C_GetSlotList(
     CK_BBOOL tokenPresent,
     CK_SLOT_ID_PTR *pSlotList,
-    CK_ULONG_PTR pPulCount
+    CK_ULONG_PTR pPulCount,
+    CK_RV *pRetval
 ) {
 
     CK_RV status;
@@ -80,7 +81,7 @@ Remote_C_GetSlotList(
 
     free(dercursorIn.derptr);
 
-    status = unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount);
+    status = unpack_C_GetSlotList_Return(&dercursorOut, pSlotList, pPulCount, pRetval);
     if (status != CKR_OK) {
         server_End();
         return status;
