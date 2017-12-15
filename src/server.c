@@ -21,6 +21,8 @@ server_Begin(){
     status = call_C_Initialize(&function_list);
     if (status != CKR_OK)
         return status;
+
+    return CKR_OK;
 }
 
 
@@ -32,6 +34,7 @@ server_End(){
         return status;
 
     function_list = NULL_PTR;
+    return CKR_OK;
 }
 
 
@@ -59,6 +62,8 @@ server_C_GetInfo(
     status = pack_C_GetInfo_Return(&info, CursorOut);
     if (status != CKR_OK)
         return status;
+
+    return CKR_OK;
 }
 
 CK_RV
