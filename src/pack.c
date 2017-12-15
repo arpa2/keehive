@@ -153,7 +153,8 @@ pack_slotList(
     int i;
     CK_SLOT_ID slot;
     size_t innerlen = 0;
-    derwalk slotpack[] = {DER_PACK_STORE, DER_TAG_INTEGER, DER_PACK_END};
+    size_t tmp = 0;
+    derwalk slotpack[] = {DER_PACK_STORE | DER_TAG_INTEGER, DER_PACK_END};
     for (i = 0; i < *count; i++) {
         slot = (*pSlotList)[i];
         if (slot > 0xffffffff) {
@@ -161,7 +162,10 @@ pack_slotList(
         }
         der_buf_uint32_t slotbuf;
         dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        innerlen += der_pack(slotpack, &slotcrs, NULL);
+        tmp = der_pack(slotpack, &slotcrs, NULL);
+        if (tmp == 0)
+            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        innerlen += tmp;
     }
     *pLength = innerlen;
     *pInnerlist = (uint8_t *)malloc(innerlen);
@@ -176,9 +180,13 @@ pack_slotList(
         }
         der_buf_uint32_t slotbuf;
         dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        innerlen -= der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
+        tmp = der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
+        if (tmp == 0)
+            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        innerlen -= tmp;
     }
     assert(innerlen == 0);
+
     return CKR_OK;
 
 }
@@ -193,8 +201,8 @@ pack_C_GetSlotList_Return(
 
     memset (&C_GetSlotList_Return, 0, sizeof (C_GetSlotList_Return));
 
-    uint8_t *innerlist;
-    size_t length;
+    uint8_t *innerlist = NULL;
+    size_t length = 0;
     CK_RV status = pack_slotList(pSlotList, count, &innerlist, &length);
     if (status != CKR_OK)
         return status;
@@ -220,9 +228,7 @@ pack_C_GetSlotList_Return(
 
     der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
 
-    FILE *filea = fopen("/tmp/packed", "w+b");
-    fwrite(cursor->derptr,1,cursor->derlen,filea);
-    fclose (filea);
+    free(innerlist);
 
     return CKR_OK;
 
