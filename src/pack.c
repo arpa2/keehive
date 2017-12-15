@@ -156,7 +156,7 @@ pack_slotList(
     derwalk slotpack[] = {DER_PACK_STORE, DER_TAG_INTEGER, DER_PACK_END};
     for (i = 0; i < *count; i++) {
         slot = (*pSlotList)[i];
-        if (slot != (uint32_t) slot) {
+        if (slot > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }
         der_buf_uint32_t slotbuf;
@@ -171,7 +171,7 @@ pack_slotList(
     while (i-- > 0) {
         assert(innerlen >= 0);
         slot = (*pSlotList)[i];
-        if (slot != (uint32_t) slot) {
+        if (slot > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }
         der_buf_uint32_t slotbuf;
@@ -179,6 +179,8 @@ pack_slotList(
         innerlen -= der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
     }
     assert(innerlen == 0);
+    return CKR_OK;
+
 }
 
 CK_RV
@@ -193,7 +195,9 @@ pack_C_GetSlotList_Return(
 
     uint8_t *innerlist;
     size_t length;
-    pack_slotList(pSlotList, count, &innerlist, &length);
+    CK_RV status = pack_slotList(pSlotList, count, &innerlist, &length);
+    if (status != CKR_OK)
+        return status;
 
     C_GetSlotList_Return.pSlotList.data.wire.derptr = innerlist;
     C_GetSlotList_Return.pSlotList.data.wire.derlen = length;
@@ -216,11 +220,9 @@ pack_C_GetSlotList_Return(
 
     der_pack(C_GetSlotList_Return_packer, (const dercursor *) &C_GetSlotList_Return, cursor->derptr + cursor->derlen);
 
-    /*
     FILE *filea = fopen("/tmp/packed", "w+b");
     fwrite(cursor->derptr,1,cursor->derlen,filea);
     fclose (filea);
-    */
 
     return CKR_OK;
 
