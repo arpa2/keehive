@@ -269,10 +269,5 @@ pack_C_GetSlotInfo_Return(
 
     der_pack(C_GetSlotInfo_Return_packer, (const dercursor *) &C_GetSlotInfo_Return, pCursor->derptr + pCursor->derlen);
 
-    FILE *filea = fopen("/tmp/packed", "w+b");
-    fwrite(pCursor->derptr,1,pCursor->derlen,filea);
-    fclose (filea);
-
-
     return CKR_OK;
 }
