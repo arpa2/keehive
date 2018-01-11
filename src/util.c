@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "util.h"
 #include "types.h"
+#include <stdio.h>
 
 
 CK_RV
@@ -138,3 +139,11 @@ pack_slotList(
 
     return CKR_OK;
 };
+
+
+void der_dump(char* path, dercursor* pCursor)
+{
+    FILE *pFile = fopen(path, "w+b");
+    fwrite(pCursor->derptr, 1, pCursor->derlen, pFile);
+    fclose(pFile);
+}

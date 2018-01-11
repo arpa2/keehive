@@ -31,4 +31,6 @@ CK_RV pack_slotList(
         const derwalk *slotpack
 );
 
+void der_dump(char* path, dercursor* pCursor);
+
 #endif //KEEHIVE_UTIL_H
