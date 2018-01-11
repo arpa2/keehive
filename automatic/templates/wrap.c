@@ -1,22 +1,52 @@
-#include "wrap.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
 #include <string.h>
+#include "wrap.h"
+#include "returncodes.h"
+
+CK_RV
+call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list) {
+    /* this function is different from the other calls since it is the only one
+     * accessing the shared library by name */
+    CK_RV (*C_GetFunctionList)(CK_FUNCTION_LIST_PTR_PTR);
+    char *error;
 
 
-{% for call in calls %}
+    void *handle = dlopen(path, RTLD_LAZY);
+    if (!handle) {
+        fputs(dlerror(), stderr);
+        return CKR_KEEHIVE_SO_INVALID;
+    }
+
+    C_GetFunctionList = dlsym(handle, "C_GetFunctionList");
+
+    if ((error = dlerror()) != NULL) {
+        fputs(error, stderr);
+        return CKR_KEEHIVE_SO_ERROR;
+    }
+
+    CK_RV status = (*C_GetFunctionList)(function_list);
+    if (status != CKR_OK)
+        return CKR_KEEHIVE_SO_ERROR;
+
+    return CKR_OK;
+};
+
+
+{% for call in calls if not call.type_name == "C-GetFunctionList-Call" %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 call_{{ f }}(
-    {%- for comp in call.type_decl.components %}
-    {{ comp.type_decl.type_name|under }} {{ comp.identifier }}
+    CK_FUNCTION_LIST_PTR_PTR function_list
+    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+    {%- if loop.first %},{% endif %}
+    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
     CK_RV status = ((*function_list)->{{ f }})(
-        {% for c in call.type_decl.components -%}
+        {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL'   -%}
         {{- c.identifier -}}
         {%- if not loop.last %},
         {% endif -%}

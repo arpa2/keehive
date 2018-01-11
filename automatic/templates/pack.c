@@ -1,13 +1,21 @@
 #include "pack.h"
+#include "returncodes.h"
+
+{% for f in functions %}
+static const derwalk {{ f.type_name|under }}_packer[] = {
+    DER_PACK_RemotePKCS11_{{ f.type_name|under }},
+    DER_PACK_END
+};
+{% endfor %}
 
 
 {% for f in functions %}
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packtarget
-        {%- for comp in f.type_decl.components %}
+        {%- for c in f.type_decl.components  if not c.type_decl.type_name == 'NULL' %}
             {%- if loop.first %},{% endif %}
-        {{ comp.type_decl.type_name|under }} {{ comp.identifier }}
+        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
             {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
@@ -31,6 +39,6 @@ pack_{{ f.type_name|under }}(
              (const dercursor *) &{{ f.type_name|under }},
              packtarget->derptr + packtarget->derlen);
 
-    return CK_OK;
+    return CKR_OK;
 };
 {% endfor %}

@@ -1,11 +1,14 @@
 #include "client.h"
+#include "server.h"
+#include "pack.h"
+#include "unpack.h"
 
 {% for call in calls %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
-Remote_{{ f }}(
-        {%- for c in call.type_decl.components %}
-        {{ c.type_decl.type_name|under }} {{ c.identifier }}
+client_{{ f }}(
+        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
         {%- if not loop.last %}, {% endif -%}
         {% endfor %}
 ) {
@@ -17,13 +20,13 @@ Remote_{{ f }}(
     if (status != CKR_OK)
         return status;
 
-    {% for c in call.type_decl.components %}
+    {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
     memset ({{ c.identifier }}, 0, sizeof (*{{ c.identifier }}));
     {%- endfor %}
 
     status = pack_{{ f }}_Call(
         &dercursorIn
-        {%- for c in call.type_decl.components -%}
+        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
         {%- if loop.first %},
         {% endif -%}
         {{- c.identifier -}}
@@ -47,7 +50,7 @@ Remote_{{ f }}(
 
     status = unpack_{{ f }}_Return(
         &dercursorOut
-        {%- for c in call.type_decl.components -%}
+        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
         {%- if loop.first -%},
         {% endif -%}
         {{- c.identifier -}}

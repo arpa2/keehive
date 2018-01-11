@@ -1,8 +1,11 @@
+#include "types.h"
+#include "pkcs11/pkcs11unix.h"
 #include "unpack.h"
+#include "util.h"
 
 
 {% for f in functions %}
-static const {{ f.type_name|under }}_packer[] = {
+static const derwalk {{ f.type_name|under }}_packer[] = {
         DER_PACK_RemotePKCS11_{{ f.type_name|under }},
         DER_PACK_END
 };
@@ -13,10 +16,10 @@ static const {{ f.type_name|under }}_packer[] = {
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packed
-        {%- for comp in f.type_decl.components %}
-            {%- if loop.first %},{% endif %}
-        {{ comp.type_decl.type_name|under }} {{ comp.identifier }}
-            {%- if not loop.last %},{% endif -%}
+        {%- for c in f.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+        {%- if loop.first %},{% endif %}
+        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
+        {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
 

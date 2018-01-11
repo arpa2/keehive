@@ -4,11 +4,16 @@
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
 
-{% for f in calls %}
+// Only function we implement manually
+CK_RV call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list);
+
+{% for call in calls if not call.type_name == "C-GetFunctionList-Call"  %}
 CK_RV
-call_{{ f.type_name[:-5]|under }}(
-    {%- for comp in f.type_decl.components %}
-    {{ comp.type_decl.type_name|under }} {{ comp.identifier }}
+call_{{ call.type_name[:-5]|under }}(
+    CK_FUNCTION_LIST_PTR_PTR function_list
+    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+    {%- if loop.first %},{% endif %}
+    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 );

@@ -22,10 +22,10 @@ set(LIB_SRC
         generated/server.c
         convert.c
         util.c
-)
+        returncodes.h)
 
 
-include_directories ("${PROJECT_BINARY_DIR}", generated, ".")
+include_directories ("${PROJECT_BINARY_DIR}" "generated" ".")
 
 add_library(keehive
         ${LIB_H}

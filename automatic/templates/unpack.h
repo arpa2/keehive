@@ -10,12 +10,12 @@
 
 {% for f in functions %}
 CK_RV
-pack_{{ f.type_name|under }}(
+unpack_{{ f.type_name|under }}(
         dercursor * packed
-        {%- for comp in f.type_decl.components %}
-            {%- if loop.first %},{% endif %}
-        {{ comp.type_decl.type_name|under }} {{ comp.identifier }}
-            {%- if not loop.last %},{% endif -%}
+        {%- for c in f.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+        {%- if loop.first %},{% endif %}
+        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
+        {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );
 {% endfor %}
