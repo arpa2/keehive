@@ -14,17 +14,22 @@ def main():
     logger.info("parsing ASN1")
     defmods, refmods = realise(incdirs, files)
 
-    relevant = []
+    returns = []
+    calls = []
 
     for mod_name, module in defmods.items():
 
         for sorted_ass in dependency_sort(module.assignments):
             for ass in sorted_ass:
-                if ass.type_name.endswith("-Return") or ass.type_name.endswith("-Call"):
-                    relevant.append(ass)
+                if ass.type_name.endswith("-Return"):
+                    returns.append(ass)
+                if ass.type_name.endswith("-Call"):
+                    calls.append(ass)
+
+    functions = {'returns': returns, 'calls': calls}
 
     with open('dump', 'wb') as f:
-        pickle.dump(relevant, f)
+        pickle.dump(functions, f)
 
 
 if __name__ == '__main__':

@@ -3,8 +3,8 @@
 
 #include "RemotePKCS11.h"
 
-{% for obj in objects %}
-typedef DER_OVLY_RemotePKCS11_{{ obj.type_name|under }} {{ obj.type_name|under }}_t;
+{% for f in functions %}
+typedef DER_OVLY_RemotePKCS11_{{ f.type_name|under }} {{ f.type_name|under }}_t;
 {%- endfor %}
 
 #endif //KEEHIVE_CONSTANTS_H
