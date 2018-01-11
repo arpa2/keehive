@@ -11,7 +11,7 @@ find_package (cmocka REQUIRED)
 
 
 configure_file (
-        "src/version.h.in"
+        "automatic/version.h.in"
         "${PROJECT_BINARY_DIR}/version.h"
 )
 
@@ -19,7 +19,7 @@ include_directories ("${PROJECT_BINARY_DIR}")
 include_directories ("${Quick-DER_INCLUDE_DIRS}")
 include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
-add_subdirectory (src)
+add_subdirectory (automatic)
 
 enable_testing()
 

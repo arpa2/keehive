@@ -25,7 +25,7 @@ for file_name in os.listdir(templates_folder):
 
     calls = data['calls']
     returns = data['returns']
-    data['functions'] = chain(calls, returns)
+    data['functions'] = calls + returns
 
     with open('generated/' + file_name, 'w') as f:
         f.write(template.render(**data))
