@@ -74,7 +74,7 @@ server_{{ f }}(
 
     retval = call_{{ f }}(
         &function_list
-        {%- for c in call.type_decl.components -%}
+        {%- for c in combine(call, return_) -%}
         {%- if loop.first %},
         {% endif -%}
         {{- c.identifier -}}

@@ -58,7 +58,7 @@ def combine(funca, funcb):
     for k, v in x.items():
         array[int(k)] = v
 
-    # todo: this should be required, but there are 'gaps' in the spec?
+    # TODO: this should be required, unless there are unused or optional arguments in the list
     array = list(filter(None, array))
     return array
 
