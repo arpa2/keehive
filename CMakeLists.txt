@@ -21,8 +21,3 @@ include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
 add_subdirectory (automatic)
 
-enable_testing()
-
-add_subdirectory (test)
-
-
