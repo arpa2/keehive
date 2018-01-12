@@ -39,14 +39,14 @@ call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list)
 CK_RV
 call_{{ f }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+    {%- for c in call|extractargs %}
     {%- if loop.first %},{% endif %}
     {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
     CK_RV status = ((*function_list)->{{ f }})(
-        {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL'   -%}
+        {% for c in call|extractargs -%}
         {{- c.identifier -}}
         {%- if not loop.last %},
         {% endif -%}

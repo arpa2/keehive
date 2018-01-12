@@ -12,10 +12,10 @@
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packtarget
-        {%- for c in f.type_decl.components if not c.type_decl.type_name == 'NULL' %}
-            {%- if loop.first %},{% endif %}
+        {%- for c in f|extractargs %}
+        {%- if loop.first %},{% endif %}
         {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
-            {%- if not loop.last %},{% endif -%}
+        {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );
 {% endfor %}

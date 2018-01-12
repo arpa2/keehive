@@ -8,10 +8,9 @@
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 client_{{ f }}(
-        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
-        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
-        {%- if not loop.last %}, {% endif -%}
-        {% endfor %}
+    {%- for c in call|extractargs %}
+    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}{%- if not loop.last %},{%- endif -%}
+    {% endfor %}
 ) {
     CK_RV status;
     dercursor dercursorIn;
@@ -21,13 +20,13 @@ client_{{ f }}(
     if (status != CKR_OK)
         return status;
 
-    {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+    {% for c in call|extractargs %}
     memset ({{ c.identifier }}, 0, sizeof ({{ c.identifier }}));
     {%- endfor %}
 
     status = pack_{{ f }}_Call(
         &dercursorIn
-        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+        {%- for c in call|extractargs -%}
         {%- if loop.first %},
         {% endif -%}
         {{- c.identifier -}}
@@ -50,14 +49,14 @@ client_{{ f }}(
     free(dercursorIn.derptr);
 
     {# Create variable placeholders #}
-    {% for c in return_.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+    {% for c in return_|extractargs -%}
     {{ c.type_decl.type_name|under|ack2ck }} return_{{ c.identifier }};
     {% endfor %}
 
     {# unpack the dercursor into the placeholders #}
     status = unpack_{{ return_.type_name|under }}(
         &dercursorOut
-        {%- for c in return_.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+        {%- for c in return_|extractargs -%}
         {%- if loop.first -%},
         {% endif -%}
         &return_{{- c.identifier -}}

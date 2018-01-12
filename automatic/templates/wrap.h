@@ -11,7 +11,7 @@ CK_RV call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function
 CK_RV
 call_{{ call.type_name[:-5]|under }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
+    {%- for c in call|extractargs %}
     {%- if loop.first %},{% endif %}
     {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
     {%- if not loop.last %},{% endif -%}
