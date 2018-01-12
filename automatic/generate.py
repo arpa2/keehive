@@ -59,32 +59,38 @@ def ack2ck(s):
     return s
 
 
-env = Environment(
-    loader=FileSystemLoader(templates_folder),
-    undefined=StrictUndefined,
-)
+def main():
+    env = Environment(
+        loader=FileSystemLoader(templates_folder),
+        undefined=StrictUndefined,
+    )
 
-env.filters['under'] = under
-env.filters['ack2ck'] = ack2ck
+    env.filters['under'] = under
+    env.filters['ack2ck'] = ack2ck
+
+    with open('dump', 'rb') as f:
+        data = pickle.load(f)
+
+    for root, dirs, files in os.walk(templates_folder):
+        path = root.split(os.sep)
+        for file_name in files:
+            file_path = os.path.join("/".join(path[1:]), file_name)
+            template = env.get_template(file_path)
+
+            calls = data['calls']
+            returns = data['returns']
+            data['functions'] = calls + returns
+
+            # we need a aligned call and return list in case we need access to both
+            data['zipped'] = list(zip(calls, returns))
+            for i in data['zipped']:
+                assert i[0].type_name[:-4] == i[1].type_name[:-6]
+
+            target = os.path.join('generated/', file_path)
+            print("generating {}".format(target))
+            with open(target, 'w') as f:
+                f.write(template.render(**data))
 
 
-with open('dump', 'rb') as f:
-    data = pickle.load(f)
-
-for file_name in os.listdir(templates_folder):
-
-    template = env.get_template(file_name)
-
-    calls = data['calls']
-    returns = data['returns']
-    data['functions'] = calls + returns
-
-    # we need a aligned call and return list in case we need access to both
-    data['zipped'] = list(zip(calls, returns))
-    for i in data['zipped']:
-        assert i[0].type_name[:-4] == i[1].type_name[:-6]
-
-    target = 'generated/' + file_name
-    print("generating {}".format(target))
-    with open(target, 'w') as f:
-        f.write(template.render(**data))
+if __name__ == '__main__':
+    main()
