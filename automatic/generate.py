@@ -1,4 +1,4 @@
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from itertools import chain
 import pickle
 import os
@@ -61,6 +61,7 @@ def ack2ck(s):
 
 env = Environment(
     loader=FileSystemLoader(templates_folder),
+    undefined=StrictUndefined,
 )
 
 env.filters['under'] = under
@@ -77,6 +78,11 @@ for file_name in os.listdir(templates_folder):
     calls = data['calls']
     returns = data['returns']
     data['functions'] = calls + returns
+
+    # we need a aligned call and return list in case we need access to both
+    data['zipped'] = list(zip(calls, returns))
+    for i in data['zipped']:
+        assert i[0].type_name[:-4] == i[1].type_name[:-6]
 
     target = 'generated/' + file_name
     print("generating {}".format(target))

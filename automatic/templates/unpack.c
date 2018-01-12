@@ -2,6 +2,7 @@
 #include "pkcs11/pkcs11unix.h"
 #include "unpack.h"
 #include "util.h"
+#include "returncodes.h"
 
 // always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
 // the length of the SEQUENCE
@@ -18,11 +19,11 @@ static const derwalk {{ f.type_name|under }}_packer[] = {
 
 {% for f in functions %}
 CK_RV
-pack_{{ f.type_name|under }}(
-        dercursor * packed
+unpack_{{ f.type_name|under }}(
+        dercursor* packed
         {%- for c in f.type_decl.components if not c.type_decl.type_name == 'NULL' %}
         {%- if loop.first %},{% endif %}
-        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
+        {{ c.type_decl.type_name|under|ack2ck }}* {{ c.identifier }}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
@@ -39,7 +40,13 @@ pack_{{ f.type_name|under }}(
         return der_error_helper(errno);
 
     {% for comp in f.type_decl.components -%}
-    // TODO: convert {{ comp.identifier }} ({{ comp.type_decl.type_name|under }})
+    {% if comp.type_decl.type_name == 'ACK-RV' %}
+    status = der_get_ulong({{ f.type_name|under }}.{{ comp.identifier }}, {{ comp.identifier }});
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+    {% else %}
+    // TODO: convert {{ comp.identifier }} ({{ comp.type_decl.type_name }})
+    {% endif %}
     {% endfor %}
 
     return CKR_OK;

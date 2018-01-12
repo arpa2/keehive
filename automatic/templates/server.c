@@ -36,7 +36,7 @@ server_End(){
     return CKR_OK;
 }
 
-{% for call in calls %}
+{% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 server_{{ f }}(
@@ -46,15 +46,33 @@ server_{{ f }}(
 
     CK_INFO info;
     CK_RV status;
+    CK_RV retval;
 
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    status = unpack_{{ f }}_Call(cursorIn);
+    {# Create variable placeholders #}
+    {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }};
+    {% endfor %}
+
+    {# unpack the dercursor into the placeholders #}
+    status = unpack_{{ f }}_Call(
+        cursorIn
+    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+    {%- if loop.first -%},
+    {% endif %}
+        &{{- c.identifier -}}
+    {%- if not loop.last %},
+    {% endif -%}
+    {% endfor %}
+    );
+
+
     if (status != CKR_OK)
         return status;
 
-    status = call_{{ f }}(
+    retval = call_{{ f }}(
         &function_list
         {%- for c in call.type_decl.components -%}
         {%- if loop.first %},
@@ -65,12 +83,9 @@ server_{{ f }}(
         {% endfor %}
     );
 
-    if (status != CKR_OK)
-        return status;
-
     status = pack_{{ f }}_Return(
         CursorOut
-        {%- for c in call.type_decl.components -%}
+        {%- for c in return_.type_decl.components -%}
         {%- if loop.first %},
         {% endif -%}
         {{- c.identifier -}}

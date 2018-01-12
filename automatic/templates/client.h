@@ -3,11 +3,13 @@
 
 #include "pkcs11/pkcs11unix.h"
 
+/*
 // TODO: gijs check if this makes sense
 typedef void * CK_OPAQUE;
 typedef void * ANY;
 typedef CK_UTF8CHAR_PTR UTF8String;
 typedef CK_BBOOL BOOLEAN;
+*/
 
 {% for f in calls %}
 CK_RV

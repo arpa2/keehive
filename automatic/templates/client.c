@@ -4,7 +4,7 @@
 #include "unpack.h"
 
 
-{% for call in calls %}
+{% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 client_{{ f }}(
@@ -22,7 +22,7 @@ client_{{ f }}(
         return status;
 
     {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' %}
-    memset ({{ c.identifier }}, 0, sizeof (*{{ c.identifier }}));
+    memset ({{ c.identifier }}, 0, sizeof ({{ c.identifier }}));
     {%- endfor %}
 
     status = pack_{{ f }}_Call(
@@ -49,12 +49,18 @@ client_{{ f }}(
 
     free(dercursorIn.derptr);
 
-    status = unpack_{{ f }}_Return(
+    {# Create variable placeholders #}
+    {% for c in return_.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+    {{ c.type_decl.type_name|under|ack2ck }} return_{{ c.identifier }};
+    {% endfor %}
+
+    {# unpack the dercursor into the placeholders #}
+    status = unpack_{{ return_.type_name|under }}(
         &dercursorOut
-        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+        {%- for c in return_.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
         {%- if loop.first -%},
         {% endif -%}
-        {{- c.identifier -}}
+        &return_{{- c.identifier -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}
@@ -66,6 +72,11 @@ client_{{ f }}(
     };
 
     free(dercursorOut.derptr);
+
+    if (return_retval != CKR_OK) {
+        server_End();
+        return return_retval;
+    };
 
     status = server_End();
     if (status != CKR_OK) {
