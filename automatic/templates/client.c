@@ -21,7 +21,7 @@ client_{{ f }}(
         return status;
 
     {% for c in call|extractargs %}
-    memset ({{ c.identifier }}, 0, sizeof ({{ c.identifier }}));
+    memset (&{{ c.identifier }}, 0, sizeof ({{ c.identifier }}));
     {%- endfor %}
 
     status = pack_{{ f }}_Call(

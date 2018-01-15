@@ -1,5 +1,6 @@
 #include "pack.h"
 #include "returncodes.h"
+#include "util.h"
 
 {% for f in functions %}
 static const derwalk {{ f.type_name|under }}_packer[] = {
@@ -24,7 +25,12 @@ pack_{{ f.type_name|under }}(
     memset (&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
     {% for comp in f|extractargs -%}
+    {% if comp.type_decl.type_name == "ACK-ULONG" %}
+    der_buf_ulong_t {{ comp.identifier }}_storage;
+    {{ f.type_name|under }}.{{ comp.identifier }} = der_put_ulong(&{{ comp.identifier }}_storage, {{ comp.identifier }});
+    {% else %}
     // TODO: convert {{ comp.identifier }} ({{ comp.type_decl.type_name|under }})
+    {% endif -%}
     {% endfor %}
     packtarget->derlen = der_pack({{ f.type_name|under }}_packer,
                                   (const dercursor *) &{{ f.type_name|under }},
