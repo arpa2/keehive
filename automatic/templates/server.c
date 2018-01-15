@@ -44,39 +44,34 @@ server_{{ f }}(
         dercursor *CursorOut
 ){
 
-    CK_INFO info;
-    CK_RV status;
-    CK_RV retval;
-
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     {# Create variable placeholders #}
-    {% for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+    {%- for c, return_flag in combine(call, return_) -%}
     {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }};
     {% endfor %}
 
-    {# unpack the dercursor into the placeholders #}
-    status = unpack_{{ f }}_Call(
+    {# unpack the dercursor into the placeholders -#}
+    CK_RV status = unpack_{{ f }}_Call(
         cursorIn
-    {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
-    {%- if loop.first -%},
-    {% endif %}
-        &{{- c.identifier -}}
-    {%- if not loop.last %},
-    {% endif -%}
-    {% endfor %}
+        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
+        {%- if loop.first -%},
+        {% endif -%}
+        &{{ c.identifier -}}
+        {%- if not loop.last %},
+        {% endif -%}
+        {% endfor %}
     );
-
 
     if (status != CKR_OK)
         return status;
 
-    retval = call_{{ f }}(
+    CK_RV retval = call_{{ f }}(
         &function_list
         {%- for c, return_flag in combine(call, return_) -%}
-        {%- if loop.first %},
-        {% endif -%}
+        {%- if loop.first -%},
+        {%- endif -%}
         {{- c.identifier -}}
         {%- if not loop.last %},
         {% endif -%}
