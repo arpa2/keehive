@@ -17,7 +17,7 @@ server_Begin(){
     if (status != CKR_OK)
         return status;
 
-    status = call_C_Initialize(&function_list);
+    status = call_C_Initialize(&function_list, NULL_PTR);
     if (status != CKR_OK)
         return status;
 
@@ -27,7 +27,7 @@ server_Begin(){
 
 CK_RV
 server_End(){
-    CK_RV status = call_C_Finalize(&function_list);
+    CK_RV status = call_C_Finalize(&function_list, NULL_PTR);
 
     if (status != CKR_OK)
         return status;
@@ -74,7 +74,7 @@ server_{{ f }}(
 
     retval = call_{{ f }}(
         &function_list
-        {%- for c in combine(call, return_) -%}
+        {%- for c, return_flag in combine(call, return_) -%}
         {%- if loop.first %},
         {% endif -%}
         {{- c.identifier -}}

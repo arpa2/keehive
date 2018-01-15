@@ -11,9 +11,9 @@ CK_RV call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function
 CK_RV
 call_{{ call.type_name[:-5]|under }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for c in combine(call, return_) %}
+    {%- for c, return_flag in combine(call, return_) %}
     {%- if loop.first %},{% endif %}
-    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
+    {{ c.type_decl.type_name|under|ack2ck(return_flag) }} {{ c.identifier }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 );

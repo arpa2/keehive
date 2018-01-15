@@ -7,6 +7,7 @@
 typedef CK_VOID_PTR_PTR CK_OPAQUE;
 typedef CK_UTF8CHAR_PTR UTF8String;
 typedef CK_BBOOL BOOLEAN;
+typedef CK_VOID_PTR ANY;
 
 
 {% for f in functions %}
