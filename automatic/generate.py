@@ -96,16 +96,12 @@ def main():
     with open('dump', 'rb') as f:
         data = pickle.load(f)
 
-    returns = data['returns']
-    returns = [i for i in returns if i.type_name[:-7] not in functions_skip]
-
-    calls = data['calls']
-    calls = [i for i in calls if i.type_name[:-5] not in functions_skip]
-
-    data['functions'] = calls + returns
+    data['returns'] = [i for i in data['returns'] if i.type_name[:-7] not in functions_skip]
+    data['calls'] = [i for i in data['calls'] if i.type_name[:-5] not in functions_skip]
+    data['functions'] = data['calls'] + data['returns']
 
     # we need an aligned call and return list in case we need access to both
-    data['zipped'] = list(zip(calls, returns))
+    data['zipped'] = list(zip(data['calls'],  data['returns']))
     for i in data['zipped']:
         assert i[0].type_name[:-4] == i[1].type_name[:-6]
 
