@@ -48,8 +48,8 @@ server_{{ f }}(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     {# Create variable placeholders #}
-    {%- for c, return_flag in combine(call, return_) -%}
-    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }};
+    {%- for t, v in combine(call, return_) -%}
+    {{ t }} {{ v }};
     {% endfor %}
 
     {# unpack the dercursor into the placeholders -#}
@@ -69,10 +69,10 @@ server_{{ f }}(
 
     CK_RV retval = call_{{ f }}(
         &function_list
-        {%- for c, return_flag in combine(call, return_) -%}
+        {%- for t, v in combine(call, return_) -%}
         {%- if loop.first -%},
         {%- endif -%}
-        {{- c.identifier -}}
+        {{- v -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}

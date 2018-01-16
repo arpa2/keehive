@@ -387,7 +387,7 @@ C-Finalize-Call ::= SEQUENCE {
 
 C-Finalize-Return ::= SEQUENCE {
         retval         ACK-RV,
-        pReserverd [0] ANY OPTIONAL
+        pReserved [0] ANY OPTIONAL
 }
 
 C-GetInfo-Call ::= SEQUENCE {

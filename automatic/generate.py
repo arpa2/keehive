@@ -54,17 +54,47 @@ def extractargs(fundef):
             yield c
 
 
+def format_type(typedef, return_flag=False):
+    return ack2ck(under(typedef), return_flag)
+
+
+def parse_type(c, return_flag=False):
+    if c.type_decl.type_name == 'NULL':
+        return
+
+    elif c.type_decl.type_name == "CHOICE":
+        reserved = False
+        element = None
+        for d in c.type_decl.type_decl.components:
+            if d.__str__() == "...":
+                reserved = True
+            elif d.type_decl.type_name != 'NULL':
+                element = d
+        if not element:
+            if reserved:
+                return "CK_VOID_PTR", c.identifier
+            else:
+                return
+        elif element.type_decl.type_name == "BOOLEAN":
+            # hack for  Notify of C_OpenSession
+            return "CK_NOTIFY", c.identifier
+        elif element:
+            return format_type(element.type_decl.type_name, return_flag), c.identifier
+
+    else:
+        return format_type(c.type_decl.type_name, return_flag), c.identifier
+
+
 def combine(call_func, return_func):
     """ Extracts, combines and orders the arguments for Return and Call """
     x = {}
     for f, return_flag in ((call_func, False), (return_func, True)):
-        for i in filter_unused(f):
-            if hasattr(i.type_decl, "class_number"):
-                if i.type_decl.type_name == "CHOICE":
-                    for d in filter_unused(i.type_decl):
-                        x[i.type_decl.class_number] = (d, return_flag)
-                else:
-                    x[i.type_decl.class_number] = (i, return_flag)
+        for c in f.type_decl.components:
+            if not c:
+                continue
+
+            if hasattr(c.type_decl, "class_number"):
+                x[c.type_decl.class_number] = parse_type(c, return_flag)
     if not x:
         return []
 

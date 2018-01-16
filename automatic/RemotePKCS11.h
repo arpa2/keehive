@@ -17,13 +17,13 @@
 
 /* Overlay structures with ASN.1 derived nesting and labelling */
 
+typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
+
+
 typedef dercursor DER_OVLY_RemotePKCS11_ACK_ULONG;
 
 
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE;
-
-
-typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
 
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE {
@@ -580,7 +580,7 @@ typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved DER_OVLY_RemotePK
 
 typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
-	dercursor pReserverd; // [0] ANY
+	dercursor pReserved; // [0] ANY
 } DER_OVLY_RemotePKCS11_C_Finalize_Return;
 
 
@@ -1255,6 +1255,12 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 /* Parser definitions in terms of ASN.1 derived bytecode instructions */
 
+#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
+	DER_PACK_STORE | implicit_tag
+
+#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
+	DER_PACK_STORE | DER_TAG_OCTETSTRING
+
 #define DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag) \
 	DER_PACK_STORE | implicit_tag
 
@@ -1266,12 +1272,6 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 #define DER_PACK_RemotePKCS11_ACK_ATTRIBUTE_TYPE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
-
-#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
-	DER_PACK_STORE | implicit_tag
-
-#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
-	DER_PACK_STORE | DER_TAG_OCTETSTRING
 
 #define DER_PIMP_RemotePKCS11_ACK_ATTRIBUTE(implicit_tag) \
 	DER_PACK_ENTER | implicit_tag, \
