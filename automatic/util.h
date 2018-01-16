@@ -15,13 +15,17 @@ int der_get_long (dercursor cursor, long int *valp);
 int der_get_ulong (dercursor cursor,  long unsigned int *valp);
 
 typedef long int der_buf_long_t;
-dercursor der_put_long (der_buf_long_t *der_buf_long, long int value);
+dercursor der_put_long(der_buf_long_t *der_buf_long, long int value);
 
 typedef unsigned long int der_buf_ulong_t;
-dercursor der_put_ulong (der_buf_ulong_t *der_buf_ulong, long int value);
+dercursor der_put_ulong(der_buf_ulong_t *der_buf_ulong, long int value);
 
 typedef uint8_t der_buf_char_t [1];
-dercursor der_put_char (der_buf_char_t *der_buf_char, char value);
+dercursor der_put_char(der_buf_char_t *der_buf_char, char value);
+
+typedef uint8_t der_buf_uint8_t;
+dercursor der_put_uint8(uint8_t *der_buf_uint8, uint8_t value);
+
 
 CK_RV pack_slotList(
         CK_SLOT_ID_PTR *pSlotList,

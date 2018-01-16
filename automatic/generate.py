@@ -72,17 +72,17 @@ def parse_type(c, return_flag=False):
                 element = d
         if not element:
             if reserved:
-                return "CK_VOID_PTR", c.identifier
+                return "CK_VOID_PTR", c.identifier, return_flag
             else:
                 return
         elif element.type_decl.type_name == "BOOLEAN":
             # hack for  Notify of C_OpenSession
-            return "CK_NOTIFY", c.identifier
+            return "CK_NOTIFY", c.identifier, return_flag
         elif element:
-            return format_type(element.type_decl.type_name, return_flag), c.identifier
+            return format_type(element.type_decl.type_name, return_flag), c.identifier, return_flag
 
     else:
-        return format_type(c.type_decl.type_name, return_flag), c.identifier
+        return format_type(c.type_decl.type_name, return_flag), c.identifier, return_flag
 
 
 def combine(call_func, return_func):

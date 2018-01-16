@@ -11,9 +11,9 @@ CK_RV call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function
 CK_RV
 call_{{ call.type_name[:-5]|under }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for t, v in combine(call, return_) %}
+    {%- for type, value, pointer in combine(call, return_) %}
     {%- if loop.first %},{% endif %}
-    {{ t }} {{ v }}
+    {{ type }} {{ value }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 );

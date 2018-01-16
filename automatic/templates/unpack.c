@@ -40,7 +40,7 @@ unpack_{{ f.type_name|under }}(
         return der_error_helper(errno);
 
     {% for comp in f.type_decl.components -%}
-    {% if comp.type_decl.type_name == 'ACK-RV' %}
+    {% if comp.type_decl.type_name in ("ACK-ULONG", "ACK-RV", "ACK-SESSION-HANDLE", "ACK-SLOT-ID", "ACK-OBJECT-HANDLE", "ACK-MECHANISM-TYPE", "ACK-USER-TYPE") %}
     status = der_get_ulong({{ f.type_name|under }}.{{ comp.identifier }}, {{ comp.identifier }});
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;

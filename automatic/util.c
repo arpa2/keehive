@@ -59,31 +59,36 @@ int der_get_uchar(dercursor *cursor, unsigned char *val )
 }
 
 
-int der_get_long (dercursor cursor, long int *valp)
+int der_get_long(dercursor cursor, long int *valp)
 {
     return der_get_int32 (cursor, (int32_t *)valp);
 };
 
 
-int der_get_ulong (dercursor cursor,  long unsigned int *valp)
+int der_get_ulon (dercursor cursor,  long unsigned int *valp)
 {
     return der_get_uint32 (cursor, (u_int32_t *)valp);
 };
 
 
-dercursor der_put_long (der_buf_long_t *der_buf_long, long int value)
+dercursor der_put_long(der_buf_long_t *der_buf_long, long int value)
 {
     return der_put_int32 ((u_int8_t *)der_buf_long,(u_int32_t) value);
 };
 
 
-dercursor der_put_ulong (der_buf_ulong_t *der_buf_ulong, long int value)
+dercursor der_put_ulong(der_buf_ulong_t *der_buf_ulong, long int value)
 {
     return der_put_uint32 ((u_int8_t *)der_buf_ulong, (u_int32_t)value);
 };
 
+dercursor der_put_uint8(der_buf_uint8_t *der_buf_uint8, uint8_t value)
+{
+    return der_put_uint32((u_int8_t *)der_buf_uint8, (u_int32_t)value);
+};
 
-dercursor der_put_char (der_buf_char_t *der_buf_char, char value)
+
+dercursor der_put_char(der_buf_char_t *der_buf_char, char value)
 {
     dercursor retval;
     retval.derptr = (uint8_t *)der_buf_char;

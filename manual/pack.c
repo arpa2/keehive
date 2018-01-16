@@ -209,6 +209,7 @@ pack_C_GetSlotInfo_Call(
 ) {
     C_GetSlotInfo_Call_t C_GetSlotInfo_Call;
     memset (&C_GetSlotInfo_Call, 0, sizeof (C_GetSlotInfo_Call));
+
     der_buf_ulong_t slotID_store;
     C_GetSlotInfo_Call.slotID = der_put_ulong(&slotID_store, slotID);
     cursor->derlen =  der_pack(C_GetSlotInfo_Call_packer, (const dercursor *) &C_GetSlotInfo_Call, NULL);
