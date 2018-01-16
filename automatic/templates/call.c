@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <dlfcn.h>
 #include <string.h>
-#include "wrap.h"
+#include "call.h"
 #include "returncodes.h"
 
 CK_RV

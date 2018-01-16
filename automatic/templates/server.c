@@ -1,7 +1,7 @@
 #include "server.h"
 #include "pack.h"
 #include "unpack.h"
-#include "wrap.h"
+#include "call.h"
 #include "returncodes.h"
 
 const char path[] = "/usr/local/lib/softhsm/libsofthsm2.so";

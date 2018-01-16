@@ -2,7 +2,7 @@ set(LIB_H
         generated/types.h
         generated/pack.h
         generated/unpack.h
-        generated/wrap.h
+        generated/call.h
         generated/client.h
         generated/server.h
         RemotePKCS11.h
@@ -17,7 +17,7 @@ set(LIB_H
 set(LIB_SRC
         generated/pack.c
         generated/unpack.c
-        generated/wrap.c
+        generated/call.c
         generated/client.c
         generated/server.c
         convert.c
