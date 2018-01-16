@@ -11,9 +11,9 @@
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for c in f|extractargs %}
+        {%- for type, value in f|extractargs %}
         {%- if loop.first %},{% endif %}
-        {{ c.type_decl.type_name|under|ack2ck }}* {{ c.identifier }}
+        {{ type }}* {{ value }}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );

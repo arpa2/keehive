@@ -1,3 +1,4 @@
+from asn1ate.sema import TypeAssignment, ComponentType
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from itertools import chain
 import pickle
@@ -36,29 +37,40 @@ def ack2ck(s, return_flag=False):
     return s
 
 
-def filter_unused(fundef):
-    return (i for i in fundef.type_decl.components
-            if i.__str__() != "..." and
-            i.type_decl.type_name != 'NULL'
-            # and i.type_decl.type_name != 'ANY'
-            )
-
-
-def extractargs(fundef):
+def extractargs(fundef: TypeAssignment):
     """ Extracts arguments from a function definition. Filters out optional types. """
-    for c in filter_unused(fundef):
-        if c.type_decl.type_name == "CHOICE":
-            for d in filter_unused(c.type_decl):
-                yield d
+    for c in fundef.type_decl.components:
+        if c.type_decl.type_name == 'NULL':
+            continue
+
+        elif c.type_decl.type_name == "CHOICE":
+            reserved = False
+            element = None
+            for d in c.type_decl.type_decl.components:
+                if d.__str__() == "...":
+                    reserved = True
+                elif d.type_decl.type_name != 'NULL':
+                    element = d
+            if not element:
+                if reserved:
+                    yield "CK_VOID_PTR", c.identifier
+                else:
+                    continue
+            elif element.type_decl.type_name == "BOOLEAN":
+                # hack for  Notify of C_OpenSession
+                yield "CK_NOTIFY", c.identifier
+            elif element:
+                yield format_type(element.type_decl.type_name, False), c.identifier
+
         else:
-            yield c
+            yield format_type(c.type_decl.type_name, False), c.identifier
 
 
-def format_type(typedef, return_flag=False):
+def format_type(typedef: str, return_flag=False):
     return ack2ck(under(typedef), return_flag)
 
 
-def parse_type(c, return_flag=False):
+def parse_type(c: ComponentType, return_flag=False):
     if c.type_decl.type_name == 'NULL':
         return
 
@@ -85,7 +97,7 @@ def parse_type(c, return_flag=False):
         return format_type(c.type_decl.type_name, return_flag), c.identifier, return_flag
 
 
-def combine(call_func, return_func):
+def combine(call_func: TypeAssignment, return_func: TypeAssignment):
     """ Extracts, combines and orders the arguments for Return and Call """
     x = {}
     for f, return_flag in ((call_func, False), (return_func, True)):
@@ -116,12 +128,11 @@ def main():
 
     # enhance the template filter experience
     env.filters['under'] = under
-    env.filters['ack2ck'] = ack2ck
     env.filters['extractargs'] = extractargs
 
     # enhance the template function experience
-    env.globals['extractargs'] = extractargs
     env.globals['combine'] = combine
+    env.globals['extractargs'] = extractargs
 
     with open('dump', 'rb') as f:
         data = pickle.load(f)

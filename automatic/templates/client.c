@@ -8,8 +8,8 @@
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 client_{{ f }}(
-    {%- for c in call|extractargs %}
-    {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}{%- if not loop.last %},{%- endif -%}
+    {%- for type, var in call|extractargs %}
+    {{ type }} {{ var }}{%- if not loop.last %},{%- endif -%}
     {% endfor %}
 ) {
     CK_RV status;
@@ -20,16 +20,16 @@ client_{{ f }}(
     if (status != CKR_OK)
         return status;
 
-    {% for c in call|extractargs %}
-    memset (&{{ c.identifier }}, 0, sizeof ({{ c.identifier }}));
+    {% for type, var in call|extractargs %}
+    memset (&{{ var }}, 0, sizeof ({{ var }}));
     {%- endfor %}
 
     status = pack_{{ f }}_Call(
         &dercursorIn
-        {%- for c in call|extractargs -%}
+        {%- for type, var in call|extractargs -%}
         {%- if loop.first %},
         {% endif -%}
-        {{- c.identifier -}}
+        {{- var -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}
@@ -49,17 +49,17 @@ client_{{ f }}(
     free(dercursorIn.derptr);
 
     {# Create variable placeholders #}
-    {% for c in return_|extractargs -%}
-    {{ c.type_decl.type_name|under|ack2ck }} return_{{ c.identifier }};
+    {% for type, var in return_|extractargs -%}
+    {{ type }} return_{{ var }};
     {% endfor %}
 
     {# unpack the dercursor into the placeholders #}
     status = unpack_{{ return_.type_name|under }}(
         &dercursorOut
-        {%- for c in return_|extractargs -%}
+        {%- for type, var in return_|extractargs -%}
         {%- if loop.first -%},
         {% endif -%}
-        &return_{{- c.identifier -}}
+        &return_{{- var -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}

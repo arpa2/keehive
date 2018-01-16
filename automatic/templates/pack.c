@@ -14,24 +14,23 @@ static const derwalk {{ f.type_name|under }}_packer[] = {
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packtarget
-        {%- for c in f|extractargs %}
+        {%- for type, var in f|extractargs %}
             {%- if loop.first %},{% endif %}
-        {{ c.type_decl.type_name|under|ack2ck }} {{ c.identifier }}
-            {%- if not loop.last %},{% endif -%}
+        {{ type }} {{ var }}{%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
     {{ f.type_name|under }}_t {{ f.type_name|under }};
 
     memset (&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
-    {% for comp in f|extractargs -%}
+    {% for type, var in f|extractargs -%}
 
-    {% if comp.type_decl.type_name in ("ACK-ULONG", "ACK-RV", "ACK-SESSION-HANDLE", "ACK-SLOT-ID", "ACK-OBJECT-HANDLE", "ACK-MECHANISM-TYPE", "ACK-USER-TYPE") %}
-    der_buf_ulong_t {{ comp.identifier }}_storage;
-    {{ f.type_name|under }}.{{ comp.identifier }} = der_put_ulong(&{{ comp.identifier }}_storage, {{ comp.identifier }});
+    {% if type in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
+    der_buf_ulong_t {{ var }}_storage;
+    {{ f.type_name|under }}.{{ var }} = der_put_ulong(&{{ var }}_storage, {{ var }});
 
     {% else %}
-    // TODO: convert {{ comp.identifier }} ({{ comp.type_decl.type_name }})
+    // TODO: convert {{ var }} ({{ type }})
     {% endif -%}
     {% endfor %}
     packtarget->derlen = der_pack({{ f.type_name|under }}_packer,

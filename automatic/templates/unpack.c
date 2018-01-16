@@ -21,9 +21,9 @@ static const derwalk {{ f.type_name|under }}_packer[] = {
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for c in f|extractargs %}
+        {%- for type, var in extractargs(f) %}
         {%- if loop.first %},{% endif %}
-        {{ c.type_decl.type_name|under|ack2ck }}* {{ c.identifier }}
+        {{  type }}* {{ var }}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
@@ -39,13 +39,13 @@ unpack_{{ f.type_name|under }}(
     if (status != 0)
         return der_error_helper(errno);
 
-    {% for comp in f.type_decl.components -%}
-    {% if comp.type_decl.type_name in ("ACK-ULONG", "ACK-RV", "ACK-SESSION-HANDLE", "ACK-SLOT-ID", "ACK-OBJECT-HANDLE", "ACK-MECHANISM-TYPE", "ACK-USER-TYPE") %}
-    status = der_get_ulong({{ f.type_name|under }}.{{ comp.identifier }}, {{ comp.identifier }});
+    {% for type, var in extractargs(f) -%}
+    {% if type in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
+    status = der_get_ulong({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     {% else %}
-    // TODO: convert {{ comp.identifier }} ({{ comp.type_decl.type_name }})
+    // TODO: convert {{ type }} ({{ var }})
     {% endif %}
     {% endfor %}
 
