@@ -16,6 +16,7 @@ def main():
 
     returns = []
     calls = []
+    others = []
 
     for mod_name, module in defmods.items():
 
@@ -23,10 +24,12 @@ def main():
             for ass in sorted_ass:
                 if ass.type_name.endswith("-Return"):
                     returns.append(ass)
-                if ass.type_name.endswith("-Call"):
+                elif ass.type_name.endswith("-Call"):
                     calls.append(ass)
+                else:
+                    others.append(ass)
 
-    functions = {'returns': returns, 'calls': calls}
+    functions = {'returns': returns, 'calls': calls, 'others': others}
 
     with open('dump', 'wb') as f:
         pickle.dump(functions, f)

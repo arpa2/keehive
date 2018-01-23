@@ -37,8 +37,11 @@ def ack2ck(s, return_flag=False) -> str:
     return s
 
 
-def extract_args(fundef: TypeAssignment) -> Generator[Tuple[str, str], None, None]:
+def extract_args(fundef: TypeAssignment, other: TypeAssignment = None) -> Generator[Tuple[str, str, bool], None, None]:
     """ Extracts arguments from a function definition. Filters out optional types. """
+
+    others = [o.identifier for o in other.type_decl.components] if other else []
+
     for c in fundef.type_decl.components:
         if c.type_decl.type_name == 'NULL':
             continue
@@ -53,17 +56,17 @@ def extract_args(fundef: TypeAssignment) -> Generator[Tuple[str, str], None, Non
                     element = d
             if not element:
                 if reserved:
-                    yield "CK_VOID_PTR", c.identifier
+                    yield "CK_VOID_PTR", c.identifier, c.identifier in others
                 else:
                     continue
             elif element.type_decl.type_name == "BOOLEAN":
                 # hack for  Notify of C_OpenSession
-                yield "CK_NOTIFY", c.identifier
+                yield "CK_NOTIFY", c.identifier, c.identifier in others
             elif element:
-                yield format_type(element.type_decl.type_name, False), c.identifier
+                yield format_type(element.type_decl.type_name, False), c.identifier, c.identifier in others
 
         else:
-            yield format_type(c.type_decl.type_name, False), c.identifier
+            yield format_type(c.type_decl.type_name, False), c.identifier, c.identifier in others
 
 
 def format_type(typedef: str, return_flag=False) -> str:
@@ -97,7 +100,7 @@ def parse_type(c: ComponentType, return_flag=False) -> Union[Tuple[str, str, boo
         return format_type(c.type_decl.type_name, return_flag), c.identifier, return_flag
 
 
-def combine(call_func: TypeAssignment, return_func: TypeAssignment):
+def combined_args(call_func: TypeAssignment, return_func: TypeAssignment):
     """ Extracts, combines and orders the arguments for Return and Call """
     x = {}
     for f, return_flag in ((call_func, False), (return_func, True)):
@@ -106,7 +109,11 @@ def combine(call_func: TypeAssignment, return_func: TypeAssignment):
                 continue
 
             if hasattr(c.type_decl, "class_number"):
-                if x[c.type_decl.class_number][0] == ""
+                # This is an edge case where arguments for C_Initialize call and return differ, but we want the
+                # type from call
+                if f.type_name == 'C-Initialize-Return':
+                    continue
+                else:
                     x[c.type_decl.class_number] = parse_type(c, return_flag)
     if not x:
         return []
@@ -129,11 +136,11 @@ def main():
 
     # enhance the template filter experience
     env.filters['under'] = under
-    env.filters['extractargs'] = extract_args
+    env.filters['extract_args'] = extract_args
 
     # enhance the template function experience
-    env.globals['combine'] = combine
-    env.globals['extractargs'] = extract_args
+    env.globals['combined_args'] = combined_args
+    env.globals['extract_args'] = extract_args
 
     with open('dump', 'rb') as f:
         data = pickle.load(f)
