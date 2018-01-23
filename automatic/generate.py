@@ -1,6 +1,6 @@
 from asn1ate.sema import TypeAssignment, ComponentType
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
-from itertools import chain
+from typing import Generator, Tuple, Union
 import pickle
 import os
 
@@ -17,11 +17,11 @@ functions_skip = (
 )
 
 
-def under(s):
+def under(s: str) -> str:
     return s.replace('-', '_')
 
 
-def ack2ck(s, return_flag=False):
+def ack2ck(s, return_flag=False) -> str:
     if s.startswith('ACK_'):
         s = s[1:]
 
@@ -37,7 +37,7 @@ def ack2ck(s, return_flag=False):
     return s
 
 
-def extractargs(fundef: TypeAssignment):
+def extract_args(fundef: TypeAssignment) -> Generator[Tuple[str, str], None, None]:
     """ Extracts arguments from a function definition. Filters out optional types. """
     for c in fundef.type_decl.components:
         if c.type_decl.type_name == 'NULL':
@@ -66,11 +66,11 @@ def extractargs(fundef: TypeAssignment):
             yield format_type(c.type_decl.type_name, False), c.identifier
 
 
-def format_type(typedef: str, return_flag=False):
+def format_type(typedef: str, return_flag=False) -> str:
     return ack2ck(under(typedef), return_flag)
 
 
-def parse_type(c: ComponentType, return_flag=False):
+def parse_type(c: ComponentType, return_flag=False) -> Union[Tuple[str, str, bool], None]:
     if c.type_decl.type_name == 'NULL':
         return
 
@@ -106,7 +106,8 @@ def combine(call_func: TypeAssignment, return_func: TypeAssignment):
                 continue
 
             if hasattr(c.type_decl, "class_number"):
-                x[c.type_decl.class_number] = parse_type(c, return_flag)
+                if x[c.type_decl.class_number][0] == ""
+                    x[c.type_decl.class_number] = parse_type(c, return_flag)
     if not x:
         return []
 
@@ -128,11 +129,11 @@ def main():
 
     # enhance the template filter experience
     env.filters['under'] = under
-    env.filters['extractargs'] = extractargs
+    env.filters['extractargs'] = extract_args
 
     # enhance the template function experience
     env.globals['combine'] = combine
-    env.globals['extractargs'] = extractargs
+    env.globals['extractargs'] = extract_args
 
     with open('dump', 'rb') as f:
         data = pickle.load(f)
