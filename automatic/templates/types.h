@@ -14,5 +14,10 @@ typedef CK_VOID_PTR ANY;
 typedef DER_OVLY_RemotePKCS11_{{ f.type_name|under }} {{ f.type_name|under }}_t;
 {%- endfor %}
 
+
+{% for o in others %}
+typedef DER_OVLY_RemotePKCS11_{{ o.type_name|under }} {{ o.type_name|under }}_t;
+{%- endfor %}
+
 #endif //KEEHIVE_CONSTANTS_H
 

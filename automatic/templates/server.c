@@ -48,7 +48,7 @@ server_{{ f }}(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     {# Create variable placeholders #}
-    {%- for type, value, pointer in combine(call, return_) -%}
+    {%- for type, value, pointer in combined_args(call, return_) -%}
     {{ type }} {{ value }};
     {% endfor %}
 
@@ -69,7 +69,7 @@ server_{{ f }}(
 
     CK_RV retval = call_{{ f }}(
         &function_list
-        {%- for type, value, pointer in combine(call, return_) -%}
+        {%- for type, value, pointer in combined_args(call, return_) -%}
         {%- if loop.first %},
         {% endif -%}
         {{- value -}}

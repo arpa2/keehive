@@ -34,19 +34,19 @@ call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list)
 };
 
 
-{% for call, return_ in zipped if not call.type_name == "C-GetFunctionList-Call" %}
+{% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 call_{{ f }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for type, value, pointer in combine(call, return_) %}
+    {%- for type, value, pointer in combined_args(call, return_) %}
     {%- if loop.first %},{% endif %}
     {{ type }} {{ value }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
     CK_RV status = ((*function_list)->{{ f }})(
-        {% for type, value, pointer in combine(call, return_) -%}
+        {% for type, value, pointer in combined_args(call, return_) -%}
         {{- value -}}
         {%- if not loop.last %},
         {% endif -%}

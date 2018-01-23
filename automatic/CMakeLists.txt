@@ -22,7 +22,7 @@ set(LIB_SRC
         generated/server.c
         convert.c
         util.c
-        returncodes.h)
+        returncodes.h manualpack.c manualpack.h)
 
 
 include_directories ("${PROJECT_BINARY_DIR}" "generated" ".")

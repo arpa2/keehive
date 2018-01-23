@@ -11,7 +11,7 @@
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for type, value in f|extractargs %}
+        {%- for type, value, other in f|extract_args %}
         {%- if loop.first %},{% endif %}
         {{ type }}* {{ value }}
         {%- if not loop.last %},{% endif -%}

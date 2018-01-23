@@ -21,7 +21,7 @@ static const derwalk {{ f.type_name|under }}_packer[] = {
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for type, var in extractargs(f) %}
+        {%- for type, var, other in extract_args(f) %}
         {%- if loop.first %},{% endif %}
         {{  type }}* {{ var }}
         {%- if not loop.last %},{% endif -%}
@@ -39,7 +39,7 @@ unpack_{{ f.type_name|under }}(
     if (status != 0)
         return der_error_helper(errno);
 
-    {% for type, var in extractargs(f) -%}
+    {% for type, var, other in extract_args(f) -%}
     {% if type in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     status = der_get_ulong({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)

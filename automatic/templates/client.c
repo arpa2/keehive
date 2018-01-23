@@ -8,7 +8,7 @@
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 client_{{ f }}(
-    {%- for type, var in call|extractargs %}
+    {%- for type, var, pointer in combined_args(call, return_) %}
     {{ type }} {{ var }}{%- if not loop.last %},{%- endif -%}
     {% endfor %}
 ) {
@@ -20,16 +20,18 @@ client_{{ f }}(
     if (status != CKR_OK)
         return status;
 
+    {# // disable this for now since we probable don't need it
     {% for type, var in call|extractargs %}
     memset (&{{ var }}, 0, sizeof ({{ var }}));
     {%- endfor %}
+    #}
 
     status = pack_{{ f }}_Call(
         &dercursorIn
-        {%- for type, var in call|extractargs -%}
+        {%- for type, var, other in extract_args(call, return_) -%}
         {%- if loop.first %},
         {% endif -%}
-        {{- var -}}
+        {% if other %}*{% endif %}{{- var -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}
@@ -48,20 +50,15 @@ client_{{ f }}(
 
     free(dercursorIn.derptr);
 
-    {# Create variable placeholders #}
-    {% for type, var in return_|extractargs -%}
-    {{ type }} return_{{ var }};
-    {% endfor %}
+    CK_RV retval;
 
     {# unpack the dercursor into the placeholders #}
     status = unpack_{{ return_.type_name|under }}(
         &dercursorOut
-        {%- for type, var in return_|extractargs -%}
+        {%- for type, var, other in extract_args(return_, call) -%}
         {%- if loop.first -%},
         {% endif -%}
-        &return_{{- var -}}
-        {%- if not loop.last %},
-        {% endif -%}
+        {% if not other %}&{% endif %}{{ var }}{% if not loop.last %},{% endif %}
         {% endfor %}
     );
 
@@ -72,9 +69,9 @@ client_{{ f }}(
 
     free(dercursorOut.derptr);
 
-    if (return_retval != CKR_OK) {
+    if (retval != CKR_OK) {
         server_End();
-        return return_retval;
+        return retval;
     };
 
     status = server_End();

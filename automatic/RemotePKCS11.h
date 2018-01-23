@@ -29,9 +29,9 @@ typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE {
 	DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE type; // ACK-ATTRIBUTE-TYPE
 	struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue {
-	dercursor null; // NULL
-	DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
-} pValue; // CHOICE { null NULL, data ACK-OPAQUE }
+		dercursor null; // NULL
+		DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
+	} pValue; // CHOICE { null NULL, data ACK-OPAQUE }
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulValueLen; // ACK-ULONG
 } DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE;
 
@@ -802,9 +802,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Call_pSlotList DER_OVLY_Remot
 typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
 	struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList {
-	dercursor null; // NULL
-	DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
-} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
+		dercursor null; // NULL
+		DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
+	} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulCount; // [2] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_GetSlotList_Return;
 
