@@ -1,66 +1,115 @@
-/* DER utility: This should probably appear in Quick DER sometime soon.
- *
- * Pack an Int32 or UInt32 and return the number of bytes.  Do not pack a header
- * around it.  The function returns the number of bytes taken, even 0 is valid.
- */
 
-#include <stdlib.h>
-#include <quick-der/api.h>
-#include "pkcs11/pkcs11unix.h"
 #include "convert.h"
 
 
-dercursor ck2qder_bool(uint8_t * target, CK_BBOOL value) {
-    dercursor retval;
-    retval.derptr = target;
-    retval.derlen = 1;
-    if (value)
-        target[0] = 0x01;
-    else
-        target[0] = 0x00;
-    return retval;
-}
-
-
-dercursor ck2qder_ulong(uint8_t * target, CK_ULONG value) {
-    return qder2b_pack_uint32 (target,  (u_int32_t) value);
-
-}
-
-
-typedef uint8_t QDERBUF_INT32_T[4];
-dercursor qder2b_pack_int32 (uint8_t *target_4b, int32_t value) {
-    dercursor retval;
-    int shift = 24;
-    retval.derptr = target_4b;
-    retval.derlen = 0;
-    while (shift >= 0) {
-        if ((retval.derlen == 0) && (shift > 0)) {
-            // Skip sign-extending initial bytes
-            uint32_t neutro = (uint32_t)(value >> (shift - 1) ) & 0x000001ff;
-            if ((neutro == 0x000001ff) || (neutro == 0x00000000)) {
-                shift -= 8;
-                continue;
-            }
-        }
-        target_4b [retval.derlen] = (uint8_t)((value >> shift) & 0xff);
-        retval.derlen++;
-        shift -= 8;
-    }
-    return retval;
-}
-
-
-typedef uint8_t QDERBUF_UINT32_T[5];
-dercursor qder2b_pack_uint32(uint8_t * target_5b, uint32_t value) {
-    dercursor retval;
-    int ofs = 0;
-    if (value & 0x80000000) {
-        *target_5b = 0x00;
-        ofs = 1;
-    }
-    retval = qder2b_pack_int32 (target_5b + ofs, (int32_t) value);
-    retval.derptr -= ofs;
-    retval.derlen += ofs;
-    return retval;
-}
+void populate() {
+    //func_array[CKA_ALLOWED_MECHANISMS+1] = { not_implemented };
+    func_array[CKA_TOKEN] = not_implemented;
+    func_array[CKA_CLASS] = not_implemented;
+    func_array[CKA_PRIVATE] = not_implemented;
+    func_array[CKA_LABEL] = not_implemented;
+    func_array[CKA_APPLICATION] = not_implemented;
+    func_array[CKA_VALUE] = not_implemented;
+    func_array[CKA_OBJECT_ID] = not_implemented;
+    func_array[CKA_CERTIFICATE_TYPE] = not_implemented;
+    func_array[CKA_ISSUER] = not_implemented;
+    func_array[CKA_SERIAL_NUMBER] = not_implemented;
+    func_array[CKA_AC_ISSUER] = not_implemented;
+    func_array[CKA_OWNER] = not_implemented;
+    func_array[CKA_ATTR_TYPES] = not_implemented;
+    func_array[CKA_TRUSTED] = not_implemented;
+    func_array[CKA_CERTIFICATE_CATEGORY] = not_implemented;
+    func_array[CKA_JAVA_MIDP_SECURITY_DOMAIN] = not_implemented;
+    func_array[CKA_URL] = not_implemented;
+    func_array[CKA_HASH_OF_SUBJECT_PUBLIC_KEY] = not_implemented;
+    func_array[CKA_HASH_OF_ISSUER_PUBLIC_KEY] = not_implemented;
+    func_array[CKA_NAME_HASH_ALGORITHM] = not_implemented;
+    func_array[CKA_CHECK_VALUE] = not_implemented;
+    func_array[CKA_KEY_TYPE] = not_implemented;
+    func_array[CKA_SUBJECT] = not_implemented;
+    func_array[CKA_ID] = not_implemented;
+    func_array[CKA_SENSITIVE] = not_implemented;
+    func_array[CKA_ENCRYPT] = not_implemented;
+    func_array[CKA_DECRYPT] = not_implemented;
+    func_array[CKA_WRAP] = not_implemented;
+    func_array[CKA_UNWRAP] = not_implemented;
+    func_array[CKA_SIGN] = not_implemented;
+    func_array[CKA_SIGN_RECOVER] = not_implemented;
+    func_array[CKA_VERIFY] = not_implemented;
+    func_array[CKA_VERIFY_RECOVER] = not_implemented;
+    func_array[CKA_DERIVE] = not_implemented;
+    func_array[CKA_START_DATE] = not_implemented;
+    func_array[CKA_END_DATE] = not_implemented;
+    func_array[CKA_MODULUS] = not_implemented;
+    func_array[CKA_MODULUS_BITS] = not_implemented;
+    func_array[CKA_PUBLIC_EXPONENT] = not_implemented;
+    func_array[CKA_PRIVATE_EXPONENT] = not_implemented;
+    func_array[CKA_PRIME_1] = not_implemented;
+    func_array[CKA_PRIME_2] = not_implemented;
+    func_array[CKA_EXPONENT_1] = not_implemented;
+    func_array[CKA_EXPONENT_2] = not_implemented;
+    func_array[CKA_COEFFICIENT] = not_implemented;
+    func_array[CKA_PUBLIC_KEY_INFO] = not_implemented;
+    func_array[CKA_PRIME] = not_implemented;
+    func_array[CKA_SUBPRIME] = not_implemented;
+    func_array[CKA_BASE] = not_implemented;
+    func_array[CKA_PRIME_BITS] = not_implemented;
+    func_array[CKA_SUBPRIME_BITS] = not_implemented;
+    func_array[CKA_SUB_PRIME_BITS] = not_implemented;
+    func_array[CKA_VALUE_BITS] = not_implemented;
+    func_array[CKA_VALUE_LEN] = not_implemented;
+    func_array[CKA_EXTRACTABLE] = not_implemented;
+    func_array[CKA_LOCAL] = not_implemented;
+    func_array[CKA_NEVER_EXTRACTABLE] = not_implemented;
+    func_array[CKA_ALWAYS_SENSITIVE] = not_implemented;
+    func_array[CKA_KEY_GEN_MECHANISM] = not_implemented;
+    func_array[CKA_MODIFIABLE] = not_implemented;
+    func_array[CKA_COPYABLE] = not_implemented;
+    func_array[CKA_DESTROYABLE] = not_implemented;
+    func_array[CKA_ECDSA_PARAMS] = not_implemented;
+    func_array[CKA_EC_PARAMS] = not_implemented;
+    func_array[CKA_EC_POINT] = not_implemented;
+    func_array[CKA_SECONDARY_AUTH] = not_implemented;
+    func_array[CKA_AUTH_PIN_FLAGS] = not_implemented;
+    func_array[CKA_ALWAYS_AUTHENTICATE] = not_implemented;
+    func_array[CKA_WRAP_WITH_TRUSTED] = not_implemented;
+    func_array[CKA_WRAP_TEMPLATE] = not_implemented;
+    func_array[CKA_UNWRAP_TEMPLATE] = not_implemented;
+    func_array[CKA_DERIVE_TEMPLATE] = not_implemented;
+    func_array[CKA_OTP_FORMAT] = not_implemented;
+    func_array[CKA_OTP_LENGTH] = not_implemented;
+    func_array[CKA_OTP_TIME_INTERVAL] = not_implemented;
+    func_array[CKA_OTP_USER_FRIENDLY_MODE] = not_implemented;
+    func_array[CKA_OTP_CHALLENGE_REQUIREMENT] = not_implemented;
+    func_array[CKA_OTP_TIME_REQUIREMENT] = not_implemented;
+    func_array[CKA_OTP_COUNTER_REQUIREMENT] = not_implemented;
+    func_array[CKA_OTP_PIN_REQUIREMENT] = not_implemented;
+    func_array[CKA_OTP_COUNTER] = not_implemented;
+    func_array[CKA_OTP_TIME] = not_implemented;
+    func_array[CKA_OTP_USER_IDENTIFIER] = not_implemented;
+    func_array[CKA_OTP_SERVICE_IDENTIFIER] = not_implemented;
+    func_array[CKA_OTP_SERVICE_LOGO] = not_implemented;
+    func_array[CKA_OTP_SERVICE_LOGO_TYPE] = not_implemented;
+    func_array[CKA_GOSTR3410_PARAMS] = not_implemented;
+    func_array[CKA_GOSTR3411_PARAMS] = not_implemented;
+    func_array[CKA_GOST28147_PARAMS] = not_implemented;
+    func_array[CKA_HW_FEATURE_TYPE] = not_implemented;
+    func_array[CKA_RESET_ON_INIT] = not_implemented;
+    func_array[CKA_HAS_RESET] = not_implemented;
+    func_array[CKA_PIXEL_X] = not_implemented;
+    func_array[CKA_PIXEL_Y] = not_implemented;
+    func_array[CKA_RESOLUTION] = not_implemented;
+    func_array[CKA_CHAR_ROWS] = not_implemented;
+    func_array[CKA_CHAR_COLUMNS] = not_implemented;
+    func_array[CKA_COLOR] = not_implemented;
+    func_array[CKA_BITS_PER_PIXEL] = not_implemented;
+    func_array[CKA_CHAR_SETS] = not_implemented;
+    func_array[CKA_ENCODING_METHODS] = not_implemented;
+    func_array[CKA_MIME_TYPES] = not_implemented;
+    func_array[CKA_MECHANISM_TYPE] = not_implemented;
+    func_array[CKA_REQUIRED_CMS_ATTRIBUTES] = not_implemented;
+    func_array[CKA_DEFAULT_CMS_ATTRIBUTES] = not_implemented;
+    func_array[CKA_SUPPORTED_CMS_ATTRIBUTES] = not_implemented;
+    func_array[CKA_ALLOWED_MECHANISMS] = not_implemented;
+    //func_array[CKA_VENDOR_DEFINED] = not_implemented;
+};

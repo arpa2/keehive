@@ -48,20 +48,17 @@ server_{{ f }}(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     {# Create variable placeholders #}
-    {%- for type, value, pointer in combined_args(call, return_) -%}
-    {{ type }} {{ value }};
+    {%- for type, value, return_flag in combined_args(call, return_) -%}
+    {{ type }} {{ value }}{% if return_flag %} = NULL; // return variable {% else %};{% endif %}
     {% endfor %}
 
     {# unpack the dercursor into the placeholders -#}
     CK_RV status = unpack_{{ f }}_Call(
         cursorIn
-        {%- for c in call.type_decl.components if not c.type_decl.type_name == 'NULL' -%}
-        {%- if loop.first -%},
-        {% endif -%}
-        &{{ c.identifier -}}
-        {%- if not loop.last %},
-        {% endif -%}
-        {% endfor %}
+        {%- for type, var, other in extract_args(call, return_) -%}
+        {%- if loop.first %},{% endif %}
+        {% if not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
+        {%- endfor %}
     );
 
     if (status != CKR_OK)
@@ -69,24 +66,18 @@ server_{{ f }}(
 
     CK_RV retval = call_{{ f }}(
         &function_list
-        {%- for type, value, pointer in combined_args(call, return_) -%}
-        {%- if loop.first %},
-        {% endif -%}
-        {{- value -}}
-        {%- if not loop.last %},
-        {% endif -%}
+        {%- for type, value, return_flag in combined_args(call, return_) -%}
+        {%- if loop.first %}, {% endif -%}
+        {{- value -}} {%- if not loop.last %},{% endif %}
         {% endfor %}
     );
 
     status = pack_{{ f }}_Return(
         CursorOut
-        {%- for c in return_.type_decl.components -%}
-        {%- if loop.first %},
-        {% endif -%}
-        {{- c.identifier -}}
-        {%- if not loop.last %},
-        {% endif -%}
-        {% endfor %}
+        {%- for type, var, other in extract_args(return_, call) -%}
+        {%- if loop.first %},{% endif %}
+        &{{- var -}}{%- if not loop.last %},{% endif %} // other: {{ other }}
+        {%- endfor %}
     );
 
     if (status != CKR_OK)

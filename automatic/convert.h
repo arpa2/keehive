@@ -1,24 +1,10 @@
-//
-// Created by Gijs Molenaar on 16/11/2017.
-//
-
 #ifndef KEEHIVE_CONVERT_H
 #define KEEHIVE_CONVERT_H
 
+#include "pkcs11/pkcs11unix.h"
 
-typedef uint8_t QDERBUF_BOOL_T [1];
-dercursor ck2qder_bool (uint8_t * target, CK_BBOOL value);
+int not_implemented(int a, int b);
 
-
-typedef uint8_t QDERBUF_ULONG_T [4];
-dercursor ck2qder_ulong( uint8_t * target, CK_ULONG value) ;
-
-typedef uint8_t QDERBUF_INT32_T [4];
-dercursor qder2b_pack_int32 (uint8_t *target_4b, int32_t value);
-
-typedef uint8_t QDERBUF_UINT32_T [5];
-dercursor qder2b_pack_uint32 (uint8_t *target_5b, uint32_t value);
-
-
+int (*func_array[CKA_ALLOWED_MECHANISMS+1]) (int x, int y);
 
 #endif //KEEHIVE_CONVERT_H

@@ -1,4 +1,4 @@
-#include "manualpack.h"
+#include "derput.h"
 #include "types.h"
 #include "quick-der/api.h"
 #include "util.h"
@@ -12,7 +12,8 @@ static const derwalk pValue_packer[] = {
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue ACK_ATTRIBUTE_pValue_t;
 
 void
-manualpack_CK_ATTRIBUTE(CK_ATTRIBUTE attribute) {
+der_put_CK_ATTRIBUTE(const CK_ATTRIBUTE_PTR* attribute) {
+    /*
     ACK_ATTRIBUTE_t ACK_ATTRIBUTE;
     ACK_ATTRIBUTE_pValue_t ACK_ATTRIBUTE_pValue;
 
@@ -30,5 +31,6 @@ manualpack_CK_ATTRIBUTE(CK_ATTRIBUTE attribute) {
         ACK_ATTRIBUTE.pValue.data = pValue;
         size_t tmp = der_pack(pValue_packer, &ACK_ATTRIBUTE_pValue, NULL);
     }
+     */
 }
 

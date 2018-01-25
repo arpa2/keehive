@@ -100,8 +100,8 @@ dercursor der_put_char(der_buf_char_t *der_buf_char, char value)
 
 CK_RV
 pack_slotList(
-        CK_SLOT_ID_PTR *pSlotList,
-        CK_ULONG *count,
+        const CK_SLOT_ID_PTR* pSlotList,
+        const CK_ULONG* count,
         uint8_t **pInnerlist,
         size_t *pLength,
         const derwalk *slotpack

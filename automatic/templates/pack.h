@@ -13,7 +13,7 @@ CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packtarget
         {%- for type, var, other in f|extract_args %}{% if loop.first %},{% endif %}
-        {{ type }} {{ var }} {% if not loop.last %},{% endif -%}
+        const {{ type }}* {{ var }} {% if not loop.last %},{% endif -%}
         {% endfor %}
 );
 {% endfor %}

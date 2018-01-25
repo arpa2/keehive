@@ -25,22 +25,33 @@ def ack2ck(s, return_flag=False) -> str:
     if s.startswith('ACK_'):
         s = s[1:]
 
+    # An Array should be a pointer to the first element
     if s.endswith('_ARRAY'):
         s = s[:-5] + "PTR"
 
-    if return_flag and not s.endswith("PTR") and s not in ("CK_OPAQUE", "ANY"):
+    # we always want to make pointers from return arguments
+    if return_flag and not s.endswith("PTR") and s not in ("CK_OPAQUE", "ANY", "CK_RV"):
         s = s + "_PTR"
 
-    if s == "CK_MECHANISM":
+    # we always want to make these pointers
+    if s in ("CK_MECHANISM", "CK_C_INITIALIZE_ARGS"):
         s = s + "_PTR"
 
     return s
 
 
 def extract_args(fundef: TypeAssignment, other: TypeAssignment = None) -> Generator[Tuple[str, str, bool], None, None]:
-    """ Extracts arguments from a function definition. Filters out optional types. """
+    """
+    Extracts arguments from a function definition. Filters out optional types. If fundef is _call, 'other' should be
+    _return, same for the other way around.
+
+    yields: (type, identifier, other), where 'other' is a bool indicating if the variable is also present in 'other'.
+
+    """
 
     others = [o.identifier for o in other.type_decl.components] if other else []
+
+    return_flag = fundef.type_name.endswith('-Return')
 
     for c in fundef.type_decl.components:
         if c.type_decl.type_name == 'NULL':
@@ -74,6 +85,7 @@ def format_type(typedef: str, return_flag=False) -> str:
 
 
 def parse_type(c: ComponentType, return_flag=False) -> Union[Tuple[str, str, bool], None]:
+    """ yields (type, identifier, return) (return indicating if it is a return argument)"""
     if c.type_decl.type_name == 'NULL':
         return
 

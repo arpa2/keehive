@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <dlfcn.h>
-#include <string.h>
 #include "call.h"
 #include "returncodes.h"
 
@@ -45,18 +44,13 @@ call_{{ f }}(
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
-    CK_RV status = ((*function_list)->{{ f }})(
+    return ((*function_list)->{{ f }})(
         {% for type, value, pointer in combined_args(call, return_) -%}
         {{- value -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}
     );
-
-    if (status != CKR_OK)
-        return CKR_KEEHIVE_SO_ERROR;
-
-    return CKR_OK;
 
 };
 {% endfor %}
