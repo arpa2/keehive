@@ -2,7 +2,7 @@
 #include "pack.h"
 #include "unpack.h"
 #include "call.h"
-#include "returncodes.h"
+#include "static/returncodes.h"
 
 const char path[] = "/usr/local/lib/softhsm/libsofthsm2.so";
 
@@ -57,7 +57,7 @@ server_{{ f }}(
         cursorIn
         {%- for type, var, other in extract_args(call, return_) -%}
         {%- if loop.first %},{% endif %}
-        {% if not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
+        {% if not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // other: {{ other }}
         {%- endfor %}
     );
 
@@ -76,7 +76,7 @@ server_{{ f }}(
         CursorOut
         {%- for type, var, other in extract_args(return_, call) -%}
         {%- if loop.first %},{% endif %}
-        &{{- var -}}{%- if not loop.last %},{% endif %} // other: {{ other }}
+        {% if not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // other: {{ other }}
         {%- endfor %}
     );
 

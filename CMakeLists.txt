@@ -11,7 +11,7 @@ find_package (cmocka REQUIRED)
 
 
 configure_file (
-        "automatic/version.h.in"
+        "automatic/static/version.h.in"
         "${PROJECT_BINARY_DIR}/version.h"
 )
 

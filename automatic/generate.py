@@ -21,7 +21,7 @@ def under(s: str) -> str:
     return s.replace('-', '_')
 
 
-def ack2ck(s, return_flag=False) -> str:
+def ack2ck(s, make_pointer=False) -> str:
     if s.startswith('ACK_'):
         s = s[1:]
 
@@ -29,8 +29,8 @@ def ack2ck(s, return_flag=False) -> str:
     if s.endswith('_ARRAY'):
         s = s[:-5] + "PTR"
 
-    # we always want to make pointers from return arguments
-    if return_flag and not s.endswith("PTR") and s not in ("CK_OPAQUE", "ANY", "CK_RV"):
+    # if make_pointer, make point if not already pointer
+    if make_pointer and not s.endswith("PTR") and s not in ("CK_OPAQUE", "ANY", "CK_RV"):
         s = s + "_PTR"
 
     # we always want to make these pointers
@@ -40,7 +40,9 @@ def ack2ck(s, return_flag=False) -> str:
     return s
 
 
-def extract_args(fundef: TypeAssignment, other: TypeAssignment = None) -> Generator[Tuple[str, str, bool], None, None]:
+def extract_args(fundef: TypeAssignment,
+                 other: TypeAssignment = None,
+                 make_pointers: bool = False) -> Generator[Tuple[str, str, bool], None, None]:
     """
     Extracts arguments from a function definition. Filters out optional types. If fundef is _call, 'other' should be
     _return, same for the other way around.
@@ -50,8 +52,6 @@ def extract_args(fundef: TypeAssignment, other: TypeAssignment = None) -> Genera
     """
 
     others = [o.identifier for o in other.type_decl.components] if other else []
-
-    return_flag = fundef.type_name.endswith('-Return')
 
     for c in fundef.type_decl.components:
         if c.type_decl.type_name == 'NULL':
@@ -74,18 +74,24 @@ def extract_args(fundef: TypeAssignment, other: TypeAssignment = None) -> Genera
                 # hack for  Notify of C_OpenSession
                 yield "CK_NOTIFY", c.identifier, c.identifier in others
             elif element:
-                yield format_type(element.type_decl.type_name, False), c.identifier, c.identifier in others
+                yield format_type(element.type_decl.type_name, make_pointers), c.identifier, c.identifier in others
+
+                if c.identifier == "pSlotList" and other:
+                    assert True
 
         else:
-            yield format_type(c.type_decl.type_name, False), c.identifier, c.identifier in others
+            yield format_type(c.type_decl.type_name, make_pointers), c.identifier, c.identifier in others
+
+            if c.identifier == "pSlotList" and other:
+                assert True
 
 
 def format_type(typedef: str, return_flag=False) -> str:
     return ack2ck(under(typedef), return_flag)
 
 
-def parse_type(c: ComponentType, return_flag=False) -> Union[Tuple[str, str, bool], None]:
-    """ yields (type, identifier, return) (return indicating if it is a return argument)"""
+def parse_type(c: ComponentType, make_pointer=False) -> Union[Tuple[str, str, bool], None]:
+    """ yields (type, identifier, pointer) (return indicating if type was made a pointer)"""
     if c.type_decl.type_name == 'NULL':
         return
 
@@ -99,17 +105,17 @@ def parse_type(c: ComponentType, return_flag=False) -> Union[Tuple[str, str, boo
                 element = d
         if not element:
             if reserved:
-                return "CK_VOID_PTR", c.identifier, return_flag
+                return "CK_VOID_PTR", c.identifier, make_pointer
             else:
                 return
         elif element.type_decl.type_name == "BOOLEAN":
             # hack for  Notify of C_OpenSession
-            return "CK_NOTIFY", c.identifier, return_flag
+            return "CK_NOTIFY", c.identifier, make_pointer
         elif element:
-            return format_type(element.type_decl.type_name, return_flag), c.identifier, return_flag
+            return format_type(element.type_decl.type_name, make_pointer), c.identifier, make_pointer
 
     else:
-        return format_type(c.type_decl.type_name, return_flag), c.identifier, return_flag
+        return format_type(c.type_decl.type_name, make_pointer), c.identifier, make_pointer
 
 
 def combined_args(call_func: TypeAssignment, return_func: TypeAssignment):

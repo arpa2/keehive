@@ -1,8 +1,8 @@
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
 #include "unpack.h"
-#include "util.h"
-#include "returncodes.h"
+#include "static/util.h"
+#include "static/returncodes.h"
 
 // always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
 // the length of the SEQUENCE

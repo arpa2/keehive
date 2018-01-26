@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <dlfcn.h>
 #include "call.h"
-#include "returncodes.h"
+#include "static/returncodes.h"
 
 CK_RV
 call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list) {

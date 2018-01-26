@@ -1,7 +1,7 @@
 #include "pack.h"
-#include "returncodes.h"
-#include "util.h"
-#include "derput.h"
+#include "static/returncodes.h"
+#include "static/util.h"
+#include "static/derput.h"
 
 {% for f in functions %}
 static const derwalk {{ f.type_name|under }}_packer[] = {

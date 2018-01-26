@@ -5,7 +5,7 @@
 #include <quick-der/api.h>
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
-#include "RemotePKCS11.h"
+#include "static/RemotePKCS11.h"
 
 
 {% for f in functions %}
