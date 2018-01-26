@@ -6,10 +6,10 @@ set(LIB_H
         generated/client.h
         generated/server.h
         static/RemotePKCS11.h
-        pkcs11/pkcs11unix.h
-        pkcs11/pkcs11.h
-        pkcs11/pkcs11t.h
-        pkcs11/pkcs11f.h
+        static/pkcs11/pkcs11unix.h
+        static/pkcs11/pkcs11.h
+        static/pkcs11/pkcs11t.h
+        static/pkcs11/pkcs11f.h
         static/convert.h
         static/util.h
         static/returncodes.h
