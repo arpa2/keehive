@@ -38,14 +38,14 @@ call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list)
 CK_RV
 call_{{ f }}(
     CK_FUNCTION_LIST_PTR_PTR function_list
-    {%- for type, value, pointer in combined_args(call, return_) %}
+    {%- for type, pointerized, value in combined_args(call, return_) %}
     {%- if loop.first %},{% endif %}
     {{ type }} {{ value }}
     {%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
     return ((*function_list)->{{ f }})(
-        {% for type, value, pointer in combined_args(call, return_) -%}
+        {% for type, pointerized, value in combined_args(call, return_) -%}
         {{- value -}}
         {%- if not loop.last %},
         {% endif -%}

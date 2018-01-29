@@ -8,8 +8,8 @@
 {% set f = call.type_name[:-5]|under %}
 CK_RV
 client_{{ f }}(
-    {%- for type, var, pointer in combined_args(call, return_) %}
-    {{ type }} {{ var }}{%- if not loop.last %},{%- endif -%}
+    {%- for type, pointerized, value in combined_args(call, return_) %}
+    {{ type }} {{ value }}{%- if not loop.last %},{% endif -%}
     {% endfor %}
 ) {
     CK_RV status;
@@ -28,13 +28,10 @@ client_{{ f }}(
 
     status = pack_{{ f }}_Call(
         &dercursorIn
-        {%- for type, var, other in extract_args(call, return_) -%}
-        {%- if loop.first %},
-        {% endif -%}
-        {% if other %}*{% endif %}{{- var -}}
-        {%- if not loop.last %},
-        {% endif -%}
-        {% endfor %}
+        {%- for type_, pointerized, var, other in extract_args(call, return_, False) -%}
+        {%- if loop.first %},{% endif %}
+        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
+        {%- endfor %}
     );
 
     if (status != CKR_OK) {
@@ -50,16 +47,16 @@ client_{{ f }}(
 
     free(dercursorIn.derptr);
 
-    CK_RV retval;
+    CK_RV retval_pointed;
+    CK_RV_PTR retval = &retval_pointed;
 
     {# unpack the dercursor into the placeholders #}
     status = unpack_{{ return_.type_name|under }}(
         &dercursorOut
-        {%- for type, var, other in extract_args(return_, call) -%}
-        {%- if loop.first -%},
-        {% endif -%}
-        {% if not other %}&{% endif %}{{ var }}{% if not loop.last %},{% endif %}
-        {% endfor %}
+        {%- for type_, pointerized, var, other in extract_args(return_, call, True) -%}
+        {%- if loop.first %},{% endif %}
+        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // {{ type_ }} {{type_|is_pointer }} {{ other }}
+        {%- endfor %}
     );
 
     if (status != CKR_OK) {
@@ -69,9 +66,9 @@ client_{{ f }}(
 
     free(dercursorOut.derptr);
 
-    if (retval != CKR_OK) {
+    if (retval_pointed != CKR_OK) {
         server_End();
-        return retval;
+        return retval_pointed;
     };
 
     status = server_End();

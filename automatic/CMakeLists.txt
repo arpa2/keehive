@@ -14,7 +14,7 @@ set(LIB_H
         static/util.h
         static/returncodes.h
         static/derput.h
-        )
+        static/derget.h)
 
 set(LIB_SRC
         generated/pack.c
@@ -25,10 +25,10 @@ set(LIB_SRC
         static/convert.c
         static/util.c
         static/derput.c
-)
+        static/derget.c)
 
 
-include_directories ("${PROJECT_BINARY_DIR}" "generated" ".")
+include_directories ("${PROJECT_BINARY_DIR}" "generated" "." "static")
 
 add_library(keehive
         ${LIB_H}

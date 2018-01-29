@@ -7,17 +7,18 @@
 #include "quick-der/api.h"
 
 
-{% for f in functions %}
+{% for call, return_ in zipped %}
+{% for f, o in ((call, return_), (return_, call)) %}
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for type, value, other in f|extract_args %}
+        {%- for type, pointerized, value, other in extract_args(f, o, True) %}
         {%- if loop.first %},{% endif %}
-        {{ type }}* {{ value }}
+        {{ type }} {{ value }}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );
 {% endfor %}
-
+{% endfor %}
 
 #endif //KEEHIVE_UNPACK_H

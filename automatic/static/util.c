@@ -100,7 +100,7 @@ dercursor der_put_char(der_buf_char_t *der_buf_char, char value)
 
 CK_RV
 pack_slotList(
-        const CK_SLOT_ID_PTR* pSlotList,
+        const CK_SLOT_ID* pSlotList,
         const CK_ULONG* count,
         uint8_t **pInnerlist,
         size_t *pLength,
@@ -111,7 +111,7 @@ pack_slotList(
     size_t innerlen = 0;
     size_t tmp = 0;
     for (i = 0; i < *count; i++) {
-        slot = (*pSlotList)[i];
+        slot = (pSlotList)[i];
         if (slot > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }
@@ -129,7 +129,7 @@ pack_slotList(
     }
     while (i-- > 0) {
         assert(innerlen >= 0);
-        slot = (*pSlotList)[i];
+        slot = (pSlotList)[i];
         if (slot > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }

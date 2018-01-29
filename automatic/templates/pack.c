@@ -15,24 +15,30 @@ static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
         DER_PACK_END
 };
 
-{% for f in functions %}
+{% for call, return_ in zipped %}
+{% for f, o in ((call, return_), (return_, call)) %}
 CK_RV
 pack_{{ f.type_name|under }}(
-        dercursor * packtarget
-        {%- for type, var, other in f|extract_args %}
-            {%- if loop.first %},{% endif %}
-        const {{ type }}* {{ var }}{%- if not loop.last %},{% endif -%}
+        dercursor* pack_target
+        {%- for type, pointerized, var, other in extract_args(f, o ,True) %}
+        {%- if loop.first %},{% endif %}
+        {%- if type.endswith("_PTR") %}
+        const {{ type[:-4] }}* {{ var }}
+        {%- else -%}
+        {{  type }} {{ var }}
+        {%- endif -%}
+        {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
     {{ f.type_name|under }}_t {{ f.type_name|under }};
 
     memset (&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
-    {% for type, var, other in f|extract_args %}
+    {% for type, pointerized, var, other in extract_args(f, o ,True) %}
 
     // PACKING {{ var }} (type {{ type }})
 
-    {% if type in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
+    {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     der_buf_ulong_t {{ var }}_storage;
     {{ f.type_name|under }}.{{ var }} = der_put_ulong(&{{ var }}_storage, *{{ var }});
 
@@ -49,7 +55,7 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }}.data.wire.derlen = length;
 
     {% else %}
-    //{{ f.type_name|under }}.{{ var }} =     //TODO: finish this
+    //{{ f.type_name|under }}.{{ var }} =     //WORKINPROGRESS: finish this
     der_put_{{ type }}({{ var }});
 
     {% endif -%}
@@ -57,19 +63,20 @@ pack_{{ f.type_name|under }}(
 
     // END OF PACKING
 
-    packtarget->derlen = der_pack({{ f.type_name|under }}_packer,
+    pack_target->derlen = der_pack({{ f.type_name|under }}_packer,
                                   (const dercursor *) &{{ f.type_name|under }},
                                   NULL);
 
-    if (packtarget->derlen == 0)
+    if (pack_target->derlen == 0)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
-    packtarget->derptr = malloc(packtarget->derlen);
+    pack_target->derptr = malloc(pack_target->derlen);
 
     der_pack({{ f.type_name|under }}_packer,
              (const dercursor *) &{{ f.type_name|under }},
-             packtarget->derptr + packtarget->derlen);
+             pack_target->derptr + pack_target->derlen);
 
     return CKR_OK;
 };
+{% endfor %}
 {% endfor %}

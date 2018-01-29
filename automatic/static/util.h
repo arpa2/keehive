@@ -28,7 +28,7 @@ dercursor der_put_uint8(uint8_t *der_buf_uint8, uint8_t value);
 
 
 CK_RV pack_slotList(
-        const CK_SLOT_ID_PTR* pSlotList,
+        const CK_SLOT_ID* pSlotList,
         const CK_ULONG* count,
         uint8_t** pInnerlist,
         size_t* pLength,

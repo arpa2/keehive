@@ -1,6 +1,7 @@
 #include "types.h"
 #include "pkcs11/pkcs11unix.h"
 #include "unpack.h"
+#include "derget.h"
 #include "static/util.h"
 #include "static/returncodes.h"
 
@@ -17,13 +18,14 @@ static const derwalk {{ f.type_name|under }}_packer[] = {
 {% endfor %}
 
 
-{% for f in functions %}
+{% for call, return_ in zipped %}
+{% for f, o in ((call, return_), (return_, call)) %}
 CK_RV
 unpack_{{ f.type_name|under }}(
         dercursor* packed
-        {%- for type, var, other in extract_args(f) %}
+        {%- for type, pointerized, var, other in extract_args(f, o ,True) %}
         {%- if loop.first %},{% endif %}
-        {{  type }}* {{ var }}
+        {{  type }} {{ var }}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 ) {
@@ -39,16 +41,18 @@ unpack_{{ f.type_name|under }}(
     if (status != 0)
         return der_error_helper(errno);
 
-    {% for type, var, other in extract_args(f) -%}
-    {% if type in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
+    {% for type, pointerized, var, other in extract_args(f, o, True) -%}
+    {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_USER_TYPE") %}
     status = der_get_ulong({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     {% else %}
-    // TODO: convert {{ type }} ({{ var }})
+    // WORKINPROGRESS: properly convert {{ type }} ({{ var }})
+    der_get_{{ type }}({{ var }});
     {% endif %}
     {% endfor %}
 
     return CKR_OK;
 };
+{% endfor %}
 {% endfor %}

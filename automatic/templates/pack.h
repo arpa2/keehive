@@ -8,14 +8,22 @@
 #include "static/RemotePKCS11.h"
 
 
-{% for f in functions %}
+{% for call, return_ in zipped %}
+{% for f, o in ((call, return_), (return_, call)) %}
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor * packtarget
-        {%- for type, var, other in f|extract_args %}{% if loop.first %},{% endif %}
-        const {{ type }}* {{ var }} {% if not loop.last %},{% endif -%}
+        {%- for type, pointerized, var, other in extract_args(f, o ,True) %}
+        {%- if loop.first %},{% endif %}
+        {%- if type.endswith("_PTR") %}
+        const {{ type[:-4] }}* {{ var }}
+        {%- else -%}
+        {{  type }} {{ var }}
+        {%- endif -%}
+        {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );
+{% endfor %}
 {% endfor %}
 
 

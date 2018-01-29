@@ -7,8 +7,8 @@
 {% for call, return_ in zipped %}
 CK_RV
 client_{{ call.type_name[:-5]|under }}(
-    {%- for type, var, pointer in combined_args(call, return_) %}
-    {{ type }} {{ var }}{%- if not loop.last %},{%- endif -%}
+    {%- for type, pointerized, value in combined_args(call, return_) %}
+    {{ type }} {{ value }}{%- if not loop.last %},{% endif -%}
     {% endfor %}
 );
 {% endfor %}

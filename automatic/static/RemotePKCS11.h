@@ -734,9 +734,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Call_pMechanismList DER_
 typedef struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
 	struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return_pMechanismList {
-	dercursor null; // NULL
-	DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE_ARRAY data; // ACK-MECHANISM-TYPE-ARRAY
-} pMechanismList; // [1] CHOICE { null NULL, data ACK-MECHANISM-TYPE-ARRAY }
+		dercursor null; // NULL
+		DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE_ARRAY data; // ACK-MECHANISM-TYPE-ARRAY
+	} pMechanismList; // [1] CHOICE { null NULL, data ACK-MECHANISM-TYPE-ARRAY }
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulCount; // [2] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_GetMechanismList_Return;
 
