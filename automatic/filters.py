@@ -139,8 +139,8 @@ def parse_type(c: ComponentType, make_pointer=False) -> Optional[Tuple[str, bool
 
 
 def initialise(type_, identifier):
-    if type_ == "BOGUS":
-        return "CK_ATTRIBUTE {}[];".format(identifier)
+    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+        return "{} {} = 0;".format(type_, identifier)
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL;".format(type_, identifier)
     else:
@@ -155,4 +155,4 @@ def free(type_, identifier):
 
 
 def is_pointer(type_):
-    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type == "UTF8String"
+    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ in ("UTF8String", "CK_NOTIFY")

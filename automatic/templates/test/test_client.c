@@ -1,16 +1,22 @@
-#include "client.h"
+#include <stdarg.h>
+#include <stddef.h>
+#include <setjmp.h>
 #include <cmocka.h>
+#include "client.h"
+
 
 {% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 void test_client_{{ f }}(void **state){
-    {%- for type, var, pointer in combined_args(call, return_) %}
-    {{ type }} {{ var }};
-    {%- endfor %}
+    {% for type, pointerized, value in combined_args(call, return_) -%}
+    {{ initialise(type, value) }}
+    {% endfor %}
 
     client_{{ f }}(
-        {%- for type, var, pointer in combined_args(call, return_) %}
-        {{ var }}{%- if not loop.last %},{% endif -%}
+        {% for type, pointerized, value in combined_args(call, return_) -%}
+        {{- value -}}
+        {%- if not loop.last %},
+        {% endif -%}
         {% endfor %}
     );
 };
