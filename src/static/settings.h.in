@@ -1,0 +1,3 @@
+#define keehive_VERSION_MAJOR @keehive_VERSION_MAJOR@
+#define keehive_VERSION_MINOR @keehive_VERSION_MINOR@
+#define LIBSOFTHSM2_LIBRARY "@LIBSOFTHSM2_LIBRARY@"

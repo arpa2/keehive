@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Python script to parse remote PKCS11 ASN1 file and generate C project that implements RPC calls
 """
@@ -12,8 +13,6 @@ from jinja2 import Environment, FileSystemLoader, StrictUndefined
 from filters import combined_args, under, extract_args, initialise, free, is_pointer
 
 
-templates_folder = 'templates'
-
 # not required in pkcs11 or not exposed
 functions_skip = (
     "C-GetFunctionList",
@@ -24,8 +23,12 @@ functions_skip = (
     "C-Notify"
 )
 
-asn1_file = "../data/RemotePKCS11.asn1"
-dump_file = 'dump'
+here = os.path.dirname(__file__)
+
+asn1_file = os.path.join(here, "../data/RemotePKCS11.asn1")
+dump_file = os.path.join(here, 'parsed.pickle')
+templates_folder = os.path.join(here, 'templates')
+generated_folder = os.path.join(here, '../src/generated')
 
 
 logger = logging.getLogger(__name__)
@@ -100,14 +103,12 @@ def main(pickle_file):
     data = load_data(pickle_file)
 
     for root, dirs, files in os.walk(templates_folder):
-        path = root.split(os.sep)
+        prefix = root[len(templates_folder)+1:]
         for file_name in files:
-            if file_name.endswith('.tmpl'):
-                continue
-            file_path = os.path.join("/".join(path[1:]), file_name)
+            file_path = os.path.join(prefix, file_name)
             template = env.get_template(file_path)
 
-            target = os.path.join('generated/', file_path)
+            target = os.path.join(generated_folder, file_path)
             logger.info("generating {}".format(target))
             with open(target, 'w') as f:
                 f.write(template.render(**data))

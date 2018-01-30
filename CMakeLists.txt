@@ -7,17 +7,16 @@ set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package (Quick-DER REQUIRED)
 find_package (cmocka REQUIRED)
-
-
+find_package (softhsm2 REQUIRED)
 
 configure_file (
-        "automatic/static/version.h.in"
-        "${PROJECT_BINARY_DIR}/version.h"
+        "src/static/settings.h.in"
+        "${PROJECT_BINARY_DIR}/settings.h"
 )
 
 include_directories ("${PROJECT_BINARY_DIR}")
 include_directories ("${Quick-DER_INCLUDE_DIRS}")
 include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
-add_subdirectory (automatic)
+add_subdirectory (src)
 

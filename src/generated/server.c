@@ -3,8 +3,10 @@
 #include "unpack.h"
 #include "call.h"
 #include "static/returncodes.h"
+#include "settings.h"
 
-const char path[] = "/usr/local/lib/softhsm/libsofthsm2.so";
+
+const char path[] = LIBSOFTHSM2_LIBRARY;
 
 
 CK_FUNCTION_LIST_PTR function_list = NULL_PTR;
