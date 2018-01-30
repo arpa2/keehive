@@ -1,12 +1,36 @@
-#ifndef KEEHIVE_MANUALPACK_H
-#define KEEHIVE_MANUALPACK_H
+#ifndef KEEHIVE_DERPUT_H
+#define KEEHIVE_DERPUT_H
 
 #include "pkcs11/pkcs11unix.h"
 #include "types.h"
 
-void der_put_CK_ATTRIBUTE_ARRAY(const CK_ATTRIBUTE* pTemplate);
+CK_RV
+der_put_CK_ATTRIBUTE_ARRAY(
+        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ULONG* count,
+        uint8_t** pInnerlist,
+        size_t* pLength,
+        const derwalk* pack
+);
 
-void der_put_CK_BYTE_ARRAY(const CK_BYTE* pEncryptedData);
+CK_RV
+der_put_CK_SLOT_ID_ARRAY(
+        const CK_SLOT_ID* pSlotList,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+);
+
+CK_RV
+der_put_CK_BYTE_ARRAY(
+        const CK_BYTE* byte_array,
+        const CK_ULONG* count,
+        uint8_t** pInnerlist,
+        size_t* pLength,
+        const derwalk* pack
+);
+
 
 void der_put_CK_MECHANISM_PTR(const CK_MECHANISM* pMechanism);
 
@@ -40,9 +64,6 @@ void der_put_CK_OBJECT_HANDLE_ARRAY(const CK_OBJECT_HANDLE* phObject);
 
 void der_put_CK_MECHANISM_TYPE_ARRAY(const CK_MECHANISM_TYPE* pMechanismList);
 
-void der_put_CK_SLOT_ID_ARRAY(const CK_SLOT_ID* pSlotid);
-
-
-#endif //KEEHIVE_MANUALPACK_H
+#endif //KEEHIVE_DERPUT_H
 
 

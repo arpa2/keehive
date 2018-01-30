@@ -71,24 +71,24 @@ int der_get_ulong(dercursor cursor,  long unsigned int *valp)
 };
 
 
-dercursor der_put_long(der_buf_long_t *der_buf_long, long int value)
+dercursor der_put_long(u_int8_t* der_buf_long, long int value)
 {
-    return der_put_int32 ((u_int8_t *)der_buf_long,(u_int32_t) value);
+    return der_put_int32 (der_buf_long,(u_int32_t) value);
 };
 
 
-dercursor der_put_ulong(der_buf_ulong_t *der_buf_ulong, long int value)
+dercursor der_put_ulong(u_int8_t* der_buf_ulong, long int value)
 {
-    return der_put_uint32 ((u_int8_t *)der_buf_ulong, (u_int32_t)value);
+    return der_put_uint32 (der_buf_ulong, (u_int32_t)value);
 };
 
-dercursor der_put_uint8(der_buf_uint8_t *der_buf_uint8, uint8_t value)
+dercursor der_put_uint8(u_int8_t* der_buf_uint8, uint8_t value)
 {
-    return der_put_uint32((u_int8_t *)der_buf_uint8, (u_int32_t)value);
+    return der_put_uint32(der_buf_uint8, (u_int32_t)value);
 };
 
 
-dercursor der_put_char(der_buf_char_t *der_buf_char, char value)
+dercursor der_put_char(u_int8_t* der_buf_char, char value)
 {
     dercursor retval;
     retval.derptr = (uint8_t *)der_buf_char;
@@ -96,54 +96,6 @@ dercursor der_put_char(der_buf_char_t *der_buf_char, char value)
     *retval.derptr = (uint8_t)value;
     return retval;
 }
-
-
-CK_RV
-pack_slotList(
-        const CK_SLOT_ID* pSlotList,
-        const CK_ULONG* count,
-        uint8_t **pInnerlist,
-        size_t *pLength,
-        const derwalk *slotpack
-) {
-    int i;
-    CK_SLOT_ID slot;
-    size_t innerlen = 0;
-    size_t tmp = 0;
-    for (i = 0; i < *count; i++) {
-        slot = (pSlotList)[i];
-        if (slot > 0xffffffff) {
-            return CKR_KEEHIVE_MEMORY_ERROR;
-        }
-        der_buf_uint32_t slotbuf;
-        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        tmp = der_pack(slotpack, &slotcrs, NULL);
-        if (tmp == 0)
-            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen += tmp;
-    }
-    *pLength = innerlen;
-    *pInnerlist = (uint8_t *)malloc(innerlen);
-    if (*pInnerlist == NULL) {
-        return CKR_KEEHIVE_MEMORY_ERROR;
-    }
-    while (i-- > 0) {
-        assert(innerlen >= 0);
-        slot = (pSlotList)[i];
-        if (slot > 0xffffffff) {
-            return CKR_KEEHIVE_MEMORY_ERROR;
-        }
-        der_buf_uint32_t slotbuf;
-        dercursor slotcrs = der_put_uint32(slotbuf, (uint32_t) slot);
-        tmp = der_pack(slotpack, &slotcrs, *pInnerlist + innerlen);
-        if (tmp == 0)
-            return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen -= tmp;
-    }
-    assert(innerlen == 0);
-
-    return CKR_OK;
-};
 
 
 void der_dump(char* path, dercursor* pCursor)

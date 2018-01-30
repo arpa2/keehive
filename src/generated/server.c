@@ -54,7 +54,7 @@ server_C_CancelFunction(
 
     CK_RV status = unpack_C_CancelFunction_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -69,7 +69,7 @@ server_C_CancelFunction(
 
     status = pack_C_CancelFunction_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -97,7 +97,7 @@ server_C_CloseAllSessions(
 
     CK_RV status = unpack_C_CloseAllSessions_Call(
         cursorIn,
-        &slotID // CK_SLOT_ID - other: False, pointerized: False
+        &slotID
     );
 
     if (status != CKR_OK)
@@ -112,7 +112,7 @@ server_C_CloseAllSessions(
 
     status = pack_C_CloseAllSessions_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -140,7 +140,7 @@ server_C_CloseSession(
 
     CK_RV status = unpack_C_CloseSession_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -155,7 +155,7 @@ server_C_CloseSession(
 
     status = pack_C_CloseSession_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -187,10 +187,10 @@ server_C_CopyObject(
 
     CK_RV status = unpack_C_CopyObject_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hObject, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &hObject,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -209,8 +209,8 @@ server_C_CopyObject(
 
     status = pack_C_CopyObject_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phObject // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phObject
     );
 
 
@@ -241,9 +241,9 @@ server_C_CreateObject(
 
     CK_RV status = unpack_C_CreateObject_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -261,8 +261,8 @@ server_C_CreateObject(
 
     status = pack_C_CreateObject_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phObject // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phObject
     );
 
 
@@ -294,10 +294,10 @@ server_C_Decrypt(
 
     CK_RV status = unpack_C_Decrypt_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pEncryptedData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulEncryptedDataLen, // CK_ULONG - other: False, pointerized: False
-        pulDataLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pEncryptedData,
+        &ulEncryptedDataLen,
+        pulDataLen
     );
 
     if (status != CKR_OK)
@@ -316,9 +316,9 @@ server_C_Decrypt(
 
     status = pack_C_Decrypt_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pData, // CK_BYTE_ARRAY False True
-        pulDataLen // CK_ULONG_PTR True True
+        retval,
+        pData,
+        pulDataLen
     );
 
 
@@ -350,10 +350,10 @@ server_C_DecryptDigestUpdate(
 
     CK_RV status = unpack_C_DecryptDigestUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pEncryptedPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulEncryptedPartLen, // CK_ULONG - other: False, pointerized: False
-        pulPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pEncryptedPart,
+        &ulEncryptedPartLen,
+        pulPartLen
     );
 
     if (status != CKR_OK)
@@ -372,9 +372,9 @@ server_C_DecryptDigestUpdate(
 
     status = pack_C_DecryptDigestUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pPart, // CK_BYTE_ARRAY False True
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
 
@@ -404,8 +404,8 @@ server_C_DecryptFinal(
 
     CK_RV status = unpack_C_DecryptFinal_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pulLastPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pulLastPartLen
     );
 
     if (status != CKR_OK)
@@ -422,9 +422,9 @@ server_C_DecryptFinal(
 
     status = pack_C_DecryptFinal_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pLastPart, // CK_BYTE_ARRAY False True
-        pulLastPartLen // CK_ULONG_PTR True True
+        retval,
+        pLastPart,
+        pulLastPartLen
     );
 
 
@@ -454,9 +454,9 @@ server_C_DecryptInit(
 
     CK_RV status = unpack_C_DecryptInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -473,7 +473,7 @@ server_C_DecryptInit(
 
     status = pack_C_DecryptInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -505,10 +505,10 @@ server_C_DecryptUpdate(
 
     CK_RV status = unpack_C_DecryptUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pEncryptedPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulEncryptedPartLen, // CK_ULONG - other: False, pointerized: False
-        pulPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pEncryptedPart,
+        &ulEncryptedPartLen,
+        pulPartLen
     );
 
     if (status != CKR_OK)
@@ -527,9 +527,9 @@ server_C_DecryptUpdate(
 
     status = pack_C_DecryptUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pPart, // CK_BYTE_ARRAY False True
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
 
@@ -561,10 +561,10 @@ server_C_DecryptVerifyUpdate(
 
     CK_RV status = unpack_C_DecryptVerifyUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pEncryptedPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulEncryptedPartLen, // CK_ULONG - other: False, pointerized: False
-        pulPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pEncryptedPart,
+        &ulEncryptedPartLen,
+        pulPartLen
     );
 
     if (status != CKR_OK)
@@ -583,9 +583,9 @@ server_C_DecryptVerifyUpdate(
 
     status = pack_C_DecryptVerifyUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pPart, // CK_BYTE_ARRAY False True
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
 
@@ -618,11 +618,11 @@ server_C_DeriveKey(
 
     CK_RV status = unpack_C_DeriveKey_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hBaseKey, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulAttributeCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hBaseKey,
+        pTemplate,
+        &ulAttributeCount
     );
 
     if (status != CKR_OK)
@@ -642,8 +642,8 @@ server_C_DeriveKey(
 
     status = pack_C_DeriveKey_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phKey // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phKey
     );
 
 
@@ -672,8 +672,8 @@ server_C_DestroyObject(
 
     CK_RV status = unpack_C_DestroyObject_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hObject // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        &hObject
     );
 
     if (status != CKR_OK)
@@ -689,7 +689,7 @@ server_C_DestroyObject(
 
     status = pack_C_DestroyObject_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -721,10 +721,10 @@ server_C_Digest(
 
     CK_RV status = unpack_C_Digest_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulDataLen, // CK_ULONG - other: False, pointerized: False
-        pulDigestLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pData,
+        &ulDataLen,
+        pulDigestLen
     );
 
     if (status != CKR_OK)
@@ -743,9 +743,9 @@ server_C_Digest(
 
     status = pack_C_Digest_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pDigest, // CK_BYTE_ARRAY False True
-        pulDigestLen // CK_ULONG_PTR True True
+        retval,
+        pDigest,
+        pulDigestLen
     );
 
 
@@ -777,10 +777,10 @@ server_C_DigestEncryptUpdate(
 
     CK_RV status = unpack_C_DigestEncryptUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen, // CK_ULONG - other: False, pointerized: False
-        pulEncryptedPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
@@ -799,9 +799,9 @@ server_C_DigestEncryptUpdate(
 
     status = pack_C_DigestEncryptUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pEncryptedPart, // CK_BYTE_ARRAY False True
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
 
@@ -831,8 +831,8 @@ server_C_DigestFinal(
 
     CK_RV status = unpack_C_DigestFinal_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pulDigestLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pulDigestLen
     );
 
     if (status != CKR_OK)
@@ -849,9 +849,9 @@ server_C_DigestFinal(
 
     status = pack_C_DigestFinal_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pDigest, // CK_BYTE_ARRAY False True
-        pulDigestLen // CK_ULONG_PTR True True
+        retval,
+        pDigest,
+        pulDigestLen
     );
 
 
@@ -880,8 +880,8 @@ server_C_DigestInit(
 
     CK_RV status = unpack_C_DigestInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism // CK_MECHANISM_PTR - other: False, pointerized: False
+        &hSession,
+        pMechanism
     );
 
     if (status != CKR_OK)
@@ -897,7 +897,7 @@ server_C_DigestInit(
 
     status = pack_C_DigestInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -926,8 +926,8 @@ server_C_DigestKey(
 
     CK_RV status = unpack_C_DigestKey_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -943,7 +943,7 @@ server_C_DigestKey(
 
     status = pack_C_DigestKey_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -973,9 +973,9 @@ server_C_DigestUpdate(
 
     CK_RV status = unpack_C_DigestUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen
     );
 
     if (status != CKR_OK)
@@ -992,7 +992,7 @@ server_C_DigestUpdate(
 
     status = pack_C_DigestUpdate_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -1024,10 +1024,10 @@ server_C_Encrypt(
 
     CK_RV status = unpack_C_Encrypt_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulDataLen, // CK_ULONG - other: False, pointerized: False
-        pulEncryptedDataLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pData,
+        &ulDataLen,
+        pulEncryptedDataLen
     );
 
     if (status != CKR_OK)
@@ -1046,9 +1046,9 @@ server_C_Encrypt(
 
     status = pack_C_Encrypt_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pEncryptedData, // CK_BYTE_ARRAY False True
-        pulEncryptedDataLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedData,
+        pulEncryptedDataLen
     );
 
 
@@ -1078,8 +1078,8 @@ server_C_EncryptFinal(
 
     CK_RV status = unpack_C_EncryptFinal_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pulEncryptedDataLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pulEncryptedDataLen
     );
 
     if (status != CKR_OK)
@@ -1096,9 +1096,9 @@ server_C_EncryptFinal(
 
     status = pack_C_EncryptFinal_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pEncryptedData, // CK_BYTE_ARRAY False True
-        pulEncryptedDataLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedData,
+        pulEncryptedDataLen
     );
 
 
@@ -1128,9 +1128,9 @@ server_C_EncryptInit(
 
     CK_RV status = unpack_C_EncryptInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -1147,7 +1147,7 @@ server_C_EncryptInit(
 
     status = pack_C_EncryptInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -1179,10 +1179,10 @@ server_C_EncryptUpdate(
 
     CK_RV status = unpack_C_EncryptUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen, // CK_ULONG - other: False, pointerized: False
-        pulEncryptedPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
@@ -1201,9 +1201,9 @@ server_C_EncryptUpdate(
 
     status = pack_C_EncryptUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pEncryptedPart, // CK_BYTE_ARRAY False True
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
 
@@ -1231,7 +1231,7 @@ server_C_Finalize(
 
     CK_RV status = unpack_C_Finalize_Call(
         cursorIn,
-        pReserved // CK_VOID_PTR - other: True, pointerized: False
+        pReserved
     );
 
     if (status != CKR_OK)
@@ -1246,8 +1246,8 @@ server_C_Finalize(
 
     status = pack_C_Finalize_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        &pReserved // ANY False False
+        retval,
+        &pReserved
     );
 
 
@@ -1278,8 +1278,8 @@ server_C_FindObjects(
 
     CK_RV status = unpack_C_FindObjects_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &ulMaxObjectCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &ulMaxObjectCount
     );
 
     if (status != CKR_OK)
@@ -1297,9 +1297,9 @@ server_C_FindObjects(
 
     status = pack_C_FindObjects_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phObject, // CK_OBJECT_HANDLE_ARRAY False True
-        pulObjectCount // CK_ULONG_PTR True True
+        retval,
+        phObject,
+        pulObjectCount
     );
 
 
@@ -1327,7 +1327,7 @@ server_C_FindObjectsFinal(
 
     CK_RV status = unpack_C_FindObjectsFinal_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -1342,7 +1342,7 @@ server_C_FindObjectsFinal(
 
     status = pack_C_FindObjectsFinal_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -1372,9 +1372,9 @@ server_C_FindObjectsInit(
 
     CK_RV status = unpack_C_FindObjectsInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: True, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -1391,8 +1391,8 @@ server_C_FindObjectsInit(
 
     status = pack_C_FindObjectsInit_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pTemplate // CK_ATTRIBUTE_ARRAY False True
+        retval,
+        pTemplate
     );
 
 
@@ -1424,10 +1424,10 @@ server_C_GenerateKey(
 
     CK_RV status = unpack_C_GenerateKey_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -1446,8 +1446,8 @@ server_C_GenerateKey(
 
     status = pack_C_GenerateKey_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phKey // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phKey
     );
 
 
@@ -1482,12 +1482,12 @@ server_C_GenerateKeyPair(
 
     CK_RV status = unpack_C_GenerateKeyPair_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        pPublicKeyTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulPublicKeyAttributeCount, // CK_ULONG - other: False, pointerized: False
-        pPrivateKeyTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulPrivateKeyAttributeCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        pPublicKeyTemplate,
+        &ulPublicKeyAttributeCount,
+        pPrivateKeyTemplate,
+        &ulPrivateKeyAttributeCount
     );
 
     if (status != CKR_OK)
@@ -1509,9 +1509,9 @@ server_C_GenerateKeyPair(
 
     status = pack_C_GenerateKeyPair_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phPublicKey, // CK_OBJECT_HANDLE_PTR True True
-        phPrivateKey // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phPublicKey,
+        phPrivateKey
     );
 
 
@@ -1541,8 +1541,8 @@ server_C_GenerateRandom(
 
     CK_RV status = unpack_C_GenerateRandom_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &ulRandomLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &ulRandomLen
     );
 
     if (status != CKR_OK)
@@ -1559,8 +1559,8 @@ server_C_GenerateRandom(
 
     status = pack_C_GenerateRandom_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSeed // CK_BYTE_ARRAY False True
+        retval,
+        pSeed
     );
 
 
@@ -1591,10 +1591,10 @@ server_C_GetAttributeValue(
 
     CK_RV status = unpack_C_GetAttributeValue_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hObject, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: True, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &hObject,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -1612,8 +1612,8 @@ server_C_GetAttributeValue(
 
     status = pack_C_GetAttributeValue_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pTemplate // CK_ATTRIBUTE_ARRAY False True
+        retval,
+        pTemplate
     );
 
 
@@ -1641,7 +1641,7 @@ server_C_GetFunctionStatus(
 
     CK_RV status = unpack_C_GetFunctionStatus_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -1656,7 +1656,7 @@ server_C_GetFunctionStatus(
 
     status = pack_C_GetFunctionStatus_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -1698,8 +1698,8 @@ server_C_GetInfo(
 
     status = pack_C_GetInfo_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pInfo // CK_INFO_PTR True True
+        retval,
+        pInfo
     );
 
 
@@ -1729,8 +1729,8 @@ server_C_GetMechanismInfo(
 
     CK_RV status = unpack_C_GetMechanismInfo_Call(
         cursorIn,
-        &slotID, // CK_SLOT_ID - other: False, pointerized: False
-        &type // CK_MECHANISM_TYPE - other: False, pointerized: False
+        &slotID,
+        &type
     );
 
     if (status != CKR_OK)
@@ -1747,8 +1747,8 @@ server_C_GetMechanismInfo(
 
     status = pack_C_GetMechanismInfo_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pInfo // CK_MECHANISM_INFO_PTR True True
+        retval,
+        pInfo
     );
 
 
@@ -1778,8 +1778,8 @@ server_C_GetMechanismList(
 
     CK_RV status = unpack_C_GetMechanismList_Call(
         cursorIn,
-        &slotID, // CK_SLOT_ID - other: False, pointerized: False
-        pulCount // CK_ULONG - other: True, pointerized: False
+        &slotID,
+        pulCount
     );
 
     if (status != CKR_OK)
@@ -1796,9 +1796,9 @@ server_C_GetMechanismList(
 
     status = pack_C_GetMechanismList_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pMechanismList, // CK_MECHANISM_TYPE_ARRAY False True
-        pulCount // CK_ULONG_PTR True True
+        retval,
+        pMechanismList,
+        pulCount
     );
 
 
@@ -1828,8 +1828,8 @@ server_C_GetObjectSize(
 
     CK_RV status = unpack_C_GetObjectSize_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hObject // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        &hObject
     );
 
     if (status != CKR_OK)
@@ -1846,8 +1846,8 @@ server_C_GetObjectSize(
 
     status = pack_C_GetObjectSize_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pulSize // CK_ULONG_PTR True True
+        retval,
+        pulSize
     );
 
 
@@ -1877,8 +1877,8 @@ server_C_GetOperationState(
 
     CK_RV status = unpack_C_GetOperationState_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pulOperationStateLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pulOperationStateLen
     );
 
     if (status != CKR_OK)
@@ -1895,9 +1895,9 @@ server_C_GetOperationState(
 
     status = pack_C_GetOperationState_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pOperationState, // CK_BYTE_ARRAY False True
-        pulOperationStateLen // CK_ULONG_PTR True True
+        retval,
+        pOperationState,
+        pulOperationStateLen
     );
 
 
@@ -1926,7 +1926,7 @@ server_C_GetSessionInfo(
 
     CK_RV status = unpack_C_GetSessionInfo_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -1942,8 +1942,8 @@ server_C_GetSessionInfo(
 
     status = pack_C_GetSessionInfo_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pInfo // CK_SESSION_INFO_PTR True True
+        retval,
+        pInfo
     );
 
 
@@ -1972,7 +1972,7 @@ server_C_GetSlotInfo(
 
     CK_RV status = unpack_C_GetSlotInfo_Call(
         cursorIn,
-        &slotID // CK_SLOT_ID - other: False, pointerized: False
+        &slotID
     );
 
     if (status != CKR_OK)
@@ -1988,8 +1988,8 @@ server_C_GetSlotInfo(
 
     status = pack_C_GetSlotInfo_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pInfo // CK_SLOT_INFO_PTR True True
+        retval,
+        pInfo
     );
 
 
@@ -2019,8 +2019,8 @@ server_C_GetSlotList(
 
     CK_RV status = unpack_C_GetSlotList_Call(
         cursorIn,
-        &tokenPresent, // CK_BBOOL - other: False, pointerized: False
-        pulCount // CK_ULONG - other: True, pointerized: False
+        &tokenPresent,
+        pulCount
     );
 
     if (status != CKR_OK)
@@ -2037,9 +2037,9 @@ server_C_GetSlotList(
 
     status = pack_C_GetSlotList_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSlotList, // CK_SLOT_ID_ARRAY False True
-        pulCount // CK_ULONG_PTR True True
+        retval,
+        pSlotList,
+        pulCount
     );
 
 
@@ -2068,7 +2068,7 @@ server_C_GetTokenInfo(
 
     CK_RV status = unpack_C_GetTokenInfo_Call(
         cursorIn,
-        &slotID // CK_SLOT_ID - other: False, pointerized: False
+        &slotID
     );
 
     if (status != CKR_OK)
@@ -2084,8 +2084,8 @@ server_C_GetTokenInfo(
 
     status = pack_C_GetTokenInfo_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pInfo // CK_TOKEN_INFO_PTR True True
+        retval,
+        pInfo
     );
 
 
@@ -2115,9 +2115,9 @@ server_C_InitPIN(
 
     CK_RV status = unpack_C_InitPIN_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPin, // CK_UTF8CHAR_ARRAY - other: False, pointerized: False
-        &ulPinLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pPin,
+        &ulPinLen
     );
 
     if (status != CKR_OK)
@@ -2134,7 +2134,7 @@ server_C_InitPIN(
 
     status = pack_C_InitPIN_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2165,10 +2165,10 @@ server_C_InitToken(
 
     CK_RV status = unpack_C_InitToken_Call(
         cursorIn,
-        &slotID, // CK_SLOT_ID - other: False, pointerized: False
-        pPin, // UTF8String - other: False, pointerized: False
-        &ulPinLen, // CK_ULONG - other: False, pointerized: False
-        pLabel // UTF8String - other: False, pointerized: False
+        &slotID,
+        pPin,
+        &ulPinLen,
+        pLabel
     );
 
     if (status != CKR_OK)
@@ -2186,7 +2186,7 @@ server_C_InitToken(
 
     status = pack_C_InitToken_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2214,7 +2214,7 @@ server_C_Initialize(
 
     CK_RV status = unpack_C_Initialize_Call(
         cursorIn,
-        pInitArgs // CK_C_INITIALIZE_ARGS_PTR - other: True, pointerized: False
+        pInitArgs
     );
 
     if (status != CKR_OK)
@@ -2229,8 +2229,8 @@ server_C_Initialize(
 
     status = pack_C_Initialize_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        &pInitArgs // ANY False False
+        retval,
+        &pInitArgs
     );
 
 
@@ -2261,10 +2261,10 @@ server_C_Login(
 
     CK_RV status = unpack_C_Login_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &userType, // CK_USER_TYPE - other: False, pointerized: False
-        pPin, // CK_UTF8CHAR_ARRAY - other: False, pointerized: False
-        &ulPinLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &userType,
+        pPin,
+        &ulPinLen
     );
 
     if (status != CKR_OK)
@@ -2282,7 +2282,7 @@ server_C_Login(
 
     status = pack_C_Login_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2310,7 +2310,7 @@ server_C_Logout(
 
     CK_RV status = unpack_C_Logout_Call(
         cursorIn,
-        &hSession // CK_SESSION_HANDLE - other: False, pointerized: False
+        &hSession
     );
 
     if (status != CKR_OK)
@@ -2325,7 +2325,7 @@ server_C_Logout(
 
     status = pack_C_Logout_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2357,10 +2357,10 @@ server_C_OpenSession(
 
     CK_RV status = unpack_C_OpenSession_Call(
         cursorIn,
-        &slotID, // CK_SLOT_ID - other: False, pointerized: False
-        &flags, // CK_FLAGS - other: False, pointerized: False
-        &pApplication, // ANY - other: False, pointerized: False
-        notify // CK_NOTIFY - other: False, pointerized: False
+        &slotID,
+        &flags,
+        &pApplication,
+        notify
     );
 
     if (status != CKR_OK)
@@ -2379,8 +2379,8 @@ server_C_OpenSession(
 
     status = pack_C_OpenSession_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phSession // CK_SESSION_HANDLE_PTR True True
+        retval,
+        phSession
     );
 
 
@@ -2410,9 +2410,9 @@ server_C_SeedRandom(
 
     CK_RV status = unpack_C_SeedRandom_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pSeed, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulSeedLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pSeed,
+        &ulSeedLen
     );
 
     if (status != CKR_OK)
@@ -2429,7 +2429,7 @@ server_C_SeedRandom(
 
     status = pack_C_SeedRandom_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2460,10 +2460,10 @@ server_C_SetAttributeValue(
 
     CK_RV status = unpack_C_SetAttributeValue_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        &hObject, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        &hObject,
+        pTemplate,
+        &ulCount
     );
 
     if (status != CKR_OK)
@@ -2481,7 +2481,7 @@ server_C_SetAttributeValue(
 
     status = pack_C_SetAttributeValue_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2513,11 +2513,11 @@ server_C_SetOperationState(
 
     CK_RV status = unpack_C_SetOperationState_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pOperationState, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulOperationStateLen, // CK_ULONG - other: False, pointerized: False
-        &hEncryptionKey, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        &hAuthenticationKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pOperationState,
+        &ulOperationStateLen,
+        &hEncryptionKey,
+        &hAuthenticationKey
     );
 
     if (status != CKR_OK)
@@ -2536,7 +2536,7 @@ server_C_SetOperationState(
 
     status = pack_C_SetOperationState_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2568,11 +2568,11 @@ server_C_SetPIN(
 
     CK_RV status = unpack_C_SetPIN_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pOldPin, // CK_UTF8CHAR_ARRAY - other: False, pointerized: False
-        &ulOldLen, // CK_ULONG - other: False, pointerized: False
-        pNewPin, // CK_UTF8CHAR_ARRAY - other: False, pointerized: False
-        &ulNewPin // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pOldPin,
+        &ulOldLen,
+        pNewPin,
+        &ulNewPin
     );
 
     if (status != CKR_OK)
@@ -2591,7 +2591,7 @@ server_C_SetPIN(
 
     status = pack_C_SetPIN_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2623,10 +2623,10 @@ server_C_Sign(
 
     CK_RV status = unpack_C_Sign_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulDataLen, // CK_ULONG - other: False, pointerized: False
-        pulSignatureLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pData,
+        &ulDataLen,
+        pulSignatureLen
     );
 
     if (status != CKR_OK)
@@ -2645,9 +2645,9 @@ server_C_Sign(
 
     status = pack_C_Sign_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSignature, // CK_BYTE_ARRAY False True
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
 
@@ -2679,10 +2679,10 @@ server_C_SignEncryptUpdate(
 
     CK_RV status = unpack_C_SignEncryptUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen, // CK_ULONG - other: False, pointerized: False
-        pulEncryptedPartLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
@@ -2701,9 +2701,9 @@ server_C_SignEncryptUpdate(
 
     status = pack_C_SignEncryptUpdate_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pEncryptedPart, // CK_BYTE_ARRAY False True
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
 
@@ -2733,8 +2733,8 @@ server_C_SignFinal(
 
     CK_RV status = unpack_C_SignFinal_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pulSignatureLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pulSignatureLen
     );
 
     if (status != CKR_OK)
@@ -2751,9 +2751,9 @@ server_C_SignFinal(
 
     status = pack_C_SignFinal_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSignature, // CK_BYTE_ARRAY False True
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
 
@@ -2783,9 +2783,9 @@ server_C_SignInit(
 
     CK_RV status = unpack_C_SignInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -2802,7 +2802,7 @@ server_C_SignInit(
 
     status = pack_C_SignInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2834,10 +2834,10 @@ server_C_SignRecover(
 
     CK_RV status = unpack_C_SignRecover_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulDataLen, // CK_ULONG - other: False, pointerized: False
-        pulSignatureLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pData,
+        &ulDataLen,
+        pulSignatureLen
     );
 
     if (status != CKR_OK)
@@ -2856,9 +2856,9 @@ server_C_SignRecover(
 
     status = pack_C_SignRecover_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSignature, // CK_BYTE_ARRAY False True
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
 
@@ -2888,9 +2888,9 @@ server_C_SignRecoverInit(
 
     CK_RV status = unpack_C_SignRecoverInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -2907,7 +2907,7 @@ server_C_SignRecoverInit(
 
     status = pack_C_SignRecoverInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2937,9 +2937,9 @@ server_C_SignUpdate(
 
     CK_RV status = unpack_C_SignUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen
     );
 
     if (status != CKR_OK)
@@ -2956,7 +2956,7 @@ server_C_SignUpdate(
 
     status = pack_C_SignUpdate_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -2991,13 +2991,13 @@ server_C_UnwrapKey(
 
     CK_RV status = unpack_C_UnwrapKey_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hUnwrappingKey, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pWrappedKey, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulWrappedKeyLen, // CK_ULONG - other: False, pointerized: False
-        pTemplate, // CK_ATTRIBUTE_ARRAY - other: False, pointerized: False
-        &ulAttributeCount // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hUnwrappingKey,
+        pWrappedKey,
+        &ulWrappedKeyLen,
+        pTemplate,
+        &ulAttributeCount
     );
 
     if (status != CKR_OK)
@@ -3019,8 +3019,8 @@ server_C_UnwrapKey(
 
     status = pack_C_UnwrapKey_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        phKey // CK_OBJECT_HANDLE_PTR True True
+        retval,
+        phKey
     );
 
 
@@ -3052,11 +3052,11 @@ server_C_Verify(
 
     CK_RV status = unpack_C_Verify_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pData, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulDataLen, // CK_ULONG - other: False, pointerized: False
-        pSignature, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulSignatureLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pData,
+        &ulDataLen,
+        pSignature,
+        &ulSignatureLen
     );
 
     if (status != CKR_OK)
@@ -3075,7 +3075,7 @@ server_C_Verify(
 
     status = pack_C_Verify_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -3105,9 +3105,9 @@ server_C_VerifyFinal(
 
     CK_RV status = unpack_C_VerifyFinal_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pSignature, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulSignatureLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pSignature,
+        &ulSignatureLen
     );
 
     if (status != CKR_OK)
@@ -3124,7 +3124,7 @@ server_C_VerifyFinal(
 
     status = pack_C_VerifyFinal_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -3154,9 +3154,9 @@ server_C_VerifyInit(
 
     CK_RV status = unpack_C_VerifyInit_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hKey // CK_OBJECT_HANDLE - other: False, pointerized: False
+        &hSession,
+        pMechanism,
+        &hKey
     );
 
     if (status != CKR_OK)
@@ -3173,7 +3173,7 @@ server_C_VerifyInit(
 
     status = pack_C_VerifyInit_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -3205,10 +3205,10 @@ server_C_VerifyRecover(
 
     CK_RV status = unpack_C_VerifyRecover_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pSignature, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulSignatureLen, // CK_ULONG - other: False, pointerized: False
-        pulDataLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pSignature,
+        &ulSignatureLen,
+        pulDataLen
     );
 
     if (status != CKR_OK)
@@ -3227,9 +3227,9 @@ server_C_VerifyRecover(
 
     status = pack_C_VerifyRecover_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pData, // CK_BYTE_ARRAY False True
-        pulDataLen // CK_ULONG_PTR True True
+        retval,
+        pData,
+        pulDataLen
     );
 
 
@@ -3259,9 +3259,9 @@ server_C_VerifyUpdate(
 
     CK_RV status = unpack_C_VerifyUpdate_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pPart, // CK_BYTE_ARRAY - other: False, pointerized: False
-        &ulPartLen // CK_ULONG - other: False, pointerized: False
+        &hSession,
+        pPart,
+        &ulPartLen
     );
 
     if (status != CKR_OK)
@@ -3278,7 +3278,7 @@ server_C_VerifyUpdate(
 
     status = pack_C_VerifyUpdate_Return(
         CursorOut,
-        retval // CK_RV_PTR True True
+        retval
     );
 
 
@@ -3308,8 +3308,8 @@ server_C_WaitForSlotEvent(
 
     CK_RV status = unpack_C_WaitForSlotEvent_Call(
         cursorIn,
-        &flags, // CK_FLAGS - other: False, pointerized: False
-        pReserved // CK_VOID_PTR - other: True, pointerized: False
+        &flags,
+        pReserved
     );
 
     if (status != CKR_OK)
@@ -3326,9 +3326,9 @@ server_C_WaitForSlotEvent(
 
     status = pack_C_WaitForSlotEvent_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pSlot, // CK_SLOT_ID_PTR True True
-        pReserved // CK_VOID_PTR False True
+        retval,
+        pSlot,
+        pReserved
     );
 
 
@@ -3361,11 +3361,11 @@ server_C_WrapKey(
 
     CK_RV status = unpack_C_WrapKey_Call(
         cursorIn,
-        &hSession, // CK_SESSION_HANDLE - other: False, pointerized: False
-        pMechanism, // CK_MECHANISM_PTR - other: False, pointerized: False
-        &hWrappingKey, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        &hKey, // CK_OBJECT_HANDLE - other: False, pointerized: False
-        pulWrappedKeyLen // CK_ULONG - other: True, pointerized: False
+        &hSession,
+        pMechanism,
+        &hWrappingKey,
+        &hKey,
+        pulWrappedKeyLen
     );
 
     if (status != CKR_OK)
@@ -3385,9 +3385,9 @@ server_C_WrapKey(
 
     status = pack_C_WrapKey_Return(
         CursorOut,
-        retval, // CK_RV_PTR True True
-        pWrappedKey, // CK_BYTE_ARRAY False True
-        pulWrappedKeyLen // CK_ULONG_PTR True True
+        retval,
+        pWrappedKey,
+        pulWrappedKeyLen
     );
 
 

@@ -55,7 +55,7 @@ client_{{ f }}(
         &dercursorOut
         {%- for type_, pointerized, var, other in extract_args(return_, call, True) -%}
         {%- if loop.first %},{% endif %}
-        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // {{ type_ }} {{type_|is_pointer }} {{ other }}
+        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
         {%- endfor %}
     );
 

@@ -59,7 +59,7 @@ server_{{ f }}(
         cursorIn
         {%- for type_, pointerized, var, other in extract_args(call, return_, False) -%}
         {%- if loop.first %},{% endif %}
-        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // {{type_}} - other: {{ other }}, pointerized: {{ pointerized }}
+        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
         {%- endfor %}
     );
 
@@ -80,7 +80,7 @@ server_{{ f }}(
         CursorOut
         {%- for type_, pointerized, var, other in extract_args(return_, call, True) -%}
         {%- if loop.first %},{% endif %}
-        {% if not type_|is_pointer %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %} // {{ type_ }} {{ pointerized }} {{ type_|is_pointer }}
+        {% if not type_|is_pointer %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
         {%- endfor %}
     );
 

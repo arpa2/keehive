@@ -17,21 +17,21 @@
 
 /* Overlay structures with ASN.1 derived nesting and labelling */
 
-typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
-
-
 typedef dercursor DER_OVLY_RemotePKCS11_ACK_ULONG;
 
 
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE;
 
 
+typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
+
+
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE {
 	DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE type; // ACK-ATTRIBUTE-TYPE
 	struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
-	} pValue; // CHOICE { null NULL, data ACK-OPAQUE }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
+} pValue; // CHOICE { null NULL, data ACK-OPAQUE }
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulValueLen; // ACK-ULONG
 } DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE;
 
@@ -184,10 +184,10 @@ typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_RV;
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_SESSION_HANDLE;
 
 
-typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_SLOT_ID;
-
-
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_STATE;
+
+
+typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_SLOT_ID;
 
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_SESSION_INFO {
@@ -734,9 +734,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Call_pMechanismList DER_
 typedef struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
 	struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return_pMechanismList {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE_ARRAY data; // ACK-MECHANISM-TYPE-ARRAY
-	} pMechanismList; // [1] CHOICE { null NULL, data ACK-MECHANISM-TYPE-ARRAY }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE_ARRAY data; // ACK-MECHANISM-TYPE-ARRAY
+} pMechanismList; // [1] CHOICE { null NULL, data ACK-MECHANISM-TYPE-ARRAY }
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulCount; // [2] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_GetMechanismList_Return;
 
@@ -802,9 +802,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Call_pSlotList DER_OVLY_Remot
 typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
 	struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
-	} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
+} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulCount; // [2] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_GetSlotList_Return;
 
@@ -1090,7 +1090,7 @@ typedef struct DER_OVLY_RemotePKCS11_C_UnwrapKey_Call {
 	DER_OVLY_RemotePKCS11_ACK_SESSION_HANDLE hSession; // [0] ACK-SESSION-HANDLE
 	DER_OVLY_RemotePKCS11_ACK_MECHANISM pMechanism; // [1] ACK-MECHANISM
 	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE hUnwrappingKey; // [2] ACK-OBJECT-HANDLE
-	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE hWrappedKey; // [3] ACK-OBJECT-HANDLE
+	DER_OVLY_RemotePKCS11_ACK_BYTE_ARRAY pWrappedKey; // [3] ACK-BYTE-ARRAY
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulWrappedKeyLen; // [4] ACK-ULONG
 	DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_ARRAY pTemplate; // [5] ACK-ATTRIBUTE-ARRAY
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulAttributeCount; // [6] ACK-ULONG
@@ -1255,12 +1255,6 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 /* Parser definitions in terms of ASN.1 derived bytecode instructions */
 
-#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
-	DER_PACK_STORE | implicit_tag
-
-#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
-	DER_PACK_STORE | DER_TAG_OCTETSTRING
-
 #define DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag) \
 	DER_PACK_STORE | implicit_tag
 
@@ -1272,6 +1266,12 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 #define DER_PACK_RemotePKCS11_ACK_ATTRIBUTE_TYPE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
+
+#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
+	DER_PACK_STORE | implicit_tag
+
+#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
+	DER_PACK_STORE | DER_TAG_OCTETSTRING
 
 #define DER_PIMP_RemotePKCS11_ACK_ATTRIBUTE(implicit_tag) \
 	DER_PACK_ENTER | implicit_tag, \
@@ -1561,16 +1561,16 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 #define DER_PACK_RemotePKCS11_ACK_SESSION_HANDLE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
 
-#define DER_PIMP_RemotePKCS11_ACK_SLOT_ID(implicit_tag) \
-	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
-
-#define DER_PACK_RemotePKCS11_ACK_SLOT_ID \
-	DER_PACK_RemotePKCS11_ACK_ULONG
-
 #define DER_PIMP_RemotePKCS11_ACK_STATE(implicit_tag) \
 	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
 
 #define DER_PACK_RemotePKCS11_ACK_STATE \
+	DER_PACK_RemotePKCS11_ACK_ULONG
+
+#define DER_PIMP_RemotePKCS11_ACK_SLOT_ID(implicit_tag) \
+	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
+
+#define DER_PACK_RemotePKCS11_ACK_SLOT_ID \
 	DER_PACK_RemotePKCS11_ACK_ULONG
 
 #define DER_PIMP_RemotePKCS11_ACK_SESSION_INFO(implicit_tag) \
@@ -4281,7 +4281,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_RemotePKCS11_ACK_BYTE_ARRAY, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(4), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \
@@ -4306,7 +4306,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_RemotePKCS11_ACK_BYTE_ARRAY, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(4), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \

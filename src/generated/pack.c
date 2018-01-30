@@ -665,10 +665,39 @@ static const derwalk C_WrapKey_Return_packer[] = {
 };
 
 
-static const derwalk C_GetSlotList_Return_pSlotList_packer[] = {
+static const derwalk pSlotList_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
 };
+
+
+/*
+ * used by:
+ *
+ * C_CopyObject_Call
+ * C_CreateObject_Call
+ * C_DeriveKey_Call
+ * C_FindObjectsInit_Call
+ * C_FindObjectsInit_Return
+ * C_GenerateKey_Call
+ * C_GenerateKeyPair_Call_pPublicKeyTemplate_packer
+ * C_GenerateKeyPair_Call_pPrivateKeyTemplate_packer
+ * C_GetAttributeValue_Call
+ * C_SetAttributeValue_Call
+ * C_UnwrapKey_Call
+ *
+ *
+*/
+static const derwalk AttributeArray_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
+
+static const derwalk ByteArray_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
+
 
 
 
@@ -686,8 +715,8 @@ pack_C_CancelFunction_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_CancelFunction_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_CancelFunction_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -723,8 +752,8 @@ pack_C_CancelFunction_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_CancelFunction_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_CancelFunction_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -762,8 +791,8 @@ pack_C_CloseAllSessions_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_CloseAllSessions_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_CloseAllSessions_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
@@ -799,8 +828,8 @@ pack_C_CloseAllSessions_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_CloseAllSessions_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_CloseAllSessions_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -838,8 +867,8 @@ pack_C_CloseSession_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_CloseSession_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_CloseSession_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -875,8 +904,8 @@ pack_C_CloseSession_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_CloseSession_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_CloseSession_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -904,7 +933,8 @@ CK_RV
 pack_C_CopyObject_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_OBJECT_HANDLE* hObject,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_OBJECT_HANDLE* hObject,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_CopyObject_Call_t C_CopyObject_Call;
@@ -916,32 +946,48 @@ pack_C_CopyObject_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_CopyObject_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_CopyObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hObject_storage;
-    C_CopyObject_Call.hObject = der_put_ulong(&hObject_storage, *hObject);
+    der_buf_ulong_t hObject_storage = { 0 };
+    C_CopyObject_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_CopyObject_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_CopyObject_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_CopyObject_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_CopyObject_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_CopyObject_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -978,16 +1024,16 @@ pack_C_CopyObject_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_CopyObject_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_CopyObject_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phObject_storage;
-    C_CopyObject_Return.phObject = der_put_ulong(&phObject_storage, *phObject);
+    der_buf_ulong_t phObject_storage = { 0 };
+    C_CopyObject_Return.phObject = der_put_ulong(phObject_storage, *phObject);
 
     
 
@@ -1014,7 +1060,8 @@ pack_C_CopyObject_Return(
 CK_RV
 pack_C_CreateObject_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_SESSION_HANDLE* hSession,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_CreateObject_Call_t C_CreateObject_Call;
@@ -1026,24 +1073,40 @@ pack_C_CreateObject_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_CreateObject_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_CreateObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_CreateObject_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_CreateObject_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_CreateObject_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_CreateObject_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_CreateObject_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -1080,16 +1143,16 @@ pack_C_CreateObject_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_CreateObject_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_CreateObject_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phObject_storage;
-    C_CreateObject_Return.phObject = der_put_ulong(&phObject_storage, *phObject);
+    der_buf_ulong_t phObject_storage = { 0 };
+    C_CreateObject_Return.phObject = der_put_ulong(phObject_storage, *phObject);
 
     
 
@@ -1116,7 +1179,8 @@ pack_C_CreateObject_Return(
 CK_RV
 pack_C_Decrypt_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pEncryptedData,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pEncryptedData,
         const CK_ULONG* ulEncryptedDataLen,
         const CK_ULONG* pulDataLen
 ) {
@@ -1129,32 +1193,58 @@ pack_C_Decrypt_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Decrypt_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Decrypt_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
     
-    //C_Decrypt_Call.pEncryptedData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedData_innerlist = NULL;
+    size_t pEncryptedData_length = 0;
+    CK_RV pEncryptedData_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedData,
+            ulEncryptedDataLen,
+            &pEncryptedData_innerlist,
+            &pEncryptedData_length,
+            ByteArray_packer);
+
+    if (pEncryptedData_status != CKR_OK)
+        return pEncryptedData_status;
+
+    C_Decrypt_Call.pEncryptedData.derptr = pEncryptedData_innerlist;
+    C_Decrypt_Call.pEncryptedData.derlen = pEncryptedData_length;
+
+
+
 
     // PACKING ulEncryptedDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulEncryptedDataLen_storage;
-    C_Decrypt_Call.ulEncryptedDataLen = der_put_ulong(&ulEncryptedDataLen_storage, *ulEncryptedDataLen);
+    der_buf_ulong_t ulEncryptedDataLen_storage = { 0 };
+    C_Decrypt_Call.ulEncryptedDataLen = der_put_ulong(ulEncryptedDataLen_storage, *ulEncryptedDataLen);
 
     
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDataLen_storage;
-    C_Decrypt_Call.pulDataLen = der_put_ulong(&pulDataLen_storage, *pulDataLen);
+    der_buf_ulong_t pulDataLen_storage = { 0 };
+    C_Decrypt_Call.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
 
     
 
@@ -1179,7 +1269,8 @@ pack_C_Decrypt_Call(
 CK_RV
 pack_C_Decrypt_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pData,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* pulDataLen
 ) {
     C_Decrypt_Return_t C_Decrypt_Return;
@@ -1191,24 +1282,50 @@ pack_C_Decrypt_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Decrypt_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Decrypt_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_Decrypt_Return.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            pulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_Decrypt_Return.pData.derptr = pData_innerlist;
+    C_Decrypt_Return.pData.derlen = pData_length;
+
+
+
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDataLen_storage;
-    C_Decrypt_Return.pulDataLen = der_put_ulong(&pulDataLen_storage, *pulDataLen);
+    der_buf_ulong_t pulDataLen_storage = { 0 };
+    C_Decrypt_Return.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
 
     
 
@@ -1235,7 +1352,8 @@ pack_C_Decrypt_Return(
 CK_RV
 pack_C_DecryptDigestUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -1248,32 +1366,58 @@ pack_C_DecryptDigestUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DecryptDigestUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DecryptDigestUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptDigestUpdate_Call.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            ulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_DecryptDigestUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_DecryptDigestUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulEncryptedPartLen_storage;
-    C_DecryptDigestUpdate_Call.ulEncryptedPartLen = der_put_ulong(&ulEncryptedPartLen_storage, *ulEncryptedPartLen);
+    der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
+    C_DecryptDigestUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
     
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptDigestUpdate_Call.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptDigestUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1298,7 +1442,8 @@ pack_C_DecryptDigestUpdate_Call(
 CK_RV
 pack_C_DecryptDigestUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptDigestUpdate_Return_t C_DecryptDigestUpdate_Return;
@@ -1310,24 +1455,50 @@ pack_C_DecryptDigestUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DecryptDigestUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DecryptDigestUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptDigestUpdate_Return.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            pulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_DecryptDigestUpdate_Return.pPart.derptr = pPart_innerlist;
+    C_DecryptDigestUpdate_Return.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptDigestUpdate_Return.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptDigestUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1366,16 +1537,16 @@ pack_C_DecryptFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DecryptFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DecryptFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pulLastPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulLastPartLen_storage;
-    C_DecryptFinal_Call.pulLastPartLen = der_put_ulong(&pulLastPartLen_storage, *pulLastPartLen);
+    der_buf_ulong_t pulLastPartLen_storage = { 0 };
+    C_DecryptFinal_Call.pulLastPartLen = der_put_ulong(pulLastPartLen_storage, *pulLastPartLen);
 
     
 
@@ -1400,7 +1571,8 @@ pack_C_DecryptFinal_Call(
 CK_RV
 pack_C_DecryptFinal_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pLastPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pLastPart,
         const CK_ULONG* pulLastPartLen
 ) {
     C_DecryptFinal_Return_t C_DecryptFinal_Return;
@@ -1412,24 +1584,50 @@ pack_C_DecryptFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DecryptFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DecryptFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pLastPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptFinal_Return.pLastPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pLastPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pLastPart_innerlist = NULL;
+    size_t pLastPart_length = 0;
+    CK_RV pLastPart_status = der_put_CK_BYTE_ARRAY(
+            pLastPart,
+            pulLastPartLen,
+            &pLastPart_innerlist,
+            &pLastPart_length,
+            ByteArray_packer);
+
+    if (pLastPart_status != CKR_OK)
+        return pLastPart_status;
+
+    C_DecryptFinal_Return.pLastPart.derptr = pLastPart_innerlist;
+    C_DecryptFinal_Return.pLastPart.derlen = pLastPart_length;
+
+
+
 
     // PACKING pulLastPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulLastPartLen_storage;
-    C_DecryptFinal_Return.pulLastPartLen = der_put_ulong(&pulLastPartLen_storage, *pulLastPartLen);
+    der_buf_ulong_t pulLastPartLen_storage = { 0 };
+    C_DecryptFinal_Return.pulLastPartLen = der_put_ulong(pulLastPartLen_storage, *pulLastPartLen);
 
     
 
@@ -1469,15 +1667,16 @@ pack_C_DecryptInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DecryptInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DecryptInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_DecryptInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_DecryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -1485,8 +1684,8 @@ pack_C_DecryptInit_Call(
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_DecryptInit_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_DecryptInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -1522,8 +1721,8 @@ pack_C_DecryptInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DecryptInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DecryptInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -1550,7 +1749,8 @@ pack_C_DecryptInit_Return(
 CK_RV
 pack_C_DecryptUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -1563,32 +1763,58 @@ pack_C_DecryptUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DecryptUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DecryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptUpdate_Call.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            ulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_DecryptUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_DecryptUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulEncryptedPartLen_storage;
-    C_DecryptUpdate_Call.ulEncryptedPartLen = der_put_ulong(&ulEncryptedPartLen_storage, *ulEncryptedPartLen);
+    der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
+    C_DecryptUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
     
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptUpdate_Call.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1613,7 +1839,8 @@ pack_C_DecryptUpdate_Call(
 CK_RV
 pack_C_DecryptUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptUpdate_Return_t C_DecryptUpdate_Return;
@@ -1625,24 +1852,50 @@ pack_C_DecryptUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DecryptUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DecryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptUpdate_Return.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            pulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_DecryptUpdate_Return.pPart.derptr = pPart_innerlist;
+    C_DecryptUpdate_Return.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptUpdate_Return.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1669,7 +1922,8 @@ pack_C_DecryptUpdate_Return(
 CK_RV
 pack_C_DecryptVerifyUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -1682,32 +1936,58 @@ pack_C_DecryptVerifyUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DecryptVerifyUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DecryptVerifyUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptVerifyUpdate_Call.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            ulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_DecryptVerifyUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_DecryptVerifyUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulEncryptedPartLen_storage;
-    C_DecryptVerifyUpdate_Call.ulEncryptedPartLen = der_put_ulong(&ulEncryptedPartLen_storage, *ulEncryptedPartLen);
+    der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
+    C_DecryptVerifyUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
     
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptVerifyUpdate_Call.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptVerifyUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1732,7 +2012,8 @@ pack_C_DecryptVerifyUpdate_Call(
 CK_RV
 pack_C_DecryptVerifyUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptVerifyUpdate_Return_t C_DecryptVerifyUpdate_Return;
@@ -1744,24 +2025,50 @@ pack_C_DecryptVerifyUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DecryptVerifyUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DecryptVerifyUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_DecryptVerifyUpdate_Return.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            pulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_DecryptVerifyUpdate_Return.pPart.derptr = pPart_innerlist;
+    C_DecryptVerifyUpdate_Return.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulPartLen_storage;
-    C_DecryptVerifyUpdate_Return.pulPartLen = der_put_ulong(&pulPartLen_storage, *pulPartLen);
+    der_buf_ulong_t pulPartLen_storage = { 0 };
+    C_DecryptVerifyUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
 
     
 
@@ -1790,7 +2097,8 @@ pack_C_DeriveKey_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
-        const CK_OBJECT_HANDLE* hBaseKey,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_OBJECT_HANDLE* hBaseKey,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulAttributeCount
 ) {
     C_DeriveKey_Call_t C_DeriveKey_Call;
@@ -1802,15 +2110,16 @@ pack_C_DeriveKey_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DeriveKey_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DeriveKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_DeriveKey_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_DeriveKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -1818,24 +2127,40 @@ pack_C_DeriveKey_Call(
     // PACKING hBaseKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hBaseKey_storage;
-    C_DeriveKey_Call.hBaseKey = der_put_ulong(&hBaseKey_storage, *hBaseKey);
+    der_buf_ulong_t hBaseKey_storage = { 0 };
+    C_DeriveKey_Call.hBaseKey = der_put_ulong(hBaseKey_storage, *hBaseKey);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_DeriveKey_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulAttributeCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_DeriveKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_DeriveKey_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulAttributeCount_storage;
-    C_DeriveKey_Call.ulAttributeCount = der_put_ulong(&ulAttributeCount_storage, *ulAttributeCount);
+    der_buf_ulong_t ulAttributeCount_storage = { 0 };
+    C_DeriveKey_Call.ulAttributeCount = der_put_ulong(ulAttributeCount_storage, *ulAttributeCount);
 
     
 
@@ -1872,16 +2197,16 @@ pack_C_DeriveKey_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DeriveKey_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DeriveKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phKey_storage;
-    C_DeriveKey_Return.phKey = der_put_ulong(&phKey_storage, *phKey);
+    der_buf_ulong_t phKey_storage = { 0 };
+    C_DeriveKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
 
     
 
@@ -1920,16 +2245,16 @@ pack_C_DestroyObject_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DestroyObject_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DestroyObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hObject_storage;
-    C_DestroyObject_Call.hObject = der_put_ulong(&hObject_storage, *hObject);
+    der_buf_ulong_t hObject_storage = { 0 };
+    C_DestroyObject_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
     
 
@@ -1965,8 +2290,8 @@ pack_C_DestroyObject_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DestroyObject_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DestroyObject_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -1993,7 +2318,8 @@ pack_C_DestroyObject_Return(
 CK_RV
 pack_C_Digest_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pData,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulDigestLen
 ) {
@@ -2006,32 +2332,58 @@ pack_C_Digest_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Digest_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Digest_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_Digest_Call.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            ulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_Digest_Call.pData.derptr = pData_innerlist;
+    C_Digest_Call.pData.derlen = pData_length;
+
+
+
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulDataLen_storage;
-    C_Digest_Call.ulDataLen = der_put_ulong(&ulDataLen_storage, *ulDataLen);
+    der_buf_ulong_t ulDataLen_storage = { 0 };
+    C_Digest_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
     
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDigestLen_storage;
-    C_Digest_Call.pulDigestLen = der_put_ulong(&pulDigestLen_storage, *pulDigestLen);
+    der_buf_ulong_t pulDigestLen_storage = { 0 };
+    C_Digest_Call.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
 
     
 
@@ -2056,7 +2408,8 @@ pack_C_Digest_Call(
 CK_RV
 pack_C_Digest_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pDigest,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pDigest,
         const CK_ULONG* pulDigestLen
 ) {
     C_Digest_Return_t C_Digest_Return;
@@ -2068,24 +2421,50 @@ pack_C_Digest_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Digest_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Digest_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pDigest (type CK_BYTE_ARRAY)
 
     
-    //C_Digest_Return.pDigest =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pDigest);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pDigest_innerlist = NULL;
+    size_t pDigest_length = 0;
+    CK_RV pDigest_status = der_put_CK_BYTE_ARRAY(
+            pDigest,
+            pulDigestLen,
+            &pDigest_innerlist,
+            &pDigest_length,
+            ByteArray_packer);
+
+    if (pDigest_status != CKR_OK)
+        return pDigest_status;
+
+    C_Digest_Return.pDigest.derptr = pDigest_innerlist;
+    C_Digest_Return.pDigest.derlen = pDigest_length;
+
+
+
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDigestLen_storage;
-    C_Digest_Return.pulDigestLen = der_put_ulong(&pulDigestLen_storage, *pulDigestLen);
+    der_buf_ulong_t pulDigestLen_storage = { 0 };
+    C_Digest_Return.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
 
     
 
@@ -2112,7 +2491,8 @@ pack_C_Digest_Return(
 CK_RV
 pack_C_DigestEncryptUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -2125,32 +2505,58 @@ pack_C_DigestEncryptUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DigestEncryptUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DigestEncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_DigestEncryptUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_DigestEncryptUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_DigestEncryptUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_DigestEncryptUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_DigestEncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_DigestEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_DigestEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -2175,7 +2581,8 @@ pack_C_DigestEncryptUpdate_Call(
 CK_RV
 pack_C_DigestEncryptUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_DigestEncryptUpdate_Return_t C_DigestEncryptUpdate_Return;
@@ -2187,24 +2594,50 @@ pack_C_DigestEncryptUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DigestEncryptUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DigestEncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_DigestEncryptUpdate_Return.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            pulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_DigestEncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_DigestEncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_DigestEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_DigestEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -2243,16 +2676,16 @@ pack_C_DigestFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DigestFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DigestFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDigestLen_storage;
-    C_DigestFinal_Call.pulDigestLen = der_put_ulong(&pulDigestLen_storage, *pulDigestLen);
+    der_buf_ulong_t pulDigestLen_storage = { 0 };
+    C_DigestFinal_Call.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
 
     
 
@@ -2277,7 +2710,8 @@ pack_C_DigestFinal_Call(
 CK_RV
 pack_C_DigestFinal_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pDigest,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pDigest,
         const CK_ULONG* pulDigestLen
 ) {
     C_DigestFinal_Return_t C_DigestFinal_Return;
@@ -2289,24 +2723,50 @@ pack_C_DigestFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DigestFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DigestFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pDigest (type CK_BYTE_ARRAY)
 
     
-    //C_DigestFinal_Return.pDigest =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pDigest);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pDigest_innerlist = NULL;
+    size_t pDigest_length = 0;
+    CK_RV pDigest_status = der_put_CK_BYTE_ARRAY(
+            pDigest,
+            pulDigestLen,
+            &pDigest_innerlist,
+            &pDigest_length,
+            ByteArray_packer);
+
+    if (pDigest_status != CKR_OK)
+        return pDigest_status;
+
+    C_DigestFinal_Return.pDigest.derptr = pDigest_innerlist;
+    C_DigestFinal_Return.pDigest.derlen = pDigest_length;
+
+
+
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDigestLen_storage;
-    C_DigestFinal_Return.pulDigestLen = der_put_ulong(&pulDigestLen_storage, *pulDigestLen);
+    der_buf_ulong_t pulDigestLen_storage = { 0 };
+    C_DigestFinal_Return.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
 
     
 
@@ -2345,15 +2805,16 @@ pack_C_DigestInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DigestInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DigestInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_DigestInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_DigestInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -2390,8 +2851,8 @@ pack_C_DigestInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DigestInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DigestInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -2430,16 +2891,16 @@ pack_C_DigestKey_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DigestKey_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DigestKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_DigestKey_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_DigestKey_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -2475,8 +2936,8 @@ pack_C_DigestKey_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DigestKey_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DigestKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -2503,7 +2964,8 @@ pack_C_DigestKey_Return(
 CK_RV
 pack_C_DigestUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_DigestUpdate_Call_t C_DigestUpdate_Call;
@@ -2515,24 +2977,50 @@ pack_C_DigestUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_DigestUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_DigestUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_DigestUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_DigestUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_DigestUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_DigestUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_DigestUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
@@ -2568,8 +3056,8 @@ pack_C_DigestUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_DigestUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_DigestUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -2596,7 +3084,8 @@ pack_C_DigestUpdate_Return(
 CK_RV
 pack_C_Encrypt_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pData,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulEncryptedDataLen
 ) {
@@ -2609,32 +3098,58 @@ pack_C_Encrypt_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Encrypt_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Encrypt_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_Encrypt_Call.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            ulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_Encrypt_Call.pData.derptr = pData_innerlist;
+    C_Encrypt_Call.pData.derlen = pData_length;
+
+
+
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulDataLen_storage;
-    C_Encrypt_Call.ulDataLen = der_put_ulong(&ulDataLen_storage, *ulDataLen);
+    der_buf_ulong_t ulDataLen_storage = { 0 };
+    C_Encrypt_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
     
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedDataLen_storage;
-    C_Encrypt_Call.pulEncryptedDataLen = der_put_ulong(&pulEncryptedDataLen_storage, *pulEncryptedDataLen);
+    der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
+    C_Encrypt_Call.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
 
     
 
@@ -2659,7 +3174,8 @@ pack_C_Encrypt_Call(
 CK_RV
 pack_C_Encrypt_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pEncryptedData,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pEncryptedData,
         const CK_ULONG* pulEncryptedDataLen
 ) {
     C_Encrypt_Return_t C_Encrypt_Return;
@@ -2671,24 +3187,50 @@ pack_C_Encrypt_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Encrypt_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Encrypt_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
     
-    //C_Encrypt_Return.pEncryptedData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedData_innerlist = NULL;
+    size_t pEncryptedData_length = 0;
+    CK_RV pEncryptedData_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedData,
+            pulEncryptedDataLen,
+            &pEncryptedData_innerlist,
+            &pEncryptedData_length,
+            ByteArray_packer);
+
+    if (pEncryptedData_status != CKR_OK)
+        return pEncryptedData_status;
+
+    C_Encrypt_Return.pEncryptedData.derptr = pEncryptedData_innerlist;
+    C_Encrypt_Return.pEncryptedData.derlen = pEncryptedData_length;
+
+
+
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedDataLen_storage;
-    C_Encrypt_Return.pulEncryptedDataLen = der_put_ulong(&pulEncryptedDataLen_storage, *pulEncryptedDataLen);
+    der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
+    C_Encrypt_Return.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
 
     
 
@@ -2727,16 +3269,16 @@ pack_C_EncryptFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_EncryptFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_EncryptFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedDataLen_storage;
-    C_EncryptFinal_Call.pulEncryptedDataLen = der_put_ulong(&pulEncryptedDataLen_storage, *pulEncryptedDataLen);
+    der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
+    C_EncryptFinal_Call.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
 
     
 
@@ -2761,7 +3303,8 @@ pack_C_EncryptFinal_Call(
 CK_RV
 pack_C_EncryptFinal_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pEncryptedData,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pEncryptedData,
         const CK_ULONG* pulEncryptedDataLen
 ) {
     C_EncryptFinal_Return_t C_EncryptFinal_Return;
@@ -2773,24 +3316,50 @@ pack_C_EncryptFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_EncryptFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_EncryptFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
     
-    //C_EncryptFinal_Return.pEncryptedData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedData_innerlist = NULL;
+    size_t pEncryptedData_length = 0;
+    CK_RV pEncryptedData_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedData,
+            pulEncryptedDataLen,
+            &pEncryptedData_innerlist,
+            &pEncryptedData_length,
+            ByteArray_packer);
+
+    if (pEncryptedData_status != CKR_OK)
+        return pEncryptedData_status;
+
+    C_EncryptFinal_Return.pEncryptedData.derptr = pEncryptedData_innerlist;
+    C_EncryptFinal_Return.pEncryptedData.derlen = pEncryptedData_length;
+
+
+
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedDataLen_storage;
-    C_EncryptFinal_Return.pulEncryptedDataLen = der_put_ulong(&pulEncryptedDataLen_storage, *pulEncryptedDataLen);
+    der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
+    C_EncryptFinal_Return.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
 
     
 
@@ -2830,15 +3399,16 @@ pack_C_EncryptInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_EncryptInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_EncryptInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_EncryptInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_EncryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -2846,8 +3416,8 @@ pack_C_EncryptInit_Call(
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_EncryptInit_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_EncryptInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -2883,8 +3453,8 @@ pack_C_EncryptInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_EncryptInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_EncryptInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -2911,7 +3481,8 @@ pack_C_EncryptInit_Return(
 CK_RV
 pack_C_EncryptUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -2924,32 +3495,58 @@ pack_C_EncryptUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_EncryptUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_EncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_EncryptUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_EncryptUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_EncryptUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_EncryptUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_EncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_EncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_EncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -2974,7 +3571,8 @@ pack_C_EncryptUpdate_Call(
 CK_RV
 pack_C_EncryptUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_EncryptUpdate_Return_t C_EncryptUpdate_Return;
@@ -2986,24 +3584,50 @@ pack_C_EncryptUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_EncryptUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_EncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_EncryptUpdate_Return.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            pulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_EncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_EncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_EncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_EncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -3041,7 +3665,8 @@ pack_C_Finalize_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    //C_Finalize_Call.pReserved =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_Finalize_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
     
@@ -3067,7 +3692,8 @@ pack_C_Finalize_Call(
 CK_RV
 pack_C_Finalize_Return(
         dercursor* pack_target,
-        const CK_RV* retval,ANY pReserved
+        const CK_RV* retval,
+        ANY pReserved
 ) {
     C_Finalize_Return_t C_Finalize_Return;
 
@@ -3078,15 +3704,16 @@ pack_C_Finalize_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Finalize_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Finalize_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pReserved (type ANY)
 
     
-    //C_Finalize_Return.pReserved =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_Finalize_Return.pReserved = der_put_ANY(pReserved);
     der_put_ANY(pReserved);
 
     
@@ -3126,16 +3753,16 @@ pack_C_FindObjects_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_FindObjects_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_FindObjects_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING ulMaxObjectCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulMaxObjectCount_storage;
-    C_FindObjects_Call.ulMaxObjectCount = der_put_ulong(&ulMaxObjectCount_storage, *ulMaxObjectCount);
+    der_buf_ulong_t ulMaxObjectCount_storage = { 0 };
+    C_FindObjects_Call.ulMaxObjectCount = der_put_ulong(ulMaxObjectCount_storage, *ulMaxObjectCount);
 
     
 
@@ -3160,7 +3787,8 @@ pack_C_FindObjects_Call(
 CK_RV
 pack_C_FindObjects_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_OBJECT_HANDLE_ARRAY phObject,
+        const CK_RV* retval,
+        CK_OBJECT_HANDLE_ARRAY phObject,
         const CK_ULONG* pulObjectCount
 ) {
     C_FindObjects_Return_t C_FindObjects_Return;
@@ -3172,15 +3800,16 @@ pack_C_FindObjects_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_FindObjects_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_FindObjects_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
 
     
-    //C_FindObjects_Return.phObject =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_FindObjects_Return.phObject = der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
     der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
 
     
@@ -3188,8 +3817,8 @@ pack_C_FindObjects_Return(
     // PACKING pulObjectCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulObjectCount_storage;
-    C_FindObjects_Return.pulObjectCount = der_put_ulong(&pulObjectCount_storage, *pulObjectCount);
+    der_buf_ulong_t pulObjectCount_storage = { 0 };
+    C_FindObjects_Return.pulObjectCount = der_put_ulong(pulObjectCount_storage, *pulObjectCount);
 
     
 
@@ -3227,8 +3856,8 @@ pack_C_FindObjectsFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_FindObjectsFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_FindObjectsFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -3264,8 +3893,8 @@ pack_C_FindObjectsFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_FindObjectsFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_FindObjectsFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -3292,7 +3921,8 @@ pack_C_FindObjectsFinal_Return(
 CK_RV
 pack_C_FindObjectsInit_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_SESSION_HANDLE* hSession,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_FindObjectsInit_Call_t C_FindObjectsInit_Call;
@@ -3304,24 +3934,40 @@ pack_C_FindObjectsInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_FindObjectsInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_FindObjectsInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_FindObjectsInit_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_FindObjectsInit_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_FindObjectsInit_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_FindObjectsInit_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_FindObjectsInit_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -3346,7 +3992,8 @@ pack_C_FindObjectsInit_Call(
 CK_RV
 pack_C_FindObjectsInit_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_ATTRIBUTE_ARRAY pTemplate
+        const CK_RV* retval,
+        CK_ATTRIBUTE_ARRAY pTemplate
 ) {
     C_FindObjectsInit_Return_t C_FindObjectsInit_Return;
 
@@ -3357,16 +4004,32 @@ pack_C_FindObjectsInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_FindObjectsInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_FindObjectsInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_FindObjectsInit_Return.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            0,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_FindObjectsInit_Return.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_FindObjectsInit_Return.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
@@ -3394,7 +4057,8 @@ CK_RV
 pack_C_GenerateKey_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_MECHANISM* pMechanism,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_MECHANISM* pMechanism,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_GenerateKey_Call_t C_GenerateKey_Call;
@@ -3406,15 +4070,16 @@ pack_C_GenerateKey_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GenerateKey_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GenerateKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_GenerateKey_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GenerateKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -3422,16 +4087,32 @@ pack_C_GenerateKey_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_GenerateKey_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_GenerateKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_GenerateKey_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_GenerateKey_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_GenerateKey_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -3468,16 +4149,16 @@ pack_C_GenerateKey_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GenerateKey_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GenerateKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phKey_storage;
-    C_GenerateKey_Return.phKey = der_put_ulong(&phKey_storage, *phKey);
+    der_buf_ulong_t phKey_storage = { 0 };
+    C_GenerateKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
 
     
 
@@ -3505,8 +4186,10 @@ CK_RV
 pack_C_GenerateKeyPair_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_MECHANISM* pMechanism,CK_ATTRIBUTE_ARRAY pPublicKeyTemplate,
-        const CK_ULONG* ulPublicKeyAttributeCount,CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate,
+        const CK_MECHANISM* pMechanism,
+        CK_ATTRIBUTE_ARRAY pPublicKeyTemplate,
+        const CK_ULONG* ulPublicKeyAttributeCount,
+        CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate,
         const CK_ULONG* ulPrivateKeyAttributeCount
 ) {
     C_GenerateKeyPair_Call_t C_GenerateKeyPair_Call;
@@ -3518,15 +4201,16 @@ pack_C_GenerateKeyPair_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GenerateKeyPair_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GenerateKeyPair_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_GenerateKeyPair_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GenerateKeyPair_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -3534,32 +4218,64 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pPublicKeyTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_GenerateKeyPair_Call.pPublicKeyTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pPublicKeyTemplate);
+
+
+
+    uint8_t *pPublicKeyTemplate_innerlist = NULL;
+    size_t pPublicKeyTemplate_length = 0;
+    CK_RV pPublicKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pPublicKeyTemplate,
+            ulPublicKeyAttributeCount,
+            &pPublicKeyTemplate_innerlist,
+            &pPublicKeyTemplate_length,
+            AttributeArray_packer);
+
+    if (pPublicKeyTemplate_status != CKR_OK)
+        return pPublicKeyTemplate_status;
+
+    C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derptr = pPublicKeyTemplate_innerlist;
+    C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derlen = pPublicKeyTemplate_length;
+
 
     
 
     // PACKING ulPublicKeyAttributeCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPublicKeyAttributeCount_storage;
-    C_GenerateKeyPair_Call.ulPublicKeyAttributeCount = der_put_ulong(&ulPublicKeyAttributeCount_storage, *ulPublicKeyAttributeCount);
+    der_buf_ulong_t ulPublicKeyAttributeCount_storage = { 0 };
+    C_GenerateKeyPair_Call.ulPublicKeyAttributeCount = der_put_ulong(ulPublicKeyAttributeCount_storage, *ulPublicKeyAttributeCount);
 
     
 
     // PACKING pPrivateKeyTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_GenerateKeyPair_Call.pPrivateKeyTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pPrivateKeyTemplate);
+
+
+
+    uint8_t *pPrivateKeyTemplate_innerlist = NULL;
+    size_t pPrivateKeyTemplate_length = 0;
+    CK_RV pPrivateKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pPrivateKeyTemplate,
+            ulPrivateKeyAttributeCount,
+            &pPrivateKeyTemplate_innerlist,
+            &pPrivateKeyTemplate_length,
+            AttributeArray_packer);
+
+    if (pPrivateKeyTemplate_status != CKR_OK)
+        return pPrivateKeyTemplate_status;
+
+    C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derptr = pPrivateKeyTemplate_innerlist;
+    C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derlen = pPrivateKeyTemplate_length;
+
 
     
 
     // PACKING ulPrivateKeyAttributeCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPrivateKeyAttributeCount_storage;
-    C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount = der_put_ulong(&ulPrivateKeyAttributeCount_storage, *ulPrivateKeyAttributeCount);
+    der_buf_ulong_t ulPrivateKeyAttributeCount_storage = { 0 };
+    C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount = der_put_ulong(ulPrivateKeyAttributeCount_storage, *ulPrivateKeyAttributeCount);
 
     
 
@@ -3597,24 +4313,24 @@ pack_C_GenerateKeyPair_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GenerateKeyPair_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GenerateKeyPair_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phPublicKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phPublicKey_storage;
-    C_GenerateKeyPair_Return.phPublicKey = der_put_ulong(&phPublicKey_storage, *phPublicKey);
+    der_buf_ulong_t phPublicKey_storage = { 0 };
+    C_GenerateKeyPair_Return.phPublicKey = der_put_ulong(phPublicKey_storage, *phPublicKey);
 
     
 
     // PACKING phPrivateKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phPrivateKey_storage;
-    C_GenerateKeyPair_Return.phPrivateKey = der_put_ulong(&phPrivateKey_storage, *phPrivateKey);
+    der_buf_ulong_t phPrivateKey_storage = { 0 };
+    C_GenerateKeyPair_Return.phPrivateKey = der_put_ulong(phPrivateKey_storage, *phPrivateKey);
 
     
 
@@ -3653,16 +4369,16 @@ pack_C_GenerateRandom_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GenerateRandom_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GenerateRandom_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING ulRandomLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulRandomLen_storage;
-    C_GenerateRandom_Call.ulRandomLen = der_put_ulong(&ulRandomLen_storage, *ulRandomLen);
+    der_buf_ulong_t ulRandomLen_storage = { 0 };
+    C_GenerateRandom_Call.ulRandomLen = der_put_ulong(ulRandomLen_storage, *ulRandomLen);
 
     
 
@@ -3687,7 +4403,8 @@ pack_C_GenerateRandom_Call(
 CK_RV
 pack_C_GenerateRandom_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pSeed
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pSeed
 ) {
     C_GenerateRandom_Return_t C_GenerateRandom_Return;
 
@@ -3698,18 +4415,44 @@ pack_C_GenerateRandom_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GenerateRandom_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GenerateRandom_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSeed (type CK_BYTE_ARRAY)
 
     
-    //C_GenerateRandom_Return.pSeed =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSeed);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSeed_innerlist = NULL;
+    size_t pSeed_length = 0;
+    CK_RV pSeed_status = der_put_CK_BYTE_ARRAY(
+            pSeed,
+            pulSeedLen,
+            &pSeed_innerlist,
+            &pSeed_length,
+            ByteArray_packer);
+
+    if (pSeed_status != CKR_OK)
+        return pSeed_status;
+
+    C_GenerateRandom_Return.pSeed.derptr = pSeed_innerlist;
+    C_GenerateRandom_Return.pSeed.derlen = pSeed_length;
+
+
+
 
     // END OF PACKING
 
@@ -3735,7 +4478,8 @@ CK_RV
 pack_C_GetAttributeValue_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_OBJECT_HANDLE* hObject,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_OBJECT_HANDLE* hObject,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_GetAttributeValue_Call_t C_GetAttributeValue_Call;
@@ -3747,32 +4491,48 @@ pack_C_GetAttributeValue_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GetAttributeValue_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GetAttributeValue_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hObject_storage;
-    C_GetAttributeValue_Call.hObject = der_put_ulong(&hObject_storage, *hObject);
+    der_buf_ulong_t hObject_storage = { 0 };
+    C_GetAttributeValue_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_GetAttributeValue_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_GetAttributeValue_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_GetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_GetAttributeValue_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_GetAttributeValue_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -3797,7 +4557,8 @@ pack_C_GetAttributeValue_Call(
 CK_RV
 pack_C_GetAttributeValue_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_ATTRIBUTE_ARRAY pTemplate
+        const CK_RV* retval,
+        CK_ATTRIBUTE_ARRAY pTemplate
 ) {
     C_GetAttributeValue_Return_t C_GetAttributeValue_Return;
 
@@ -3808,16 +4569,32 @@ pack_C_GetAttributeValue_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetAttributeValue_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetAttributeValue_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_GetAttributeValue_Return.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            0,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_GetAttributeValue_Return.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_GetAttributeValue_Return.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
@@ -3855,8 +4632,8 @@ pack_C_GetFunctionStatus_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GetFunctionStatus_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GetFunctionStatus_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -3892,8 +4669,8 @@ pack_C_GetFunctionStatus_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetFunctionStatus_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetFunctionStatus_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -3960,15 +4737,16 @@ pack_C_GetInfo_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetInfo_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInfo (type CK_INFO_PTR)
 
     
-    //C_GetInfo_Return.pInfo =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetInfo_Return.pInfo = der_put_CK_INFO_PTR(pInfo);
     der_put_CK_INFO_PTR(pInfo);
 
     
@@ -4008,16 +4786,16 @@ pack_C_GetMechanismInfo_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_GetMechanismInfo_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_GetMechanismInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
     // PACKING type (type CK_MECHANISM_TYPE_PTR)
 
     
-    der_buf_ulong_t type_storage;
-    C_GetMechanismInfo_Call.type = der_put_ulong(&type_storage, *type);
+    der_buf_ulong_t type_storage = { 0 };
+    C_GetMechanismInfo_Call.type = der_put_ulong(type_storage, *type);
 
     
 
@@ -4054,15 +4832,16 @@ pack_C_GetMechanismInfo_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetMechanismInfo_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetMechanismInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInfo (type CK_MECHANISM_INFO_PTR)
 
     
-    //C_GetMechanismInfo_Return.pInfo =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetMechanismInfo_Return.pInfo = der_put_CK_MECHANISM_INFO_PTR(pInfo);
     der_put_CK_MECHANISM_INFO_PTR(pInfo);
 
     
@@ -4102,16 +4881,16 @@ pack_C_GetMechanismList_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_GetMechanismList_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_GetMechanismList_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
     // PACKING pulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulCount_storage;
-    C_GetMechanismList_Call.pulCount = der_put_ulong(&pulCount_storage, *pulCount);
+    der_buf_ulong_t pulCount_storage = { 0 };
+    C_GetMechanismList_Call.pulCount = der_put_ulong(pulCount_storage, *pulCount);
 
     
 
@@ -4136,7 +4915,8 @@ pack_C_GetMechanismList_Call(
 CK_RV
 pack_C_GetMechanismList_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_MECHANISM_TYPE_ARRAY pMechanismList,
+        const CK_RV* retval,
+        CK_MECHANISM_TYPE_ARRAY pMechanismList,
         const CK_ULONG* pulCount
 ) {
     C_GetMechanismList_Return_t C_GetMechanismList_Return;
@@ -4148,15 +4928,16 @@ pack_C_GetMechanismList_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetMechanismList_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetMechanismList_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pMechanismList (type CK_MECHANISM_TYPE_ARRAY)
 
     
-    //C_GetMechanismList_Return.pMechanismList =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetMechanismList_Return.pMechanismList = der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
     der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
 
     
@@ -4164,8 +4945,8 @@ pack_C_GetMechanismList_Return(
     // PACKING pulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulCount_storage;
-    C_GetMechanismList_Return.pulCount = der_put_ulong(&pulCount_storage, *pulCount);
+    der_buf_ulong_t pulCount_storage = { 0 };
+    C_GetMechanismList_Return.pulCount = der_put_ulong(pulCount_storage, *pulCount);
 
     
 
@@ -4204,16 +4985,16 @@ pack_C_GetObjectSize_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GetObjectSize_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GetObjectSize_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hObject_storage;
-    C_GetObjectSize_Call.hObject = der_put_ulong(&hObject_storage, *hObject);
+    der_buf_ulong_t hObject_storage = { 0 };
+    C_GetObjectSize_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
     
 
@@ -4250,16 +5031,16 @@ pack_C_GetObjectSize_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetObjectSize_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetObjectSize_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pulSize (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSize_storage;
-    C_GetObjectSize_Return.pulSize = der_put_ulong(&pulSize_storage, *pulSize);
+    der_buf_ulong_t pulSize_storage = { 0 };
+    C_GetObjectSize_Return.pulSize = der_put_ulong(pulSize_storage, *pulSize);
 
     
 
@@ -4298,16 +5079,16 @@ pack_C_GetOperationState_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GetOperationState_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GetOperationState_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pulOperationStateLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulOperationStateLen_storage;
-    C_GetOperationState_Call.pulOperationStateLen = der_put_ulong(&pulOperationStateLen_storage, *pulOperationStateLen);
+    der_buf_ulong_t pulOperationStateLen_storage = { 0 };
+    C_GetOperationState_Call.pulOperationStateLen = der_put_ulong(pulOperationStateLen_storage, *pulOperationStateLen);
 
     
 
@@ -4332,7 +5113,8 @@ pack_C_GetOperationState_Call(
 CK_RV
 pack_C_GetOperationState_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pOperationState,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pOperationState,
         const CK_ULONG* pulOperationStateLen
 ) {
     C_GetOperationState_Return_t C_GetOperationState_Return;
@@ -4344,24 +5126,50 @@ pack_C_GetOperationState_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetOperationState_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetOperationState_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pOperationState (type CK_BYTE_ARRAY)
 
     
-    //C_GetOperationState_Return.pOperationState =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pOperationState);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pOperationState_innerlist = NULL;
+    size_t pOperationState_length = 0;
+    CK_RV pOperationState_status = der_put_CK_BYTE_ARRAY(
+            pOperationState,
+            pulOperationStateLen,
+            &pOperationState_innerlist,
+            &pOperationState_length,
+            ByteArray_packer);
+
+    if (pOperationState_status != CKR_OK)
+        return pOperationState_status;
+
+    C_GetOperationState_Return.pOperationState.derptr = pOperationState_innerlist;
+    C_GetOperationState_Return.pOperationState.derlen = pOperationState_length;
+
+
+
 
     // PACKING pulOperationStateLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulOperationStateLen_storage;
-    C_GetOperationState_Return.pulOperationStateLen = der_put_ulong(&pulOperationStateLen_storage, *pulOperationStateLen);
+    der_buf_ulong_t pulOperationStateLen_storage = { 0 };
+    C_GetOperationState_Return.pulOperationStateLen = der_put_ulong(pulOperationStateLen_storage, *pulOperationStateLen);
 
     
 
@@ -4399,8 +5207,8 @@ pack_C_GetSessionInfo_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_GetSessionInfo_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_GetSessionInfo_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -4437,15 +5245,16 @@ pack_C_GetSessionInfo_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetSessionInfo_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetSessionInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInfo (type CK_SESSION_INFO_PTR)
 
     
-    //C_GetSessionInfo_Return.pInfo =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetSessionInfo_Return.pInfo = der_put_CK_SESSION_INFO_PTR(pInfo);
     der_put_CK_SESSION_INFO_PTR(pInfo);
 
     
@@ -4484,8 +5293,8 @@ pack_C_GetSlotInfo_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_GetSlotInfo_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_GetSlotInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
@@ -4522,15 +5331,16 @@ pack_C_GetSlotInfo_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetSlotInfo_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetSlotInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInfo (type CK_SLOT_INFO_PTR)
 
     
-    //C_GetSlotInfo_Return.pInfo =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetSlotInfo_Return.pInfo = der_put_CK_SLOT_INFO_PTR(pInfo);
     der_put_CK_SLOT_INFO_PTR(pInfo);
 
     
@@ -4570,7 +5380,8 @@ pack_C_GetSlotList_Call(
     // PACKING tokenPresent (type CK_BBOOL_PTR)
 
     
-    //C_GetSlotList_Call.tokenPresent =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetSlotList_Call.tokenPresent = der_put_CK_BBOOL_PTR(tokenPresent);
     der_put_CK_BBOOL_PTR(tokenPresent);
 
     
@@ -4578,8 +5389,8 @@ pack_C_GetSlotList_Call(
     // PACKING pulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulCount_storage;
-    C_GetSlotList_Call.pulCount = der_put_ulong(&pulCount_storage, *pulCount);
+    der_buf_ulong_t pulCount_storage = { 0 };
+    C_GetSlotList_Call.pulCount = der_put_ulong(pulCount_storage, *pulCount);
 
     
 
@@ -4604,7 +5415,8 @@ pack_C_GetSlotList_Call(
 CK_RV
 pack_C_GetSlotList_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_SLOT_ID_ARRAY pSlotList,
+        const CK_RV* retval,
+        CK_SLOT_ID_ARRAY pSlotList,
         const CK_ULONG* pulCount
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
@@ -4616,24 +5428,33 @@ pack_C_GetSlotList_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetSlotList_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetSlotList_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSlotList (type CK_SLOT_ID_ARRAY)
 
     
-    //C_GetSlotList_Return.pSlotList =     //WORKINPROGRESS: finish this
-    der_put_CK_SLOT_ID_ARRAY(pSlotList);
+
+    uint8_t *innerlist = NULL;
+    size_t length = 0;
+
+    CK_RV status = der_put_CK_SLOT_ID_ARRAY(pSlotList, pulCount, &innerlist, &length, pSlotList_packer);
+    if (status != CKR_OK)
+        return status;
+
+    C_GetSlotList_Return.pSlotList.data.wire.derptr = innerlist;
+    C_GetSlotList_Return.pSlotList.data.wire.derlen = length;
+
 
     
 
     // PACKING pulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulCount_storage;
-    C_GetSlotList_Return.pulCount = der_put_ulong(&pulCount_storage, *pulCount);
+    der_buf_ulong_t pulCount_storage = { 0 };
+    C_GetSlotList_Return.pulCount = der_put_ulong(pulCount_storage, *pulCount);
 
     
 
@@ -4671,8 +5492,8 @@ pack_C_GetTokenInfo_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_GetTokenInfo_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_GetTokenInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
@@ -4709,15 +5530,16 @@ pack_C_GetTokenInfo_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_GetTokenInfo_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_GetTokenInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInfo (type CK_TOKEN_INFO_PTR)
 
     
-    //C_GetTokenInfo_Return.pInfo =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_GetTokenInfo_Return.pInfo = der_put_CK_TOKEN_INFO_PTR(pInfo);
     der_put_CK_TOKEN_INFO_PTR(pInfo);
 
     
@@ -4745,7 +5567,8 @@ pack_C_GetTokenInfo_Return(
 CK_RV
 pack_C_InitPIN_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_UTF8CHAR_ARRAY pPin,
+        const CK_SESSION_HANDLE* hSession,
+        CK_UTF8CHAR_ARRAY pPin,
         const CK_ULONG* ulPinLen
 ) {
     C_InitPIN_Call_t C_InitPIN_Call;
@@ -4757,15 +5580,16 @@ pack_C_InitPIN_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_InitPIN_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_InitPIN_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
     
-    //C_InitPIN_Call.pPin =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_InitPIN_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
     der_put_CK_UTF8CHAR_ARRAY(pPin);
 
     
@@ -4773,8 +5597,8 @@ pack_C_InitPIN_Call(
     // PACKING ulPinLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPinLen_storage;
-    C_InitPIN_Call.ulPinLen = der_put_ulong(&ulPinLen_storage, *ulPinLen);
+    der_buf_ulong_t ulPinLen_storage = { 0 };
+    C_InitPIN_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
 
     
 
@@ -4810,8 +5634,8 @@ pack_C_InitPIN_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_InitPIN_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_InitPIN_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -4838,8 +5662,10 @@ pack_C_InitPIN_Return(
 CK_RV
 pack_C_InitToken_Call(
         dercursor* pack_target,
-        const CK_SLOT_ID* slotID,UTF8String pPin,
-        const CK_ULONG* ulPinLen,UTF8String pLabel
+        const CK_SLOT_ID* slotID,
+        UTF8String pPin,
+        const CK_ULONG* ulPinLen,
+        UTF8String pLabel
 ) {
     C_InitToken_Call_t C_InitToken_Call;
 
@@ -4850,15 +5676,16 @@ pack_C_InitToken_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_InitToken_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_InitToken_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
     // PACKING pPin (type UTF8String)
 
     
-    //C_InitToken_Call.pPin =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_InitToken_Call.pPin = der_put_UTF8String(pPin);
     der_put_UTF8String(pPin);
 
     
@@ -4866,15 +5693,16 @@ pack_C_InitToken_Call(
     // PACKING ulPinLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPinLen_storage;
-    C_InitToken_Call.ulPinLen = der_put_ulong(&ulPinLen_storage, *ulPinLen);
+    der_buf_ulong_t ulPinLen_storage = { 0 };
+    C_InitToken_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
 
     
 
     // PACKING pLabel (type UTF8String)
 
     
-    //C_InitToken_Call.pLabel =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_InitToken_Call.pLabel = der_put_UTF8String(pLabel);
     der_put_UTF8String(pLabel);
 
     
@@ -4911,8 +5739,8 @@ pack_C_InitToken_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_InitToken_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_InitToken_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -4950,7 +5778,8 @@ pack_C_Initialize_Call(
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
 
     
-    //C_Initialize_Call.pInitArgs =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_Initialize_Call.pInitArgs = der_put_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
     der_put_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
 
     
@@ -4976,7 +5805,8 @@ pack_C_Initialize_Call(
 CK_RV
 pack_C_Initialize_Return(
         dercursor* pack_target,
-        const CK_RV* retval,ANY pInitArgs
+        const CK_RV* retval,
+        ANY pInitArgs
 ) {
     C_Initialize_Return_t C_Initialize_Return;
 
@@ -4987,15 +5817,16 @@ pack_C_Initialize_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Initialize_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Initialize_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pInitArgs (type ANY)
 
     
-    //C_Initialize_Return.pInitArgs =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_Initialize_Return.pInitArgs = der_put_ANY(pInitArgs);
     der_put_ANY(pInitArgs);
 
     
@@ -5024,7 +5855,8 @@ CK_RV
 pack_C_Login_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_USER_TYPE* userType,CK_UTF8CHAR_ARRAY pPin,
+        const CK_USER_TYPE* userType,
+        CK_UTF8CHAR_ARRAY pPin,
         const CK_ULONG* ulPinLen
 ) {
     C_Login_Call_t C_Login_Call;
@@ -5036,23 +5868,24 @@ pack_C_Login_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Login_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Login_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING userType (type CK_USER_TYPE_PTR)
 
     
-    der_buf_ulong_t userType_storage;
-    C_Login_Call.userType = der_put_ulong(&userType_storage, *userType);
+    der_buf_ulong_t userType_storage = { 0 };
+    C_Login_Call.userType = der_put_ulong(userType_storage, *userType);
 
     
 
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
     
-    //C_Login_Call.pPin =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_Login_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
     der_put_CK_UTF8CHAR_ARRAY(pPin);
 
     
@@ -5060,8 +5893,8 @@ pack_C_Login_Call(
     // PACKING ulPinLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPinLen_storage;
-    C_Login_Call.ulPinLen = der_put_ulong(&ulPinLen_storage, *ulPinLen);
+    der_buf_ulong_t ulPinLen_storage = { 0 };
+    C_Login_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
 
     
 
@@ -5097,8 +5930,8 @@ pack_C_Login_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Login_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Login_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5136,8 +5969,8 @@ pack_C_Logout_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Logout_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Logout_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
@@ -5173,8 +6006,8 @@ pack_C_Logout_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Logout_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Logout_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5202,7 +6035,9 @@ CK_RV
 pack_C_OpenSession_Call(
         dercursor* pack_target,
         const CK_SLOT_ID* slotID,
-        const CK_FLAGS* flags,ANY pApplication,CK_NOTIFY notify
+        const CK_FLAGS* flags,
+        ANY pApplication,
+        CK_NOTIFY notify
 ) {
     C_OpenSession_Call_t C_OpenSession_Call;
 
@@ -5213,15 +6048,16 @@ pack_C_OpenSession_Call(
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t slotID_storage;
-    C_OpenSession_Call.slotID = der_put_ulong(&slotID_storage, *slotID);
+    der_buf_ulong_t slotID_storage = { 0 };
+    C_OpenSession_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
     
 
     // PACKING flags (type CK_FLAGS_PTR)
 
     
-    //C_OpenSession_Call.flags =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags);
     der_put_CK_FLAGS_PTR(flags);
 
     
@@ -5229,7 +6065,8 @@ pack_C_OpenSession_Call(
     // PACKING pApplication (type ANY)
 
     
-    //C_OpenSession_Call.pApplication =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_OpenSession_Call.pApplication = der_put_ANY(pApplication);
     der_put_ANY(pApplication);
 
     
@@ -5237,7 +6074,8 @@ pack_C_OpenSession_Call(
     // PACKING notify (type CK_NOTIFY)
 
     
-    //C_OpenSession_Call.notify =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_OpenSession_Call.notify = der_put_CK_NOTIFY(notify);
     der_put_CK_NOTIFY(notify);
 
     
@@ -5275,16 +6113,16 @@ pack_C_OpenSession_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_OpenSession_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_OpenSession_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t phSession_storage;
-    C_OpenSession_Return.phSession = der_put_ulong(&phSession_storage, *phSession);
+    der_buf_ulong_t phSession_storage = { 0 };
+    C_OpenSession_Return.phSession = der_put_ulong(phSession_storage, *phSession);
 
     
 
@@ -5311,7 +6149,8 @@ pack_C_OpenSession_Return(
 CK_RV
 pack_C_SeedRandom_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pSeed,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pSeed,
         const CK_ULONG* ulSeedLen
 ) {
     C_SeedRandom_Call_t C_SeedRandom_Call;
@@ -5323,24 +6162,50 @@ pack_C_SeedRandom_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SeedRandom_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SeedRandom_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pSeed (type CK_BYTE_ARRAY)
 
     
-    //C_SeedRandom_Call.pSeed =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSeed);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSeed_innerlist = NULL;
+    size_t pSeed_length = 0;
+    CK_RV pSeed_status = der_put_CK_BYTE_ARRAY(
+            pSeed,
+            ulSeedLen,
+            &pSeed_innerlist,
+            &pSeed_length,
+            ByteArray_packer);
+
+    if (pSeed_status != CKR_OK)
+        return pSeed_status;
+
+    C_SeedRandom_Call.pSeed.derptr = pSeed_innerlist;
+    C_SeedRandom_Call.pSeed.derlen = pSeed_length;
+
+
+
 
     // PACKING ulSeedLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulSeedLen_storage;
-    C_SeedRandom_Call.ulSeedLen = der_put_ulong(&ulSeedLen_storage, *ulSeedLen);
+    der_buf_ulong_t ulSeedLen_storage = { 0 };
+    C_SeedRandom_Call.ulSeedLen = der_put_ulong(ulSeedLen_storage, *ulSeedLen);
 
     
 
@@ -5376,8 +6241,8 @@ pack_C_SeedRandom_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SeedRandom_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SeedRandom_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5405,7 +6270,8 @@ CK_RV
 pack_C_SetAttributeValue_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        const CK_OBJECT_HANDLE* hObject,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_OBJECT_HANDLE* hObject,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_SetAttributeValue_Call_t C_SetAttributeValue_Call;
@@ -5417,32 +6283,48 @@ pack_C_SetAttributeValue_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SetAttributeValue_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SetAttributeValue_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hObject_storage;
-    C_SetAttributeValue_Call.hObject = der_put_ulong(&hObject_storage, *hObject);
+    der_buf_ulong_t hObject_storage = { 0 };
+    C_SetAttributeValue_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_SetAttributeValue_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_SetAttributeValue_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_SetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulCount_storage;
-    C_SetAttributeValue_Call.ulCount = der_put_ulong(&ulCount_storage, *ulCount);
+    der_buf_ulong_t ulCount_storage = { 0 };
+    C_SetAttributeValue_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
 
     
 
@@ -5478,8 +6360,8 @@ pack_C_SetAttributeValue_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SetAttributeValue_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SetAttributeValue_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5506,7 +6388,8 @@ pack_C_SetAttributeValue_Return(
 CK_RV
 pack_C_SetOperationState_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pOperationState,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pOperationState,
         const CK_ULONG* ulOperationStateLen,
         const CK_OBJECT_HANDLE* hEncryptionKey,
         const CK_OBJECT_HANDLE* hAuthenticationKey
@@ -5520,40 +6403,66 @@ pack_C_SetOperationState_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SetOperationState_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SetOperationState_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pOperationState (type CK_BYTE_ARRAY)
 
     
-    //C_SetOperationState_Call.pOperationState =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pOperationState);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pOperationState_innerlist = NULL;
+    size_t pOperationState_length = 0;
+    CK_RV pOperationState_status = der_put_CK_BYTE_ARRAY(
+            pOperationState,
+            ulOperationStateLen,
+            &pOperationState_innerlist,
+            &pOperationState_length,
+            ByteArray_packer);
+
+    if (pOperationState_status != CKR_OK)
+        return pOperationState_status;
+
+    C_SetOperationState_Call.pOperationState.derptr = pOperationState_innerlist;
+    C_SetOperationState_Call.pOperationState.derlen = pOperationState_length;
+
+
+
 
     // PACKING ulOperationStateLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulOperationStateLen_storage;
-    C_SetOperationState_Call.ulOperationStateLen = der_put_ulong(&ulOperationStateLen_storage, *ulOperationStateLen);
+    der_buf_ulong_t ulOperationStateLen_storage = { 0 };
+    C_SetOperationState_Call.ulOperationStateLen = der_put_ulong(ulOperationStateLen_storage, *ulOperationStateLen);
 
     
 
     // PACKING hEncryptionKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hEncryptionKey_storage;
-    C_SetOperationState_Call.hEncryptionKey = der_put_ulong(&hEncryptionKey_storage, *hEncryptionKey);
+    der_buf_ulong_t hEncryptionKey_storage = { 0 };
+    C_SetOperationState_Call.hEncryptionKey = der_put_ulong(hEncryptionKey_storage, *hEncryptionKey);
 
     
 
     // PACKING hAuthenticationKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hAuthenticationKey_storage;
-    C_SetOperationState_Call.hAuthenticationKey = der_put_ulong(&hAuthenticationKey_storage, *hAuthenticationKey);
+    der_buf_ulong_t hAuthenticationKey_storage = { 0 };
+    C_SetOperationState_Call.hAuthenticationKey = der_put_ulong(hAuthenticationKey_storage, *hAuthenticationKey);
 
     
 
@@ -5589,8 +6498,8 @@ pack_C_SetOperationState_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SetOperationState_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SetOperationState_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5617,8 +6526,10 @@ pack_C_SetOperationState_Return(
 CK_RV
 pack_C_SetPIN_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_UTF8CHAR_ARRAY pOldPin,
-        const CK_ULONG* ulOldLen,CK_UTF8CHAR_ARRAY pNewPin,
+        const CK_SESSION_HANDLE* hSession,
+        CK_UTF8CHAR_ARRAY pOldPin,
+        const CK_ULONG* ulOldLen,
+        CK_UTF8CHAR_ARRAY pNewPin,
         const CK_ULONG* ulNewPin
 ) {
     C_SetPIN_Call_t C_SetPIN_Call;
@@ -5630,15 +6541,16 @@ pack_C_SetPIN_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SetPIN_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SetPIN_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pOldPin (type CK_UTF8CHAR_ARRAY)
 
     
-    //C_SetPIN_Call.pOldPin =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_SetPIN_Call.pOldPin = der_put_CK_UTF8CHAR_ARRAY(pOldPin);
     der_put_CK_UTF8CHAR_ARRAY(pOldPin);
 
     
@@ -5646,15 +6558,16 @@ pack_C_SetPIN_Call(
     // PACKING ulOldLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulOldLen_storage;
-    C_SetPIN_Call.ulOldLen = der_put_ulong(&ulOldLen_storage, *ulOldLen);
+    der_buf_ulong_t ulOldLen_storage = { 0 };
+    C_SetPIN_Call.ulOldLen = der_put_ulong(ulOldLen_storage, *ulOldLen);
 
     
 
     // PACKING pNewPin (type CK_UTF8CHAR_ARRAY)
 
     
-    //C_SetPIN_Call.pNewPin =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_SetPIN_Call.pNewPin = der_put_CK_UTF8CHAR_ARRAY(pNewPin);
     der_put_CK_UTF8CHAR_ARRAY(pNewPin);
 
     
@@ -5662,8 +6575,8 @@ pack_C_SetPIN_Call(
     // PACKING ulNewPin (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulNewPin_storage;
-    C_SetPIN_Call.ulNewPin = der_put_ulong(&ulNewPin_storage, *ulNewPin);
+    der_buf_ulong_t ulNewPin_storage = { 0 };
+    C_SetPIN_Call.ulNewPin = der_put_ulong(ulNewPin_storage, *ulNewPin);
 
     
 
@@ -5699,8 +6612,8 @@ pack_C_SetPIN_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SetPIN_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SetPIN_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -5727,7 +6640,8 @@ pack_C_SetPIN_Return(
 CK_RV
 pack_C_Sign_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pData,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulSignatureLen
 ) {
@@ -5740,32 +6654,58 @@ pack_C_Sign_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Sign_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Sign_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_Sign_Call.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            ulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_Sign_Call.pData.derptr = pData_innerlist;
+    C_Sign_Call.pData.derlen = pData_length;
+
+
+
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulDataLen_storage;
-    C_Sign_Call.ulDataLen = der_put_ulong(&ulDataLen_storage, *ulDataLen);
+    der_buf_ulong_t ulDataLen_storage = { 0 };
+    C_Sign_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
     
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_Sign_Call.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_Sign_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -5790,7 +6730,8 @@ pack_C_Sign_Call(
 CK_RV
 pack_C_Sign_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pSignature,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_Sign_Return_t C_Sign_Return;
@@ -5802,24 +6743,50 @@ pack_C_Sign_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Sign_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Sign_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_Sign_Return.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            pulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_Sign_Return.pSignature.derptr = pSignature_innerlist;
+    C_Sign_Return.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_Sign_Return.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_Sign_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -5846,7 +6813,8 @@ pack_C_Sign_Return(
 CK_RV
 pack_C_SignEncryptUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -5859,32 +6827,58 @@ pack_C_SignEncryptUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignEncryptUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignEncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_SignEncryptUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_SignEncryptUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_SignEncryptUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_SignEncryptUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_SignEncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_SignEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_SignEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -5909,7 +6903,8 @@ pack_C_SignEncryptUpdate_Call(
 CK_RV
 pack_C_SignEncryptUpdate_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pEncryptedPart,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_SignEncryptUpdate_Return_t C_SignEncryptUpdate_Return;
@@ -5921,24 +6916,50 @@ pack_C_SignEncryptUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignEncryptUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignEncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
     
-    //C_SignEncryptUpdate_Return.pEncryptedPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pEncryptedPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pEncryptedPart_innerlist = NULL;
+    size_t pEncryptedPart_length = 0;
+    CK_RV pEncryptedPart_status = der_put_CK_BYTE_ARRAY(
+            pEncryptedPart,
+            pulEncryptedPartLen,
+            &pEncryptedPart_innerlist,
+            &pEncryptedPart_length,
+            ByteArray_packer);
+
+    if (pEncryptedPart_status != CKR_OK)
+        return pEncryptedPart_status;
+
+    C_SignEncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
+    C_SignEncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
+
+
+
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulEncryptedPartLen_storage;
-    C_SignEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(&pulEncryptedPartLen_storage, *pulEncryptedPartLen);
+    der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
+    C_SignEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
 
     
 
@@ -5977,16 +6998,16 @@ pack_C_SignFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_SignFinal_Call.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_SignFinal_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -6011,7 +7032,8 @@ pack_C_SignFinal_Call(
 CK_RV
 pack_C_SignFinal_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pSignature,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_SignFinal_Return_t C_SignFinal_Return;
@@ -6023,24 +7045,50 @@ pack_C_SignFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_SignFinal_Return.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            pulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_SignFinal_Return.pSignature.derptr = pSignature_innerlist;
+    C_SignFinal_Return.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_SignFinal_Return.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_SignFinal_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -6080,15 +7128,16 @@ pack_C_SignInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_SignInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_SignInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -6096,8 +7145,8 @@ pack_C_SignInit_Call(
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_SignInit_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_SignInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -6133,8 +7182,8 @@ pack_C_SignInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6161,7 +7210,8 @@ pack_C_SignInit_Return(
 CK_RV
 pack_C_SignRecover_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pData,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulSignatureLen
 ) {
@@ -6174,32 +7224,58 @@ pack_C_SignRecover_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignRecover_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignRecover_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_SignRecover_Call.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            ulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_SignRecover_Call.pData.derptr = pData_innerlist;
+    C_SignRecover_Call.pData.derlen = pData_length;
+
+
+
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulDataLen_storage;
-    C_SignRecover_Call.ulDataLen = der_put_ulong(&ulDataLen_storage, *ulDataLen);
+    der_buf_ulong_t ulDataLen_storage = { 0 };
+    C_SignRecover_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
     
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_SignRecover_Call.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_SignRecover_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -6224,7 +7300,8 @@ pack_C_SignRecover_Call(
 CK_RV
 pack_C_SignRecover_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pSignature,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_SignRecover_Return_t C_SignRecover_Return;
@@ -6236,24 +7313,50 @@ pack_C_SignRecover_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignRecover_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignRecover_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_SignRecover_Return.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            pulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_SignRecover_Return.pSignature.derptr = pSignature_innerlist;
+    C_SignRecover_Return.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulSignatureLen_storage;
-    C_SignRecover_Return.pulSignatureLen = der_put_ulong(&pulSignatureLen_storage, *pulSignatureLen);
+    der_buf_ulong_t pulSignatureLen_storage = { 0 };
+    C_SignRecover_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
 
     
 
@@ -6293,15 +7396,16 @@ pack_C_SignRecoverInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignRecoverInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignRecoverInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_SignRecoverInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_SignRecoverInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -6309,8 +7413,8 @@ pack_C_SignRecoverInit_Call(
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_SignRecoverInit_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_SignRecoverInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -6346,8 +7450,8 @@ pack_C_SignRecoverInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignRecoverInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignRecoverInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6374,7 +7478,8 @@ pack_C_SignRecoverInit_Return(
 CK_RV
 pack_C_SignUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_SignUpdate_Call_t C_SignUpdate_Call;
@@ -6386,24 +7491,50 @@ pack_C_SignUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_SignUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_SignUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_SignUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_SignUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_SignUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_SignUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_SignUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
@@ -6439,8 +7570,8 @@ pack_C_SignUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_SignUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_SignUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6469,8 +7600,10 @@ pack_C_UnwrapKey_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
-        const CK_OBJECT_HANDLE* hUnwrappingKey,CK_BYTE_ARRAY pWrappedKey,
-        const CK_ULONG* ulWrappedKeyLen,CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_OBJECT_HANDLE* hUnwrappingKey,
+        CK_BYTE_ARRAY pWrappedKey,
+        const CK_ULONG* ulWrappedKeyLen,
+        CK_ATTRIBUTE_ARRAY pTemplate,
         const CK_ULONG* ulAttributeCount
 ) {
     C_UnwrapKey_Call_t C_UnwrapKey_Call;
@@ -6482,15 +7615,16 @@ pack_C_UnwrapKey_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_UnwrapKey_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_UnwrapKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_UnwrapKey_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_UnwrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -6498,40 +7632,82 @@ pack_C_UnwrapKey_Call(
     // PACKING hUnwrappingKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hUnwrappingKey_storage;
-    C_UnwrapKey_Call.hUnwrappingKey = der_put_ulong(&hUnwrappingKey_storage, *hUnwrappingKey);
+    der_buf_ulong_t hUnwrappingKey_storage = { 0 };
+    C_UnwrapKey_Call.hUnwrappingKey = der_put_ulong(hUnwrappingKey_storage, *hUnwrappingKey);
 
     
 
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
 
     
-    //C_UnwrapKey_Call.pWrappedKey =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pWrappedKey);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pWrappedKey_innerlist = NULL;
+    size_t pWrappedKey_length = 0;
+    CK_RV pWrappedKey_status = der_put_CK_BYTE_ARRAY(
+            pWrappedKey,
+            ulWrappedKeyLen,
+            &pWrappedKey_innerlist,
+            &pWrappedKey_length,
+            ByteArray_packer);
+
+    if (pWrappedKey_status != CKR_OK)
+        return pWrappedKey_status;
+
+    C_UnwrapKey_Call.pWrappedKey.derptr = pWrappedKey_innerlist;
+    C_UnwrapKey_Call.pWrappedKey.derlen = pWrappedKey_length;
+
+
+
 
     // PACKING ulWrappedKeyLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulWrappedKeyLen_storage;
-    C_UnwrapKey_Call.ulWrappedKeyLen = der_put_ulong(&ulWrappedKeyLen_storage, *ulWrappedKeyLen);
+    der_buf_ulong_t ulWrappedKeyLen_storage = { 0 };
+    C_UnwrapKey_Call.ulWrappedKeyLen = der_put_ulong(ulWrappedKeyLen_storage, *ulWrappedKeyLen);
 
     
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
     
-    //C_UnwrapKey_Call.pTemplate =     //WORKINPROGRESS: finish this
-    der_put_CK_ATTRIBUTE_ARRAY(pTemplate);
+
+
+
+    uint8_t *pTemplate_innerlist = NULL;
+    size_t pTemplate_length = 0;
+    CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
+            pTemplate,
+            ulAttributeCount,
+            &pTemplate_innerlist,
+            &pTemplate_length,
+            AttributeArray_packer);
+
+    if (pTemplate_status != CKR_OK)
+        return pTemplate_status;
+
+    C_UnwrapKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
+    C_UnwrapKey_Call.pTemplate.wire.derlen = pTemplate_length;
+
 
     
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulAttributeCount_storage;
-    C_UnwrapKey_Call.ulAttributeCount = der_put_ulong(&ulAttributeCount_storage, *ulAttributeCount);
+    der_buf_ulong_t ulAttributeCount_storage = { 0 };
+    C_UnwrapKey_Call.ulAttributeCount = der_put_ulong(ulAttributeCount_storage, *ulAttributeCount);
 
     
 
@@ -6568,16 +7744,16 @@ pack_C_UnwrapKey_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_UnwrapKey_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_UnwrapKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t phKey_storage;
-    C_UnwrapKey_Return.phKey = der_put_ulong(&phKey_storage, *phKey);
+    der_buf_ulong_t phKey_storage = { 0 };
+    C_UnwrapKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
 
     
 
@@ -6604,8 +7780,10 @@ pack_C_UnwrapKey_Return(
 CK_RV
 pack_C_Verify_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pData,
-        const CK_ULONG* ulDataLen,CK_BYTE_ARRAY pSignature,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pData,
+        const CK_ULONG* ulDataLen,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* ulSignatureLen
 ) {
     C_Verify_Call_t C_Verify_Call;
@@ -6617,40 +7795,92 @@ pack_C_Verify_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_Verify_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_Verify_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_Verify_Call.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            ulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_Verify_Call.pData.derptr = pData_innerlist;
+    C_Verify_Call.pData.derlen = pData_length;
+
+
+
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulDataLen_storage;
-    C_Verify_Call.ulDataLen = der_put_ulong(&ulDataLen_storage, *ulDataLen);
+    der_buf_ulong_t ulDataLen_storage = { 0 };
+    C_Verify_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_Verify_Call.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            ulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_Verify_Call.pSignature.derptr = pSignature_innerlist;
+    C_Verify_Call.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulSignatureLen_storage;
-    C_Verify_Call.ulSignatureLen = der_put_ulong(&ulSignatureLen_storage, *ulSignatureLen);
+    der_buf_ulong_t ulSignatureLen_storage = { 0 };
+    C_Verify_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
 
     
 
@@ -6686,8 +7916,8 @@ pack_C_Verify_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_Verify_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_Verify_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6714,7 +7944,8 @@ pack_C_Verify_Return(
 CK_RV
 pack_C_VerifyFinal_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pSignature,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* ulSignatureLen
 ) {
     C_VerifyFinal_Call_t C_VerifyFinal_Call;
@@ -6726,24 +7957,50 @@ pack_C_VerifyFinal_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_VerifyFinal_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_VerifyFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_VerifyFinal_Call.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            ulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_VerifyFinal_Call.pSignature.derptr = pSignature_innerlist;
+    C_VerifyFinal_Call.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulSignatureLen_storage;
-    C_VerifyFinal_Call.ulSignatureLen = der_put_ulong(&ulSignatureLen_storage, *ulSignatureLen);
+    der_buf_ulong_t ulSignatureLen_storage = { 0 };
+    C_VerifyFinal_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
 
     
 
@@ -6779,8 +8036,8 @@ pack_C_VerifyFinal_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_VerifyFinal_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_VerifyFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6820,15 +8077,16 @@ pack_C_VerifyInit_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_VerifyInit_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_VerifyInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_VerifyInit_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_VerifyInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -6836,8 +8094,8 @@ pack_C_VerifyInit_Call(
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_VerifyInit_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_VerifyInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
@@ -6873,8 +8131,8 @@ pack_C_VerifyInit_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_VerifyInit_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_VerifyInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -6901,7 +8159,8 @@ pack_C_VerifyInit_Return(
 CK_RV
 pack_C_VerifyRecover_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pSignature,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pSignature,
         const CK_ULONG* ulSignatureLen,
         const CK_ULONG* pulDataLen
 ) {
@@ -6914,32 +8173,58 @@ pack_C_VerifyRecover_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_VerifyRecover_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_VerifyRecover_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
     
-    //C_VerifyRecover_Call.pSignature =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pSignature);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pSignature_innerlist = NULL;
+    size_t pSignature_length = 0;
+    CK_RV pSignature_status = der_put_CK_BYTE_ARRAY(
+            pSignature,
+            ulSignatureLen,
+            &pSignature_innerlist,
+            &pSignature_length,
+            ByteArray_packer);
+
+    if (pSignature_status != CKR_OK)
+        return pSignature_status;
+
+    C_VerifyRecover_Call.pSignature.derptr = pSignature_innerlist;
+    C_VerifyRecover_Call.pSignature.derlen = pSignature_length;
+
+
+
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulSignatureLen_storage;
-    C_VerifyRecover_Call.ulSignatureLen = der_put_ulong(&ulSignatureLen_storage, *ulSignatureLen);
+    der_buf_ulong_t ulSignatureLen_storage = { 0 };
+    C_VerifyRecover_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
 
     
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDataLen_storage;
-    C_VerifyRecover_Call.pulDataLen = der_put_ulong(&pulDataLen_storage, *pulDataLen);
+    der_buf_ulong_t pulDataLen_storage = { 0 };
+    C_VerifyRecover_Call.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
 
     
 
@@ -6964,7 +8249,8 @@ pack_C_VerifyRecover_Call(
 CK_RV
 pack_C_VerifyRecover_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pData,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pData,
         const CK_ULONG* pulDataLen
 ) {
     C_VerifyRecover_Return_t C_VerifyRecover_Return;
@@ -6976,24 +8262,50 @@ pack_C_VerifyRecover_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_VerifyRecover_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_VerifyRecover_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pData (type CK_BYTE_ARRAY)
 
     
-    //C_VerifyRecover_Return.pData =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pData);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pData_innerlist = NULL;
+    size_t pData_length = 0;
+    CK_RV pData_status = der_put_CK_BYTE_ARRAY(
+            pData,
+            pulDataLen,
+            &pData_innerlist,
+            &pData_length,
+            ByteArray_packer);
+
+    if (pData_status != CKR_OK)
+        return pData_status;
+
+    C_VerifyRecover_Return.pData.derptr = pData_innerlist;
+    C_VerifyRecover_Return.pData.derlen = pData_length;
+
+
+
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulDataLen_storage;
-    C_VerifyRecover_Return.pulDataLen = der_put_ulong(&pulDataLen_storage, *pulDataLen);
+    der_buf_ulong_t pulDataLen_storage = { 0 };
+    C_VerifyRecover_Return.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
 
     
 
@@ -7020,7 +8332,8 @@ pack_C_VerifyRecover_Return(
 CK_RV
 pack_C_VerifyUpdate_Call(
         dercursor* pack_target,
-        const CK_SESSION_HANDLE* hSession,CK_BYTE_ARRAY pPart,
+        const CK_SESSION_HANDLE* hSession,
+        CK_BYTE_ARRAY pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_VerifyUpdate_Call_t C_VerifyUpdate_Call;
@@ -7032,24 +8345,50 @@ pack_C_VerifyUpdate_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_VerifyUpdate_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_VerifyUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pPart (type CK_BYTE_ARRAY)
 
     
-    //C_VerifyUpdate_Call.pPart =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pPart);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pPart_innerlist = NULL;
+    size_t pPart_length = 0;
+    CK_RV pPart_status = der_put_CK_BYTE_ARRAY(
+            pPart,
+            ulPartLen,
+            &pPart_innerlist,
+            &pPart_length,
+            ByteArray_packer);
+
+    if (pPart_status != CKR_OK)
+        return pPart_status;
+
+    C_VerifyUpdate_Call.pPart.derptr = pPart_innerlist;
+    C_VerifyUpdate_Call.pPart.derlen = pPart_length;
+
+
+
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t ulPartLen_storage;
-    C_VerifyUpdate_Call.ulPartLen = der_put_ulong(&ulPartLen_storage, *ulPartLen);
+    der_buf_ulong_t ulPartLen_storage = { 0 };
+    C_VerifyUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
     
 
@@ -7085,8 +8424,8 @@ pack_C_VerifyUpdate_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_VerifyUpdate_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_VerifyUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
@@ -7125,7 +8464,8 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
     
-    //C_WaitForSlotEvent_Call.flags =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags);
     der_put_CK_FLAGS_PTR(flags);
 
     
@@ -7133,7 +8473,8 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    //C_WaitForSlotEvent_Call.pReserved =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_WaitForSlotEvent_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
     
@@ -7172,23 +8513,24 @@ pack_C_WaitForSlotEvent_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_WaitForSlotEvent_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_WaitForSlotEvent_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pSlot (type CK_SLOT_ID_PTR)
 
     
-    der_buf_ulong_t pSlot_storage;
-    C_WaitForSlotEvent_Return.pSlot = der_put_ulong(&pSlot_storage, *pSlot);
+    der_buf_ulong_t pSlot_storage = { 0 };
+    C_WaitForSlotEvent_Return.pSlot = der_put_ulong(pSlot_storage, *pSlot);
 
     
 
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    //C_WaitForSlotEvent_Return.pReserved =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_WaitForSlotEvent_Return.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
     
@@ -7231,15 +8573,16 @@ pack_C_WrapKey_Call(
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
     
-    der_buf_ulong_t hSession_storage;
-    C_WrapKey_Call.hSession = der_put_ulong(&hSession_storage, *hSession);
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_WrapKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
     
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    //C_WrapKey_Call.pMechanism =     //WORKINPROGRESS: finish this
+    // WORKINPROGRESS: finish this
+    //C_WrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
     
@@ -7247,24 +8590,24 @@ pack_C_WrapKey_Call(
     // PACKING hWrappingKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hWrappingKey_storage;
-    C_WrapKey_Call.hWrappingKey = der_put_ulong(&hWrappingKey_storage, *hWrappingKey);
+    der_buf_ulong_t hWrappingKey_storage = { 0 };
+    C_WrapKey_Call.hWrappingKey = der_put_ulong(hWrappingKey_storage, *hWrappingKey);
 
     
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
     
-    der_buf_ulong_t hKey_storage;
-    C_WrapKey_Call.hKey = der_put_ulong(&hKey_storage, *hKey);
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_WrapKey_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
     
 
     // PACKING pulWrappedKeyLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulWrappedKeyLen_storage;
-    C_WrapKey_Call.pulWrappedKeyLen = der_put_ulong(&pulWrappedKeyLen_storage, *pulWrappedKeyLen);
+    der_buf_ulong_t pulWrappedKeyLen_storage = { 0 };
+    C_WrapKey_Call.pulWrappedKeyLen = der_put_ulong(pulWrappedKeyLen_storage, *pulWrappedKeyLen);
 
     
 
@@ -7289,7 +8632,8 @@ pack_C_WrapKey_Call(
 CK_RV
 pack_C_WrapKey_Return(
         dercursor* pack_target,
-        const CK_RV* retval,CK_BYTE_ARRAY pWrappedKey,
+        const CK_RV* retval,
+        CK_BYTE_ARRAY pWrappedKey,
         const CK_ULONG* pulWrappedKeyLen
 ) {
     C_WrapKey_Return_t C_WrapKey_Return;
@@ -7301,24 +8645,50 @@ pack_C_WrapKey_Return(
     // PACKING retval (type CK_RV_PTR)
 
     
-    der_buf_ulong_t retval_storage;
-    C_WrapKey_Return.retval = der_put_ulong(&retval_storage, *retval);
+    der_buf_ulong_t retval_storage = { 0 };
+    C_WrapKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
     
 
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
 
     
-    //C_WrapKey_Return.pWrappedKey =     //WORKINPROGRESS: finish this
-    der_put_CK_BYTE_ARRAY(pWrappedKey);
 
-    
+/*
+ these are the functions and byte arrays that have a len variable prepended with a p
+pack_C_Decrypt_Return pData
+pack_C_DecryptDigestUpdate_Return pPart
+pack_C_DecryptFinal_Return pLastPart
+pack_C_DecryptUpdate_Return pPart
+pack_C_DecryptVerifyUpdate_Return pPart
+pack_C_Digest_Return pDigest
+pack_C_DigestEncryptUpdate_Return pEncryptedPart
+pack_C_DigestFinal_Return pDigest
+ */
+
+    uint8_t *pWrappedKey_innerlist = NULL;
+    size_t pWrappedKey_length = 0;
+    CK_RV pWrappedKey_status = der_put_CK_BYTE_ARRAY(
+            pWrappedKey,
+            pulWrappedKeyLen,
+            &pWrappedKey_innerlist,
+            &pWrappedKey_length,
+            ByteArray_packer);
+
+    if (pWrappedKey_status != CKR_OK)
+        return pWrappedKey_status;
+
+    C_WrapKey_Return.pWrappedKey.derptr = pWrappedKey_innerlist;
+    C_WrapKey_Return.pWrappedKey.derlen = pWrappedKey_length;
+
+
+
 
     // PACKING pulWrappedKeyLen (type CK_ULONG_PTR)
 
     
-    der_buf_ulong_t pulWrappedKeyLen_storage;
-    C_WrapKey_Return.pulWrappedKeyLen = der_put_ulong(&pulWrappedKeyLen_storage, *pulWrappedKeyLen);
+    der_buf_ulong_t pulWrappedKeyLen_storage = { 0 };
+    C_WrapKey_Return.pulWrappedKeyLen = der_put_ulong(pulWrappedKeyLen_storage, *pulWrappedKeyLen);
 
     
 

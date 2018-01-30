@@ -44,7 +44,7 @@ client_C_CancelFunction(
     
     status = unpack_C_CancelFunction_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -107,7 +107,7 @@ client_C_CloseAllSessions(
     
     status = unpack_C_CloseAllSessions_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -170,7 +170,7 @@ client_C_CloseSession(
     
     status = unpack_C_CloseSession_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -240,8 +240,8 @@ client_C_CopyObject(
     
     status = unpack_C_CopyObject_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phObject // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phObject
     );
 
     if (status != CKR_OK) {
@@ -309,8 +309,8 @@ client_C_CreateObject(
     
     status = unpack_C_CreateObject_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phObject // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phObject
     );
 
     if (status != CKR_OK) {
@@ -380,9 +380,9 @@ client_C_Decrypt(
     
     status = unpack_C_Decrypt_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pData, // CK_BYTE_ARRAY True False
-        pulDataLen // CK_ULONG_PTR True True
+        retval,
+        pData,
+        pulDataLen
     );
 
     if (status != CKR_OK) {
@@ -452,9 +452,9 @@ client_C_DecryptDigestUpdate(
     
     status = unpack_C_DecryptDigestUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pPart, // CK_BYTE_ARRAY True False
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
     if (status != CKR_OK) {
@@ -520,9 +520,9 @@ client_C_DecryptFinal(
     
     status = unpack_C_DecryptFinal_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pLastPart, // CK_BYTE_ARRAY True False
-        pulLastPartLen // CK_ULONG_PTR True True
+        retval,
+        pLastPart,
+        pulLastPartLen
     );
 
     if (status != CKR_OK) {
@@ -589,7 +589,7 @@ client_C_DecryptInit(
     
     status = unpack_C_DecryptInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -659,9 +659,9 @@ client_C_DecryptUpdate(
     
     status = unpack_C_DecryptUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pPart, // CK_BYTE_ARRAY True False
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
     if (status != CKR_OK) {
@@ -731,9 +731,9 @@ client_C_DecryptVerifyUpdate(
     
     status = unpack_C_DecryptVerifyUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pPart, // CK_BYTE_ARRAY True False
-        pulPartLen // CK_ULONG_PTR True True
+        retval,
+        pPart,
+        pulPartLen
     );
 
     if (status != CKR_OK) {
@@ -805,8 +805,8 @@ client_C_DeriveKey(
     
     status = unpack_C_DeriveKey_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phKey // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phKey
     );
 
     if (status != CKR_OK) {
@@ -871,7 +871,7 @@ client_C_DestroyObject(
     
     status = unpack_C_DestroyObject_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -941,9 +941,9 @@ client_C_Digest(
     
     status = unpack_C_Digest_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pDigest, // CK_BYTE_ARRAY True False
-        pulDigestLen // CK_ULONG_PTR True True
+        retval,
+        pDigest,
+        pulDigestLen
     );
 
     if (status != CKR_OK) {
@@ -1013,9 +1013,9 @@ client_C_DigestEncryptUpdate(
     
     status = unpack_C_DigestEncryptUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pEncryptedPart, // CK_BYTE_ARRAY True False
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK) {
@@ -1081,9 +1081,9 @@ client_C_DigestFinal(
     
     status = unpack_C_DigestFinal_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pDigest, // CK_BYTE_ARRAY True False
-        pulDigestLen // CK_ULONG_PTR True True
+        retval,
+        pDigest,
+        pulDigestLen
     );
 
     if (status != CKR_OK) {
@@ -1148,7 +1148,7 @@ client_C_DigestInit(
     
     status = unpack_C_DigestInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -1213,7 +1213,7 @@ client_C_DigestKey(
     
     status = unpack_C_DigestKey_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -1280,7 +1280,7 @@ client_C_DigestUpdate(
     
     status = unpack_C_DigestUpdate_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -1350,9 +1350,9 @@ client_C_Encrypt(
     
     status = unpack_C_Encrypt_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pEncryptedData, // CK_BYTE_ARRAY True False
-        pulEncryptedDataLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedData,
+        pulEncryptedDataLen
     );
 
     if (status != CKR_OK) {
@@ -1418,9 +1418,9 @@ client_C_EncryptFinal(
     
     status = unpack_C_EncryptFinal_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pEncryptedData, // CK_BYTE_ARRAY True False
-        pulEncryptedDataLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedData,
+        pulEncryptedDataLen
     );
 
     if (status != CKR_OK) {
@@ -1487,7 +1487,7 @@ client_C_EncryptInit(
     
     status = unpack_C_EncryptInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -1557,9 +1557,9 @@ client_C_EncryptUpdate(
     
     status = unpack_C_EncryptUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pEncryptedPart, // CK_BYTE_ARRAY True False
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK) {
@@ -1622,8 +1622,8 @@ client_C_Finalize(
     
     status = unpack_C_Finalize_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pReserved // ANY False True
+        retval,
+        pReserved
     );
 
     if (status != CKR_OK) {
@@ -1690,9 +1690,9 @@ client_C_FindObjects(
     
     status = unpack_C_FindObjects_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phObject, // CK_OBJECT_HANDLE_ARRAY True False
-        pulObjectCount // CK_ULONG_PTR True False
+        retval,
+        phObject,
+        pulObjectCount
     );
 
     if (status != CKR_OK) {
@@ -1755,7 +1755,7 @@ client_C_FindObjectsFinal(
     
     status = unpack_C_FindObjectsFinal_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -1822,8 +1822,8 @@ client_C_FindObjectsInit(
     
     status = unpack_C_FindObjectsInit_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pTemplate // CK_ATTRIBUTE_ARRAY True True
+        retval,
+        pTemplate
     );
 
     if (status != CKR_OK) {
@@ -1893,8 +1893,8 @@ client_C_GenerateKey(
     
     status = unpack_C_GenerateKey_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phKey // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phKey
     );
 
     if (status != CKR_OK) {
@@ -1969,9 +1969,9 @@ client_C_GenerateKeyPair(
     
     status = unpack_C_GenerateKeyPair_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phPublicKey, // CK_OBJECT_HANDLE_PTR True False
-        phPrivateKey // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phPublicKey,
+        phPrivateKey
     );
 
     if (status != CKR_OK) {
@@ -2037,8 +2037,8 @@ client_C_GenerateRandom(
     
     status = unpack_C_GenerateRandom_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSeed // CK_BYTE_ARRAY True False
+        retval,
+        pSeed
     );
 
     if (status != CKR_OK) {
@@ -2107,8 +2107,8 @@ client_C_GetAttributeValue(
     
     status = unpack_C_GetAttributeValue_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pTemplate // CK_ATTRIBUTE_ARRAY True True
+        retval,
+        pTemplate
     );
 
     if (status != CKR_OK) {
@@ -2171,7 +2171,7 @@ client_C_GetFunctionStatus(
     
     status = unpack_C_GetFunctionStatus_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -2233,8 +2233,8 @@ client_C_GetInfo(
     
     status = unpack_C_GetInfo_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInfo // CK_INFO_PTR True False
+        retval,
+        pInfo
     );
 
     if (status != CKR_OK) {
@@ -2300,8 +2300,8 @@ client_C_GetMechanismInfo(
     
     status = unpack_C_GetMechanismInfo_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInfo // CK_MECHANISM_INFO_PTR True False
+        retval,
+        pInfo
     );
 
     if (status != CKR_OK) {
@@ -2367,9 +2367,9 @@ client_C_GetMechanismList(
     
     status = unpack_C_GetMechanismList_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pMechanismList, // CK_MECHANISM_TYPE_ARRAY True True
-        pulCount // CK_ULONG_PTR True True
+        retval,
+        pMechanismList,
+        pulCount
     );
 
     if (status != CKR_OK) {
@@ -2435,8 +2435,8 @@ client_C_GetObjectSize(
     
     status = unpack_C_GetObjectSize_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pulSize // CK_ULONG_PTR True False
+        retval,
+        pulSize
     );
 
     if (status != CKR_OK) {
@@ -2502,9 +2502,9 @@ client_C_GetOperationState(
     
     status = unpack_C_GetOperationState_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pOperationState, // CK_BYTE_ARRAY True False
-        pulOperationStateLen // CK_ULONG_PTR True True
+        retval,
+        pOperationState,
+        pulOperationStateLen
     );
 
     if (status != CKR_OK) {
@@ -2568,8 +2568,8 @@ client_C_GetSessionInfo(
     
     status = unpack_C_GetSessionInfo_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInfo // CK_SESSION_INFO_PTR True False
+        retval,
+        pInfo
     );
 
     if (status != CKR_OK) {
@@ -2633,8 +2633,8 @@ client_C_GetSlotInfo(
     
     status = unpack_C_GetSlotInfo_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInfo // CK_SLOT_INFO_PTR True False
+        retval,
+        pInfo
     );
 
     if (status != CKR_OK) {
@@ -2700,9 +2700,9 @@ client_C_GetSlotList(
     
     status = unpack_C_GetSlotList_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSlotList, // CK_SLOT_ID_ARRAY True True
-        pulCount // CK_ULONG_PTR True True
+        retval,
+        pSlotList,
+        pulCount
     );
 
     if (status != CKR_OK) {
@@ -2766,8 +2766,8 @@ client_C_GetTokenInfo(
     
     status = unpack_C_GetTokenInfo_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInfo // CK_TOKEN_INFO_PTR True False
+        retval,
+        pInfo
     );
 
     if (status != CKR_OK) {
@@ -2834,7 +2834,7 @@ client_C_InitPIN(
     
     status = unpack_C_InitPIN_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -2903,7 +2903,7 @@ client_C_InitToken(
     
     status = unpack_C_InitToken_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -2966,8 +2966,8 @@ client_C_Initialize(
     
     status = unpack_C_Initialize_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pInitArgs // ANY False True
+        retval,
+        pInitArgs
     );
 
     if (status != CKR_OK) {
@@ -3036,7 +3036,7 @@ client_C_Login(
     
     status = unpack_C_Login_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3099,7 +3099,7 @@ client_C_Logout(
     
     status = unpack_C_Logout_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3169,8 +3169,8 @@ client_C_OpenSession(
     
     status = unpack_C_OpenSession_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phSession // CK_SESSION_HANDLE_PTR True False
+        retval,
+        phSession
     );
 
     if (status != CKR_OK) {
@@ -3237,7 +3237,7 @@ client_C_SeedRandom(
     
     status = unpack_C_SeedRandom_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3306,7 +3306,7 @@ client_C_SetAttributeValue(
     
     status = unpack_C_SetAttributeValue_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3377,7 +3377,7 @@ client_C_SetOperationState(
     
     status = unpack_C_SetOperationState_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3448,7 +3448,7 @@ client_C_SetPIN(
     
     status = unpack_C_SetPIN_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3518,9 +3518,9 @@ client_C_Sign(
     
     status = unpack_C_Sign_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSignature, // CK_BYTE_ARRAY True False
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
     if (status != CKR_OK) {
@@ -3590,9 +3590,9 @@ client_C_SignEncryptUpdate(
     
     status = unpack_C_SignEncryptUpdate_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pEncryptedPart, // CK_BYTE_ARRAY True False
-        pulEncryptedPartLen // CK_ULONG_PTR True True
+        retval,
+        pEncryptedPart,
+        pulEncryptedPartLen
     );
 
     if (status != CKR_OK) {
@@ -3658,9 +3658,9 @@ client_C_SignFinal(
     
     status = unpack_C_SignFinal_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSignature, // CK_BYTE_ARRAY True False
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
     if (status != CKR_OK) {
@@ -3727,7 +3727,7 @@ client_C_SignInit(
     
     status = unpack_C_SignInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3797,9 +3797,9 @@ client_C_SignRecover(
     
     status = unpack_C_SignRecover_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSignature, // CK_BYTE_ARRAY True False
-        pulSignatureLen // CK_ULONG_PTR True True
+        retval,
+        pSignature,
+        pulSignatureLen
     );
 
     if (status != CKR_OK) {
@@ -3866,7 +3866,7 @@ client_C_SignRecoverInit(
     
     status = unpack_C_SignRecoverInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -3933,7 +3933,7 @@ client_C_SignUpdate(
     
     status = unpack_C_SignUpdate_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -4009,8 +4009,8 @@ client_C_UnwrapKey(
     
     status = unpack_C_UnwrapKey_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        phKey // CK_OBJECT_HANDLE_PTR True False
+        retval,
+        phKey
     );
 
     if (status != CKR_OK) {
@@ -4081,7 +4081,7 @@ client_C_Verify(
     
     status = unpack_C_Verify_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -4148,7 +4148,7 @@ client_C_VerifyFinal(
     
     status = unpack_C_VerifyFinal_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -4215,7 +4215,7 @@ client_C_VerifyInit(
     
     status = unpack_C_VerifyInit_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -4285,9 +4285,9 @@ client_C_VerifyRecover(
     
     status = unpack_C_VerifyRecover_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pData, // CK_BYTE_ARRAY True False
-        pulDataLen // CK_ULONG_PTR True True
+        retval,
+        pData,
+        pulDataLen
     );
 
     if (status != CKR_OK) {
@@ -4354,7 +4354,7 @@ client_C_VerifyUpdate(
     
     status = unpack_C_VerifyUpdate_Return(
         &dercursorOut,
-        retval // CK_RV_PTR True False
+        retval
     );
 
     if (status != CKR_OK) {
@@ -4420,9 +4420,9 @@ client_C_WaitForSlotEvent(
     
     status = unpack_C_WaitForSlotEvent_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pSlot, // CK_SLOT_ID_PTR True False
-        pReserved // CK_VOID_PTR True True
+        retval,
+        pSlot,
+        pReserved
     );
 
     if (status != CKR_OK) {
@@ -4494,9 +4494,9 @@ client_C_WrapKey(
     
     status = unpack_C_WrapKey_Return(
         &dercursorOut,
-        retval, // CK_RV_PTR True False
-        pWrappedKey, // CK_BYTE_ARRAY True False
-        pulWrappedKeyLen // CK_ULONG_PTR True True
+        retval,
+        pWrappedKey,
+        pulWrappedKeyLen
     );
 
     if (status != CKR_OK) {
