@@ -1,2 +1,2 @@
-pyquickder
 jinja2
+-e git://github.com/vanrein/quick-der.git@c3f44c5edbe4421a5160be12564d9e41df2eb66d#egg=pyquickder
