@@ -11,9 +11,11 @@ void test_client_C_CancelFunction(void **state){
     CK_SESSION_HANDLE hSession = 0;
     
 
-    client_C_CancelFunction(
+    CK_RV status = client_C_CancelFunction(
         hSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -21,9 +23,11 @@ void test_client_C_CloseAllSessions(void **state){
     CK_SLOT_ID slotID = 0;
     
 
-    client_C_CloseAllSessions(
+    CK_RV status = client_C_CloseAllSessions(
         slotID
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -31,9 +35,11 @@ void test_client_C_CloseSession(void **state){
     CK_SESSION_HANDLE hSession = 0;
     
 
-    client_C_CloseSession(
+    CK_RV status = client_C_CloseSession(
         hSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -45,13 +51,15 @@ void test_client_C_CopyObject(void **state){
     CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
     
 
-    client_C_CopyObject(
+    CK_RV status = client_C_CopyObject(
         hSession,
         hObject,
         pTemplate,
         ulCount,
         phObject
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -62,12 +70,14 @@ void test_client_C_CreateObject(void **state){
     CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
     
 
-    client_C_CreateObject(
+    CK_RV status = client_C_CreateObject(
         hSession,
         pTemplate,
         ulCount,
         phObject
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -79,13 +89,15 @@ void test_client_C_Decrypt(void **state){
     CK_ULONG_PTR pulDataLen = NULL_PTR;
     
 
-    client_C_Decrypt(
+    CK_RV status = client_C_Decrypt(
         hSession,
         pEncryptedData,
         ulEncryptedDataLen,
         pData,
         pulDataLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -97,13 +109,15 @@ void test_client_C_DecryptDigestUpdate(void **state){
     CK_ULONG_PTR pulPartLen = NULL_PTR;
     
 
-    client_C_DecryptDigestUpdate(
+    CK_RV status = client_C_DecryptDigestUpdate(
         hSession,
         pEncryptedPart,
         ulEncryptedPartLen,
         pPart,
         pulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -113,11 +127,13 @@ void test_client_C_DecryptFinal(void **state){
     CK_ULONG_PTR pulLastPartLen = NULL_PTR;
     
 
-    client_C_DecryptFinal(
+    CK_RV status = client_C_DecryptFinal(
         hSession,
         pLastPart,
         pulLastPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -127,11 +143,13 @@ void test_client_C_DecryptInit(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_DecryptInit(
+    CK_RV status = client_C_DecryptInit(
         hSession,
         pMechanism,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -143,13 +161,15 @@ void test_client_C_DecryptUpdate(void **state){
     CK_ULONG_PTR pulPartLen = NULL_PTR;
     
 
-    client_C_DecryptUpdate(
+    CK_RV status = client_C_DecryptUpdate(
         hSession,
         pEncryptedPart,
         ulEncryptedPartLen,
         pPart,
         pulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -161,13 +181,15 @@ void test_client_C_DecryptVerifyUpdate(void **state){
     CK_ULONG_PTR pulPartLen = NULL_PTR;
     
 
-    client_C_DecryptVerifyUpdate(
+    CK_RV status = client_C_DecryptVerifyUpdate(
         hSession,
         pEncryptedPart,
         ulEncryptedPartLen,
         pPart,
         pulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -180,7 +202,7 @@ void test_client_C_DeriveKey(void **state){
     CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
     
 
-    client_C_DeriveKey(
+    CK_RV status = client_C_DeriveKey(
         hSession,
         pMechanism,
         hBaseKey,
@@ -188,6 +210,8 @@ void test_client_C_DeriveKey(void **state){
         ulAttributeCount,
         phKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -196,10 +220,12 @@ void test_client_C_DestroyObject(void **state){
     CK_OBJECT_HANDLE hObject = 0;
     
 
-    client_C_DestroyObject(
+    CK_RV status = client_C_DestroyObject(
         hSession,
         hObject
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -211,13 +237,15 @@ void test_client_C_Digest(void **state){
     CK_ULONG_PTR pulDigestLen = NULL_PTR;
     
 
-    client_C_Digest(
+    CK_RV status = client_C_Digest(
         hSession,
         pData,
         ulDataLen,
         pDigest,
         pulDigestLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -229,13 +257,15 @@ void test_client_C_DigestEncryptUpdate(void **state){
     CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
     
 
-    client_C_DigestEncryptUpdate(
+    CK_RV status = client_C_DigestEncryptUpdate(
         hSession,
         pPart,
         ulPartLen,
         pEncryptedPart,
         pulEncryptedPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -245,11 +275,13 @@ void test_client_C_DigestFinal(void **state){
     CK_ULONG_PTR pulDigestLen = NULL_PTR;
     
 
-    client_C_DigestFinal(
+    CK_RV status = client_C_DigestFinal(
         hSession,
         pDigest,
         pulDigestLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -258,10 +290,12 @@ void test_client_C_DigestInit(void **state){
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     
 
-    client_C_DigestInit(
+    CK_RV status = client_C_DigestInit(
         hSession,
         pMechanism
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -270,10 +304,12 @@ void test_client_C_DigestKey(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_DigestKey(
+    CK_RV status = client_C_DigestKey(
         hSession,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -283,11 +319,13 @@ void test_client_C_DigestUpdate(void **state){
     CK_ULONG ulPartLen = 0;
     
 
-    client_C_DigestUpdate(
+    CK_RV status = client_C_DigestUpdate(
         hSession,
         pPart,
         ulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -299,13 +337,15 @@ void test_client_C_Encrypt(void **state){
     CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
     
 
-    client_C_Encrypt(
+    CK_RV status = client_C_Encrypt(
         hSession,
         pData,
         ulDataLen,
         pEncryptedData,
         pulEncryptedDataLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -315,11 +355,13 @@ void test_client_C_EncryptFinal(void **state){
     CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
     
 
-    client_C_EncryptFinal(
+    CK_RV status = client_C_EncryptFinal(
         hSession,
         pEncryptedData,
         pulEncryptedDataLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -329,11 +371,13 @@ void test_client_C_EncryptInit(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_EncryptInit(
+    CK_RV status = client_C_EncryptInit(
         hSession,
         pMechanism,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -345,13 +389,15 @@ void test_client_C_EncryptUpdate(void **state){
     CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
     
 
-    client_C_EncryptUpdate(
+    CK_RV status = client_C_EncryptUpdate(
         hSession,
         pPart,
         ulPartLen,
         pEncryptedPart,
         pulEncryptedPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -359,9 +405,11 @@ void test_client_C_Finalize(void **state){
     ANY pReserved = NULL;
     
 
-    client_C_Finalize(
+    CK_RV status = client_C_Finalize(
         pReserved
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -372,12 +420,14 @@ void test_client_C_FindObjects(void **state){
     CK_ULONG_PTR pulObjectCount = NULL_PTR;
     
 
-    client_C_FindObjects(
+    CK_RV status = client_C_FindObjects(
         hSession,
         phObject,
         ulMaxObjectCount,
         pulObjectCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -385,9 +435,11 @@ void test_client_C_FindObjectsFinal(void **state){
     CK_SESSION_HANDLE hSession = 0;
     
 
-    client_C_FindObjectsFinal(
+    CK_RV status = client_C_FindObjectsFinal(
         hSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -397,11 +449,13 @@ void test_client_C_FindObjectsInit(void **state){
     CK_ULONG ulCount = 0;
     
 
-    client_C_FindObjectsInit(
+    CK_RV status = client_C_FindObjectsInit(
         hSession,
         pTemplate,
         ulCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -413,13 +467,15 @@ void test_client_C_GenerateKey(void **state){
     CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
     
 
-    client_C_GenerateKey(
+    CK_RV status = client_C_GenerateKey(
         hSession,
         pMechanism,
         pTemplate,
         ulCount,
         phKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -434,7 +490,7 @@ void test_client_C_GenerateKeyPair(void **state){
     CK_OBJECT_HANDLE_PTR phPrivateKey = NULL_PTR;
     
 
-    client_C_GenerateKeyPair(
+    CK_RV status = client_C_GenerateKeyPair(
         hSession,
         pMechanism,
         pPublicKeyTemplate,
@@ -444,6 +500,8 @@ void test_client_C_GenerateKeyPair(void **state){
         phPublicKey,
         phPrivateKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -453,11 +511,13 @@ void test_client_C_GenerateRandom(void **state){
     CK_ULONG ulRandomLen = 0;
     
 
-    client_C_GenerateRandom(
+    CK_RV status = client_C_GenerateRandom(
         hSession,
         pSeed,
         ulRandomLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -468,12 +528,14 @@ void test_client_C_GetAttributeValue(void **state){
     CK_ULONG ulCount = 0;
     
 
-    client_C_GetAttributeValue(
+    CK_RV status = client_C_GetAttributeValue(
         hSession,
         hObject,
         pTemplate,
         ulCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -481,9 +543,11 @@ void test_client_C_GetFunctionStatus(void **state){
     CK_SESSION_HANDLE hSession = 0;
     
 
-    client_C_GetFunctionStatus(
+    CK_RV status = client_C_GetFunctionStatus(
         hSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -491,9 +555,11 @@ void test_client_C_GetInfo(void **state){
     CK_INFO_PTR pInfo = NULL_PTR;
     
 
-    client_C_GetInfo(
+    CK_RV status = client_C_GetInfo(
         pInfo
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -503,11 +569,13 @@ void test_client_C_GetMechanismInfo(void **state){
     CK_MECHANISM_INFO_PTR pInfo = NULL_PTR;
     
 
-    client_C_GetMechanismInfo(
+    CK_RV status = client_C_GetMechanismInfo(
         slotID,
         type,
         pInfo
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -517,11 +585,13 @@ void test_client_C_GetMechanismList(void **state){
     CK_ULONG_PTR pulCount = NULL_PTR;
     
 
-    client_C_GetMechanismList(
+    CK_RV status = client_C_GetMechanismList(
         slotID,
         pMechanismList,
         pulCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -531,11 +601,13 @@ void test_client_C_GetObjectSize(void **state){
     CK_ULONG_PTR pulSize = NULL_PTR;
     
 
-    client_C_GetObjectSize(
+    CK_RV status = client_C_GetObjectSize(
         hSession,
         hObject,
         pulSize
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -545,11 +617,13 @@ void test_client_C_GetOperationState(void **state){
     CK_ULONG_PTR pulOperationStateLen = NULL_PTR;
     
 
-    client_C_GetOperationState(
+    CK_RV status = client_C_GetOperationState(
         hSession,
         pOperationState,
         pulOperationStateLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -558,10 +632,12 @@ void test_client_C_GetSessionInfo(void **state){
     CK_SESSION_INFO_PTR pInfo = NULL_PTR;
     
 
-    client_C_GetSessionInfo(
+    CK_RV status = client_C_GetSessionInfo(
         hSession,
         pInfo
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -570,10 +646,12 @@ void test_client_C_GetSlotInfo(void **state){
     CK_SLOT_INFO_PTR pInfo = NULL_PTR;
     
 
-    client_C_GetSlotInfo(
+    CK_RV status = client_C_GetSlotInfo(
         slotID,
         pInfo
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -583,11 +661,13 @@ void test_client_C_GetSlotList(void **state){
     CK_ULONG_PTR pulCount = NULL_PTR;
     
 
-    client_C_GetSlotList(
+    CK_RV status = client_C_GetSlotList(
         tokenPresent,
         pSlotList,
         pulCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -596,10 +676,12 @@ void test_client_C_GetTokenInfo(void **state){
     CK_TOKEN_INFO_PTR pInfo = NULL_PTR;
     
 
-    client_C_GetTokenInfo(
+    CK_RV status = client_C_GetTokenInfo(
         slotID,
         pInfo
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -609,11 +691,13 @@ void test_client_C_InitPIN(void **state){
     CK_ULONG ulPinLen = 0;
     
 
-    client_C_InitPIN(
+    CK_RV status = client_C_InitPIN(
         hSession,
         pPin,
         ulPinLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -624,12 +708,14 @@ void test_client_C_InitToken(void **state){
     UTF8String pLabel = NULL;
     
 
-    client_C_InitToken(
+    CK_RV status = client_C_InitToken(
         slotID,
         pPin,
         ulPinLen,
         pLabel
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -637,9 +723,11 @@ void test_client_C_Initialize(void **state){
     CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL_PTR;
     
 
-    client_C_Initialize(
+    CK_RV status = client_C_Initialize(
         pInitArgs
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -650,12 +738,14 @@ void test_client_C_Login(void **state){
     CK_ULONG ulPinLen = 0;
     
 
-    client_C_Login(
+    CK_RV status = client_C_Login(
         hSession,
         userType,
         pPin,
         ulPinLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -663,9 +753,11 @@ void test_client_C_Logout(void **state){
     CK_SESSION_HANDLE hSession = 0;
     
 
-    client_C_Logout(
+    CK_RV status = client_C_Logout(
         hSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -677,13 +769,15 @@ void test_client_C_OpenSession(void **state){
     CK_SESSION_HANDLE_PTR phSession = NULL_PTR;
     
 
-    client_C_OpenSession(
+    CK_RV status = client_C_OpenSession(
         slotID,
         flags,
         pApplication,
         notify,
         phSession
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -693,11 +787,13 @@ void test_client_C_SeedRandom(void **state){
     CK_ULONG ulSeedLen = 0;
     
 
-    client_C_SeedRandom(
+    CK_RV status = client_C_SeedRandom(
         hSession,
         pSeed,
         ulSeedLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -708,12 +804,14 @@ void test_client_C_SetAttributeValue(void **state){
     CK_ULONG ulCount = 0;
     
 
-    client_C_SetAttributeValue(
+    CK_RV status = client_C_SetAttributeValue(
         hSession,
         hObject,
         pTemplate,
         ulCount
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -725,13 +823,15 @@ void test_client_C_SetOperationState(void **state){
     CK_OBJECT_HANDLE hAuthenticationKey = 0;
     
 
-    client_C_SetOperationState(
+    CK_RV status = client_C_SetOperationState(
         hSession,
         pOperationState,
         ulOperationStateLen,
         hEncryptionKey,
         hAuthenticationKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -743,13 +843,15 @@ void test_client_C_SetPIN(void **state){
     CK_ULONG ulNewPin = 0;
     
 
-    client_C_SetPIN(
+    CK_RV status = client_C_SetPIN(
         hSession,
         pOldPin,
         ulOldLen,
         pNewPin,
         ulNewPin
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -761,13 +863,15 @@ void test_client_C_Sign(void **state){
     CK_ULONG_PTR pulSignatureLen = NULL_PTR;
     
 
-    client_C_Sign(
+    CK_RV status = client_C_Sign(
         hSession,
         pData,
         ulDataLen,
         pSignature,
         pulSignatureLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -779,13 +883,15 @@ void test_client_C_SignEncryptUpdate(void **state){
     CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
     
 
-    client_C_SignEncryptUpdate(
+    CK_RV status = client_C_SignEncryptUpdate(
         hSession,
         pPart,
         ulPartLen,
         pEncryptedPart,
         pulEncryptedPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -795,11 +901,13 @@ void test_client_C_SignFinal(void **state){
     CK_ULONG_PTR pulSignatureLen = NULL_PTR;
     
 
-    client_C_SignFinal(
+    CK_RV status = client_C_SignFinal(
         hSession,
         pSignature,
         pulSignatureLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -809,11 +917,13 @@ void test_client_C_SignInit(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_SignInit(
+    CK_RV status = client_C_SignInit(
         hSession,
         pMechanism,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -825,13 +935,15 @@ void test_client_C_SignRecover(void **state){
     CK_ULONG_PTR pulSignatureLen = NULL_PTR;
     
 
-    client_C_SignRecover(
+    CK_RV status = client_C_SignRecover(
         hSession,
         pData,
         ulDataLen,
         pSignature,
         pulSignatureLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -841,11 +953,13 @@ void test_client_C_SignRecoverInit(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_SignRecoverInit(
+    CK_RV status = client_C_SignRecoverInit(
         hSession,
         pMechanism,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -855,11 +969,13 @@ void test_client_C_SignUpdate(void **state){
     CK_ULONG ulPartLen = 0;
     
 
-    client_C_SignUpdate(
+    CK_RV status = client_C_SignUpdate(
         hSession,
         pPart,
         ulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -874,7 +990,7 @@ void test_client_C_UnwrapKey(void **state){
     CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
     
 
-    client_C_UnwrapKey(
+    CK_RV status = client_C_UnwrapKey(
         hSession,
         pMechanism,
         hUnwrappingKey,
@@ -884,6 +1000,8 @@ void test_client_C_UnwrapKey(void **state){
         ulAttributeCount,
         phKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -895,13 +1013,15 @@ void test_client_C_Verify(void **state){
     CK_ULONG ulSignatureLen = 0;
     
 
-    client_C_Verify(
+    CK_RV status = client_C_Verify(
         hSession,
         pData,
         ulDataLen,
         pSignature,
         ulSignatureLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -911,11 +1031,13 @@ void test_client_C_VerifyFinal(void **state){
     CK_ULONG ulSignatureLen = 0;
     
 
-    client_C_VerifyFinal(
+    CK_RV status = client_C_VerifyFinal(
         hSession,
         pSignature,
         ulSignatureLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -925,11 +1047,13 @@ void test_client_C_VerifyInit(void **state){
     CK_OBJECT_HANDLE hKey = 0;
     
 
-    client_C_VerifyInit(
+    CK_RV status = client_C_VerifyInit(
         hSession,
         pMechanism,
         hKey
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -941,13 +1065,15 @@ void test_client_C_VerifyRecover(void **state){
     CK_ULONG_PTR pulDataLen = NULL_PTR;
     
 
-    client_C_VerifyRecover(
+    CK_RV status = client_C_VerifyRecover(
         hSession,
         pSignature,
         ulSignatureLen,
         pData,
         pulDataLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -957,11 +1083,13 @@ void test_client_C_VerifyUpdate(void **state){
     CK_ULONG ulPartLen = 0;
     
 
-    client_C_VerifyUpdate(
+    CK_RV status = client_C_VerifyUpdate(
         hSession,
         pPart,
         ulPartLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -971,11 +1099,13 @@ void test_client_C_WaitForSlotEvent(void **state){
     CK_VOID_PTR pReserved = NULL_PTR;
     
 
-    client_C_WaitForSlotEvent(
+    CK_RV status = client_C_WaitForSlotEvent(
         flags,
         pSlot,
         pReserved
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 
@@ -988,7 +1118,7 @@ void test_client_C_WrapKey(void **state){
     CK_ULONG_PTR pulWrappedKeyLen = NULL_PTR;
     
 
-    client_C_WrapKey(
+    CK_RV status = client_C_WrapKey(
         hSession,
         pMechanism,
         hWrappingKey,
@@ -996,6 +1126,8 @@ void test_client_C_WrapKey(void **state){
         pWrappedKey,
         pulWrappedKeyLen
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 
 

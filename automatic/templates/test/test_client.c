@@ -12,13 +12,15 @@ void test_client_{{ f }}(void **state){
     {{ initialise(type, value) }}
     {% endfor %}
 
-    client_{{ f }}(
+    CK_RV status = client_{{ f }}(
         {% for type, pointerized, value in combined_args(call, return_) -%}
         {{- value -}}
         {%- if not loop.last %},
         {% endif -%}
         {% endfor %}
     );
+    assert_int_equal(status, CKR_OK);
+
 };
 {% endfor %}
 
