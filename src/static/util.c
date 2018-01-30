@@ -98,6 +98,16 @@ dercursor der_put_char(u_int8_t* der_buf_char, char value)
 }
 
 
+dercursor der_put_uchar(u_int8_t* der_buf_char, unsigned char value)
+{
+    dercursor retval;
+    retval.derptr = (uint8_t *)der_buf_char;
+    retval.derlen = 1;
+    *retval.derptr = (uint8_t)value;
+    return retval;
+}
+
+
 void der_dump(char* path, dercursor* pCursor)
 {
     FILE *pFile = fopen(path, "w+b");

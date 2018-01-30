@@ -7,6 +7,6 @@
 
 dercursor not_implemented(uint8_t *der_buf_uint32, uint32_t value);
 
-dercursor (*func_array[CKA_ALLOWED_MECHANISMS+1]) (uint8_t *der_buf_uint32, uint32_t value) = { not_implemented };
+dercursor (*func_array[CKA_SUPPORTED_CMS_ATTRIBUTES+1]) (uint8_t *der_buf_uint32, uint32_t value);
 
 #endif //KEEHIVE_CONVERT_H

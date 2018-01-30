@@ -2,6 +2,12 @@
 #include "convert.h"
 
 
+dercursor not_implemented(uint8_t *der_buf_uint32, uint32_t value) {
+    dercursor cursor;
+    return cursor;
+};
+
+
 void populate() {
     //func_array[CKA_ALLOWED_MECHANISMS+1] = { not_implemented };
     func_array[CKA_TOKEN] = not_implemented;
@@ -73,9 +79,9 @@ void populate() {
     func_array[CKA_AUTH_PIN_FLAGS] = not_implemented;
     func_array[CKA_ALWAYS_AUTHENTICATE] = not_implemented;
     func_array[CKA_WRAP_WITH_TRUSTED] = not_implemented;
-    func_array[CKA_WRAP_TEMPLATE] = not_implemented;
-    func_array[CKA_UNWRAP_TEMPLATE] = not_implemented;
-    func_array[CKA_DERIVE_TEMPLATE] = not_implemented;
+    //func_array[CKA_WRAP_TEMPLATE] = not_implemented;
+    //func_array[CKA_UNWRAP_TEMPLATE] = not_implemented;
+    //func_array[CKA_DERIVE_TEMPLATE] = not_implemented;
     func_array[CKA_OTP_FORMAT] = not_implemented;
     func_array[CKA_OTP_LENGTH] = not_implemented;
     func_array[CKA_OTP_TIME_INTERVAL] = not_implemented;
@@ -110,6 +116,7 @@ void populate() {
     func_array[CKA_REQUIRED_CMS_ATTRIBUTES] = not_implemented;
     func_array[CKA_DEFAULT_CMS_ATTRIBUTES] = not_implemented;
     func_array[CKA_SUPPORTED_CMS_ATTRIBUTES] = not_implemented;
-    func_array[CKA_ALLOWED_MECHANISMS] = not_implemented;
+    //func_array[CKA_ALLOWED_MECHANISMS] = not_implemented;
     //func_array[CKA_VENDOR_DEFINED] = not_implemented;
 };
+ 
