@@ -3,7 +3,7 @@
 
 
 void populate() {
-    func_array[CKA_ALLOWED_MECHANISMS+1] = { not_implemented };
+    //func_array[CKA_ALLOWED_MECHANISMS+1] = { not_implemented };
     func_array[CKA_TOKEN] = not_implemented;
     func_array[CKA_CLASS] = not_implemented;
     func_array[CKA_PRIVATE] = not_implemented;

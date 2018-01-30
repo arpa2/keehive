@@ -4408,6 +4408,8 @@ pack_C_GenerateRandom_Return(
 ) {
     C_GenerateRandom_Return_t C_GenerateRandom_Return;
 
+    const CK_ULONG pulSeedLen = 0;
+
     memset (&C_GenerateRandom_Return, 0, sizeof(C_GenerateRandom_Return));
 
     
@@ -4440,7 +4442,7 @@ pack_C_DigestFinal_Return pDigest
     size_t pSeed_length = 0;
     CK_RV pSeed_status = der_put_CK_BYTE_ARRAY(
             pSeed,
-            pulSeedLen,
+            &pulSeedLen,
             &pSeed_innerlist,
             &pSeed_length,
             ByteArray_packer);

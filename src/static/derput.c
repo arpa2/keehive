@@ -12,8 +12,6 @@ static const derwalk pValue_packer[] = {
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue ACK_ATTRIBUTE_pValue_t;
 
-void der_put_CK_BYTE_ARRAY(const CK_BYTE* pEncryptedData) {};
-
 void der_put_CK_MECHANISM_PTR(const CK_MECHANISM* pMechanism) {};
 
 void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo) {};
@@ -105,7 +103,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
 
     for (i = 0; i < *count; i++) {
         attribute = pTemplate[i];
-        crs = (*func_array[attribute.type])(buf, (uint32_t) attribute.pValue);
+        crs = (*func_array[attribute.type])(buf, *(uint32_t*)attribute.pValue);
         tmp = der_pack(pack, &crs, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
@@ -119,7 +117,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
     while (i-- > 0) {
         assert(innerlen >= 0);
         attribute = pTemplate[i];
-        crs = (*func_array[attribute.type])(buf, (uint32_t) attribute.pValue);
+        crs = (*func_array[attribute.type])(buf, *(uint32_t*)attribute.pValue);
         tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
