@@ -9,10 +9,10 @@ CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 {# this is a bit of an ugly hack, used by converting type CK_ATTRIBUTE_ARRAY. For now i leave this here, sorry #}
 {% set mapping = {
         ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
-        ("C_FindObjectsInit_Return",  "pTemplate"): 0,
+        ("C_FindObjectsInit_Return",  "pTemplate"): "pulSeedLen /* TODO: this is wrong, determine this number somehow */",
         ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
         ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-        ("C_GetAttributeValue_Return",  "pTemplate"): 0,
+        ("C_GetAttributeValue_Return",  "pTemplate"): "pulSeedLen /* TODO: this is wrong, determine this number somehow */",
         ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
 }
 %}
@@ -142,6 +142,10 @@ pack_C_DigestFinal_Return pDigest
 
     {{ f.type_name|under }}.{{ var }}.wire.derptr = {{ var }}_innerlist;
     {{ f.type_name|under }}.{{ var }}.wire.derlen = {{ var }}_length;
+
+{% elif type == "CK_VOID_PTR" %}
+
+    {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
 
 
     {% else %}

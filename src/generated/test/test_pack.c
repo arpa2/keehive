@@ -135,7 +135,11 @@ void test_pack_C_CopyObject_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -182,7 +186,11 @@ void test_pack_C_CreateObject_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -520,7 +528,11 @@ void test_pack_C_DeriveKey_Call(void **state) {
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hBaseKey = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulAttributeCount = 0;
     
 
@@ -1202,7 +1214,11 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -1225,7 +1241,11 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     
 
     CK_RV status = pack_C_FindObjectsInit_Return(
@@ -1249,7 +1269,11 @@ void test_pack_C_GenerateKey_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -1297,9 +1321,17 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
+    
+    CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pPublicKeyTemplate[] = {
+        {CKA_LABEL, pPublicKeyTemplate_label, sizeof(pPublicKeyTemplate_label)-1},
+    };
     CK_ULONG ulPublicKeyAttributeCount = 0;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = NULL;
+    
+    CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pPrivateKeyTemplate[] = {
+        {CKA_LABEL, pPrivateKeyTemplate_label, sizeof(pPrivateKeyTemplate_label)-1},
+    };
     CK_ULONG ulPrivateKeyAttributeCount = 0;
     
 
@@ -1395,7 +1427,11 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -1419,7 +1455,11 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     
 
     CK_RV status = pack_C_GetAttributeValue_Return(
@@ -2219,7 +2259,11 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulCount = 0;
     
 
@@ -2692,7 +2736,11 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
     CK_BYTE_ARRAY pWrappedKey = NULL;
     CK_ULONG ulWrappedKeyLen = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1},
+    };
     CK_ULONG ulAttributeCount = 0;
     
 

@@ -20,10 +20,6 @@ void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo) {
     // TODO: implement
 };
 
-void der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
-    // TODO: implement
-};
-
 void der_put_CK_UTF8CHAR_ARRAY(const CK_UTF8CHAR* pPin) {
     // TODO: implement
 };
@@ -74,6 +70,14 @@ void der_put_CK_OBJECT_HANDLE_ARRAY(const CK_OBJECT_HANDLE* phObject) {
 
 void der_put_CK_MECHANISM_TYPE_ARRAY(const CK_MECHANISM_TYPE* pMechanismList) {
     // TODO: implement
+};
+
+dercursor
+der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
+    dercursor retval;
+    retval.derptr = (uint8_t *) "";
+    retval.derlen = 0;
+    return retval;
 };
 
 CK_RV

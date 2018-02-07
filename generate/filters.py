@@ -189,12 +189,20 @@ type_test_templates = {
                             .firmwareVersion.major = 1,
                             .firmwareVersion.minor = 1, 
                             .utcTime = "gijs" }""",
+
+    "CK_ATTRIBUTE_ARRAY": """
+    CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE {identifier}[] = {{
+        {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}},
+    }};"""
 }
 
 
 def initialise_test(type_, identifier):
     if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
         return "{} {} = 0;".format(type_, identifier)
+    elif type_ == "CK_ATTRIBUTE_ARRAY":
+        return type_test_templates[type_].format(identifier=identifier)
     elif type_ in type_test_templates:
         return "{} {} = {};".format(type_, identifier, type_test_templates[type_])
     elif not type_.endswith("_PTR"):

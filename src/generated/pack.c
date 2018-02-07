@@ -987,7 +987,6 @@ pack_C_CopyObject_Call(
     C_CopyObject_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -1106,7 +1105,6 @@ pack_C_CreateObject_Call(
     C_CreateObject_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -2160,7 +2158,6 @@ pack_C_DeriveKey_Call(
     C_DeriveKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
 
@@ -3671,9 +3668,9 @@ pack_C_Finalize_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // TODO: finish this
-    //C_Finalize_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
-    der_put_CK_VOID_PTR(pReserved);
+
+    C_Finalize_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
+
 
     
 
@@ -3967,7 +3964,6 @@ pack_C_FindObjectsInit_Call(
     C_FindObjectsInit_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -4025,7 +4021,7 @@ pack_C_FindObjectsInit_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            0,
+            pulSeedLen /* TODO: this is wrong, determine this number somehow */,
             &pTemplate_innerlist,
             &pTemplate_length,
             AttributeArray_packer);
@@ -4037,7 +4033,6 @@ pack_C_FindObjectsInit_Return(
     C_FindObjectsInit_Return.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // END OF PACKING
 
@@ -4112,7 +4107,6 @@ pack_C_GenerateKey_Call(
     C_GenerateKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -4243,7 +4237,6 @@ pack_C_GenerateKeyPair_Call(
     C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derlen = pPublicKeyTemplate_length;
 
 
-    
 
     // PACKING ulPublicKeyAttributeCount (type CK_ULONG_PTR)
 
@@ -4275,7 +4268,6 @@ pack_C_GenerateKeyPair_Call(
     C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derlen = pPrivateKeyTemplate_length;
 
 
-    
 
     // PACKING ulPrivateKeyAttributeCount (type CK_ULONG_PTR)
 
@@ -4532,7 +4524,6 @@ pack_C_GetAttributeValue_Call(
     C_GetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -4590,7 +4581,7 @@ pack_C_GetAttributeValue_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            0,
+            pulSeedLen /* TODO: this is wrong, determine this number somehow */,
             &pTemplate_innerlist,
             &pTemplate_length,
             AttributeArray_packer);
@@ -4602,7 +4593,6 @@ pack_C_GetAttributeValue_Return(
     C_GetAttributeValue_Return.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // END OF PACKING
 
@@ -6324,7 +6314,6 @@ pack_C_SetAttributeValue_Call(
     C_SetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulCount (type CK_ULONG_PTR)
 
@@ -7707,7 +7696,6 @@ pack_C_DigestFinal_Return pDigest
     C_UnwrapKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
-    
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
 
@@ -8479,9 +8467,9 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // TODO: finish this
-    //C_WaitForSlotEvent_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
-    der_put_CK_VOID_PTR(pReserved);
+
+    C_WaitForSlotEvent_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
+
 
     
 
@@ -8535,9 +8523,9 @@ pack_C_WaitForSlotEvent_Return(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // TODO: finish this
-    //C_WaitForSlotEvent_Return.pReserved = der_put_CK_VOID_PTR(pReserved);
-    der_put_CK_VOID_PTR(pReserved);
+
+    C_WaitForSlotEvent_Return.pReserved.null = der_put_CK_VOID_PTR(pReserved);
+
 
     
 
