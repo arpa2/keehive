@@ -3,6 +3,20 @@
 #include "static/util.h"
 #include "static/derput.h"
 
+CK_ULONG ulSeedLen = 0;
+CK_ULONG_PTR pulSeedLen = &ulSeedLen;
+
+{# this is a bit of an ugly hack, used by converting type CK_ATTRIBUTE_ARRAY. For now i leave this here, sorry #}
+{% set mapping = {
+        ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
+        ("C_FindObjectsInit_Return",  "pTemplate"): 0,
+        ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
+        ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
+        ("C_GetAttributeValue_Return",  "pTemplate"): 0,
+        ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
+}
+%}
+
 {% for f in functions %}
 static const derwalk {{ f.type_name|under }}_packer[] = {
     DER_PACK_RemotePKCS11_{{ f.type_name|under }},
@@ -51,7 +65,7 @@ pack_{{ f.type_name|under }}(
         dercursor* pack_target
         {%- for type, pointerized, var, other in extract_args(f, o ,True) -%}
         {%- if loop.first %},{% endif %}
-        {% if type.endswith("_PTR") %}const {{ type[:-4] }}*{% else %}{{ type }}{% endif %} {{ var }}
+        {% if type|is_pointer %}const {{ type|depointerize }}*{% else %}{{ type }}{% endif %} {{ var }}
         {%- if not loop.last %},{% endif %}
         {%- endfor %}
 ) {
@@ -112,15 +126,7 @@ pack_C_DigestFinal_Return pDigest
 
 {% elif type == "CK_ATTRIBUTE_ARRAY" %}
 
-{% set mapping = {
-        ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
-        ("C_FindObjectsInit_Return",  "pTemplate"): 0,
-        ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
-        ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-        ("C_GetAttributeValue_Return",  "pTemplate"): 0,
-        ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
-}
-%}
+
 
     uint8_t *{{ var }}_innerlist = NULL;
     size_t {{ var }}_length = 0;
@@ -139,7 +145,7 @@ pack_C_DigestFinal_Return pDigest
 
 
     {% else %}
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //{{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }});
     der_put_{{ type }}({{ var }});
 

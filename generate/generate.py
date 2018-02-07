@@ -10,7 +10,7 @@ from quick_der.main import realise
 from asn1ate.sema import dependency_sort
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
-from filters import combined_args, under, extract_args, initialise, free, is_pointer
+from filters import combined_args, under, extract_args, initialise, free, is_pointer, depointerize, initialise_test, is_notify
 
 
 # not required in pkcs11 or not exposed
@@ -93,11 +93,14 @@ def main(pickle_file):
     env.filters['under'] = under
     env.filters['extract_args'] = extract_args
     env.filters['is_pointer'] = is_pointer
+    env.filters['depointerize'] = depointerize
+    env.filters['is_notify'] = is_notify
 
     # enhance the template function experience
     env.globals['combined_args'] = combined_args
     env.globals['extract_args'] = extract_args
     env.globals['initialise'] = initialise
+    env.globals['initialise_test'] = initialise_test
     env.globals['free'] = free
 
     data = load_data(pickle_file)

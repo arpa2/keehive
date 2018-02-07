@@ -47,7 +47,7 @@ unpack_{{ f.type_name|under }}(
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     {% else %}
-    // WORKINPROGRESS: properly convert {{ type }} ({{ var }})
+    // TODO: properly convert {{ type }} ({{ var }})
     der_get_{{ type }}({{ var }});
     {% endif %}
     {% endfor %}

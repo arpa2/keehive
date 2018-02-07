@@ -749,7 +749,7 @@ unpack_C_CloseAllSessions_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
@@ -868,11 +868,11 @@ unpack_C_CopyObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
     der_get_CK_OBJECT_HANDLE_PTR(hObject);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -909,7 +909,7 @@ unpack_C_CopyObject_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phObject)
     der_get_CK_OBJECT_HANDLE_PTR(phObject);
     
     
@@ -944,7 +944,7 @@ unpack_C_CreateObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -981,7 +981,7 @@ unpack_C_CreateObject_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phObject)
     der_get_CK_OBJECT_HANDLE_PTR(phObject);
     
     
@@ -1017,7 +1017,7 @@ unpack_C_Decrypt_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedData)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
     der_get_CK_BYTE_ARRAY(pEncryptedData);
     
     
@@ -1060,7 +1060,7 @@ unpack_C_Decrypt_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -1101,7 +1101,7 @@ unpack_C_DecryptDigestUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -1144,7 +1144,7 @@ unpack_C_DecryptDigestUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -1217,7 +1217,7 @@ unpack_C_DecryptFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pLastPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pLastPart)
     der_get_CK_BYTE_ARRAY(pLastPart);
     
     
@@ -1257,11 +1257,11 @@ unpack_C_DecryptInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -1324,7 +1324,7 @@ unpack_C_DecryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -1367,7 +1367,7 @@ unpack_C_DecryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -1408,7 +1408,7 @@ unpack_C_DecryptVerifyUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -1451,7 +1451,7 @@ unpack_C_DecryptVerifyUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -1493,15 +1493,15 @@ unpack_C_DeriveKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hBaseKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hBaseKey)
     der_get_CK_OBJECT_HANDLE_PTR(hBaseKey);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -1538,7 +1538,7 @@ unpack_C_DeriveKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
     der_get_CK_OBJECT_HANDLE_PTR(phKey);
     
     
@@ -1572,7 +1572,7 @@ unpack_C_DestroyObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
     der_get_CK_OBJECT_HANDLE_PTR(hObject);
     
     
@@ -1635,7 +1635,7 @@ unpack_C_Digest_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -1678,7 +1678,7 @@ unpack_C_Digest_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pDigest)
+    // TODO: properly convert CK_BYTE_ARRAY (pDigest)
     der_get_CK_BYTE_ARRAY(pDigest);
     
     
@@ -1719,7 +1719,7 @@ unpack_C_DigestEncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -1762,7 +1762,7 @@ unpack_C_DigestEncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -1835,7 +1835,7 @@ unpack_C_DigestFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pDigest)
+    // TODO: properly convert CK_BYTE_ARRAY (pDigest)
     der_get_CK_BYTE_ARRAY(pDigest);
     
     
@@ -1874,7 +1874,7 @@ unpack_C_DigestInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
@@ -1935,7 +1935,7 @@ unpack_C_DigestKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -1997,7 +1997,7 @@ unpack_C_DigestUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -2065,7 +2065,7 @@ unpack_C_Encrypt_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -2108,7 +2108,7 @@ unpack_C_Encrypt_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedData)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
     der_get_CK_BYTE_ARRAY(pEncryptedData);
     
     
@@ -2181,7 +2181,7 @@ unpack_C_EncryptFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedData)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
     der_get_CK_BYTE_ARRAY(pEncryptedData);
     
     
@@ -2221,11 +2221,11 @@ unpack_C_EncryptInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -2288,7 +2288,7 @@ unpack_C_EncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -2331,7 +2331,7 @@ unpack_C_EncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -2364,7 +2364,7 @@ unpack_C_Finalize_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_VOID_PTR (pReserved)
+    // TODO: properly convert CK_VOID_PTR (pReserved)
     der_get_CK_VOID_PTR(pReserved);
     
     
@@ -2396,7 +2396,7 @@ unpack_C_Finalize_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert ANY (pReserved)
+    // TODO: properly convert ANY (pReserved)
     der_get_ANY(pReserved);
     
     
@@ -2464,7 +2464,7 @@ unpack_C_FindObjects_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_ARRAY (phObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_ARRAY (phObject)
     der_get_CK_OBJECT_HANDLE_ARRAY(phObject);
     
     
@@ -2560,7 +2560,7 @@ unpack_C_FindObjectsInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -2597,7 +2597,7 @@ unpack_C_FindObjectsInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -2633,11 +2633,11 @@ unpack_C_GenerateKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -2674,7 +2674,7 @@ unpack_C_GenerateKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
     der_get_CK_OBJECT_HANDLE_PTR(phKey);
     
     
@@ -2712,11 +2712,11 @@ unpack_C_GenerateKeyPair_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pPublicKeyTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pPublicKeyTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pPublicKeyTemplate);
     
     
@@ -2725,7 +2725,7 @@ unpack_C_GenerateKeyPair_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pPrivateKeyTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pPrivateKeyTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pPrivateKeyTemplate);
     
     
@@ -2763,11 +2763,11 @@ unpack_C_GenerateKeyPair_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phPublicKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phPublicKey)
     der_get_CK_OBJECT_HANDLE_PTR(phPublicKey);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phPrivateKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phPrivateKey)
     der_get_CK_OBJECT_HANDLE_PTR(phPrivateKey);
     
     
@@ -2834,7 +2834,7 @@ unpack_C_GenerateRandom_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSeed)
+    // TODO: properly convert CK_BYTE_ARRAY (pSeed)
     der_get_CK_BYTE_ARRAY(pSeed);
     
     
@@ -2870,11 +2870,11 @@ unpack_C_GetAttributeValue_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
     der_get_CK_OBJECT_HANDLE_PTR(hObject);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -2911,7 +2911,7 @@ unpack_C_GetAttributeValue_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -3022,7 +3022,7 @@ unpack_C_GetInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_INFO_PTR (pInfo)
+    // TODO: properly convert CK_INFO_PTR (pInfo)
     der_get_CK_INFO_PTR(pInfo);
     
     
@@ -3051,11 +3051,11 @@ unpack_C_GetMechanismInfo_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_TYPE_PTR (type)
+    // TODO: properly convert CK_MECHANISM_TYPE_PTR (type)
     der_get_CK_MECHANISM_TYPE_PTR(type);
     
     
@@ -3087,7 +3087,7 @@ unpack_C_GetMechanismInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_INFO_PTR (pInfo)
+    // TODO: properly convert CK_MECHANISM_INFO_PTR (pInfo)
     der_get_CK_MECHANISM_INFO_PTR(pInfo);
     
     
@@ -3116,7 +3116,7 @@ unpack_C_GetMechanismList_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
@@ -3154,7 +3154,7 @@ unpack_C_GetMechanismList_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_TYPE_ARRAY (pMechanismList)
+    // TODO: properly convert CK_MECHANISM_TYPE_ARRAY (pMechanismList)
     der_get_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
     
     
@@ -3193,7 +3193,7 @@ unpack_C_GetObjectSize_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
     der_get_CK_OBJECT_HANDLE_PTR(hObject);
     
     
@@ -3294,7 +3294,7 @@ unpack_C_GetOperationState_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pOperationState)
+    // TODO: properly convert CK_BYTE_ARRAY (pOperationState)
     der_get_CK_BYTE_ARRAY(pOperationState);
     
     
@@ -3360,7 +3360,7 @@ unpack_C_GetSessionInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_SESSION_INFO_PTR (pInfo)
+    // TODO: properly convert CK_SESSION_INFO_PTR (pInfo)
     der_get_CK_SESSION_INFO_PTR(pInfo);
     
     
@@ -3388,7 +3388,7 @@ unpack_C_GetSlotInfo_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
@@ -3420,7 +3420,7 @@ unpack_C_GetSlotInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_SLOT_INFO_PTR (pInfo)
+    // TODO: properly convert CK_SLOT_INFO_PTR (pInfo)
     der_get_CK_SLOT_INFO_PTR(pInfo);
     
     
@@ -3449,7 +3449,7 @@ unpack_C_GetSlotList_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_BBOOL_PTR (tokenPresent)
+    // TODO: properly convert CK_BBOOL_PTR (tokenPresent)
     der_get_CK_BBOOL_PTR(tokenPresent);
     
     
@@ -3487,7 +3487,7 @@ unpack_C_GetSlotList_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_ARRAY (pSlotList)
+    // TODO: properly convert CK_SLOT_ID_ARRAY (pSlotList)
     der_get_CK_SLOT_ID_ARRAY(pSlotList);
     
     
@@ -3520,7 +3520,7 @@ unpack_C_GetTokenInfo_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
@@ -3552,7 +3552,7 @@ unpack_C_GetTokenInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_TOKEN_INFO_PTR (pInfo)
+    // TODO: properly convert CK_TOKEN_INFO_PTR (pInfo)
     der_get_CK_TOKEN_INFO_PTR(pInfo);
     
     
@@ -3587,7 +3587,7 @@ unpack_C_InitPIN_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_UTF8CHAR_ARRAY (pPin)
+    // TODO: properly convert CK_UTF8CHAR_ARRAY (pPin)
     der_get_CK_UTF8CHAR_ARRAY(pPin);
     
     
@@ -3650,11 +3650,11 @@ unpack_C_InitToken_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
-    // WORKINPROGRESS: properly convert UTF8String (pPin)
+    // TODO: properly convert UTF8String (pPin)
     der_get_UTF8String(pPin);
     
     
@@ -3663,7 +3663,7 @@ unpack_C_InitToken_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert UTF8String (pLabel)
+    // TODO: properly convert UTF8String (pLabel)
     der_get_UTF8String(pLabel);
     
     
@@ -3718,7 +3718,7 @@ unpack_C_Initialize_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_C_INITIALIZE_ARGS_PTR (pInitArgs)
+    // TODO: properly convert CK_C_INITIALIZE_ARGS_PTR (pInitArgs)
     der_get_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
     
     
@@ -3750,7 +3750,7 @@ unpack_C_Initialize_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert ANY (pInitArgs)
+    // TODO: properly convert ANY (pInitArgs)
     der_get_ANY(pInitArgs);
     
     
@@ -3791,7 +3791,7 @@ unpack_C_Login_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_UTF8CHAR_ARRAY (pPin)
+    // TODO: properly convert CK_UTF8CHAR_ARRAY (pPin)
     der_get_CK_UTF8CHAR_ARRAY(pPin);
     
     
@@ -3910,19 +3910,19 @@ unpack_C_OpenSession_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (slotID)
+    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
     der_get_CK_SLOT_ID_PTR(slotID);
     
     
-    // WORKINPROGRESS: properly convert CK_FLAGS_PTR (flags)
+    // TODO: properly convert CK_FLAGS_PTR (flags)
     der_get_CK_FLAGS_PTR(flags);
     
     
-    // WORKINPROGRESS: properly convert ANY (pApplication)
+    // TODO: properly convert ANY (pApplication)
     der_get_ANY(pApplication);
     
     
-    // WORKINPROGRESS: properly convert CK_NOTIFY (notify)
+    // TODO: properly convert CK_NOTIFY (notify)
     der_get_CK_NOTIFY(notify);
     
     
@@ -3990,7 +3990,7 @@ unpack_C_SeedRandom_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSeed)
+    // TODO: properly convert CK_BYTE_ARRAY (pSeed)
     der_get_CK_BYTE_ARRAY(pSeed);
     
     
@@ -4058,11 +4058,11 @@ unpack_C_SetAttributeValue_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hObject)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
     der_get_CK_OBJECT_HANDLE_PTR(hObject);
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -4131,7 +4131,7 @@ unpack_C_SetOperationState_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pOperationState)
+    // TODO: properly convert CK_BYTE_ARRAY (pOperationState)
     der_get_CK_BYTE_ARRAY(pOperationState);
     
     
@@ -4140,11 +4140,11 @@ unpack_C_SetOperationState_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hEncryptionKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hEncryptionKey)
     der_get_CK_OBJECT_HANDLE_PTR(hEncryptionKey);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hAuthenticationKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hAuthenticationKey)
     der_get_CK_OBJECT_HANDLE_PTR(hAuthenticationKey);
     
     
@@ -4208,7 +4208,7 @@ unpack_C_SetPIN_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_UTF8CHAR_ARRAY (pOldPin)
+    // TODO: properly convert CK_UTF8CHAR_ARRAY (pOldPin)
     der_get_CK_UTF8CHAR_ARRAY(pOldPin);
     
     
@@ -4217,7 +4217,7 @@ unpack_C_SetPIN_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_UTF8CHAR_ARRAY (pNewPin)
+    // TODO: properly convert CK_UTF8CHAR_ARRAY (pNewPin)
     der_get_CK_UTF8CHAR_ARRAY(pNewPin);
     
     
@@ -4285,7 +4285,7 @@ unpack_C_Sign_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -4328,7 +4328,7 @@ unpack_C_Sign_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -4369,7 +4369,7 @@ unpack_C_SignEncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -4412,7 +4412,7 @@ unpack_C_SignEncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pEncryptedPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
     der_get_CK_BYTE_ARRAY(pEncryptedPart);
     
     
@@ -4485,7 +4485,7 @@ unpack_C_SignFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -4525,11 +4525,11 @@ unpack_C_SignInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -4592,7 +4592,7 @@ unpack_C_SignRecover_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -4635,7 +4635,7 @@ unpack_C_SignRecover_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -4675,11 +4675,11 @@ unpack_C_SignRecoverInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -4741,7 +4741,7 @@ unpack_C_SignUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -4812,15 +4812,15 @@ unpack_C_UnwrapKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hUnwrappingKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hUnwrappingKey)
     der_get_CK_OBJECT_HANDLE_PTR(hUnwrappingKey);
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pWrappedKey)
+    // TODO: properly convert CK_BYTE_ARRAY (pWrappedKey)
     der_get_CK_BYTE_ARRAY(pWrappedKey);
     
     
@@ -4829,7 +4829,7 @@ unpack_C_UnwrapKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
+    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
     der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
     
     
@@ -4866,7 +4866,7 @@ unpack_C_UnwrapKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (phKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
     der_get_CK_OBJECT_HANDLE_PTR(phKey);
     
     
@@ -4903,7 +4903,7 @@ unpack_C_Verify_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -4912,7 +4912,7 @@ unpack_C_Verify_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -4979,7 +4979,7 @@ unpack_C_VerifyFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -5046,11 +5046,11 @@ unpack_C_VerifyInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -5113,7 +5113,7 @@ unpack_C_VerifyRecover_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pSignature)
+    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
     der_get_CK_BYTE_ARRAY(pSignature);
     
     
@@ -5156,7 +5156,7 @@ unpack_C_VerifyRecover_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pData)
+    // TODO: properly convert CK_BYTE_ARRAY (pData)
     der_get_CK_BYTE_ARRAY(pData);
     
     
@@ -5196,7 +5196,7 @@ unpack_C_VerifyUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pPart)
+    // TODO: properly convert CK_BYTE_ARRAY (pPart)
     der_get_CK_BYTE_ARRAY(pPart);
     
     
@@ -5257,11 +5257,11 @@ unpack_C_WaitForSlotEvent_Call(
         return der_error_helper(errno);
 
     
-    // WORKINPROGRESS: properly convert CK_FLAGS_PTR (flags)
+    // TODO: properly convert CK_FLAGS_PTR (flags)
     der_get_CK_FLAGS_PTR(flags);
     
     
-    // WORKINPROGRESS: properly convert CK_VOID_PTR (pReserved)
+    // TODO: properly convert CK_VOID_PTR (pReserved)
     der_get_CK_VOID_PTR(pReserved);
     
     
@@ -5294,11 +5294,11 @@ unpack_C_WaitForSlotEvent_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_SLOT_ID_PTR (pSlot)
+    // TODO: properly convert CK_SLOT_ID_PTR (pSlot)
     der_get_CK_SLOT_ID_PTR(pSlot);
     
     
-    // WORKINPROGRESS: properly convert CK_VOID_PTR (pReserved)
+    // TODO: properly convert CK_VOID_PTR (pReserved)
     der_get_CK_VOID_PTR(pReserved);
     
     
@@ -5335,15 +5335,15 @@ unpack_C_WrapKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_MECHANISM_PTR (pMechanism)
+    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
     der_get_CK_MECHANISM_PTR(pMechanism);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hWrappingKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hWrappingKey)
     der_get_CK_OBJECT_HANDLE_PTR(hWrappingKey);
     
     
-    // WORKINPROGRESS: properly convert CK_OBJECT_HANDLE_PTR (hKey)
+    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
     der_get_CK_OBJECT_HANDLE_PTR(hKey);
     
     
@@ -5381,7 +5381,7 @@ unpack_C_WrapKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
     
     
-    // WORKINPROGRESS: properly convert CK_BYTE_ARRAY (pWrappedKey)
+    // TODO: properly convert CK_BYTE_ARRAY (pWrappedKey)
     der_get_CK_BYTE_ARRAY(pWrappedKey);
     
     

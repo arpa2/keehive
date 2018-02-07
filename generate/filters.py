@@ -71,7 +71,8 @@ def extract_args(fundef: TypeAssignment,
     Extracts arguments from a function definition. Filters out optional types. If fundef is _call, 'other' should be
     _return, same for the other way around.
 
-    yields: (type, identifier, other), where 'other' is a bool indicating if the variable is also present in 'other'.
+    yields: (type, pointerized, identifier, other), where pointerized indicated if the type has been pointerised and
+            'other' is a bool indicating if the variable is also present in 'other'.
 
     """
 
@@ -147,6 +148,61 @@ def initialise(type_, identifier):
         return "{} {} = NULL_PTR;".format(type_, identifier)
 
 
+type_test_templates = {
+    "CK_SESSION_INFO": "{ .slotID = 1, .state = 1, .flags = 1 }",
+    "CK_INFO": """{ .cryptokiVersion.major = 1,
+                            .cryptokiVersion.minor = 1,
+                            .manufacturerID = "gijs",
+                            .flags = 1,
+                            .libraryDescription = "gijs",
+                            .libraryVersion.major = 1,
+                            .libraryVersion.minor = 1 }""",
+    "CK_MECHANISM_INFO": """{ .ulMinKeySize = 1,
+                            .ulMaxKeySize = 1,
+                            .flags = 1 }""",
+    "CK_RV": "CKR_OK",
+    "CK_SLOT_INFO": """{ .slotDescription = "gijs",
+                            .manufacturerID = "gijs",
+                            .flags = 1,
+                            .hardwareVersion.major = 1,
+                            .hardwareVersion.minor = 1,
+                            .firmwareVersion.major = 1,
+                            .firmwareVersion.minor = 1 }""",
+    "CK_TOKEN_INFO": """{
+                            .label = "gijs",     
+                            .manufacturerID = "gijs",  
+                            .model = "gijs",
+                            .serialNumber = "gijs",    
+                            .flags = 1,
+                            .ulMaxSessionCount = 1,   
+                            .ulSessionCount = 1,
+                            .ulMaxRwSessionCount = 1, 
+                            .ulRwSessionCount = 1,
+                            .ulMaxPinLen = 1,
+                            .ulMinPinLen = 1,         
+                            .ulTotalPublicMemory = 1, 
+                            .ulFreePublicMemory = 1,
+                            .ulTotalPrivateMemory = 1,
+                            .ulFreePrivateMemory = 1,
+                            .hardwareVersion.major = 1,
+                            .hardwareVersion.minor = 1,
+                            .firmwareVersion.major = 1,
+                            .firmwareVersion.minor = 1, 
+                            .utcTime = "gijs" }""",
+}
+
+
+def initialise_test(type_, identifier):
+    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+        return "{} {} = 0;".format(type_, identifier)
+    elif type_ in type_test_templates:
+        return "{} {} = {};".format(type_, identifier, type_test_templates[type_])
+    elif not type_.endswith("_PTR"):
+        return "{} {} = NULL;".format(type_, identifier)
+    else:
+        return "{} {} = NULL_PTR;".format(type_, identifier)
+
+
 def free(type_, identifier):
     if type_ == "CK_ATTRIBUTE_PTR":
         return "free({});\n".format(identifier)
@@ -155,4 +211,21 @@ def free(type_, identifier):
 
 
 def is_pointer(type_):
-    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ in ("UTF8String", "CK_NOTIFY")
+    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ in ("UTF8String")
+
+
+def is_notify(type_):
+    return type_ == "CK_NOTIFY"
+
+
+def depointerize(type_):
+    if type_.endswith("_PTR"):
+        return type_[:-4]
+    elif type_.endswith("_ARRAY"):
+        return type_[:-6]
+    elif type_ == "UTF8String":
+        return "unsigned char"
+    elif type_ == "CK_NOTIFY":
+        return type_
+    else:
+        raise Exception("dont know what to do with type '{}'".format(type_))

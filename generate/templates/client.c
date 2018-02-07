@@ -30,7 +30,7 @@ client_{{ f }}(
         &dercursorIn
         {%- for type_, pointerized, var, other in extract_args(call, return_, False) -%}
         {%- if loop.first %},{% endif %}
-        {% if not type_|is_pointer and not other %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
+        {% if not type_|is_pointer and not other and not type_|is_notify %}&{% endif %}{{- var -}}{%- if not loop.last %},{% endif %}
         {%- endfor %}
     );
 

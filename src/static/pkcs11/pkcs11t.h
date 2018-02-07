@@ -1160,7 +1160,7 @@ typedef CK_ULONG          CK_RV;
 
 
 /* CK_NOTIFY is an application callback that processes events */
-typedef CK_CALLBACK_FUNCTION(CK_RV, CK_NOTIFY)(
+typedef CK_CALLBACK_FUNCTION(CK_RV, CK_NOTIFY) (
   CK_SESSION_HANDLE hSession,     /* the session's handle */
   CK_NOTIFICATION   event,
   CK_VOID_PTR       pApplication  /* passed to C_OpenSession */

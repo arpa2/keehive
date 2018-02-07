@@ -3,6 +3,12 @@
 #include "static/util.h"
 #include "static/derput.h"
 
+CK_ULONG ulSeedLen = 0;
+CK_ULONG_PTR pulSeedLen = &ulSeedLen;
+
+
+
+
 
 static const derwalk C_CancelFunction_Call_packer[] = {
     DER_PACK_RemotePKCS11_C_CancelFunction_Call,
@@ -934,7 +940,7 @@ pack_C_CopyObject_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_OBJECT_HANDLE* hObject,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_CopyObject_Call_t C_CopyObject_Call;
@@ -1061,7 +1067,7 @@ CK_RV
 pack_C_CreateObject_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_CreateObject_Call_t C_CreateObject_Call;
@@ -1180,7 +1186,7 @@ CK_RV
 pack_C_Decrypt_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pEncryptedData,
+        const CK_BYTE* pEncryptedData,
         const CK_ULONG* ulEncryptedDataLen,
         const CK_ULONG* pulDataLen
 ) {
@@ -1270,7 +1276,7 @@ CK_RV
 pack_C_Decrypt_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* pulDataLen
 ) {
     C_Decrypt_Return_t C_Decrypt_Return;
@@ -1353,7 +1359,7 @@ CK_RV
 pack_C_DecryptDigestUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -1443,7 +1449,7 @@ CK_RV
 pack_C_DecryptDigestUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptDigestUpdate_Return_t C_DecryptDigestUpdate_Return;
@@ -1572,7 +1578,7 @@ CK_RV
 pack_C_DecryptFinal_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pLastPart,
+        const CK_BYTE* pLastPart,
         const CK_ULONG* pulLastPartLen
 ) {
     C_DecryptFinal_Return_t C_DecryptFinal_Return;
@@ -1675,7 +1681,7 @@ pack_C_DecryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_DecryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -1750,7 +1756,7 @@ CK_RV
 pack_C_DecryptUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -1840,7 +1846,7 @@ CK_RV
 pack_C_DecryptUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptUpdate_Return_t C_DecryptUpdate_Return;
@@ -1923,7 +1929,7 @@ CK_RV
 pack_C_DecryptVerifyUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* ulEncryptedPartLen,
         const CK_ULONG* pulPartLen
 ) {
@@ -2013,7 +2019,7 @@ CK_RV
 pack_C_DecryptVerifyUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* pulPartLen
 ) {
     C_DecryptVerifyUpdate_Return_t C_DecryptVerifyUpdate_Return;
@@ -2098,7 +2104,7 @@ pack_C_DeriveKey_Call(
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
         const CK_OBJECT_HANDLE* hBaseKey,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulAttributeCount
 ) {
     C_DeriveKey_Call_t C_DeriveKey_Call;
@@ -2118,7 +2124,7 @@ pack_C_DeriveKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_DeriveKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -2319,7 +2325,7 @@ CK_RV
 pack_C_Digest_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulDigestLen
 ) {
@@ -2409,7 +2415,7 @@ CK_RV
 pack_C_Digest_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pDigest,
+        const CK_BYTE* pDigest,
         const CK_ULONG* pulDigestLen
 ) {
     C_Digest_Return_t C_Digest_Return;
@@ -2492,7 +2498,7 @@ CK_RV
 pack_C_DigestEncryptUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -2582,7 +2588,7 @@ CK_RV
 pack_C_DigestEncryptUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_DigestEncryptUpdate_Return_t C_DigestEncryptUpdate_Return;
@@ -2711,7 +2717,7 @@ CK_RV
 pack_C_DigestFinal_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pDigest,
+        const CK_BYTE* pDigest,
         const CK_ULONG* pulDigestLen
 ) {
     C_DigestFinal_Return_t C_DigestFinal_Return;
@@ -2813,7 +2819,7 @@ pack_C_DigestInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_DigestInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -2965,7 +2971,7 @@ CK_RV
 pack_C_DigestUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_DigestUpdate_Call_t C_DigestUpdate_Call;
@@ -3085,7 +3091,7 @@ CK_RV
 pack_C_Encrypt_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulEncryptedDataLen
 ) {
@@ -3175,7 +3181,7 @@ CK_RV
 pack_C_Encrypt_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pEncryptedData,
+        const CK_BYTE* pEncryptedData,
         const CK_ULONG* pulEncryptedDataLen
 ) {
     C_Encrypt_Return_t C_Encrypt_Return;
@@ -3304,7 +3310,7 @@ CK_RV
 pack_C_EncryptFinal_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pEncryptedData,
+        const CK_BYTE* pEncryptedData,
         const CK_ULONG* pulEncryptedDataLen
 ) {
     C_EncryptFinal_Return_t C_EncryptFinal_Return;
@@ -3407,7 +3413,7 @@ pack_C_EncryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_EncryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -3482,7 +3488,7 @@ CK_RV
 pack_C_EncryptUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -3572,7 +3578,7 @@ CK_RV
 pack_C_EncryptUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_EncryptUpdate_Return_t C_EncryptUpdate_Return;
@@ -3665,7 +3671,7 @@ pack_C_Finalize_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_Finalize_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
@@ -3712,7 +3718,7 @@ pack_C_Finalize_Return(
     // PACKING pReserved (type ANY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_Finalize_Return.pReserved = der_put_ANY(pReserved);
     der_put_ANY(pReserved);
 
@@ -3788,7 +3794,7 @@ CK_RV
 pack_C_FindObjects_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_OBJECT_HANDLE_ARRAY phObject,
+        const CK_OBJECT_HANDLE* phObject,
         const CK_ULONG* pulObjectCount
 ) {
     C_FindObjects_Return_t C_FindObjects_Return;
@@ -3808,7 +3814,7 @@ pack_C_FindObjects_Return(
     // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_FindObjects_Return.phObject = der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
     der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
 
@@ -3922,7 +3928,7 @@ CK_RV
 pack_C_FindObjectsInit_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_FindObjectsInit_Call_t C_FindObjectsInit_Call;
@@ -3993,7 +3999,7 @@ CK_RV
 pack_C_FindObjectsInit_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_ATTRIBUTE_ARRAY pTemplate
+        const CK_ATTRIBUTE* pTemplate
 ) {
     C_FindObjectsInit_Return_t C_FindObjectsInit_Return;
 
@@ -4058,7 +4064,7 @@ pack_C_GenerateKey_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_GenerateKey_Call_t C_GenerateKey_Call;
@@ -4078,7 +4084,7 @@ pack_C_GenerateKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GenerateKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -4187,9 +4193,9 @@ pack_C_GenerateKeyPair_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
-        CK_ATTRIBUTE_ARRAY pPublicKeyTemplate,
+        const CK_ATTRIBUTE* pPublicKeyTemplate,
         const CK_ULONG* ulPublicKeyAttributeCount,
-        CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate,
+        const CK_ATTRIBUTE* pPrivateKeyTemplate,
         const CK_ULONG* ulPrivateKeyAttributeCount
 ) {
     C_GenerateKeyPair_Call_t C_GenerateKeyPair_Call;
@@ -4209,7 +4215,7 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GenerateKeyPair_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -4404,11 +4410,9 @@ CK_RV
 pack_C_GenerateRandom_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pSeed
+        const CK_BYTE* pSeed
 ) {
     C_GenerateRandom_Return_t C_GenerateRandom_Return;
-
-    const CK_ULONG pulSeedLen = 0;
 
     memset (&C_GenerateRandom_Return, 0, sizeof(C_GenerateRandom_Return));
 
@@ -4442,7 +4446,7 @@ pack_C_DigestFinal_Return pDigest
     size_t pSeed_length = 0;
     CK_RV pSeed_status = der_put_CK_BYTE_ARRAY(
             pSeed,
-            &pulSeedLen,
+            pulSeedLen,
             &pSeed_innerlist,
             &pSeed_length,
             ByteArray_packer);
@@ -4481,7 +4485,7 @@ pack_C_GetAttributeValue_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_OBJECT_HANDLE* hObject,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_GetAttributeValue_Call_t C_GetAttributeValue_Call;
@@ -4560,7 +4564,7 @@ CK_RV
 pack_C_GetAttributeValue_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_ATTRIBUTE_ARRAY pTemplate
+        const CK_ATTRIBUTE* pTemplate
 ) {
     C_GetAttributeValue_Return_t C_GetAttributeValue_Return;
 
@@ -4747,7 +4751,7 @@ pack_C_GetInfo_Return(
     // PACKING pInfo (type CK_INFO_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetInfo_Return.pInfo = der_put_CK_INFO_PTR(pInfo);
     der_put_CK_INFO_PTR(pInfo);
 
@@ -4842,7 +4846,7 @@ pack_C_GetMechanismInfo_Return(
     // PACKING pInfo (type CK_MECHANISM_INFO_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetMechanismInfo_Return.pInfo = der_put_CK_MECHANISM_INFO_PTR(pInfo);
     der_put_CK_MECHANISM_INFO_PTR(pInfo);
 
@@ -4918,7 +4922,7 @@ CK_RV
 pack_C_GetMechanismList_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_MECHANISM_TYPE_ARRAY pMechanismList,
+        const CK_MECHANISM_TYPE* pMechanismList,
         const CK_ULONG* pulCount
 ) {
     C_GetMechanismList_Return_t C_GetMechanismList_Return;
@@ -4938,7 +4942,7 @@ pack_C_GetMechanismList_Return(
     // PACKING pMechanismList (type CK_MECHANISM_TYPE_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetMechanismList_Return.pMechanismList = der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
     der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
 
@@ -5116,7 +5120,7 @@ CK_RV
 pack_C_GetOperationState_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pOperationState,
+        const CK_BYTE* pOperationState,
         const CK_ULONG* pulOperationStateLen
 ) {
     C_GetOperationState_Return_t C_GetOperationState_Return;
@@ -5255,7 +5259,7 @@ pack_C_GetSessionInfo_Return(
     // PACKING pInfo (type CK_SESSION_INFO_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetSessionInfo_Return.pInfo = der_put_CK_SESSION_INFO_PTR(pInfo);
     der_put_CK_SESSION_INFO_PTR(pInfo);
 
@@ -5341,7 +5345,7 @@ pack_C_GetSlotInfo_Return(
     // PACKING pInfo (type CK_SLOT_INFO_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetSlotInfo_Return.pInfo = der_put_CK_SLOT_INFO_PTR(pInfo);
     der_put_CK_SLOT_INFO_PTR(pInfo);
 
@@ -5382,7 +5386,7 @@ pack_C_GetSlotList_Call(
     // PACKING tokenPresent (type CK_BBOOL_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetSlotList_Call.tokenPresent = der_put_CK_BBOOL_PTR(tokenPresent);
     der_put_CK_BBOOL_PTR(tokenPresent);
 
@@ -5418,7 +5422,7 @@ CK_RV
 pack_C_GetSlotList_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_SLOT_ID_ARRAY pSlotList,
+        const CK_SLOT_ID* pSlotList,
         const CK_ULONG* pulCount
 ) {
     C_GetSlotList_Return_t C_GetSlotList_Return;
@@ -5540,7 +5544,7 @@ pack_C_GetTokenInfo_Return(
     // PACKING pInfo (type CK_TOKEN_INFO_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_GetTokenInfo_Return.pInfo = der_put_CK_TOKEN_INFO_PTR(pInfo);
     der_put_CK_TOKEN_INFO_PTR(pInfo);
 
@@ -5570,7 +5574,7 @@ CK_RV
 pack_C_InitPIN_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_UTF8CHAR_ARRAY pPin,
+        const CK_UTF8CHAR* pPin,
         const CK_ULONG* ulPinLen
 ) {
     C_InitPIN_Call_t C_InitPIN_Call;
@@ -5590,7 +5594,7 @@ pack_C_InitPIN_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_InitPIN_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
     der_put_CK_UTF8CHAR_ARRAY(pPin);
 
@@ -5665,9 +5669,9 @@ CK_RV
 pack_C_InitToken_Call(
         dercursor* pack_target,
         const CK_SLOT_ID* slotID,
-        UTF8String pPin,
+        const unsigned char* pPin,
         const CK_ULONG* ulPinLen,
-        UTF8String pLabel
+        const unsigned char* pLabel
 ) {
     C_InitToken_Call_t C_InitToken_Call;
 
@@ -5686,7 +5690,7 @@ pack_C_InitToken_Call(
     // PACKING pPin (type UTF8String)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_InitToken_Call.pPin = der_put_UTF8String(pPin);
     der_put_UTF8String(pPin);
 
@@ -5703,7 +5707,7 @@ pack_C_InitToken_Call(
     // PACKING pLabel (type UTF8String)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_InitToken_Call.pLabel = der_put_UTF8String(pLabel);
     der_put_UTF8String(pLabel);
 
@@ -5780,7 +5784,7 @@ pack_C_Initialize_Call(
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_Initialize_Call.pInitArgs = der_put_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
     der_put_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
 
@@ -5827,7 +5831,7 @@ pack_C_Initialize_Return(
     // PACKING pInitArgs (type ANY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_Initialize_Return.pInitArgs = der_put_ANY(pInitArgs);
     der_put_ANY(pInitArgs);
 
@@ -5858,7 +5862,7 @@ pack_C_Login_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_USER_TYPE* userType,
-        CK_UTF8CHAR_ARRAY pPin,
+        const CK_UTF8CHAR* pPin,
         const CK_ULONG* ulPinLen
 ) {
     C_Login_Call_t C_Login_Call;
@@ -5886,7 +5890,7 @@ pack_C_Login_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_Login_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
     der_put_CK_UTF8CHAR_ARRAY(pPin);
 
@@ -6058,7 +6062,7 @@ pack_C_OpenSession_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags);
     der_put_CK_FLAGS_PTR(flags);
 
@@ -6067,7 +6071,7 @@ pack_C_OpenSession_Call(
     // PACKING pApplication (type ANY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_OpenSession_Call.pApplication = der_put_ANY(pApplication);
     der_put_ANY(pApplication);
 
@@ -6076,7 +6080,7 @@ pack_C_OpenSession_Call(
     // PACKING notify (type CK_NOTIFY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_OpenSession_Call.notify = der_put_CK_NOTIFY(notify);
     der_put_CK_NOTIFY(notify);
 
@@ -6152,7 +6156,7 @@ CK_RV
 pack_C_SeedRandom_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pSeed,
+        const CK_BYTE* pSeed,
         const CK_ULONG* ulSeedLen
 ) {
     C_SeedRandom_Call_t C_SeedRandom_Call;
@@ -6273,7 +6277,7 @@ pack_C_SetAttributeValue_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
         const CK_OBJECT_HANDLE* hObject,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulCount
 ) {
     C_SetAttributeValue_Call_t C_SetAttributeValue_Call;
@@ -6391,7 +6395,7 @@ CK_RV
 pack_C_SetOperationState_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pOperationState,
+        const CK_BYTE* pOperationState,
         const CK_ULONG* ulOperationStateLen,
         const CK_OBJECT_HANDLE* hEncryptionKey,
         const CK_OBJECT_HANDLE* hAuthenticationKey
@@ -6529,9 +6533,9 @@ CK_RV
 pack_C_SetPIN_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_UTF8CHAR_ARRAY pOldPin,
+        const CK_UTF8CHAR* pOldPin,
         const CK_ULONG* ulOldLen,
-        CK_UTF8CHAR_ARRAY pNewPin,
+        const CK_UTF8CHAR* pNewPin,
         const CK_ULONG* ulNewPin
 ) {
     C_SetPIN_Call_t C_SetPIN_Call;
@@ -6551,7 +6555,7 @@ pack_C_SetPIN_Call(
     // PACKING pOldPin (type CK_UTF8CHAR_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_SetPIN_Call.pOldPin = der_put_CK_UTF8CHAR_ARRAY(pOldPin);
     der_put_CK_UTF8CHAR_ARRAY(pOldPin);
 
@@ -6568,7 +6572,7 @@ pack_C_SetPIN_Call(
     // PACKING pNewPin (type CK_UTF8CHAR_ARRAY)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_SetPIN_Call.pNewPin = der_put_CK_UTF8CHAR_ARRAY(pNewPin);
     der_put_CK_UTF8CHAR_ARRAY(pNewPin);
 
@@ -6643,7 +6647,7 @@ CK_RV
 pack_C_Sign_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulSignatureLen
 ) {
@@ -6733,7 +6737,7 @@ CK_RV
 pack_C_Sign_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_Sign_Return_t C_Sign_Return;
@@ -6816,7 +6820,7 @@ CK_RV
 pack_C_SignEncryptUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen,
         const CK_ULONG* pulEncryptedPartLen
 ) {
@@ -6906,7 +6910,7 @@ CK_RV
 pack_C_SignEncryptUpdate_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pEncryptedPart,
+        const CK_BYTE* pEncryptedPart,
         const CK_ULONG* pulEncryptedPartLen
 ) {
     C_SignEncryptUpdate_Return_t C_SignEncryptUpdate_Return;
@@ -7035,7 +7039,7 @@ CK_RV
 pack_C_SignFinal_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_SignFinal_Return_t C_SignFinal_Return;
@@ -7138,7 +7142,7 @@ pack_C_SignInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_SignInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -7213,7 +7217,7 @@ CK_RV
 pack_C_SignRecover_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* ulDataLen,
         const CK_ULONG* pulSignatureLen
 ) {
@@ -7303,7 +7307,7 @@ CK_RV
 pack_C_SignRecover_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* pulSignatureLen
 ) {
     C_SignRecover_Return_t C_SignRecover_Return;
@@ -7406,7 +7410,7 @@ pack_C_SignRecoverInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_SignRecoverInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -7481,7 +7485,7 @@ CK_RV
 pack_C_SignUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_SignUpdate_Call_t C_SignUpdate_Call;
@@ -7603,9 +7607,9 @@ pack_C_UnwrapKey_Call(
         const CK_SESSION_HANDLE* hSession,
         const CK_MECHANISM* pMechanism,
         const CK_OBJECT_HANDLE* hUnwrappingKey,
-        CK_BYTE_ARRAY pWrappedKey,
+        const CK_BYTE* pWrappedKey,
         const CK_ULONG* ulWrappedKeyLen,
-        CK_ATTRIBUTE_ARRAY pTemplate,
+        const CK_ATTRIBUTE* pTemplate,
         const CK_ULONG* ulAttributeCount
 ) {
     C_UnwrapKey_Call_t C_UnwrapKey_Call;
@@ -7625,7 +7629,7 @@ pack_C_UnwrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_UnwrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -7783,9 +7787,9 @@ CK_RV
 pack_C_Verify_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* ulDataLen,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* ulSignatureLen
 ) {
     C_Verify_Call_t C_Verify_Call;
@@ -7947,7 +7951,7 @@ CK_RV
 pack_C_VerifyFinal_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* ulSignatureLen
 ) {
     C_VerifyFinal_Call_t C_VerifyFinal_Call;
@@ -8087,7 +8091,7 @@ pack_C_VerifyInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_VerifyInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -8162,7 +8166,7 @@ CK_RV
 pack_C_VerifyRecover_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pSignature,
+        const CK_BYTE* pSignature,
         const CK_ULONG* ulSignatureLen,
         const CK_ULONG* pulDataLen
 ) {
@@ -8252,7 +8256,7 @@ CK_RV
 pack_C_VerifyRecover_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pData,
+        const CK_BYTE* pData,
         const CK_ULONG* pulDataLen
 ) {
     C_VerifyRecover_Return_t C_VerifyRecover_Return;
@@ -8335,7 +8339,7 @@ CK_RV
 pack_C_VerifyUpdate_Call(
         dercursor* pack_target,
         const CK_SESSION_HANDLE* hSession,
-        CK_BYTE_ARRAY pPart,
+        const CK_BYTE* pPart,
         const CK_ULONG* ulPartLen
 ) {
     C_VerifyUpdate_Call_t C_VerifyUpdate_Call;
@@ -8466,7 +8470,7 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags);
     der_put_CK_FLAGS_PTR(flags);
 
@@ -8475,7 +8479,7 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_WaitForSlotEvent_Call.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
@@ -8531,7 +8535,7 @@ pack_C_WaitForSlotEvent_Return(
     // PACKING pReserved (type CK_VOID_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_WaitForSlotEvent_Return.pReserved = der_put_CK_VOID_PTR(pReserved);
     der_put_CK_VOID_PTR(pReserved);
 
@@ -8583,7 +8587,7 @@ pack_C_WrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
     
-    // WORKINPROGRESS: finish this
+    // TODO: finish this
     //C_WrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
     der_put_CK_MECHANISM_PTR(pMechanism);
 
@@ -8635,7 +8639,7 @@ CK_RV
 pack_C_WrapKey_Return(
         dercursor* pack_target,
         const CK_RV* retval,
-        CK_BYTE_ARRAY pWrappedKey,
+        const CK_BYTE* pWrappedKey,
         const CK_ULONG* pulWrappedKeyLen
 ) {
     C_WrapKey_Return_t C_WrapKey_Return;

@@ -15,11 +15,7 @@ pack_{{ f.type_name|under }}(
         dercursor * packtarget
         {%- for type, pointerized, var, other in extract_args(f, o ,True) %}
         {%- if loop.first %},{% endif %}
-        {%- if type.endswith("_PTR") %}
-        const {{ type[:-4] }}* {{ var }}
-        {%- else -%}
-        {{  type }} {{ var }}
-        {%- endif -%}
+        {%- if type|is_pointer %}const {{ type|depointerize }}* {{ var }}{%- else -%}{{  type }} {{ var }}{%- endif -%}
         {%- if not loop.last %},{% endif -%}
         {% endfor %}
 );
