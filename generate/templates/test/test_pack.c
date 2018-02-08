@@ -19,7 +19,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 
     CK_RV status = pack_{{ f.type_name|under }}(
         &dercursor
-        {% for type_, pointerized, identifier, other in extract_args(f, o) -%}
+        {%- for type_, pointerized, identifier, other in extract_args(f, o) -%}
         {%- if loop.first %},{% endif %}
         {% if not type_|is_pointer and not type_|is_notify %}&{% endif %}{{- identifier -}}{%- if not loop.last %},{% endif %}
         {%- endfor %}

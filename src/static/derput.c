@@ -44,9 +44,7 @@ void der_put_CK_NOTIFY(const CK_NOTIFY notify) {
     // TODO: implement
 };
 
-void der_put_CK_C_INITIALIZE_ARGS_PTR(const CK_C_INITIALIZE_ARGS* pInitArgs) {
-    // TODO: implement
-};
+
 
 void der_put_CK_INFO_PTR(const CK_INFO* pInfo) {
     // TODO: implement
@@ -212,4 +210,20 @@ der_put_CK_SLOT_ID_ARRAY(
     assert(innerlen == 0);
 
     return CKR_OK;
+};
+
+
+CK_RV
+der_put_CK_C_INITIALIZE_ARGS_PTR(
+        C_Initialize_Call_t* C_Initialize_Call,
+        const CK_C_INITIALIZE_ARGS* pInitArgs
+) {
+
+    if (pInitArgs == NULL_PTR) {
+        C_Initialize_Call->pInitArgs.null = der_put_null();
+        return CKR_OK;
+    } else {
+        // TODO: implement
+        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+    }
 };

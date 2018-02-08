@@ -17,8 +17,7 @@ void test_pack_C_CancelFunction_Call(void **state) {
     
 
     CK_RV status = pack_C_CancelFunction_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -36,8 +35,7 @@ void test_pack_C_CancelFunction_Return(void **state) {
     
 
     CK_RV status = pack_C_CancelFunction_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -57,8 +55,7 @@ void test_pack_C_CloseAllSessions_Call(void **state) {
     
 
     CK_RV status = pack_C_CloseAllSessions_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID
     );
 
@@ -76,8 +73,7 @@ void test_pack_C_CloseAllSessions_Return(void **state) {
     
 
     CK_RV status = pack_C_CloseAllSessions_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -97,8 +93,7 @@ void test_pack_C_CloseSession_Call(void **state) {
     
 
     CK_RV status = pack_C_CloseSession_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -116,8 +111,7 @@ void test_pack_C_CloseSession_Return(void **state) {
     
 
     CK_RV status = pack_C_CloseSession_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -144,8 +138,7 @@ void test_pack_C_CopyObject_Call(void **state) {
     
 
     CK_RV status = pack_C_CopyObject_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hObject,
         pTemplate,
@@ -167,8 +160,7 @@ void test_pack_C_CopyObject_Return(void **state) {
     
 
     CK_RV status = pack_C_CopyObject_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phObject
     );
@@ -195,8 +187,7 @@ void test_pack_C_CreateObject_Call(void **state) {
     
 
     CK_RV status = pack_C_CreateObject_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pTemplate,
         &ulCount
@@ -217,8 +208,7 @@ void test_pack_C_CreateObject_Return(void **state) {
     
 
     CK_RV status = pack_C_CreateObject_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phObject
     );
@@ -242,8 +232,7 @@ void test_pack_C_Decrypt_Call(void **state) {
     
 
     CK_RV status = pack_C_Decrypt_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pEncryptedData,
         &ulEncryptedDataLen,
@@ -266,8 +255,7 @@ void test_pack_C_Decrypt_Return(void **state) {
     
 
     CK_RV status = pack_C_Decrypt_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pData,
         &pulDataLen
@@ -292,8 +280,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_DecryptDigestUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
@@ -316,8 +303,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_DecryptDigestUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pPart,
         &pulPartLen
@@ -340,8 +326,7 @@ void test_pack_C_DecryptFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_DecryptFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &pulLastPartLen
     );
@@ -362,8 +347,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_DecryptFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pLastPart,
         &pulLastPartLen
@@ -387,8 +371,7 @@ void test_pack_C_DecryptInit_Call(void **state) {
     
 
     CK_RV status = pack_C_DecryptInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hKey
@@ -408,8 +391,7 @@ void test_pack_C_DecryptInit_Return(void **state) {
     
 
     CK_RV status = pack_C_DecryptInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -432,8 +414,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_DecryptUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
@@ -456,8 +437,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_DecryptUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pPart,
         &pulPartLen
@@ -482,8 +462,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_DecryptVerifyUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
@@ -506,8 +485,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_DecryptVerifyUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pPart,
         &pulPartLen
@@ -537,8 +515,7 @@ void test_pack_C_DeriveKey_Call(void **state) {
     
 
     CK_RV status = pack_C_DeriveKey_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hBaseKey,
@@ -561,8 +538,7 @@ void test_pack_C_DeriveKey_Return(void **state) {
     
 
     CK_RV status = pack_C_DeriveKey_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phKey
     );
@@ -584,8 +560,7 @@ void test_pack_C_DestroyObject_Call(void **state) {
     
 
     CK_RV status = pack_C_DestroyObject_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hObject
     );
@@ -604,8 +579,7 @@ void test_pack_C_DestroyObject_Return(void **state) {
     
 
     CK_RV status = pack_C_DestroyObject_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -628,8 +602,7 @@ void test_pack_C_Digest_Call(void **state) {
     
 
     CK_RV status = pack_C_Digest_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pData,
         &ulDataLen,
@@ -652,8 +625,7 @@ void test_pack_C_Digest_Return(void **state) {
     
 
     CK_RV status = pack_C_Digest_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pDigest,
         &pulDigestLen
@@ -678,8 +650,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_DigestEncryptUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen,
@@ -702,8 +673,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_DigestEncryptUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pEncryptedPart,
         &pulEncryptedPartLen
@@ -726,8 +696,7 @@ void test_pack_C_DigestFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_DigestFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &pulDigestLen
     );
@@ -748,8 +717,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_DigestFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pDigest,
         &pulDigestLen
@@ -772,8 +740,7 @@ void test_pack_C_DigestInit_Call(void **state) {
     
 
     CK_RV status = pack_C_DigestInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism
     );
@@ -792,8 +759,7 @@ void test_pack_C_DigestInit_Return(void **state) {
     
 
     CK_RV status = pack_C_DigestInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -814,8 +780,7 @@ void test_pack_C_DigestKey_Call(void **state) {
     
 
     CK_RV status = pack_C_DigestKey_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hKey
     );
@@ -834,8 +799,7 @@ void test_pack_C_DigestKey_Return(void **state) {
     
 
     CK_RV status = pack_C_DigestKey_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -857,8 +821,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_DigestUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen
@@ -878,8 +841,7 @@ void test_pack_C_DigestUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_DigestUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -902,8 +864,7 @@ void test_pack_C_Encrypt_Call(void **state) {
     
 
     CK_RV status = pack_C_Encrypt_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pData,
         &ulDataLen,
@@ -926,8 +887,7 @@ void test_pack_C_Encrypt_Return(void **state) {
     
 
     CK_RV status = pack_C_Encrypt_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pEncryptedData,
         &pulEncryptedDataLen
@@ -950,8 +910,7 @@ void test_pack_C_EncryptFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_EncryptFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &pulEncryptedDataLen
     );
@@ -972,8 +931,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_EncryptFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pEncryptedData,
         &pulEncryptedDataLen
@@ -997,8 +955,7 @@ void test_pack_C_EncryptInit_Call(void **state) {
     
 
     CK_RV status = pack_C_EncryptInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hKey
@@ -1018,8 +975,7 @@ void test_pack_C_EncryptInit_Return(void **state) {
     
 
     CK_RV status = pack_C_EncryptInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -1042,8 +998,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_EncryptUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen,
@@ -1066,8 +1021,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_EncryptUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pEncryptedPart,
         &pulEncryptedPartLen
@@ -1089,8 +1043,7 @@ void test_pack_C_Finalize_Call(void **state) {
     
 
     CK_RV status = pack_C_Finalize_Call(
-        &dercursor
-        ,
+        &dercursor,
         pReserved
     );
 
@@ -1109,8 +1062,7 @@ void test_pack_C_Finalize_Return(void **state) {
     
 
     CK_RV status = pack_C_Finalize_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pReserved
     );
@@ -1132,8 +1084,7 @@ void test_pack_C_FindObjects_Call(void **state) {
     
 
     CK_RV status = pack_C_FindObjects_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &ulMaxObjectCount
     );
@@ -1154,8 +1105,7 @@ void test_pack_C_FindObjects_Return(void **state) {
     
 
     CK_RV status = pack_C_FindObjects_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         phObject,
         &pulObjectCount
@@ -1177,8 +1127,7 @@ void test_pack_C_FindObjectsFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_FindObjectsFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -1196,8 +1145,7 @@ void test_pack_C_FindObjectsFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_FindObjectsFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -1223,8 +1171,7 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     
 
     CK_RV status = pack_C_FindObjectsInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pTemplate,
         &ulCount
@@ -1249,8 +1196,7 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     
 
     CK_RV status = pack_C_FindObjectsInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pTemplate
     );
@@ -1278,8 +1224,7 @@ void test_pack_C_GenerateKey_Call(void **state) {
     
 
     CK_RV status = pack_C_GenerateKey_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         pTemplate,
@@ -1301,8 +1246,7 @@ void test_pack_C_GenerateKey_Return(void **state) {
     
 
     CK_RV status = pack_C_GenerateKey_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phKey
     );
@@ -1336,8 +1280,7 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     
 
     CK_RV status = pack_C_GenerateKeyPair_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         pPublicKeyTemplate,
@@ -1362,8 +1305,7 @@ void test_pack_C_GenerateKeyPair_Return(void **state) {
     
 
     CK_RV status = pack_C_GenerateKeyPair_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phPublicKey,
         &phPrivateKey
@@ -1386,8 +1328,7 @@ void test_pack_C_GenerateRandom_Call(void **state) {
     
 
     CK_RV status = pack_C_GenerateRandom_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &ulRandomLen
     );
@@ -1407,8 +1348,7 @@ void test_pack_C_GenerateRandom_Return(void **state) {
     
 
     CK_RV status = pack_C_GenerateRandom_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pSeed
     );
@@ -1436,8 +1376,7 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     
 
     CK_RV status = pack_C_GetAttributeValue_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hObject,
         pTemplate,
@@ -1463,8 +1402,7 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     
 
     CK_RV status = pack_C_GetAttributeValue_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pTemplate
     );
@@ -1485,8 +1423,7 @@ void test_pack_C_GetFunctionStatus_Call(void **state) {
     
 
     CK_RV status = pack_C_GetFunctionStatus_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -1504,8 +1441,7 @@ void test_pack_C_GetFunctionStatus_Return(void **state) {
     
 
     CK_RV status = pack_C_GetFunctionStatus_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -1525,7 +1461,6 @@ void test_pack_C_GetInfo_Call(void **state) {
 
     CK_RV status = pack_C_GetInfo_Call(
         &dercursor
-        
     );
 
     assert_int_equal(status, CKR_OK);
@@ -1549,8 +1484,7 @@ void test_pack_C_GetInfo_Return(void **state) {
     
 
     CK_RV status = pack_C_GetInfo_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInfo
     );
@@ -1572,8 +1506,7 @@ void test_pack_C_GetMechanismInfo_Call(void **state) {
     
 
     CK_RV status = pack_C_GetMechanismInfo_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID,
         &type
     );
@@ -1595,8 +1528,7 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
     
 
     CK_RV status = pack_C_GetMechanismInfo_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInfo
     );
@@ -1618,8 +1550,7 @@ void test_pack_C_GetMechanismList_Call(void **state) {
     
 
     CK_RV status = pack_C_GetMechanismList_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID,
         &pulCount
     );
@@ -1640,8 +1571,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     
 
     CK_RV status = pack_C_GetMechanismList_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pMechanismList,
         &pulCount
@@ -1664,8 +1594,7 @@ void test_pack_C_GetObjectSize_Call(void **state) {
     
 
     CK_RV status = pack_C_GetObjectSize_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hObject
     );
@@ -1685,8 +1614,7 @@ void test_pack_C_GetObjectSize_Return(void **state) {
     
 
     CK_RV status = pack_C_GetObjectSize_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pulSize
     );
@@ -1708,8 +1636,7 @@ void test_pack_C_GetOperationState_Call(void **state) {
     
 
     CK_RV status = pack_C_GetOperationState_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &pulOperationStateLen
     );
@@ -1730,8 +1657,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
     
 
     CK_RV status = pack_C_GetOperationState_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pOperationState,
         &pulOperationStateLen
@@ -1753,8 +1679,7 @@ void test_pack_C_GetSessionInfo_Call(void **state) {
     
 
     CK_RV status = pack_C_GetSessionInfo_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -1773,8 +1698,7 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
     
 
     CK_RV status = pack_C_GetSessionInfo_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInfo
     );
@@ -1795,8 +1719,7 @@ void test_pack_C_GetSlotInfo_Call(void **state) {
     
 
     CK_RV status = pack_C_GetSlotInfo_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID
     );
 
@@ -1821,8 +1744,7 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
     
 
     CK_RV status = pack_C_GetSlotInfo_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInfo
     );
@@ -1844,8 +1766,7 @@ void test_pack_C_GetSlotList_Call(void **state) {
     
 
     CK_RV status = pack_C_GetSlotList_Call(
-        &dercursor
-        ,
+        &dercursor,
         &tokenPresent,
         &pulCount
     );
@@ -1866,8 +1787,7 @@ void test_pack_C_GetSlotList_Return(void **state) {
     
 
     CK_RV status = pack_C_GetSlotList_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pSlotList,
         &pulCount
@@ -1889,8 +1809,7 @@ void test_pack_C_GetTokenInfo_Call(void **state) {
     
 
     CK_RV status = pack_C_GetTokenInfo_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID
     );
 
@@ -1929,8 +1848,7 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
     
 
     CK_RV status = pack_C_GetTokenInfo_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInfo
     );
@@ -1953,8 +1871,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     
 
     CK_RV status = pack_C_InitPIN_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPin,
         &ulPinLen
@@ -1974,8 +1891,7 @@ void test_pack_C_InitPIN_Return(void **state) {
     
 
     CK_RV status = pack_C_InitPIN_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -1998,8 +1914,7 @@ void test_pack_C_InitToken_Call(void **state) {
     
 
     CK_RV status = pack_C_InitToken_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID,
         pPin,
         &ulPinLen,
@@ -2020,8 +1935,7 @@ void test_pack_C_InitToken_Return(void **state) {
     
 
     CK_RV status = pack_C_InitToken_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2041,8 +1955,7 @@ void test_pack_C_Initialize_Call(void **state) {
     
 
     CK_RV status = pack_C_Initialize_Call(
-        &dercursor
-        ,
+        &dercursor,
         pInitArgs
     );
 
@@ -2061,8 +1974,7 @@ void test_pack_C_Initialize_Return(void **state) {
     
 
     CK_RV status = pack_C_Initialize_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pInitArgs
     );
@@ -2086,8 +1998,7 @@ void test_pack_C_Login_Call(void **state) {
     
 
     CK_RV status = pack_C_Login_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &userType,
         pPin,
@@ -2108,8 +2019,7 @@ void test_pack_C_Login_Return(void **state) {
     
 
     CK_RV status = pack_C_Login_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2129,8 +2039,7 @@ void test_pack_C_Logout_Call(void **state) {
     
 
     CK_RV status = pack_C_Logout_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession
     );
 
@@ -2148,8 +2057,7 @@ void test_pack_C_Logout_Return(void **state) {
     
 
     CK_RV status = pack_C_Logout_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2172,8 +2080,7 @@ void test_pack_C_OpenSession_Call(void **state) {
     
 
     CK_RV status = pack_C_OpenSession_Call(
-        &dercursor
-        ,
+        &dercursor,
         &slotID,
         &flags,
         &pApplication,
@@ -2195,8 +2102,7 @@ void test_pack_C_OpenSession_Return(void **state) {
     
 
     CK_RV status = pack_C_OpenSession_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phSession
     );
@@ -2219,8 +2125,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
     
 
     CK_RV status = pack_C_SeedRandom_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pSeed,
         &ulSeedLen
@@ -2240,8 +2145,7 @@ void test_pack_C_SeedRandom_Return(void **state) {
     
 
     CK_RV status = pack_C_SeedRandom_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2268,8 +2172,7 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     
 
     CK_RV status = pack_C_SetAttributeValue_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &hObject,
         pTemplate,
@@ -2290,8 +2193,7 @@ void test_pack_C_SetAttributeValue_Return(void **state) {
     
 
     CK_RV status = pack_C_SetAttributeValue_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2315,8 +2217,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
     
 
     CK_RV status = pack_C_SetOperationState_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pOperationState,
         &ulOperationStateLen,
@@ -2338,8 +2239,7 @@ void test_pack_C_SetOperationState_Return(void **state) {
     
 
     CK_RV status = pack_C_SetOperationState_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2363,8 +2263,7 @@ void test_pack_C_SetPIN_Call(void **state) {
     
 
     CK_RV status = pack_C_SetPIN_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pOldPin,
         &ulOldLen,
@@ -2386,8 +2285,7 @@ void test_pack_C_SetPIN_Return(void **state) {
     
 
     CK_RV status = pack_C_SetPIN_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2410,8 +2308,7 @@ void test_pack_C_Sign_Call(void **state) {
     
 
     CK_RV status = pack_C_Sign_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pData,
         &ulDataLen,
@@ -2434,8 +2331,7 @@ void test_pack_C_Sign_Return(void **state) {
     
 
     CK_RV status = pack_C_Sign_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pSignature,
         &pulSignatureLen
@@ -2460,8 +2356,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_SignEncryptUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen,
@@ -2484,8 +2379,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_SignEncryptUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pEncryptedPart,
         &pulEncryptedPartLen
@@ -2508,8 +2402,7 @@ void test_pack_C_SignFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_SignFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         &pulSignatureLen
     );
@@ -2530,8 +2423,7 @@ void test_pack_C_SignFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_SignFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pSignature,
         &pulSignatureLen
@@ -2555,8 +2447,7 @@ void test_pack_C_SignInit_Call(void **state) {
     
 
     CK_RV status = pack_C_SignInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hKey
@@ -2576,8 +2467,7 @@ void test_pack_C_SignInit_Return(void **state) {
     
 
     CK_RV status = pack_C_SignInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2600,8 +2490,7 @@ void test_pack_C_SignRecover_Call(void **state) {
     
 
     CK_RV status = pack_C_SignRecover_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pData,
         &ulDataLen,
@@ -2624,8 +2513,7 @@ void test_pack_C_SignRecover_Return(void **state) {
     
 
     CK_RV status = pack_C_SignRecover_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pSignature,
         &pulSignatureLen
@@ -2649,8 +2537,7 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
     
 
     CK_RV status = pack_C_SignRecoverInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hKey
@@ -2670,8 +2557,7 @@ void test_pack_C_SignRecoverInit_Return(void **state) {
     
 
     CK_RV status = pack_C_SignRecoverInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2693,8 +2579,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_SignUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen
@@ -2714,8 +2599,7 @@ void test_pack_C_SignUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_SignUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2745,8 +2629,7 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     
 
     CK_RV status = pack_C_UnwrapKey_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hUnwrappingKey,
@@ -2771,8 +2654,7 @@ void test_pack_C_UnwrapKey_Return(void **state) {
     
 
     CK_RV status = pack_C_UnwrapKey_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &phKey
     );
@@ -2797,8 +2679,7 @@ void test_pack_C_Verify_Call(void **state) {
     
 
     CK_RV status = pack_C_Verify_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pData,
         &ulDataLen,
@@ -2820,8 +2701,7 @@ void test_pack_C_Verify_Return(void **state) {
     
 
     CK_RV status = pack_C_Verify_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2843,8 +2723,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
     
 
     CK_RV status = pack_C_VerifyFinal_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pSignature,
         &ulSignatureLen
@@ -2864,8 +2743,7 @@ void test_pack_C_VerifyFinal_Return(void **state) {
     
 
     CK_RV status = pack_C_VerifyFinal_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2887,8 +2765,7 @@ void test_pack_C_VerifyInit_Call(void **state) {
     
 
     CK_RV status = pack_C_VerifyInit_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hKey
@@ -2908,8 +2785,7 @@ void test_pack_C_VerifyInit_Return(void **state) {
     
 
     CK_RV status = pack_C_VerifyInit_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -2932,8 +2808,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
     
 
     CK_RV status = pack_C_VerifyRecover_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pSignature,
         &ulSignatureLen,
@@ -2956,8 +2831,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
     
 
     CK_RV status = pack_C_VerifyRecover_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pData,
         &pulDataLen
@@ -2981,8 +2855,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
     
 
     CK_RV status = pack_C_VerifyUpdate_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pPart,
         &ulPartLen
@@ -3002,8 +2875,7 @@ void test_pack_C_VerifyUpdate_Return(void **state) {
     
 
     CK_RV status = pack_C_VerifyUpdate_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval
     );
 
@@ -3024,8 +2896,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Call(
-        &dercursor
-        ,
+        &dercursor,
         &flags,
         pReserved
     );
@@ -3046,8 +2917,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         &pSlot,
         pReserved
@@ -3073,8 +2943,7 @@ void test_pack_C_WrapKey_Call(void **state) {
     
 
     CK_RV status = pack_C_WrapKey_Call(
-        &dercursor
-        ,
+        &dercursor,
         &hSession,
         pMechanism,
         &hWrappingKey,
@@ -3098,8 +2967,7 @@ void test_pack_C_WrapKey_Return(void **state) {
     
 
     CK_RV status = pack_C_WrapKey_Return(
-        &dercursor
-        ,
+        &dercursor,
         &retval,
         pWrappedKey,
         &pulWrappedKeyLen

@@ -73,15 +73,15 @@ pack_{{ f.type_name|under }}(
 
     memset (&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
-    {% for type, pointerized, var, other in extract_args(f, o ,True) %}
+{% for type, pointerized, var, other in extract_args(f, o ,True) %}
 
     // PACKING {{ var }} (type {{ type }})
 
-    {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
+{% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     der_buf_ulong_t {{ var }}_storage = { 0 };
     {{ f.type_name|under }}.{{ var }} = der_put_ulong({{ var }}_storage, *{{ var }});
 
-    {% elif type == "CK_SLOT_ID_ARRAY" %}
+{% elif type == "CK_SLOT_ID_ARRAY" %}
 
     uint8_t *innerlist = NULL;
     size_t length = 0;
@@ -94,7 +94,7 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }}.data.wire.derlen = length;
 
 
-    {% elif type == "CK_BYTE_ARRAY" %}
+{% elif type == "CK_BYTE_ARRAY" %}
 
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
@@ -126,8 +126,6 @@ pack_C_DigestFinal_Return pDigest
 
 {% elif type == "CK_ATTRIBUTE_ARRAY" %}
 
-
-
     uint8_t *{{ var }}_innerlist = NULL;
     size_t {{ var }}_length = 0;
     CK_RV {{ var }}_status = der_put_{{ type }}(
@@ -147,14 +145,22 @@ pack_C_DigestFinal_Return pDigest
 
     {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
 
+{% elif type == "CK_C_INITIALIZE_ARGS_PTR" %}
 
-    {% else %}
+    CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call, pInitArgs);
+    if (status != CKR_OK)
+        return status;
+
+{% else %}
     // TODO: finish this
     //{{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }});
     der_put_{{ type }}({{ var }});
 
-    {% endif -%}
-    {% endfor %}
+{% endif -%}
+{% else %}
+    // argument list is empty
+    {{ f.type_name|under }}.empty = der_put_null();
+{% endfor %}
 
     // END OF PACKING
 

@@ -53,7 +53,7 @@ void der_put_ANY(ANY pApplication);
 
 void der_put_CK_NOTIFY(CK_NOTIFY notify);
 
-void der_put_CK_C_INITIALIZE_ARGS_PTR(const CK_C_INITIALIZE_ARGS* pInitArgs);
+CK_RV der_put_CK_C_INITIALIZE_ARGS_PTR(C_Initialize_Call_t* pInitArgsDer, const CK_C_INITIALIZE_ARGS* pInitArgs);
 
 void der_put_CK_INFO_PTR(const CK_INFO* pInfo);
 
