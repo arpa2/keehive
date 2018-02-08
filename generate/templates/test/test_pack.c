@@ -3,6 +3,7 @@
 #include <setjmp.h>
 #include <cmocka.h>
 #include "pack.h"
+#include "unpack.h"
 
 
 {% for call, return_ in zipped %}
@@ -27,6 +28,18 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+
+    status = unpack_{{ f.type_name|under }}(
+        &dercursor
+        {%- for type_, pointerized, identifier, other in extract_args(f, o) -%}
+        {%- if loop.first %},{% endif %}
+        {% if not type_|is_pointer and not type_|is_notify %}&{% endif %}{{- identifier -}}{%- if not loop.last %},{% endif %}
+        {%- endfor %}
+    );
+
+    free(dercursor.derptr);
+
+    assert_int_equal(status, CKR_OK);
 };
 {% endfor %}
 {% endfor %}

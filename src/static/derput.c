@@ -12,10 +12,6 @@ static const derwalk pValue_packer[] = {
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue ACK_ATTRIBUTE_pValue_t;
 
-void der_put_CK_MECHANISM_PTR(const CK_MECHANISM* pMechanism) {
-    // TODO: implement
-};
-
 void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo) {
     // TODO: implement
 };
@@ -25,10 +21,6 @@ void der_put_CK_UTF8CHAR_ARRAY(const CK_UTF8CHAR* pPin) {
 };
 
 void der_put_UTF8String(const CK_UTF8CHAR* pPin) {
-    // TODO: implement
-};
-
-void der_put_CK_BBOOL_PTR(const CK_BBOOL* tokenPresent) {
     // TODO: implement
 };
 
@@ -43,7 +35,6 @@ void der_put_ANY(ANY pApplication) {
 void der_put_CK_NOTIFY(const CK_NOTIFY notify) {
     // TODO: implement
 };
-
 
 
 void der_put_CK_INFO_PTR(const CK_INFO* pInfo) {
@@ -221,9 +212,42 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
 
     if (pInitArgs == NULL_PTR) {
         C_Initialize_Call->pInitArgs.null = der_put_null();
-        return CKR_OK;
     } else {
         // TODO: implement
         return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
     }
+
+    return CKR_OK;
+};
+
+
+CK_RV
+der_put_CK_MECHANISM_PTR(
+        ACK_MECHANISM_t* Ack_Mechanism,
+        const CK_MECHANISM* pMechanism
+) {
+    der_buf_ulong_t mechanism_buf = { 0 };
+    Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
+
+    if (pMechanism->pParameter == NULL_PTR) {
+        Ack_Mechanism->pParameter.null = der_put_null();
+    } else {
+        // TODO: implement
+        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+    }
+
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    Ack_Mechanism->ulParameterLen = der_put_ulong(ulParameterLen_buf, pMechanism->ulParameterLen);
+
+    return CKR_OK;
+};
+
+
+dercursor
+der_put_CK_BBOOL_PTR(
+        uint8_t *der_buf_bool,
+        const CK_BBOOL* value
+) {
+    bool boolvalue = (*value == CK_TRUE);
+    return der_put_bool (der_buf_bool, boolvalue);
 };

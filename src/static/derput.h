@@ -36,16 +36,23 @@ der_put_CK_VOID_PTR(
         const CK_VOID_PTR* pReserved
 );
 
+CK_RV
+der_put_CK_MECHANISM_PTR(
+        ACK_MECHANISM_t* Ack_Mechanism,
+        const CK_MECHANISM* pMechanism
+);
 
-void der_put_CK_MECHANISM_PTR(const CK_MECHANISM* pMechanism);
+dercursor
+der_put_CK_BBOOL_PTR(
+        uint8_t *der_buf_bool,
+        const CK_BBOOL* value
+);
 
 void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo);
 
 void der_put_CK_UTF8CHAR_ARRAY(const CK_UTF8CHAR* pPin);
 
 void der_put_UTF8String(const CK_UTF8CHAR* pPin);
-
-void der_put_CK_BBOOL_PTR(const CK_BBOOL* tokenPresent);
 
 void der_put_CK_FLAGS_PTR(const CK_FLAGS* flags);
 

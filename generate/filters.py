@@ -149,26 +149,32 @@ def initialise(type_, identifier):
 
 
 type_test_templates = {
-    "CK_SESSION_INFO": "{ .slotID = 1, .state = 1, .flags = 1 }",
-    "CK_INFO": """{ .cryptokiVersion.major = 1,
+    "CK_SESSION_INFO":
+        """{type_} {identifier} = {{ .slotID = 1, .state = 1, .flags = 1 }};""",
+    "CK_INFO":
+        """{type_} {identifier} = {{ .cryptokiVersion.major = 1,
                             .cryptokiVersion.minor = 1,
                             .manufacturerID = "gijs",
                             .flags = 1,
                             .libraryDescription = "gijs",
                             .libraryVersion.major = 1,
-                            .libraryVersion.minor = 1 }""",
-    "CK_MECHANISM_INFO": """{ .ulMinKeySize = 1,
+                            .libraryVersion.minor = 1 }};""",
+    "CK_MECHANISM_INFO":
+        """{type_} {identifier} = {{ .ulMinKeySize = 1,
                             .ulMaxKeySize = 1,
-                            .flags = 1 }""",
-    "CK_RV": "CKR_OK",
-    "CK_SLOT_INFO": """{ .slotDescription = "gijs",
+                            .flags = 1 }};""",
+    "CK_RV":
+        "{type_} {identifier} = CKR_OK;",
+    "CK_SLOT_INFO":
+        """{type_} {identifier} = {{ .slotDescription = "gijs",
                             .manufacturerID = "gijs",
                             .flags = 1,
                             .hardwareVersion.major = 1,
                             .hardwareVersion.minor = 1,
                             .firmwareVersion.major = 1,
-                            .firmwareVersion.minor = 1 }""",
-    "CK_TOKEN_INFO": """{
+                            .firmwareVersion.minor = 1 }};""",
+    "CK_TOKEN_INFO":
+        """{type_} {identifier} = {{
                             .label = "gijs",     
                             .manufacturerID = "gijs",  
                             .model = "gijs",
@@ -188,27 +194,27 @@ type_test_templates = {
                             .hardwareVersion.minor = 1,
                             .firmwareVersion.major = 1,
                             .firmwareVersion.minor = 1, 
-                            .utcTime = "gijs" }""",
+                            .utcTime = "gijs" }};""",
 
-    "CK_ATTRIBUTE_ARRAY": """
-    CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
-    CK_ATTRIBUTE {identifier}[] = {{
-        {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}},
-    }};"""
+    "CK_ATTRIBUTE_ARRAY":
+        """CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE {identifier}[] = {{
+                            {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}} }};""",
+    "CK_MECHANISM_PTR":
+        """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL_PTR, 0}};
+    CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """
 }
 
 
 def initialise_test(type_, identifier):
     if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
         return "{} {} = 0;".format(type_, identifier)
-    elif type_ == "CK_ATTRIBUTE_ARRAY":
-        return type_test_templates[type_].format(identifier=identifier)
     elif type_ in type_test_templates:
-        return "{} {} = {};".format(type_, identifier, type_test_templates[type_])
+        return type_test_templates[type_].format(identifier=identifier, type_=type_)
     elif not type_.endswith("_PTR"):
-        return "{} {} = NULL;".format(type_, identifier)
+        return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
     else:
-        return "{} {} = NULL_PTR;".format(type_, identifier)
+        return "{} {} = NULL_PTR;  /* todo: probably requires finetuning */".format(type_, identifier)
 
 
 def free(type_, identifier):

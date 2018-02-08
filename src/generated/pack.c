@@ -968,7 +968,6 @@ pack_C_CopyObject_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
@@ -1082,7 +1081,6 @@ pack_C_CreateObject_Call(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -1201,7 +1199,6 @@ pack_C_Decrypt_Call(
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1228,7 +1225,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Decrypt_Call.pEncryptedData.derptr = pEncryptedData_innerlist;
     C_Decrypt_Call.pEncryptedData.derlen = pEncryptedData_length;
-
 
 
 
@@ -1290,7 +1286,6 @@ pack_C_Decrypt_Return(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1317,7 +1312,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Decrypt_Return.pData.derptr = pData_innerlist;
     C_Decrypt_Return.pData.derlen = pData_length;
-
 
 
 
@@ -1374,7 +1368,6 @@ pack_C_DecryptDigestUpdate_Call(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1401,7 +1394,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptDigestUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_DecryptDigestUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -1463,7 +1455,6 @@ pack_C_DecryptDigestUpdate_Return(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1490,7 +1481,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptDigestUpdate_Return.pPart.derptr = pPart_innerlist;
     C_DecryptDigestUpdate_Return.pPart.derlen = pPart_length;
-
 
 
 
@@ -1592,7 +1582,6 @@ pack_C_DecryptFinal_Return(
     // PACKING pLastPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1619,7 +1608,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptFinal_Return.pLastPart.derptr = pLastPart_innerlist;
     C_DecryptFinal_Return.pLastPart.derlen = pLastPart_length;
-
 
 
 
@@ -1675,9 +1663,10 @@ pack_C_DecryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_DecryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -1771,7 +1760,6 @@ pack_C_DecryptUpdate_Call(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1798,7 +1786,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_DecryptUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -1860,7 +1847,6 @@ pack_C_DecryptUpdate_Return(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1887,7 +1873,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptUpdate_Return.pPart.derptr = pPart_innerlist;
     C_DecryptUpdate_Return.pPart.derlen = pPart_length;
-
 
 
 
@@ -1944,7 +1929,6 @@ pack_C_DecryptVerifyUpdate_Call(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -1971,7 +1955,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptVerifyUpdate_Call.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_DecryptVerifyUpdate_Call.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -2033,7 +2016,6 @@ pack_C_DecryptVerifyUpdate_Return(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2060,7 +2042,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DecryptVerifyUpdate_Return.pPart.derptr = pPart_innerlist;
     C_DecryptVerifyUpdate_Return.pPart.derlen = pPart_length;
-
 
 
 
@@ -2118,9 +2099,10 @@ pack_C_DeriveKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_DeriveKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -2133,7 +2115,6 @@ pack_C_DeriveKey_Call(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -2337,7 +2318,6 @@ pack_C_Digest_Call(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2364,7 +2344,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Digest_Call.pData.derptr = pData_innerlist;
     C_Digest_Call.pData.derlen = pData_length;
-
 
 
 
@@ -2426,7 +2405,6 @@ pack_C_Digest_Return(
     // PACKING pDigest (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2453,7 +2431,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Digest_Return.pDigest.derptr = pDigest_innerlist;
     C_Digest_Return.pDigest.derlen = pDigest_length;
-
 
 
 
@@ -2510,7 +2487,6 @@ pack_C_DigestEncryptUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2537,7 +2513,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DigestEncryptUpdate_Call.pPart.derptr = pPart_innerlist;
     C_DigestEncryptUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -2599,7 +2574,6 @@ pack_C_DigestEncryptUpdate_Return(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2626,7 +2600,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DigestEncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_DigestEncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -2728,7 +2701,6 @@ pack_C_DigestFinal_Return(
     // PACKING pDigest (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -2755,7 +2727,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DigestFinal_Return.pDigest.derptr = pDigest_innerlist;
     C_DigestFinal_Return.pDigest.derlen = pDigest_length;
-
 
 
 
@@ -2810,9 +2781,10 @@ pack_C_DigestInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_DigestInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -2982,7 +2954,6 @@ pack_C_DigestUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3009,7 +2980,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_DigestUpdate_Call.pPart.derptr = pPart_innerlist;
     C_DigestUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -3103,7 +3073,6 @@ pack_C_Encrypt_Call(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3130,7 +3099,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Encrypt_Call.pData.derptr = pData_innerlist;
     C_Encrypt_Call.pData.derlen = pData_length;
-
 
 
 
@@ -3192,7 +3160,6 @@ pack_C_Encrypt_Return(
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3219,7 +3186,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Encrypt_Return.pEncryptedData.derptr = pEncryptedData_innerlist;
     C_Encrypt_Return.pEncryptedData.derlen = pEncryptedData_length;
-
 
 
 
@@ -3321,7 +3287,6 @@ pack_C_EncryptFinal_Return(
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3348,7 +3313,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_EncryptFinal_Return.pEncryptedData.derptr = pEncryptedData_innerlist;
     C_EncryptFinal_Return.pEncryptedData.derlen = pEncryptedData_length;
-
 
 
 
@@ -3404,9 +3368,10 @@ pack_C_EncryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_EncryptInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -3500,7 +3465,6 @@ pack_C_EncryptUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3527,7 +3491,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_EncryptUpdate_Call.pPart.derptr = pPart_innerlist;
     C_EncryptUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -3589,7 +3552,6 @@ pack_C_EncryptUpdate_Return(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -3616,7 +3578,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_EncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_EncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -3660,7 +3621,6 @@ pack_C_Finalize_Call(
 
 
     // PACKING pReserved (type CK_VOID_PTR)
-
 
 
     C_Finalize_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
@@ -3938,7 +3898,6 @@ pack_C_FindObjectsInit_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
@@ -4005,7 +3964,6 @@ pack_C_FindObjectsInit_Return(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
@@ -4068,14 +4026,14 @@ pack_C_GenerateKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_GenerateKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -4196,14 +4154,14 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_GenerateKeyPair_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
     // PACKING pPublicKeyTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pPublicKeyTemplate_innerlist = NULL;
@@ -4232,7 +4190,6 @@ pack_C_GenerateKeyPair_Call(
 
 
     // PACKING pPrivateKeyTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pPrivateKeyTemplate_innerlist = NULL;
@@ -4404,7 +4361,6 @@ pack_C_GenerateRandom_Return(
     // PACKING pSeed (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -4431,7 +4387,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_GenerateRandom_Return.pSeed.derptr = pSeed_innerlist;
     C_GenerateRandom_Return.pSeed.derlen = pSeed_length;
-
 
 
 
@@ -4486,7 +4441,6 @@ pack_C_GetAttributeValue_Call(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -4553,7 +4507,6 @@ pack_C_GetAttributeValue_Return(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -5112,7 +5065,6 @@ pack_C_GetOperationState_Return(
     // PACKING pOperationState (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -5139,7 +5091,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_GetOperationState_Return.pOperationState.derptr = pOperationState_innerlist;
     C_GetOperationState_Return.pOperationState.derlen = pOperationState_length;
-
 
 
 
@@ -5358,9 +5309,8 @@ pack_C_GetSlotList_Call(
     // PACKING tokenPresent (type CK_BBOOL_PTR)
 
 
-    // TODO: finish this
-    //C_GetSlotList_Call.tokenPresent = der_put_CK_BBOOL_PTR(tokenPresent);
-    der_put_CK_BBOOL_PTR(tokenPresent);
+    der_buf_bool_t tokenPresent_buf = { 0 };
+    C_GetSlotList_Call.tokenPresent = der_put_CK_BBOOL_PTR(tokenPresent_buf, tokenPresent);
 
 
 
@@ -5756,7 +5706,6 @@ pack_C_Initialize_Call(
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
 
 
-
     CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call, pInitArgs);
     if (status != CKR_OK)
         return status;
@@ -6149,7 +6098,6 @@ pack_C_SeedRandom_Call(
     // PACKING pSeed (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6176,7 +6124,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SeedRandom_Call.pSeed.derptr = pSeed_innerlist;
     C_SeedRandom_Call.pSeed.derlen = pSeed_length;
-
 
 
 
@@ -6276,7 +6223,6 @@ pack_C_SetAttributeValue_Call(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -6387,7 +6333,6 @@ pack_C_SetOperationState_Call(
     // PACKING pOperationState (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6414,7 +6359,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SetOperationState_Call.pOperationState.derptr = pOperationState_innerlist;
     C_SetOperationState_Call.pOperationState.derlen = pOperationState_length;
-
 
 
 
@@ -6638,7 +6582,6 @@ pack_C_Sign_Call(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6665,7 +6608,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Sign_Call.pData.derptr = pData_innerlist;
     C_Sign_Call.pData.derlen = pData_length;
-
 
 
 
@@ -6727,7 +6669,6 @@ pack_C_Sign_Return(
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6754,7 +6695,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Sign_Return.pSignature.derptr = pSignature_innerlist;
     C_Sign_Return.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -6811,7 +6751,6 @@ pack_C_SignEncryptUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6838,7 +6777,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignEncryptUpdate_Call.pPart.derptr = pPart_innerlist;
     C_SignEncryptUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -6900,7 +6838,6 @@ pack_C_SignEncryptUpdate_Return(
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -6927,7 +6864,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignEncryptUpdate_Return.pEncryptedPart.derptr = pEncryptedPart_innerlist;
     C_SignEncryptUpdate_Return.pEncryptedPart.derlen = pEncryptedPart_length;
-
 
 
 
@@ -7029,7 +6965,6 @@ pack_C_SignFinal_Return(
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7056,7 +6991,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignFinal_Return.pSignature.derptr = pSignature_innerlist;
     C_SignFinal_Return.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -7112,9 +7046,10 @@ pack_C_SignInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_SignInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -7208,7 +7143,6 @@ pack_C_SignRecover_Call(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7235,7 +7169,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignRecover_Call.pData.derptr = pData_innerlist;
     C_SignRecover_Call.pData.derlen = pData_length;
-
 
 
 
@@ -7297,7 +7230,6 @@ pack_C_SignRecover_Return(
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7324,7 +7256,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignRecover_Return.pSignature.derptr = pSignature_innerlist;
     C_SignRecover_Return.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -7380,9 +7311,10 @@ pack_C_SignRecoverInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_SignRecoverInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -7475,7 +7407,6 @@ pack_C_SignUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7502,7 +7433,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_SignUpdate_Call.pPart.derptr = pPart_innerlist;
     C_SignUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -7599,9 +7529,10 @@ pack_C_UnwrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_UnwrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -7614,7 +7545,6 @@ pack_C_UnwrapKey_Call(
 
 
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
-
 
 
 /*
@@ -7646,7 +7576,6 @@ pack_C_DigestFinal_Return pDigest
 
 
 
-
     // PACKING ulWrappedKeyLen (type CK_ULONG_PTR)
 
 
@@ -7656,7 +7585,6 @@ pack_C_DigestFinal_Return pDigest
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
-
 
 
     uint8_t *pTemplate_innerlist = NULL;
@@ -7776,7 +7704,6 @@ pack_C_Verify_Call(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7806,7 +7733,6 @@ pack_C_DigestFinal_Return pDigest
 
 
 
-
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
 
@@ -7816,7 +7742,6 @@ pack_C_DigestFinal_Return pDigest
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
-
 
 
 /*
@@ -7845,7 +7770,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_Verify_Call.pSignature.derptr = pSignature_innerlist;
     C_Verify_Call.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -7938,7 +7862,6 @@ pack_C_VerifyFinal_Call(
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -7965,7 +7888,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_VerifyFinal_Call.pSignature.derptr = pSignature_innerlist;
     C_VerifyFinal_Call.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -8058,9 +7980,10 @@ pack_C_VerifyInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_VerifyInit_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -8154,7 +8077,6 @@ pack_C_VerifyRecover_Call(
     // PACKING pSignature (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -8181,7 +8103,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_VerifyRecover_Call.pSignature.derptr = pSignature_innerlist;
     C_VerifyRecover_Call.pSignature.derlen = pSignature_length;
-
 
 
 
@@ -8243,7 +8164,6 @@ pack_C_VerifyRecover_Return(
     // PACKING pData (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -8270,7 +8190,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_VerifyRecover_Return.pData.derptr = pData_innerlist;
     C_VerifyRecover_Return.pData.derlen = pData_length;
-
 
 
 
@@ -8326,7 +8245,6 @@ pack_C_VerifyUpdate_Call(
     // PACKING pPart (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -8353,7 +8271,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_VerifyUpdate_Call.pPart.derptr = pPart_innerlist;
     C_VerifyUpdate_Call.pPart.derlen = pPart_length;
-
 
 
 
@@ -8446,7 +8363,6 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING pReserved (type CK_VOID_PTR)
 
 
-
     C_WaitForSlotEvent_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
 
 
@@ -8501,7 +8417,6 @@ pack_C_WaitForSlotEvent_Return(
     // PACKING pReserved (type CK_VOID_PTR)
 
 
-
     C_WaitForSlotEvent_Return.pReserved.null = der_put_CK_VOID_PTR(pReserved);
 
 
@@ -8552,9 +8467,10 @@ pack_C_WrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    // TODO: finish this
-    //C_WrapKey_Call.pMechanism = der_put_CK_MECHANISM_PTR(pMechanism);
-    der_put_CK_MECHANISM_PTR(pMechanism);
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
 
 
 
@@ -8624,7 +8540,6 @@ pack_C_WrapKey_Return(
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
 
 
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -8651,7 +8566,6 @@ pack_C_DigestFinal_Return pDigest
 
     C_WrapKey_Return.pWrappedKey.derptr = pWrappedKey_innerlist;
     C_WrapKey_Return.pWrappedKey.derlen = pWrappedKey_length;
-
 
 
 

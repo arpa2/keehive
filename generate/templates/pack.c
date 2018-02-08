@@ -95,7 +95,6 @@ pack_{{ f.type_name|under }}(
 
 
 {% elif type == "CK_BYTE_ARRAY" %}
-
 /*
  these are the functions and byte arrays that have a len variable prepended with a p
 pack_C_Decrypt_Return pData
@@ -123,9 +122,7 @@ pack_C_DigestFinal_Return pDigest
     {{ f.type_name|under }}.{{ var }}.derptr = {{ var }}_innerlist;
     {{ f.type_name|under }}.{{ var }}.derlen = {{ var }}_length;
 
-
 {% elif type == "CK_ATTRIBUTE_ARRAY" %}
-
     uint8_t *{{ var }}_innerlist = NULL;
     size_t {{ var }}_length = 0;
     CK_RV {{ var }}_status = der_put_{{ type }}(
@@ -142,14 +139,22 @@ pack_C_DigestFinal_Return pDigest
     {{ f.type_name|under }}.{{ var }}.wire.derlen = {{ var }}_length;
 
 {% elif type == "CK_VOID_PTR" %}
-
     {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
 
 {% elif type == "CK_C_INITIALIZE_ARGS_PTR" %}
-
-    CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call, pInitArgs);
+    CK_RV status = der_put_{{ type }}(&{{ f.type_name|under }}, {{ var }});
     if (status != CKR_OK)
         return status;
+
+{% elif type == "CK_MECHANISM_PTR" %}
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.pMechanism, {{ var }});
+    if ({{ var }}_status != CKR_OK)
+        return {{ var }}_status;
+
+
+{% elif type == "CK_BBOOL_PTR" %}
+    der_buf_bool_t {{ var }}_buf = { 0 };
+    {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_buf, {{ var }});
 
 {% else %}
     // TODO: finish this
