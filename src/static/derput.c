@@ -16,14 +16,6 @@ void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo) {
     // TODO: implement
 };
 
-void der_put_CK_UTF8CHAR_ARRAY(const CK_UTF8CHAR* pPin) {
-    // TODO: implement
-};
-
-void der_put_UTF8String(const CK_UTF8CHAR* pPin) {
-    // TODO: implement
-};
-
 void der_put_CK_FLAGS_PTR(const CK_FLAGS* flags) {
     // TODO: implement
 };
@@ -250,4 +242,38 @@ der_put_CK_BBOOL_PTR(
 ) {
     bool boolvalue = (*value == CK_TRUE);
     return der_put_bool (der_buf_bool, boolvalue);
+};
+
+
+CK_RV
+der_put_CK_UTF8CHAR_ARRAY(
+        dercursor* cursor,
+        const CK_UTF8CHAR* pin,
+        const CK_ULONG* pinlen
+) {
+    if (*pinlen == 0) {
+        *cursor = der_put_null();
+    } else {
+        // TODO: implement
+        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+    }
+
+    return CKR_OK;
+};
+
+
+CK_RV
+der_put_UTF8String(
+        dercursor* cursor,
+        const CK_UTF8CHAR* pin,
+        const CK_ULONG* pinlen
+) {
+    if (*pinlen == 0) {
+        *cursor = der_put_null();
+    } else {
+        // TODO: implement
+        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+    }
+
+    return CKR_OK;
 };

@@ -17,6 +17,8 @@ CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 }
 %}
 
+{% set utf8_len_mapping = { "pPin": "ulPinLen", "pOldPin": "ulOldLen", "pNewPin": "ulNewPin", "pLabel": "pulSeedLen"} %}
+
 {% for f in functions %}
 static const derwalk {{ f.type_name|under }}_packer[] = {
     DER_PACK_RemotePKCS11_{{ f.type_name|under }},
@@ -151,10 +153,20 @@ pack_C_DigestFinal_Return pDigest
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
 
-
 {% elif type == "CK_BBOOL_PTR" %}
     der_buf_bool_t {{ var }}_buf = { 0 };
     {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_buf, {{ var }});
+
+{% elif type == "CK_UTF8CHAR_ARRAY" %}
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ utf8_len_mapping[var] }});
+    if ({{ var }}_status != CKR_OK)
+        return {{ var }}_status;
+
+{% elif type == "UTF8String" %}
+    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ utf8_len_mapping[var] }});
+    if ({{ var }}_status != CKR_OK)
+        return {{ var }}_status;
 
 {% else %}
     // TODO: finish this

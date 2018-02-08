@@ -48,11 +48,21 @@ der_put_CK_BBOOL_PTR(
         const CK_BBOOL* value
 );
 
+CK_RV
+der_put_CK_UTF8CHAR_ARRAY(
+        dercursor* cursor,
+        const CK_UTF8CHAR* pin,
+        const CK_ULONG* pinlen
+);
+
+CK_RV
+der_put_UTF8String(
+        dercursor* cursor,
+        const CK_UTF8CHAR* pin,
+        const CK_ULONG* pinlen
+);
+
 void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo);
-
-void der_put_CK_UTF8CHAR_ARRAY(const CK_UTF8CHAR* pPin);
-
-void der_put_UTF8String(const CK_UTF8CHAR* pPin);
 
 void der_put_CK_FLAGS_PTR(const CK_FLAGS* flags);
 

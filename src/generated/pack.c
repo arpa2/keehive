@@ -10,6 +10,8 @@ CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
 
 
+
+
 static const derwalk C_CancelFunction_Call_packer[] = {
     DER_PACK_RemotePKCS11_C_CancelFunction_Call,
     DER_PACK_END
@@ -1669,7 +1671,6 @@ pack_C_DecryptInit_Call(
 
 
 
-
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
 
@@ -2102,7 +2103,6 @@ pack_C_DeriveKey_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
@@ -2787,7 +2787,6 @@ pack_C_DigestInit_Call(
 
 
 
-
     // END OF PACKING
 
     pack_target->derlen = der_pack(C_DigestInit_Call_packer,
@@ -3371,7 +3370,6 @@ pack_C_EncryptInit_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
@@ -4032,7 +4030,6 @@ pack_C_GenerateKey_Call(
 
 
 
-
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
@@ -4157,7 +4154,6 @@ pack_C_GenerateKeyPair_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
@@ -5516,9 +5512,9 @@ pack_C_InitPIN_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
 
-    // TODO: finish this
-    //C_InitPIN_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
-    der_put_CK_UTF8CHAR_ARRAY(pPin);
+    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin, ulPinLen);
+    if (pPin_status != CKR_OK)
+        return pPin_status;
 
 
 
@@ -5612,9 +5608,10 @@ pack_C_InitToken_Call(
     // PACKING pPin (type UTF8String)
 
 
-    // TODO: finish this
-    //C_InitToken_Call.pPin = der_put_UTF8String(pPin);
-    der_put_UTF8String(pPin);
+    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
+    CK_RV pPin_status = der_put_UTF8String(&C_InitToken_Call.pPin, pPin, ulPinLen);
+    if (pPin_status != CKR_OK)
+        return pPin_status;
 
 
 
@@ -5629,9 +5626,10 @@ pack_C_InitToken_Call(
     // PACKING pLabel (type UTF8String)
 
 
-    // TODO: finish this
-    //C_InitToken_Call.pLabel = der_put_UTF8String(pLabel);
-    der_put_UTF8String(pLabel);
+    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
+    CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, pulSeedLen);
+    if (pLabel_status != CKR_OK)
+        return pLabel_status;
 
 
 
@@ -5812,9 +5810,9 @@ pack_C_Login_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
 
-    // TODO: finish this
-    //C_Login_Call.pPin = der_put_CK_UTF8CHAR_ARRAY(pPin);
-    der_put_CK_UTF8CHAR_ARRAY(pPin);
+    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin, ulPinLen);
+    if (pPin_status != CKR_OK)
+        return pPin_status;
 
 
 
@@ -6469,9 +6467,9 @@ pack_C_SetPIN_Call(
     // PACKING pOldPin (type CK_UTF8CHAR_ARRAY)
 
 
-    // TODO: finish this
-    //C_SetPIN_Call.pOldPin = der_put_CK_UTF8CHAR_ARRAY(pOldPin);
-    der_put_CK_UTF8CHAR_ARRAY(pOldPin);
+    CK_RV pOldPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin, ulOldLen);
+    if (pOldPin_status != CKR_OK)
+        return pOldPin_status;
 
 
 
@@ -6486,9 +6484,9 @@ pack_C_SetPIN_Call(
     // PACKING pNewPin (type CK_UTF8CHAR_ARRAY)
 
 
-    // TODO: finish this
-    //C_SetPIN_Call.pNewPin = der_put_CK_UTF8CHAR_ARRAY(pNewPin);
-    der_put_CK_UTF8CHAR_ARRAY(pNewPin);
+    CK_RV pNewPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin, ulNewPin);
+    if (pNewPin_status != CKR_OK)
+        return pNewPin_status;
 
 
 
@@ -7052,7 +7050,6 @@ pack_C_SignInit_Call(
 
 
 
-
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
 
@@ -7317,7 +7314,6 @@ pack_C_SignRecoverInit_Call(
 
 
 
-
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
 
@@ -7532,7 +7528,6 @@ pack_C_UnwrapKey_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
@@ -7983,7 +7978,6 @@ pack_C_VerifyInit_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
@@ -8470,7 +8464,6 @@ pack_C_WrapKey_Call(
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
-
 
 
 
