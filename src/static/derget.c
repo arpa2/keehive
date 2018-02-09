@@ -1,6 +1,39 @@
 #include "derget.h"
 
 
+
+int der_get_char(dercursor *cursor, char *val )
+{
+    if (cursor->derlen == 0)
+        return -1;
+    *val = *cursor->derptr;
+
+    return 0;
+}
+
+
+int der_get_uchar(dercursor *cursor, unsigned char *val )
+{
+    if (cursor->derlen == 0)
+        return -1;
+    *val = *cursor->derptr;
+
+    return 0;
+}
+
+
+int der_get_long(dercursor cursor, long int *valp)
+{
+    return der_get_int32 (cursor, (int32_t *)valp);
+};
+
+
+int der_get_ulong(dercursor cursor,  long unsigned int *valp)
+{
+    return der_get_uint32 (cursor, (u_int32_t *)valp);
+};
+
+
 void der_get_CK_ATTRIBUTE_ARRAY( CK_ATTRIBUTE_ARRAY pTemplate) {};
 
 void der_get_CK_BYTE_ARRAY(CK_BYTE_ARRAY pEncryptedData) {};

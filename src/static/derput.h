@@ -4,6 +4,53 @@
 #include "pkcs11/pkcs11unix.h"
 #include "types.h"
 
+
+dercursor der_put_empty();
+
+
+dercursor der_put_null();
+
+
+typedef uint8_t der_buf_long_t [4];
+dercursor
+der_put_long(
+        uint8_t* der_buf_long,
+        long int value
+);
+
+
+typedef uint8_t der_buf_ulong_t [5];
+dercursor
+der_put_ulong(
+        uint8_t* der_buf_ulong,
+        long int value
+);
+
+
+typedef uint8_t der_buf_char_t [1];
+dercursor
+der_put_char(
+        uint8_t* der_buf_char,
+        char value
+);
+
+
+typedef uint8_t der_buf_uchar_t [1];
+dercursor
+der_put_uchar(
+        uint8_t* der_buf_char,
+        unsigned char value
+);
+
+
+typedef uint8_t der_buf_uint32_t [5];
+dercursor
+der_put_uint8(
+        uint8_t* der_buf_uint8,
+        uint8_t value
+);
+
+
 CK_RV
 der_put_CK_ATTRIBUTE_ARRAY(
         const CK_ATTRIBUTE* pTemplate,
@@ -12,6 +59,17 @@ der_put_CK_ATTRIBUTE_ARRAY(
         size_t* pLength,
         const derwalk* pack
 );
+
+
+CK_RV
+der_put_CK_ULONG_ARRAY(
+        const CK_ULONG* array,
+        const CK_ULONG* count,
+        uint8_t** pInnerlist,
+        size_t* pLength,
+        const derwalk* pack
+);
+
 
 CK_RV
 der_put_CK_SLOT_ID_ARRAY(
@@ -22,6 +80,7 @@ der_put_CK_SLOT_ID_ARRAY(
         const derwalk *pack
 );
 
+
 CK_RV
 der_put_CK_BYTE_ARRAY(
         const CK_BYTE* byte_array,
@@ -31,10 +90,12 @@ der_put_CK_BYTE_ARRAY(
         const derwalk* pack
 );
 
+
 dercursor
 der_put_CK_VOID_PTR(
         const CK_VOID_PTR* pReserved
 );
+
 
 CK_RV
 der_put_CK_MECHANISM_PTR(
@@ -42,11 +103,13 @@ der_put_CK_MECHANISM_PTR(
         const CK_MECHANISM* pMechanism
 );
 
+
 dercursor
 der_put_CK_BBOOL_PTR(
         uint8_t *der_buf_bool,
         const CK_BBOOL* value
 );
+
 
 CK_RV
 der_put_CK_UTF8CHAR_ARRAY(
@@ -55,6 +118,7 @@ der_put_CK_UTF8CHAR_ARRAY(
         const CK_ULONG* pinlen
 );
 
+
 CK_RV
 der_put_UTF8String(
         dercursor* cursor,
@@ -62,27 +126,123 @@ der_put_UTF8String(
         const CK_ULONG* pinlen
 );
 
-void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo);
 
-void der_put_CK_FLAGS_PTR(const CK_FLAGS* flags);
+CK_RV
+der_put_CK_C_INITIALIZE_ARGS_PTR(
+        C_Initialize_Call_t* pInitArgsDer,
+        const CK_C_INITIALIZE_ARGS* pInitArgs
+);
 
-void der_put_ANY(ANY pApplication);
 
-void der_put_CK_NOTIFY(CK_NOTIFY notify);
+dercursor
+der_put_CK_FLAGS_PTR(
+        u_int8_t* der_buf_ulong,
+        const CK_FLAGS* flags
+);
 
-CK_RV der_put_CK_C_INITIALIZE_ARGS_PTR(C_Initialize_Call_t* pInitArgsDer, const CK_C_INITIALIZE_ARGS* pInitArgs);
 
-void der_put_CK_INFO_PTR(const CK_INFO* pInfo);
+CK_RV
+der_put_CK_OBJECT_HANDLE_ARRAY(
+        const CK_OBJECT_HANDLE* phObject,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+);
 
-void der_put_CK_SESSION_INFO_PTR(const CK_SESSION_INFO* pInfo);
 
-void der_put_CK_SLOT_INFO_PTR(const CK_SLOT_INFO* pInfo);
+typedef uint8_t manufacturerID_t [32];
+typedef uint8_t libraryDescription_t [32];
+CK_RV
+der_put_CK_INFO_PTR(
+        ACK_INFO_t* Ack_Info,
+        const CK_INFO* pInfo,
+        manufacturerID_t manufacturerID_buf,
+        libraryDescription_t libraryDescription_buf,
+        der_buf_ulong_t flags_buf,
+        der_buf_char_t libraryVersion_minor_buf,
+        der_buf_char_t libraryVersion_major_buf,
+        der_buf_char_t cryptokiVersion_minor_buf,
+        der_buf_char_t cryptokiVersion_major_buf
 
-void der_put_CK_TOKEN_INFO_PTR(const CK_TOKEN_INFO* pInfo);
+);
 
-void der_put_CK_OBJECT_HANDLE_ARRAY(const CK_OBJECT_HANDLE* phObject);
 
-void der_put_CK_MECHANISM_TYPE_ARRAY(const CK_MECHANISM_TYPE* pMechanismList);
+CK_RV
+der_put_CK_MECHANISM_TYPE_ARRAY(
+        const CK_MECHANISM_TYPE* pMechanismList,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+);
+
+
+CK_RV
+der_put_CK_MECHANISM_INFO_PTR(
+        ACK_MECHANISM_INFO_t* Ack_Mechanism_info,
+        const CK_MECHANISM_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        der_buf_ulong_t ulMaxKeySize_buf,
+        der_buf_ulong_t ulMinKeySize_buf
+);
+
+
+CK_RV
+der_put_CK_SESSION_INFO_PTR(
+        ACK_SESSION_INFO_t* Ack_session_Info,
+        const CK_SESSION_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        der_buf_ulong_t slotID_buf,
+        der_buf_ulong_t state_buf,
+        der_buf_ulong_t ulDeviceError_buf
+);
+
+typedef uint8_t slotDescription_t [64];
+CK_RV
+der_put_CK_SLOT_INFO_PTR(
+        ACK_SLOT_INFO_t* Ack_Slot_Info,
+        const CK_SLOT_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        manufacturerID_t manufacturerID_buf,
+        slotDescription_t slotDescription_buf,
+        der_buf_ulong_t firmwareVersion_minor_buf,
+        der_buf_ulong_t firmwareVersion_major_buf,
+        der_buf_ulong_t hardwareVersion_minor_buf,
+        der_buf_ulong_t hardwareVersion_major_buf
+);
+
+
+typedef uint8_t label_t [21];
+typedef uint8_t model_t [16];
+typedef uint8_t serialNumber_t [16];
+typedef uint8_t utcTime_t [16];
+CK_RV
+der_put_CK_TOKEN_INFO_PTR(
+        ACK_TOKEN_INFO_t* Ack_Token_Info,
+        const CK_TOKEN_INFO* pInfo,
+        der_buf_ulong_t firmwareVersion_minor_buf,
+        der_buf_ulong_t firmwareVersion_major_buf,
+        der_buf_ulong_t hardwareVersion_minor_buf,
+        der_buf_ulong_t hardwareVersion_major_buf,
+        der_buf_ulong_t flags_buf,
+        manufacturerID_t manufacturerID_buf,
+        label_t label_buf,
+        model_t model_buf,
+        serialNumber_t serialNumber_buf,
+        der_buf_ulong_t ulMaxSessionCount_buf,
+        der_buf_ulong_t ulSessionCount_buf,
+        der_buf_ulong_t ulMaxRwSessionCount_buf,
+        der_buf_ulong_t ulRwSessionCount_buf,
+        der_buf_ulong_t ulMaxPinLen_buf,
+        der_buf_ulong_t ulMinPinLen_buf,
+        der_buf_ulong_t ulTotalPublicMemory_buf,
+        der_buf_ulong_t ulFreePublicMemory_buf,
+        der_buf_ulong_t ulTotalPrivateMemory_buf,
+        der_buf_ulong_t ulFreePritvateMemory_buf,
+        utcTime_t utcTime_buf
+);
+
 
 #endif //KEEHIVE_DERPUT_H
 

@@ -10,55 +10,82 @@ static const derwalk pValue_packer[] = {
         DER_PACK_END
 };
 
+
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue ACK_ATTRIBUTE_pValue_t;
 
-void der_put_CK_MECHANISM_INFO_PTR(const CK_MECHANISM_INFO* pInfo) {
-    // TODO: implement
-};
-
-void der_put_CK_FLAGS_PTR(const CK_FLAGS* flags) {
-    // TODO: implement
-};
-
-void der_put_ANY(ANY pApplication) {
-    // TODO: implement
-};
-
-void der_put_CK_NOTIFY(const CK_NOTIFY notify) {
-    // TODO: implement
-};
-
-
-void der_put_CK_INFO_PTR(const CK_INFO* pInfo) {
-    // TODO: implement
-};
-
-void der_put_CK_SESSION_INFO_PTR(const CK_SESSION_INFO* pInfo) {
-    // TODO: implement
-};
-
-void der_put_CK_SLOT_INFO_PTR(const CK_SLOT_INFO* pInfo) {
-    // TODO: implement
-};
-
-void der_put_CK_TOKEN_INFO_PTR(const CK_TOKEN_INFO* pInfo) {
-    // TODO: implement
-};
-
-void der_put_CK_OBJECT_HANDLE_ARRAY(const CK_OBJECT_HANDLE* phObject) {
-    // TODO: implement
-};
-
-void der_put_CK_MECHANISM_TYPE_ARRAY(const CK_MECHANISM_TYPE* pMechanismList) {
-    // TODO: implement
-};
 
 dercursor
-der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
+der_put_empty() {
+    dercursor retval;
+    retval.derptr = NULL_PTR;
+    retval.derlen = 0;
+    return retval;
+}
+
+
+dercursor
+der_put_null() {
     dercursor retval;
     retval.derptr = (uint8_t *) "";
     retval.derlen = 0;
     return retval;
+}
+
+
+dercursor der_put_long(u_int8_t* der_buf_long, long int value)
+{
+    return der_put_int32(der_buf_long,(u_int32_t) value);
+};
+
+
+dercursor der_put_ulong(u_int8_t* der_buf_ulong, long int value)
+{
+    return der_put_uint32(der_buf_ulong, (u_int32_t)value);
+};
+
+dercursor der_put_uint8(u_int8_t* der_buf_uint8, uint8_t value)
+{
+    return der_put_uint32(der_buf_uint8, (u_int32_t)value);
+};
+
+
+dercursor der_put_char(u_int8_t* der_buf_char, char value)
+{
+    dercursor retval;
+    retval.derptr = (uint8_t *)der_buf_char;
+    retval.derlen = 1;
+    *retval.derptr = (uint8_t)value;
+    return retval;
+}
+
+
+dercursor der_put_uchar(u_int8_t* der_buf_char, unsigned char value)
+{
+    dercursor retval;
+    retval.derptr = (uint8_t *)der_buf_char;
+    retval.derlen = 1;
+    *retval.derptr = (uint8_t)value;
+    return retval;
+}
+
+
+dercursor
+der_put_CK_FLAGS_PTR(
+        u_int8_t* der_buf_ulong,
+        const CK_FLAGS* flags
+) {
+    return der_put_uint32(der_buf_ulong, (u_int32_t)flags);
+};
+
+
+dercursor
+der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
+    if (pReserved == NULL_PTR) {
+        return der_put_null();
+    } else {
+        // TODO: implement
+        return der_put_null();
+    }
 };
 
 CK_RV
@@ -147,27 +174,27 @@ der_put_CK_ATTRIBUTE_ARRAY(
 
 
 CK_RV
-der_put_CK_SLOT_ID_ARRAY(
-        const CK_SLOT_ID* pSlotList,
+der_put_CK_ULONG_ARRAY(
+        const CK_ULONG* array,
         const CK_ULONG* count,
         uint8_t **pInnerlist,
         size_t *pLength,
         const derwalk *pack
 ) {
     int i;
-    CK_SLOT_ID slot;
+    CK_ULONG item;
     size_t innerlen = 0;
     size_t tmp = 0;
     der_buf_uint32_t buf = { 0 };
     dercursor crs;
 
     for (i = 0; i < *count; i++) {
-        slot = (pSlotList)[i];
-        if (slot > 0xffffffff) {
+        item = (array)[i];
+        if (item > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }
 
-        crs = der_put_uint32(buf, (uint32_t) slot);
+        crs = der_put_uint32(buf, (uint32_t) item);
         tmp = der_pack(pack, &crs, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
@@ -180,11 +207,11 @@ der_put_CK_SLOT_ID_ARRAY(
     }
     while (i-- > 0) {
         assert(innerlen >= 0);
-        slot = (pSlotList)[i];
-        if (slot > 0xffffffff) {
+        item = (array)[i];
+        if (item > 0xffffffff) {
             return CKR_KEEHIVE_MEMORY_ERROR;
         }
-        crs = der_put_uint32(buf, (uint32_t) slot);
+        crs = der_put_uint32(buf, (uint32_t) item);
         tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
@@ -193,6 +220,42 @@ der_put_CK_SLOT_ID_ARRAY(
     assert(innerlen == 0);
 
     return CKR_OK;
+};
+
+
+CK_RV
+der_put_CK_SLOT_ID_ARRAY(
+        const CK_SLOT_ID* pSlotList,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+) {
+    return der_put_CK_ULONG_ARRAY(
+        pSlotList,
+        count,
+        pInnerlist,
+        pLength,
+        pack
+    );
+};
+
+
+CK_RV
+der_put_CK_OBJECT_HANDLE_ARRAY(
+        const CK_OBJECT_HANDLE* phObject,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+) {
+    return der_put_CK_ULONG_ARRAY(
+            phObject,
+            count,
+            pInnerlist,
+            pLength,
+            pack
+    );
 };
 
 
@@ -276,4 +339,207 @@ der_put_UTF8String(
     }
 
     return CKR_OK;
+};
+
+CK_RV
+der_put_CK_INFO_PTR(
+        ACK_INFO_t* Ack_Info,
+        const CK_INFO* pInfo,
+        manufacturerID_t manufacturerID_buf,
+        libraryDescription_t libraryDescription_buf,
+        der_buf_ulong_t flags_buf,
+        der_buf_char_t libraryVersion_minor_buf,
+        der_buf_char_t libraryVersion_major_buf,
+        der_buf_char_t cryptokiVersion_minor_buf,
+        der_buf_char_t cryptokiVersion_major_buf
+
+) {
+    Ack_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+
+    dercursor manufacturerID;
+    manufacturerID.derptr = manufacturerID_buf;
+    memcpy(manufacturerID.derptr, pInfo->manufacturerID, 32);
+    manufacturerID.derlen = 32;
+    Ack_Info->manufacturerID = manufacturerID;
+
+    dercursor libraryDescription;
+    libraryDescription.derptr = libraryDescription_buf;
+    memcpy(libraryDescription.derptr, pInfo->libraryDescription, 32);
+    libraryDescription.derlen = 32;
+    Ack_Info->libraryDescription = libraryDescription;
+
+    Ack_Info->libraryVersion.minor = der_put_char(libraryVersion_minor_buf, pInfo->libraryVersion.minor);
+    Ack_Info->libraryVersion.major = der_put_char(libraryVersion_major_buf, pInfo->libraryVersion.major);
+
+    Ack_Info->cryptokiVersion.minor = der_put_char(cryptokiVersion_minor_buf, pInfo->cryptokiVersion.minor);
+    Ack_Info->cryptokiVersion.major = der_put_char(cryptokiVersion_major_buf, pInfo->cryptokiVersion.major);
+
+    return CKR_OK;
+};
+
+CK_RV
+der_put_CK_MECHANISM_TYPE_ARRAY(
+        const CK_MECHANISM_TYPE* pMechanismList,
+        const CK_ULONG* count,
+        uint8_t **pInnerlist,
+        size_t *pLength,
+        const derwalk *pack
+) {
+    return der_put_CK_ULONG_ARRAY(
+            pMechanismList,
+            count,
+            pInnerlist,
+            pLength,
+            pack
+    );
+};
+
+
+CK_RV
+der_put_CK_MECHANISM_INFO_PTR(
+        ACK_MECHANISM_INFO_t* Ack_Mechanism_info,
+        const CK_MECHANISM_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        der_buf_ulong_t ulMaxKeySize_buf,
+        der_buf_ulong_t ulMinKeySize_buf
+) {
+    Ack_Mechanism_info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Mechanism_info->ulMaxKeySize = der_put_ulong(ulMaxKeySize_buf, pInfo->ulMaxKeySize);
+    Ack_Mechanism_info->ulMinKeySize = der_put_ulong(ulMinKeySize_buf, pInfo->ulMinKeySize);
+
+    return CKR_OK;
+};
+
+CK_RV
+der_put_CK_SESSION_INFO_PTR(
+        ACK_SESSION_INFO_t* Ack_Session_Info,
+        const CK_SESSION_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        der_buf_ulong_t slotID_buf,
+        der_buf_ulong_t state_buf,
+        der_buf_ulong_t ulDeviceError_buf
+) {
+    Ack_Session_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Session_Info->slotID = der_put_ulong(slotID_buf, pInfo->slotID);
+    Ack_Session_Info->state = der_put_ulong(state_buf, pInfo->state);
+    Ack_Session_Info->ulDeviceError = der_put_ulong(ulDeviceError_buf, pInfo->ulDeviceError);
+
+    return CKR_OK;
+};
+
+
+CK_RV
+der_put_CK_SLOT_INFO_PTR(
+        ACK_SLOT_INFO_t* Ack_Slot_Info,
+        const CK_SLOT_INFO* pInfo,
+        der_buf_ulong_t flags_buf,
+        manufacturerID_t manufacturerID_buf,
+        slotDescription_t slotDescription_buf,
+        der_buf_ulong_t firmwareVersion_minor_buf,
+        der_buf_ulong_t firmwareVersion_major_buf,
+        der_buf_ulong_t hardwareVersion_minor_buf,
+        der_buf_ulong_t hardwareVersion_major_buf
+) {
+    Ack_Slot_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+
+    dercursor manufacturerID;
+    manufacturerID.derptr = manufacturerID_buf;
+    memcpy(manufacturerID.derptr, pInfo->manufacturerID, 32);
+    manufacturerID.derlen = 32;
+    Ack_Slot_Info->manufacturerID = manufacturerID;
+
+    dercursor slotDescription;
+    slotDescription.derptr = slotDescription_buf;
+    memcpy(slotDescription.derptr, pInfo->slotDescription, 32);
+    slotDescription.derlen = 32;
+    Ack_Slot_Info->slotDescription = slotDescription;
+
+    Ack_Slot_Info->firmwareVersion.minor = der_put_char(firmwareVersion_minor_buf, pInfo->firmwareVersion.minor);
+    Ack_Slot_Info->firmwareVersion.major = der_put_char(firmwareVersion_major_buf, pInfo->firmwareVersion.major);
+
+    Ack_Slot_Info->hardwareVersion.minor = der_put_char(hardwareVersion_minor_buf, pInfo->hardwareVersion.minor);
+    Ack_Slot_Info->hardwareVersion.major = der_put_char(hardwareVersion_major_buf, pInfo->hardwareVersion.major);
+
+    return CKR_OK;
+
+};
+
+
+CK_RV
+der_put_CK_TOKEN_INFO_PTR(
+        ACK_TOKEN_INFO_t* Ack_Token_Info,
+        const CK_TOKEN_INFO* pInfo,
+        der_buf_ulong_t firmwareVersion_minor_buf,
+        der_buf_ulong_t firmwareVersion_major_buf,
+        der_buf_ulong_t hardwareVersion_minor_buf,
+        der_buf_ulong_t hardwareVersion_major_buf,
+        der_buf_ulong_t flags_buf,
+        manufacturerID_t manufacturerID_buf,
+        label_t label_buf,
+        model_t model_buf,
+        serialNumber_t serialNumber_buf,
+        der_buf_ulong_t ulMaxSessionCount_buf,
+        der_buf_ulong_t ulSessionCount_buf,
+        der_buf_ulong_t ulMaxRwSessionCount_buf,
+        der_buf_ulong_t ulRwSessionCount_buf,
+        der_buf_ulong_t ulMaxPinLen_buf,
+        der_buf_ulong_t ulMinPinLen_buf,
+        der_buf_ulong_t ulTotalPublicMemory_buf,
+        der_buf_ulong_t ulFreePublicMemory_buf,
+        der_buf_ulong_t ulTotalPrivateMemory_buf,
+        der_buf_ulong_t ulFreePritvateMemory_buf,
+        utcTime_t utcTime_buf
+
+) {
+    Ack_Token_Info->firmwareVersion.minor = der_put_char(firmwareVersion_minor_buf, pInfo->firmwareVersion.minor);
+    Ack_Token_Info->firmwareVersion.major = der_put_char(firmwareVersion_major_buf, pInfo->firmwareVersion.major);
+
+    Ack_Token_Info->hardwareVersion.minor = der_put_char(hardwareVersion_minor_buf, pInfo->hardwareVersion.minor);
+    Ack_Token_Info->hardwareVersion.major = der_put_char(hardwareVersion_major_buf, pInfo->hardwareVersion.major);
+
+    dercursor manufacturerID;
+    manufacturerID.derptr = manufacturerID_buf;
+    memcpy(manufacturerID.derptr, pInfo->manufacturerID, 32);
+    manufacturerID.derlen = 32;
+    Ack_Token_Info->manufacturerID = manufacturerID;
+
+    Ack_Token_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+
+    dercursor label;
+    label.derptr = label_buf;
+    memcpy(label.derptr, pInfo->label, 32);
+    label.derlen = 32;
+    Ack_Token_Info->label = label;
+
+    dercursor model;
+    model.derptr = model_buf;
+    memcpy(model.derptr, pInfo->model, 16);
+    model.derlen = 16;
+    Ack_Token_Info->model = model;
+
+    dercursor serialNumber;
+    serialNumber.derptr = serialNumber_buf;
+    memcpy(serialNumber.derptr, pInfo->label, 16);
+    serialNumber.derlen = 16;
+    Ack_Token_Info->serialNumber = serialNumber;
+
+    dercursor utcTime;
+    utcTime.derptr = utcTime_buf;
+    memcpy(utcTime.derptr, pInfo->utcTime, 16);
+    utcTime.derlen = 16;
+    Ack_Token_Info->utcTime = utcTime;
+
+    Ack_Token_Info->ulMaxSessionCount = der_put_ulong(ulMaxSessionCount_buf, pInfo->ulMaxSessionCount);;
+    Ack_Token_Info->ulSessionCount = der_put_ulong(ulSessionCount_buf, pInfo->ulSessionCount);
+    Ack_Token_Info->ulMaxRwSessionCount = der_put_ulong(ulMaxRwSessionCount_buf, pInfo->ulMaxRwSessionCount);
+    Ack_Token_Info->ulRwSessionCount = der_put_ulong(ulRwSessionCount_buf, pInfo->ulRwSessionCount);
+    Ack_Token_Info->ulMaxPinLen = der_put_ulong(ulMaxPinLen_buf, pInfo->ulMaxPinLen);
+    Ack_Token_Info->ulMinPinLen = der_put_ulong(ulMinPinLen_buf, pInfo->ulMinPinLen);
+    Ack_Token_Info->ulTotalPublicMemory = der_put_ulong(ulTotalPublicMemory_buf, pInfo->ulTotalPublicMemory);
+    Ack_Token_Info->ulFreePublicMemory = der_put_ulong(ulFreePublicMemory_buf, pInfo->ulFreePublicMemory);
+    Ack_Token_Info->ulTotalPrivateMemory = der_put_ulong(ulTotalPrivateMemory_buf, pInfo->ulTotalPrivateMemory);
+    Ack_Token_Info->ulFreePritvateMemory = der_put_ulong(ulFreePritvateMemory_buf, pInfo->ulFreePrivateMemory);
+
+    return CKR_OK;
+
 };

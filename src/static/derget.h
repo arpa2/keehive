@@ -4,6 +4,14 @@
 #include "pkcs11/pkcs11unix.h"
 #include "types.h"
 
+int der_get_char(dercursor *cursor, char *val );
+
+int der_get_uchar(dercursor *cursor, unsigned char *val );
+
+int der_get_long (dercursor cursor, long int *valp);
+
+int der_get_ulong (dercursor cursor,  long unsigned int *valp);
+
 void der_get_CK_ATTRIBUTE_ARRAY( CK_ATTRIBUTE_ARRAY pTemplate);
 
 void der_get_CK_BYTE_ARRAY(CK_BYTE_ARRAY pEncryptedData);

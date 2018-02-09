@@ -911,13 +911,13 @@ typedef struct DER_OVLY_RemotePKCS11_C_OpenSession_Call {
 	DER_OVLY_RemotePKCS11_ACK_SLOT_ID slotID; // [0] ACK-SLOT-ID
 	DER_OVLY_RemotePKCS11_ACK_FLAGS flags; // [1] ACK-FLAGS
 	struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication {
-	dercursor null; // NULL
-	dercursor opaque; // ANY
-} pApplication; // [2] CHOICE { null NULL, opaque ANY }
+		dercursor null; // NULL
+		dercursor opaque; // ANY
+	} pApplication; // [2] CHOICE { null NULL, opaque ANY }
 	struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_notify {
-	dercursor null; // NULL
-	dercursor present; // BOOLEAN (TRUE)
-} notify; // [3] CHOICE { null NULL, present BOOLEAN (TRUE) }
+		dercursor null; // NULL
+		dercursor present; // BOOLEAN (TRUE)
+	} notify; // [3] CHOICE { null NULL, present BOOLEAN (TRUE) }
 } DER_OVLY_RemotePKCS11_C_OpenSession_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication;

@@ -678,6 +678,11 @@ static const derwalk pSlotList_packer[] = {
         DER_PACK_END
 };
 
+static const derwalk ObjectHandlerPacker_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
+
 
 /*
  * used by:
@@ -3666,9 +3671,11 @@ pack_C_Finalize_Return(
     // PACKING pReserved (type ANY)
 
 
-    // TODO: finish this
-    //C_Finalize_Return.pReserved = der_put_ANY(pReserved);
-    der_put_ANY(pReserved);
+
+    // TODO: finish this in case not null (ANY pReserved)
+
+    C_Finalize_Return.pReserved = der_put_null();
+
 
 
 
@@ -3762,9 +3769,17 @@ pack_C_FindObjects_Return(
     // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
 
 
-    // TODO: finish this
-    //C_FindObjects_Return.phObject = der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
-    der_put_CK_OBJECT_HANDLE_ARRAY(phObject);
+
+    uint8_t *innerlist = NULL;
+    size_t length = 0;
+
+    CK_RV status = der_put_CK_OBJECT_HANDLE_ARRAY(phObject, pulObjectCount, &innerlist, &length, ObjectHandlerPacker_packer);
+    if (status != CKR_OK)
+        return status;
+
+    C_FindObjects_Return.phObject.wire.derptr = innerlist;
+    C_FindObjects_Return.phObject.wire.derlen = length;
+
 
 
 
@@ -4672,9 +4687,26 @@ pack_C_GetInfo_Return(
     // PACKING pInfo (type CK_INFO_PTR)
 
 
-    // TODO: finish this
-    //C_GetInfo_Return.pInfo = der_put_CK_INFO_PTR(pInfo);
-    der_put_CK_INFO_PTR(pInfo);
+    manufacturerID_t manufacturerID_buf = { 0 };
+    libraryDescription_t libraryDescription_buf = { 0 };
+    der_buf_ulong_t flags_buf = { 0 };
+    der_buf_char_t libraryVersion_minor_buf = { 0 };
+    der_buf_char_t libraryVersion_major_buf = { 0 };
+    der_buf_char_t cryptokiVersion_minor_buf = { 0 };
+    der_buf_char_t cryptokiVersion_major_buf = { 0 };
+    CK_RV pInfo_status = der_put_CK_INFO_PTR(
+            &C_GetInfo_Return.pInfo,
+            pInfo,
+            manufacturerID_buf,
+            libraryDescription_buf,
+            flags_buf,
+            libraryVersion_minor_buf,
+            libraryVersion_major_buf,
+            cryptokiVersion_minor_buf,
+            cryptokiVersion_major_buf
+);
+    if (pInfo_status != CKR_OK)
+        return pInfo_status;
 
 
 
@@ -4767,9 +4799,20 @@ pack_C_GetMechanismInfo_Return(
     // PACKING pInfo (type CK_MECHANISM_INFO_PTR)
 
 
-    // TODO: finish this
-    //C_GetMechanismInfo_Return.pInfo = der_put_CK_MECHANISM_INFO_PTR(pInfo);
-    der_put_CK_MECHANISM_INFO_PTR(pInfo);
+    der_buf_ulong_t flags_buf = { 0 };
+    der_buf_ulong_t ulMaxKeySize_buf = { 0 };
+    der_buf_ulong_t ulMinKeySize_buf = { 0 };
+
+    CK_RV pInfo_status = der_put_CK_MECHANISM_INFO_PTR(
+        &C_GetMechanismInfo_Return.pInfo,
+        pInfo,
+        flags_buf,
+        ulMaxKeySize_buf,
+        ulMinKeySize_buf
+    );
+
+    if (pInfo_status != CKR_OK)
+        return pInfo_status;
 
 
 
@@ -4863,9 +4906,24 @@ pack_C_GetMechanismList_Return(
     // PACKING pMechanismList (type CK_MECHANISM_TYPE_ARRAY)
 
 
-    // TODO: finish this
-    //C_GetMechanismList_Return.pMechanismList = der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
-    der_put_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
+    uint8_t *pMechanismList_innerlist = NULL;
+    size_t pMechanismList_length = 0;
+    CK_RV pMechanismList_status = der_put_CK_MECHANISM_TYPE_ARRAY(
+        pMechanismList,
+        pulCount,
+        &pMechanismList_innerlist,
+        &pMechanismList_length,
+        AttributeArray_packer);
+
+    if (pMechanismList_status != CKR_OK)
+        return pMechanismList_status;
+
+    if (pMechanismList == NULL_PTR) {
+        C_GetMechanismList_Return.pMechanismList.null = der_put_null();
+    } else {
+        C_GetMechanismList_Return.pMechanismList.data.wire.derptr = pMechanismList_innerlist;
+        C_GetMechanismList_Return.pMechanismList.data.wire.derlen = pMechanismList_length;
+    }
 
 
 
@@ -5178,9 +5236,22 @@ pack_C_GetSessionInfo_Return(
     // PACKING pInfo (type CK_SESSION_INFO_PTR)
 
 
-    // TODO: finish this
-    //C_GetSessionInfo_Return.pInfo = der_put_CK_SESSION_INFO_PTR(pInfo);
-    der_put_CK_SESSION_INFO_PTR(pInfo);
+    der_buf_ulong_t flags_buf = { 0 };
+    der_buf_ulong_t slotID_buf = { 0 };
+    der_buf_ulong_t state_buf = { 0 };
+    der_buf_ulong_t ulDeviceError_buf = { 0 };
+
+    CK_RV pInfo_status = der_put_CK_SESSION_INFO_PTR(
+        &C_GetSessionInfo_Return.pInfo,
+        pInfo,
+        flags_buf,
+        slotID_buf,
+        state_buf,
+        ulDeviceError_buf
+    );
+
+    if (pInfo_status != CKR_OK)
+        return pInfo_status;
 
 
 
@@ -5264,9 +5335,29 @@ pack_C_GetSlotInfo_Return(
     // PACKING pInfo (type CK_SLOT_INFO_PTR)
 
 
-    // TODO: finish this
-    //C_GetSlotInfo_Return.pInfo = der_put_CK_SLOT_INFO_PTR(pInfo);
-    der_put_CK_SLOT_INFO_PTR(pInfo);
+    der_buf_ulong_t flags_buf = { 0 };
+    manufacturerID_t manufacturerID_buf = { 0 };
+    slotDescription_t slotDescription_buf = { 0 };
+    der_buf_ulong_t firmwareVersion_minor_buf = { 0 };
+    der_buf_ulong_t firmwareVersion_major_buf = { 0 };
+    der_buf_ulong_t hardwareVersion_minor_buf = { 0 };
+    der_buf_ulong_t hardwareVersion_major_buf = { 0 };
+
+    CK_RV pInfo_status = der_put_CK_SLOT_INFO_PTR(
+        &C_GetSlotInfo_Return.pInfo,
+        pInfo,
+        flags_buf,
+        manufacturerID_buf,
+        slotDescription_buf,
+        firmwareVersion_minor_buf,
+        firmwareVersion_major_buf,
+        hardwareVersion_minor_buf,
+        hardwareVersion_major_buf
+    );
+
+    if (pInfo_status != CKR_OK)
+        return pInfo_status;
+
 
 
 
@@ -5462,9 +5553,57 @@ pack_C_GetTokenInfo_Return(
     // PACKING pInfo (type CK_TOKEN_INFO_PTR)
 
 
-    // TODO: finish this
-    //C_GetTokenInfo_Return.pInfo = der_put_CK_TOKEN_INFO_PTR(pInfo);
-    der_put_CK_TOKEN_INFO_PTR(pInfo);
+    der_buf_ulong_t firmwareVersion_minor_buf = { 0 };
+    der_buf_ulong_t firmwareVersion_major_buf = { 0 };
+    der_buf_ulong_t hardwareVersion_minor_buf = { 0 };
+    der_buf_ulong_t hardwareVersion_major_buf = { 0 };
+    der_buf_ulong_t flags_buf = { 0 };
+    manufacturerID_t manufacturerID_buf = { 0 };
+    label_t label_buf = { 0 };
+    model_t model_buf = { 0 };
+    serialNumber_t serialNumber_buf = { 0 };
+    der_buf_ulong_t ulMaxSessionCount_buf = { 0 };
+    der_buf_ulong_t ulSessionCount_buf = { 0 };
+    der_buf_ulong_t ulMaxRwSessionCount_buf = { 0 };
+    der_buf_ulong_t ulRwSessionCount_buf = { 0 };
+    der_buf_ulong_t ulMaxPinLen_buf = { 0 };
+    der_buf_ulong_t ulMinPinLen_buf = { 0 };
+    der_buf_ulong_t ulTotalPublicMemory_buf = { 0 };
+    der_buf_ulong_t ulFreePublicMemory_buf = { 0 };
+    der_buf_ulong_t ulTotalPrivateMemory_buf = { 0 };
+    der_buf_ulong_t ulFreePritvateMemory_buf = { 0 };
+    der_buf_ulong_t hardwareVersion_buf = { 0 };
+    der_buf_ulong_t firmwareVersion_buf = { 0 };
+    utcTime_t utcTime_buf = { 0 };
+
+    CK_RV pInfo_status = der_put_CK_TOKEN_INFO_PTR(
+        &C_GetTokenInfo_Return.pInfo,
+        pInfo,
+        firmwareVersion_minor_buf,
+        firmwareVersion_major_buf,
+        hardwareVersion_minor_buf,
+        hardwareVersion_major_buf,
+        flags_buf,
+        manufacturerID_buf,
+        label_buf,
+        model_buf,
+        serialNumber_buf,
+        ulMaxSessionCount_buf,
+        ulSessionCount_buf,
+        ulMaxRwSessionCount_buf,
+        ulRwSessionCount_buf,
+        ulMaxPinLen_buf,
+        ulMinPinLen_buf,
+        ulTotalPublicMemory_buf,
+        ulFreePublicMemory_buf,
+        ulTotalPrivateMemory_buf,
+        ulFreePritvateMemory_buf,
+        utcTime_buf
+    );
+
+    if (pInfo_status != CKR_OK)
+        return pInfo_status;
+
 
 
 
@@ -5751,9 +5890,11 @@ pack_C_Initialize_Return(
     // PACKING pInitArgs (type ANY)
 
 
-    // TODO: finish this
-    //C_Initialize_Return.pInitArgs = der_put_ANY(pInitArgs);
-    der_put_ANY(pInitArgs);
+
+    // TODO: finish this in case not null (ANY pInitArgs)
+
+    C_Initialize_Return.pInitArgs = der_put_null();
+
 
 
 
@@ -5982,27 +6123,30 @@ pack_C_OpenSession_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
 
-    // TODO: finish this
-    //C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags);
-    der_put_CK_FLAGS_PTR(flags);
+    der_buf_ulong_t flags_storage = { 0 };
+    C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
 
 
 
     // PACKING pApplication (type ANY)
 
 
-    // TODO: finish this
-    //C_OpenSession_Call.pApplication = der_put_ANY(pApplication);
-    der_put_ANY(pApplication);
+
+    // TODO: finish this in case not null (ANY pApplication)
+
+    C_OpenSession_Call.pApplication.null = der_put_null();
+
 
 
 
     // PACKING notify (type CK_NOTIFY)
 
 
-    // TODO: finish this
-    //C_OpenSession_Call.notify = der_put_CK_NOTIFY(notify);
-    der_put_CK_NOTIFY(notify);
+    // TODO: finish this in case not null (CK_NOTIFY notify)
+    if (*notify != NULL)
+        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+
+    C_OpenSession_Call.notify.null = der_put_null();
 
 
 
@@ -8348,9 +8492,8 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
 
-    // TODO: finish this
-    //C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags);
-    der_put_CK_FLAGS_PTR(flags);
+    der_buf_ulong_t flags_storage = { 0 };
+    C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
 
 
 
