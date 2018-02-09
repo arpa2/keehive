@@ -36,24 +36,6 @@ static const derwalk ObjectHandlerPacker_packer[] = {
         DER_PACK_END
 };
 
-
-/*
- * used by:
- *
- * C_CopyObject_Call
- * C_CreateObject_Call
- * C_DeriveKey_Call
- * C_FindObjectsInit_Call
- * C_FindObjectsInit_Return
- * C_GenerateKey_Call
- * C_GenerateKeyPair_Call_pPublicKeyTemplate_packer
- * C_GenerateKeyPair_Call_pPrivateKeyTemplate_packer
- * C_GetAttributeValue_Call
- * C_SetAttributeValue_Call
- * C_UnwrapKey_Call
- *
- *
-*/
 static const derwalk AttributeArray_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
@@ -80,16 +62,15 @@ pack_{{ f.type_name|under }}(
 
     memset (&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
+    // BEGIN OF PACKING
+
 {% for type, pointerized, var, other in extract_args(f, o ,True) %}
-
     // PACKING {{ var }} (type {{ type }})
-
 {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     der_buf_ulong_t {{ var }}_storage = { 0 };
     {{ f.type_name|under }}.{{ var }} = der_put_ulong({{ var }}_storage, *{{ var }});
 
 {% elif type == "CK_SLOT_ID_ARRAY" %}
-
     uint8_t *innerlist = NULL;
     size_t length = 0;
 
@@ -115,17 +96,6 @@ pack_{{ f.type_name|under }}(
 
 
 {% elif type == "CK_BYTE_ARRAY" %}
-/*
- these are the functions and byte arrays that have a len variable prepended with a p
-pack_C_Decrypt_Return pData
-pack_C_DecryptDigestUpdate_Return pPart
-pack_C_DecryptFinal_Return pLastPart
-pack_C_DecryptUpdate_Return pPart
-pack_C_DecryptVerifyUpdate_Return pPart
-pack_C_Digest_Return pDigest
-pack_C_DigestEncryptUpdate_Return pEncryptedPart
-pack_C_DigestFinal_Return pDigest
- */
 
     uint8_t *{{ var }}_innerlist = NULL;
     size_t {{ var }}_length = 0;
@@ -191,7 +161,6 @@ pack_C_DigestFinal_Return pDigest
     {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_storage, {{ var }});
 
 {% elif type == "ANY" %}
-
     // TODO: finish this in case not null ({{ type }} {{ var }})
 {% if f.type_name|under == "C_OpenSession_Call" %}
     {{ f.type_name|under }}.{{ var }}.null = der_put_null();
@@ -359,8 +328,7 @@ pack_C_DigestFinal_Return pDigest
 
 
 {% else %}
-    // TODO: finish this
-    //{{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }});
+    // TODO: ERROR - unknown type
     der_put_{{ type }}({{ var }});
 
 {% endif -%}
@@ -368,7 +336,6 @@ pack_C_DigestFinal_Return pDigest
     // argument list is empty
     {{ f.type_name|under }}.empty = der_put_null();
 {% endfor %}
-
     // END OF PACKING
 
     pack_target->derlen = der_pack({{ f.type_name|under }}_packer,

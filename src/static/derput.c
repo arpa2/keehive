@@ -519,7 +519,7 @@ der_put_CK_TOKEN_INFO_PTR(
 
     dercursor serialNumber;
     serialNumber.derptr = serialNumber_buf;
-    memcpy(serialNumber.derptr, pInfo->label, 16);
+    memcpy(serialNumber.derptr, pInfo->serialNumber, 16);
     serialNumber.derlen = 16;
     Ack_Token_Info->serialNumber = serialNumber;
 

@@ -2650,26 +2650,26 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_TOKEN_INFO pInfo = {
-                            .label = "gijs",     
-                            .manufacturerID = "gijs",  
-                            .model = "gijs",
-                            .serialNumber = "gijs",    
-                            .flags = 1,
+                            .label = "labeltje",     
+                            .manufacturerID = "manufacturetje",  
+                            .model = "modeletje",
+                            .serialNumber = "serialletje",    
+                            .flags = 10,
                             .ulMaxSessionCount = 1,   
-                            .ulSessionCount = 1,
-                            .ulMaxRwSessionCount = 1, 
-                            .ulRwSessionCount = 1,
-                            .ulMaxPinLen = 1,
-                            .ulMinPinLen = 1,         
-                            .ulTotalPublicMemory = 1, 
-                            .ulFreePublicMemory = 1,
-                            .ulTotalPrivateMemory = 1,
-                            .ulFreePrivateMemory = 1,
-                            .hardwareVersion.major = 1,
-                            .hardwareVersion.minor = 1,
-                            .firmwareVersion.major = 1,
-                            .firmwareVersion.minor = 1, 
-                            .utcTime = "gijs" };
+                            .ulSessionCount = 2,
+                            .ulMaxRwSessionCount = 3, 
+                            .ulRwSessionCount = 4,
+                            .ulMaxPinLen = 5,
+                            .ulMinPinLen = 6,         
+                            .ulTotalPublicMemory = 7, 
+                            .ulFreePublicMemory = 8,
+                            .ulTotalPrivateMemory = 9,
+                            .ulFreePrivateMemory = 10,
+                            .hardwareVersion.major = 11,
+                            .hardwareVersion.minor = 12,
+                            .firmwareVersion.major = 13,
+                            .firmwareVersion.minor = 14, 
+                            .utcTime = "gijs time" };
     
 
     CK_RV status = pack_C_GetTokenInfo_Return(
