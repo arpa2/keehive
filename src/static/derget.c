@@ -28,8 +28,11 @@ int der_get_long(dercursor cursor, long int *valp)
 };
 
 
-int der_get_ulong(dercursor cursor,  long unsigned int *valp)
-{
+int
+der_get_ulong(
+        dercursor cursor,
+        long unsigned int *valp
+) {
     return der_get_uint32 (cursor, (u_int32_t *)valp);
 };
 
@@ -62,7 +65,7 @@ der_get_CK_VOID_PTR(
         void* Ack_Void,
         CK_VOID_PTR pReserved
 ) {
-/* TODO: ok problem here,which one do we want?
+/* TODO: ok problem here, which one do we want?
  *  - 'struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved *'
  *  - 'struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved *'
 */

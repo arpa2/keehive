@@ -12,7 +12,6 @@ int der_get_long (dercursor cursor, long int *valp);
 
 int der_get_ulong (dercursor cursor, long unsigned int *valp);
 
-
 int der_get_CK_ATTRIBUTE_ARRAY(ACK_ATTRIBUTE_ARRAY_t* Ack_Attribute_Array, CK_ATTRIBUTE_ARRAY pTemplate);
 
 int der_get_CK_BYTE_ARRAY(ACK_BYTE_ARRAY_t* Ack_Byte_Array, CK_BYTE_ARRAY pEncryptedData);

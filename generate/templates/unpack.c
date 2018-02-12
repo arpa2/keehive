@@ -47,7 +47,7 @@ unpack_{{ f.type_name|under }}(
 {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     status = der_get_ulong({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 {% elif type  == "ANY" %}
     // todo: do we need to convert ANY?
@@ -55,7 +55,7 @@ unpack_{{ f.type_name|under }}(
 {% else %}
     status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 {% endif %}
 {% endfor %}
