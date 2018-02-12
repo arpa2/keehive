@@ -41,16 +41,24 @@ unpack_{{ f.type_name|under }}(
     if (status != 0)
         return der_error_helper(errno);
 
-    {% for type, pointerized, var, other in extract_args(f, o, True) -%}
-    {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_USER_TYPE") %}
+    // STARTING UNPACKING
+
+{% for type, pointerized, var, other in extract_args(f, o, True) -%}
+{% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     status = der_get_ulong({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    {% else %}
-    // TODO: properly convert {{ type }} ({{ var }})
-    der_get_{{ type }}({{ var }});
-    {% endif %}
-    {% endfor %}
+
+{% elif type  == "ANY" %}
+    // todo: do we need to convert ANY?
+
+{% else %}
+    status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+{% endif %}
+{% endfor %}
 
     return CKR_OK;
 };

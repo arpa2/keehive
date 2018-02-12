@@ -696,6 +696,7 @@ static const derwalk ByteArray_packer[] = {
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CancelFunction_Call(
         dercursor* pack_target,
@@ -709,6 +710,7 @@ pack_C_CancelFunction_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_CancelFunction_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -732,6 +734,7 @@ pack_C_CancelFunction_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CancelFunction_Return(
         dercursor* pack_target,
@@ -745,6 +748,7 @@ pack_C_CancelFunction_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_CancelFunction_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -770,6 +774,7 @@ pack_C_CancelFunction_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CloseAllSessions_Call(
         dercursor* pack_target,
@@ -783,6 +788,7 @@ pack_C_CloseAllSessions_Call(
 
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
+
 
     der_buf_ulong_t slotID_storage = { 0 };
     C_CloseAllSessions_Call.slotID = der_put_ulong(slotID_storage, *slotID);
@@ -806,6 +812,7 @@ pack_C_CloseAllSessions_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CloseAllSessions_Return(
         dercursor* pack_target,
@@ -819,6 +826,7 @@ pack_C_CloseAllSessions_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_CloseAllSessions_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -844,6 +852,7 @@ pack_C_CloseAllSessions_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CloseSession_Call(
         dercursor* pack_target,
@@ -857,6 +866,7 @@ pack_C_CloseSession_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_CloseSession_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -880,6 +890,7 @@ pack_C_CloseSession_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CloseSession_Return(
         dercursor* pack_target,
@@ -893,6 +904,7 @@ pack_C_CloseSession_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_CloseSession_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -918,6 +930,7 @@ pack_C_CloseSession_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CopyObject_Call(
         dercursor* pack_target,
@@ -935,17 +948,20 @@ pack_C_CopyObject_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_CopyObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hObject_storage = { 0 };
     C_CopyObject_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -964,6 +980,7 @@ pack_C_CopyObject_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_CopyObject_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -987,6 +1004,7 @@ pack_C_CopyObject_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CopyObject_Return(
         dercursor* pack_target,
@@ -1002,11 +1020,13 @@ pack_C_CopyObject_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_CopyObject_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phObject_storage = { 0 };
     C_CopyObject_Return.phObject = der_put_ulong(phObject_storage, *phObject);
@@ -1032,6 +1052,7 @@ pack_C_CopyObject_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CreateObject_Call(
         dercursor* pack_target,
@@ -1048,11 +1069,13 @@ pack_C_CreateObject_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_CreateObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -1071,6 +1094,7 @@ pack_C_CreateObject_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_CreateObject_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -1094,6 +1118,7 @@ pack_C_CreateObject_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CreateObject_Return(
         dercursor* pack_target,
@@ -1109,11 +1134,13 @@ pack_C_CreateObject_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_CreateObject_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phObject_storage = { 0 };
     C_CreateObject_Return.phObject = der_put_ulong(phObject_storage, *phObject);
@@ -1139,6 +1166,7 @@ pack_C_CreateObject_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Decrypt_Call(
         dercursor* pack_target,
@@ -1156,11 +1184,13 @@ pack_C_Decrypt_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Decrypt_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedData_innerlist = NULL;
@@ -1181,11 +1211,13 @@ pack_C_Decrypt_Call(
 
     // PACKING ulEncryptedDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulEncryptedDataLen_storage = { 0 };
     C_Decrypt_Call.ulEncryptedDataLen = der_put_ulong(ulEncryptedDataLen_storage, *ulEncryptedDataLen);
 
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDataLen_storage = { 0 };
     C_Decrypt_Call.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
@@ -1209,6 +1241,7 @@ pack_C_Decrypt_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Decrypt_Return(
         dercursor* pack_target,
@@ -1225,11 +1258,13 @@ pack_C_Decrypt_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Decrypt_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -1249,6 +1284,7 @@ pack_C_Decrypt_Return(
 
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDataLen_storage = { 0 };
     C_Decrypt_Return.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
@@ -1274,6 +1310,7 @@ pack_C_Decrypt_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptDigestUpdate_Call(
         dercursor* pack_target,
@@ -1291,11 +1328,13 @@ pack_C_DecryptDigestUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DecryptDigestUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -1316,11 +1355,13 @@ pack_C_DecryptDigestUpdate_Call(
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
     C_DecryptDigestUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptDigestUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1344,6 +1385,7 @@ pack_C_DecryptDigestUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptDigestUpdate_Return(
         dercursor* pack_target,
@@ -1360,11 +1402,13 @@ pack_C_DecryptDigestUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DecryptDigestUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -1384,6 +1428,7 @@ pack_C_DecryptDigestUpdate_Return(
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptDigestUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1409,6 +1454,7 @@ pack_C_DecryptDigestUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptFinal_Call(
         dercursor* pack_target,
@@ -1424,11 +1470,13 @@ pack_C_DecryptFinal_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DecryptFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pulLastPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulLastPartLen_storage = { 0 };
     C_DecryptFinal_Call.pulLastPartLen = der_put_ulong(pulLastPartLen_storage, *pulLastPartLen);
@@ -1452,6 +1500,7 @@ pack_C_DecryptFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptFinal_Return(
         dercursor* pack_target,
@@ -1468,11 +1517,13 @@ pack_C_DecryptFinal_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DecryptFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pLastPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pLastPart_innerlist = NULL;
@@ -1492,6 +1543,7 @@ pack_C_DecryptFinal_Return(
 
 
     // PACKING pulLastPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulLastPartLen_storage = { 0 };
     C_DecryptFinal_Return.pulLastPartLen = der_put_ulong(pulLastPartLen_storage, *pulLastPartLen);
@@ -1517,6 +1569,7 @@ pack_C_DecryptFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptInit_Call(
         dercursor* pack_target,
@@ -1533,11 +1586,13 @@ pack_C_DecryptInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DecryptInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -1545,6 +1600,7 @@ pack_C_DecryptInit_Call(
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_DecryptInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -1568,6 +1624,7 @@ pack_C_DecryptInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptInit_Return(
         dercursor* pack_target,
@@ -1581,6 +1638,7 @@ pack_C_DecryptInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_DecryptInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -1606,6 +1664,7 @@ pack_C_DecryptInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptUpdate_Call(
         dercursor* pack_target,
@@ -1623,11 +1682,13 @@ pack_C_DecryptUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DecryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -1648,11 +1709,13 @@ pack_C_DecryptUpdate_Call(
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
     C_DecryptUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1676,6 +1739,7 @@ pack_C_DecryptUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptUpdate_Return(
         dercursor* pack_target,
@@ -1692,11 +1756,13 @@ pack_C_DecryptUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DecryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -1716,6 +1782,7 @@ pack_C_DecryptUpdate_Return(
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1741,6 +1808,7 @@ pack_C_DecryptUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptVerifyUpdate_Call(
         dercursor* pack_target,
@@ -1758,11 +1826,13 @@ pack_C_DecryptVerifyUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DecryptVerifyUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -1783,11 +1853,13 @@ pack_C_DecryptVerifyUpdate_Call(
 
     // PACKING ulEncryptedPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulEncryptedPartLen_storage = { 0 };
     C_DecryptVerifyUpdate_Call.ulEncryptedPartLen = der_put_ulong(ulEncryptedPartLen_storage, *ulEncryptedPartLen);
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptVerifyUpdate_Call.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1811,6 +1883,7 @@ pack_C_DecryptVerifyUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DecryptVerifyUpdate_Return(
         dercursor* pack_target,
@@ -1827,11 +1900,13 @@ pack_C_DecryptVerifyUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DecryptVerifyUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -1851,6 +1926,7 @@ pack_C_DecryptVerifyUpdate_Return(
 
 
     // PACKING pulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulPartLen_storage = { 0 };
     C_DecryptVerifyUpdate_Return.pulPartLen = der_put_ulong(pulPartLen_storage, *pulPartLen);
@@ -1876,6 +1952,7 @@ pack_C_DecryptVerifyUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DeriveKey_Call(
         dercursor* pack_target,
@@ -1894,11 +1971,13 @@ pack_C_DeriveKey_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DeriveKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -1907,11 +1986,13 @@ pack_C_DeriveKey_Call(
 
     // PACKING hBaseKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hBaseKey_storage = { 0 };
     C_DeriveKey_Call.hBaseKey = der_put_ulong(hBaseKey_storage, *hBaseKey);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -1930,6 +2011,7 @@ pack_C_DeriveKey_Call(
 
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulAttributeCount_storage = { 0 };
     C_DeriveKey_Call.ulAttributeCount = der_put_ulong(ulAttributeCount_storage, *ulAttributeCount);
@@ -1953,6 +2035,7 @@ pack_C_DeriveKey_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DeriveKey_Return(
         dercursor* pack_target,
@@ -1968,11 +2051,13 @@ pack_C_DeriveKey_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DeriveKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phKey_storage = { 0 };
     C_DeriveKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
@@ -1998,6 +2083,7 @@ pack_C_DeriveKey_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DestroyObject_Call(
         dercursor* pack_target,
@@ -2013,11 +2099,13 @@ pack_C_DestroyObject_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DestroyObject_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hObject_storage = { 0 };
     C_DestroyObject_Call.hObject = der_put_ulong(hObject_storage, *hObject);
@@ -2041,6 +2129,7 @@ pack_C_DestroyObject_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DestroyObject_Return(
         dercursor* pack_target,
@@ -2054,6 +2143,7 @@ pack_C_DestroyObject_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_DestroyObject_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -2079,6 +2169,7 @@ pack_C_DestroyObject_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Digest_Call(
         dercursor* pack_target,
@@ -2096,11 +2187,13 @@ pack_C_Digest_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Digest_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -2121,11 +2214,13 @@ pack_C_Digest_Call(
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulDataLen_storage = { 0 };
     C_Digest_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDigestLen_storage = { 0 };
     C_Digest_Call.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
@@ -2149,6 +2244,7 @@ pack_C_Digest_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Digest_Return(
         dercursor* pack_target,
@@ -2165,11 +2261,13 @@ pack_C_Digest_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Digest_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pDigest (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pDigest_innerlist = NULL;
@@ -2189,6 +2287,7 @@ pack_C_Digest_Return(
 
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDigestLen_storage = { 0 };
     C_Digest_Return.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
@@ -2214,6 +2313,7 @@ pack_C_Digest_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestEncryptUpdate_Call(
         dercursor* pack_target,
@@ -2231,11 +2331,13 @@ pack_C_DigestEncryptUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DigestEncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -2256,11 +2358,13 @@ pack_C_DigestEncryptUpdate_Call(
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_DigestEncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_DigestEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -2284,6 +2388,7 @@ pack_C_DigestEncryptUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestEncryptUpdate_Return(
         dercursor* pack_target,
@@ -2300,11 +2405,13 @@ pack_C_DigestEncryptUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DigestEncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -2324,6 +2431,7 @@ pack_C_DigestEncryptUpdate_Return(
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_DigestEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -2349,6 +2457,7 @@ pack_C_DigestEncryptUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestFinal_Call(
         dercursor* pack_target,
@@ -2364,11 +2473,13 @@ pack_C_DigestFinal_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DigestFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDigestLen_storage = { 0 };
     C_DigestFinal_Call.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
@@ -2392,6 +2503,7 @@ pack_C_DigestFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestFinal_Return(
         dercursor* pack_target,
@@ -2408,11 +2520,13 @@ pack_C_DigestFinal_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_DigestFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pDigest (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pDigest_innerlist = NULL;
@@ -2432,6 +2546,7 @@ pack_C_DigestFinal_Return(
 
 
     // PACKING pulDigestLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDigestLen_storage = { 0 };
     C_DigestFinal_Return.pulDigestLen = der_put_ulong(pulDigestLen_storage, *pulDigestLen);
@@ -2457,6 +2572,7 @@ pack_C_DigestFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestInit_Call(
         dercursor* pack_target,
@@ -2472,11 +2588,13 @@ pack_C_DigestInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DigestInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -2501,6 +2619,7 @@ pack_C_DigestInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestInit_Return(
         dercursor* pack_target,
@@ -2514,6 +2633,7 @@ pack_C_DigestInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_DigestInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -2539,6 +2659,7 @@ pack_C_DigestInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestKey_Call(
         dercursor* pack_target,
@@ -2554,11 +2675,13 @@ pack_C_DigestKey_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DigestKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_DigestKey_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -2582,6 +2705,7 @@ pack_C_DigestKey_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestKey_Return(
         dercursor* pack_target,
@@ -2595,6 +2719,7 @@ pack_C_DigestKey_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_DigestKey_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -2620,6 +2745,7 @@ pack_C_DigestKey_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestUpdate_Call(
         dercursor* pack_target,
@@ -2636,11 +2762,13 @@ pack_C_DigestUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_DigestUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -2660,6 +2788,7 @@ pack_C_DigestUpdate_Call(
 
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_DigestUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
@@ -2683,6 +2812,7 @@ pack_C_DigestUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_DigestUpdate_Return(
         dercursor* pack_target,
@@ -2696,6 +2826,7 @@ pack_C_DigestUpdate_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_DigestUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -2721,6 +2852,7 @@ pack_C_DigestUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Encrypt_Call(
         dercursor* pack_target,
@@ -2738,11 +2870,13 @@ pack_C_Encrypt_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Encrypt_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -2763,11 +2897,13 @@ pack_C_Encrypt_Call(
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulDataLen_storage = { 0 };
     C_Encrypt_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
     C_Encrypt_Call.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
@@ -2791,6 +2927,7 @@ pack_C_Encrypt_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Encrypt_Return(
         dercursor* pack_target,
@@ -2807,11 +2944,13 @@ pack_C_Encrypt_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Encrypt_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedData_innerlist = NULL;
@@ -2831,6 +2970,7 @@ pack_C_Encrypt_Return(
 
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
     C_Encrypt_Return.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
@@ -2856,6 +2996,7 @@ pack_C_Encrypt_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptFinal_Call(
         dercursor* pack_target,
@@ -2871,11 +3012,13 @@ pack_C_EncryptFinal_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_EncryptFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
     C_EncryptFinal_Call.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
@@ -2899,6 +3042,7 @@ pack_C_EncryptFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptFinal_Return(
         dercursor* pack_target,
@@ -2915,11 +3059,13 @@ pack_C_EncryptFinal_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_EncryptFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pEncryptedData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedData_innerlist = NULL;
@@ -2939,6 +3085,7 @@ pack_C_EncryptFinal_Return(
 
 
     // PACKING pulEncryptedDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedDataLen_storage = { 0 };
     C_EncryptFinal_Return.pulEncryptedDataLen = der_put_ulong(pulEncryptedDataLen_storage, *pulEncryptedDataLen);
@@ -2964,6 +3111,7 @@ pack_C_EncryptFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptInit_Call(
         dercursor* pack_target,
@@ -2980,11 +3128,13 @@ pack_C_EncryptInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_EncryptInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -2992,6 +3142,7 @@ pack_C_EncryptInit_Call(
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_EncryptInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -3015,6 +3166,7 @@ pack_C_EncryptInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptInit_Return(
         dercursor* pack_target,
@@ -3028,6 +3180,7 @@ pack_C_EncryptInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_EncryptInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -3053,6 +3206,7 @@ pack_C_EncryptInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptUpdate_Call(
         dercursor* pack_target,
@@ -3070,11 +3224,13 @@ pack_C_EncryptUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_EncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -3095,11 +3251,13 @@ pack_C_EncryptUpdate_Call(
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_EncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_EncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -3123,6 +3281,7 @@ pack_C_EncryptUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_EncryptUpdate_Return(
         dercursor* pack_target,
@@ -3139,11 +3298,13 @@ pack_C_EncryptUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_EncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -3163,6 +3324,7 @@ pack_C_EncryptUpdate_Return(
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_EncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -3188,6 +3350,7 @@ pack_C_EncryptUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Finalize_Call(
         dercursor* pack_target,
@@ -3201,6 +3364,7 @@ pack_C_Finalize_Call(
 
 
     // PACKING pReserved (type CK_VOID_PTR)
+
 
     C_Finalize_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
 
@@ -3223,6 +3387,7 @@ pack_C_Finalize_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Finalize_Return(
         dercursor* pack_target,
@@ -3238,11 +3403,13 @@ pack_C_Finalize_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Finalize_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pReserved (type ANY)
+
 
     // TODO: finish this in case not null (ANY pReserved)
 
@@ -3270,6 +3437,7 @@ pack_C_Finalize_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjects_Call(
         dercursor* pack_target,
@@ -3285,11 +3453,13 @@ pack_C_FindObjects_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_FindObjects_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING ulMaxObjectCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulMaxObjectCount_storage = { 0 };
     C_FindObjects_Call.ulMaxObjectCount = der_put_ulong(ulMaxObjectCount_storage, *ulMaxObjectCount);
@@ -3313,6 +3483,7 @@ pack_C_FindObjects_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjects_Return(
         dercursor* pack_target,
@@ -3329,11 +3500,13 @@ pack_C_FindObjects_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_FindObjects_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
+
 
 
     uint8_t *innerlist = NULL;
@@ -3349,6 +3522,7 @@ pack_C_FindObjects_Return(
 
 
     // PACKING pulObjectCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulObjectCount_storage = { 0 };
     C_FindObjects_Return.pulObjectCount = der_put_ulong(pulObjectCount_storage, *pulObjectCount);
@@ -3374,6 +3548,7 @@ pack_C_FindObjects_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjectsFinal_Call(
         dercursor* pack_target,
@@ -3387,6 +3562,7 @@ pack_C_FindObjectsFinal_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_FindObjectsFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -3410,6 +3586,7 @@ pack_C_FindObjectsFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjectsFinal_Return(
         dercursor* pack_target,
@@ -3423,6 +3600,7 @@ pack_C_FindObjectsFinal_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_FindObjectsFinal_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -3448,6 +3626,7 @@ pack_C_FindObjectsFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjectsInit_Call(
         dercursor* pack_target,
@@ -3464,11 +3643,13 @@ pack_C_FindObjectsInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_FindObjectsInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -3487,6 +3668,7 @@ pack_C_FindObjectsInit_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_FindObjectsInit_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -3510,6 +3692,7 @@ pack_C_FindObjectsInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_FindObjectsInit_Return(
         dercursor* pack_target,
@@ -3525,11 +3708,13 @@ pack_C_FindObjectsInit_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_FindObjectsInit_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -3567,6 +3752,7 @@ pack_C_FindObjectsInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateKey_Call(
         dercursor* pack_target,
@@ -3584,11 +3770,13 @@ pack_C_GenerateKey_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GenerateKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -3596,6 +3784,7 @@ pack_C_GenerateKey_Call(
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -3614,6 +3803,7 @@ pack_C_GenerateKey_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_GenerateKey_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -3637,6 +3827,7 @@ pack_C_GenerateKey_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateKey_Return(
         dercursor* pack_target,
@@ -3652,11 +3843,13 @@ pack_C_GenerateKey_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GenerateKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phKey_storage = { 0 };
     C_GenerateKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
@@ -3682,6 +3875,7 @@ pack_C_GenerateKey_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateKeyPair_Call(
         dercursor* pack_target,
@@ -3701,11 +3895,13 @@ pack_C_GenerateKeyPair_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GenerateKeyPair_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -3713,6 +3909,7 @@ pack_C_GenerateKeyPair_Call(
 
 
     // PACKING pPublicKeyTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pPublicKeyTemplate_innerlist = NULL;
     size_t pPublicKeyTemplate_length = 0;
@@ -3732,11 +3929,13 @@ pack_C_GenerateKeyPair_Call(
 
     // PACKING ulPublicKeyAttributeCount (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulPublicKeyAttributeCount_storage = { 0 };
     C_GenerateKeyPair_Call.ulPublicKeyAttributeCount = der_put_ulong(ulPublicKeyAttributeCount_storage, *ulPublicKeyAttributeCount);
 
 
     // PACKING pPrivateKeyTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pPrivateKeyTemplate_innerlist = NULL;
     size_t pPrivateKeyTemplate_length = 0;
@@ -3755,6 +3954,7 @@ pack_C_GenerateKeyPair_Call(
 
 
     // PACKING ulPrivateKeyAttributeCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPrivateKeyAttributeCount_storage = { 0 };
     C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount = der_put_ulong(ulPrivateKeyAttributeCount_storage, *ulPrivateKeyAttributeCount);
@@ -3778,6 +3978,7 @@ pack_C_GenerateKeyPair_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateKeyPair_Return(
         dercursor* pack_target,
@@ -3794,17 +3995,20 @@ pack_C_GenerateKeyPair_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GenerateKeyPair_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phPublicKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t phPublicKey_storage = { 0 };
     C_GenerateKeyPair_Return.phPublicKey = der_put_ulong(phPublicKey_storage, *phPublicKey);
 
 
     // PACKING phPrivateKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phPrivateKey_storage = { 0 };
     C_GenerateKeyPair_Return.phPrivateKey = der_put_ulong(phPrivateKey_storage, *phPrivateKey);
@@ -3830,6 +4034,7 @@ pack_C_GenerateKeyPair_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateRandom_Call(
         dercursor* pack_target,
@@ -3845,11 +4050,13 @@ pack_C_GenerateRandom_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GenerateRandom_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING ulRandomLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulRandomLen_storage = { 0 };
     C_GenerateRandom_Call.ulRandomLen = der_put_ulong(ulRandomLen_storage, *ulRandomLen);
@@ -3873,6 +4080,7 @@ pack_C_GenerateRandom_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GenerateRandom_Return(
         dercursor* pack_target,
@@ -3888,11 +4096,13 @@ pack_C_GenerateRandom_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GenerateRandom_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSeed (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSeed_innerlist = NULL;
@@ -3931,6 +4141,7 @@ pack_C_GenerateRandom_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetAttributeValue_Call(
         dercursor* pack_target,
@@ -3948,17 +4159,20 @@ pack_C_GetAttributeValue_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GetAttributeValue_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hObject_storage = { 0 };
     C_GetAttributeValue_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -3977,6 +4191,7 @@ pack_C_GetAttributeValue_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_GetAttributeValue_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -4000,6 +4215,7 @@ pack_C_GetAttributeValue_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetAttributeValue_Return(
         dercursor* pack_target,
@@ -4015,11 +4231,13 @@ pack_C_GetAttributeValue_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetAttributeValue_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -4057,6 +4275,7 @@ pack_C_GetAttributeValue_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetFunctionStatus_Call(
         dercursor* pack_target,
@@ -4070,6 +4289,7 @@ pack_C_GetFunctionStatus_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_GetFunctionStatus_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -4093,6 +4313,7 @@ pack_C_GetFunctionStatus_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetFunctionStatus_Return(
         dercursor* pack_target,
@@ -4106,6 +4327,7 @@ pack_C_GetFunctionStatus_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_GetFunctionStatus_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -4131,6 +4353,7 @@ pack_C_GetFunctionStatus_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetInfo_Call(
         dercursor* pack_target
@@ -4163,6 +4386,7 @@ pack_C_GetInfo_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetInfo_Return(
         dercursor* pack_target,
@@ -4178,11 +4402,13 @@ pack_C_GetInfo_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInfo (type CK_INFO_PTR)
+
 
     manufacturerID_t manufacturerID_buf = { 0 };
     libraryDescription_t libraryDescription_buf = { 0 };
@@ -4226,6 +4452,7 @@ pack_C_GetInfo_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetMechanismInfo_Call(
         dercursor* pack_target,
@@ -4241,11 +4468,13 @@ pack_C_GetMechanismInfo_Call(
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
+
     der_buf_ulong_t slotID_storage = { 0 };
     C_GetMechanismInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
 
     // PACKING type (type CK_MECHANISM_TYPE_PTR)
+
 
     der_buf_ulong_t type_storage = { 0 };
     C_GetMechanismInfo_Call.type = der_put_ulong(type_storage, *type);
@@ -4269,6 +4498,7 @@ pack_C_GetMechanismInfo_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetMechanismInfo_Return(
         dercursor* pack_target,
@@ -4284,11 +4514,13 @@ pack_C_GetMechanismInfo_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetMechanismInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInfo (type CK_MECHANISM_INFO_PTR)
+
 
     der_buf_ulong_t flags_buf = { 0 };
     der_buf_ulong_t ulMaxKeySize_buf = { 0 };
@@ -4326,6 +4558,7 @@ pack_C_GetMechanismInfo_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetMechanismList_Call(
         dercursor* pack_target,
@@ -4341,11 +4574,13 @@ pack_C_GetMechanismList_Call(
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
+
     der_buf_ulong_t slotID_storage = { 0 };
     C_GetMechanismList_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
 
     // PACKING pulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulCount_storage = { 0 };
     C_GetMechanismList_Call.pulCount = der_put_ulong(pulCount_storage, *pulCount);
@@ -4369,6 +4604,7 @@ pack_C_GetMechanismList_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetMechanismList_Return(
         dercursor* pack_target,
@@ -4385,11 +4621,13 @@ pack_C_GetMechanismList_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetMechanismList_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pMechanismList (type CK_MECHANISM_TYPE_ARRAY)
+
 
     uint8_t *pMechanismList_innerlist = NULL;
     size_t pMechanismList_length = 0;
@@ -4412,6 +4650,7 @@ pack_C_GetMechanismList_Return(
 
 
     // PACKING pulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulCount_storage = { 0 };
     C_GetMechanismList_Return.pulCount = der_put_ulong(pulCount_storage, *pulCount);
@@ -4437,6 +4676,7 @@ pack_C_GetMechanismList_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetObjectSize_Call(
         dercursor* pack_target,
@@ -4452,11 +4692,13 @@ pack_C_GetObjectSize_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GetObjectSize_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hObject_storage = { 0 };
     C_GetObjectSize_Call.hObject = der_put_ulong(hObject_storage, *hObject);
@@ -4480,6 +4722,7 @@ pack_C_GetObjectSize_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetObjectSize_Return(
         dercursor* pack_target,
@@ -4495,11 +4738,13 @@ pack_C_GetObjectSize_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetObjectSize_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pulSize (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSize_storage = { 0 };
     C_GetObjectSize_Return.pulSize = der_put_ulong(pulSize_storage, *pulSize);
@@ -4525,6 +4770,7 @@ pack_C_GetObjectSize_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetOperationState_Call(
         dercursor* pack_target,
@@ -4540,11 +4786,13 @@ pack_C_GetOperationState_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_GetOperationState_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pulOperationStateLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulOperationStateLen_storage = { 0 };
     C_GetOperationState_Call.pulOperationStateLen = der_put_ulong(pulOperationStateLen_storage, *pulOperationStateLen);
@@ -4568,6 +4816,7 @@ pack_C_GetOperationState_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetOperationState_Return(
         dercursor* pack_target,
@@ -4584,11 +4833,13 @@ pack_C_GetOperationState_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetOperationState_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pOperationState (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pOperationState_innerlist = NULL;
@@ -4608,6 +4859,7 @@ pack_C_GetOperationState_Return(
 
 
     // PACKING pulOperationStateLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulOperationStateLen_storage = { 0 };
     C_GetOperationState_Return.pulOperationStateLen = der_put_ulong(pulOperationStateLen_storage, *pulOperationStateLen);
@@ -4633,6 +4885,7 @@ pack_C_GetOperationState_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSessionInfo_Call(
         dercursor* pack_target,
@@ -4646,6 +4899,7 @@ pack_C_GetSessionInfo_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_GetSessionInfo_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -4669,6 +4923,7 @@ pack_C_GetSessionInfo_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSessionInfo_Return(
         dercursor* pack_target,
@@ -4684,11 +4939,13 @@ pack_C_GetSessionInfo_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetSessionInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInfo (type CK_SESSION_INFO_PTR)
+
 
     der_buf_ulong_t flags_buf = { 0 };
     der_buf_ulong_t slotID_buf = { 0 };
@@ -4728,6 +4985,7 @@ pack_C_GetSessionInfo_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSlotInfo_Call(
         dercursor* pack_target,
@@ -4741,6 +4999,7 @@ pack_C_GetSlotInfo_Call(
 
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
+
 
     der_buf_ulong_t slotID_storage = { 0 };
     C_GetSlotInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
@@ -4764,6 +5023,7 @@ pack_C_GetSlotInfo_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSlotInfo_Return(
         dercursor* pack_target,
@@ -4779,11 +5039,13 @@ pack_C_GetSlotInfo_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetSlotInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInfo (type CK_SLOT_INFO_PTR)
+
 
     der_buf_ulong_t flags_buf = { 0 };
     manufacturerID_t manufacturerID_buf = { 0 };
@@ -4830,6 +5092,7 @@ pack_C_GetSlotInfo_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSlotList_Call(
         dercursor* pack_target,
@@ -4845,11 +5108,13 @@ pack_C_GetSlotList_Call(
 
     // PACKING tokenPresent (type CK_BBOOL_PTR)
 
+
     der_buf_bool_t tokenPresent_buf = { 0 };
     C_GetSlotList_Call.tokenPresent = der_put_CK_BBOOL_PTR(tokenPresent_buf, tokenPresent);
 
 
     // PACKING pulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulCount_storage = { 0 };
     C_GetSlotList_Call.pulCount = der_put_ulong(pulCount_storage, *pulCount);
@@ -4873,6 +5138,7 @@ pack_C_GetSlotList_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetSlotList_Return(
         dercursor* pack_target,
@@ -4889,11 +5155,13 @@ pack_C_GetSlotList_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetSlotList_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSlotList (type CK_SLOT_ID_ARRAY)
+
 
     uint8_t *innerlist = NULL;
     size_t length = 0;
@@ -4908,6 +5176,7 @@ pack_C_GetSlotList_Return(
 
 
     // PACKING pulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulCount_storage = { 0 };
     C_GetSlotList_Return.pulCount = der_put_ulong(pulCount_storage, *pulCount);
@@ -4933,6 +5202,7 @@ pack_C_GetSlotList_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetTokenInfo_Call(
         dercursor* pack_target,
@@ -4946,6 +5216,7 @@ pack_C_GetTokenInfo_Call(
 
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
+
 
     der_buf_ulong_t slotID_storage = { 0 };
     C_GetTokenInfo_Call.slotID = der_put_ulong(slotID_storage, *slotID);
@@ -4969,6 +5240,7 @@ pack_C_GetTokenInfo_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_GetTokenInfo_Return(
         dercursor* pack_target,
@@ -4984,11 +5256,13 @@ pack_C_GetTokenInfo_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_GetTokenInfo_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInfo (type CK_TOKEN_INFO_PTR)
+
 
     der_buf_ulong_t firmwareVersion_minor_buf = { 0 };
     der_buf_ulong_t firmwareVersion_major_buf = { 0 };
@@ -5056,13 +5330,12 @@ pack_C_GetTokenInfo_Return(
              (const dercursor *) &C_GetTokenInfo_Return,
              pack_target->derptr + pack_target->derlen);
 
-    der_dump("/tmp/CK_TOKEN_INFO", pack_target);
-
     return CKR_OK;
 };
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_InitPIN_Call(
         dercursor* pack_target,
@@ -5079,11 +5352,13 @@ pack_C_InitPIN_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_InitPIN_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
+
 
     CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin, ulPinLen);
     if (pPin_status != CKR_OK)
@@ -5091,6 +5366,7 @@ pack_C_InitPIN_Call(
 
 
     // PACKING ulPinLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPinLen_storage = { 0 };
     C_InitPIN_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
@@ -5114,6 +5390,7 @@ pack_C_InitPIN_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_InitPIN_Return(
         dercursor* pack_target,
@@ -5127,6 +5404,7 @@ pack_C_InitPIN_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_InitPIN_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5152,6 +5430,7 @@ pack_C_InitPIN_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_InitToken_Call(
         dercursor* pack_target,
@@ -5169,11 +5448,13 @@ pack_C_InitToken_Call(
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
+
     der_buf_ulong_t slotID_storage = { 0 };
     C_InitToken_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
 
     // PACKING pPin (type UTF8String)
+
 
     // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
     CK_RV pPin_status = der_put_UTF8String(&C_InitToken_Call.pPin, pPin, ulPinLen);
@@ -5183,11 +5464,13 @@ pack_C_InitToken_Call(
 
     // PACKING ulPinLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulPinLen_storage = { 0 };
     C_InitToken_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
 
 
     // PACKING pLabel (type UTF8String)
+
 
     // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
     CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, pulSeedLen);
@@ -5213,6 +5496,7 @@ pack_C_InitToken_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_InitToken_Return(
         dercursor* pack_target,
@@ -5226,6 +5510,7 @@ pack_C_InitToken_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_InitToken_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5251,6 +5536,7 @@ pack_C_InitToken_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Initialize_Call(
         dercursor* pack_target,
@@ -5264,6 +5550,7 @@ pack_C_Initialize_Call(
 
 
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
+
 
     CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call, pInitArgs);
     if (status != CKR_OK)
@@ -5288,6 +5575,7 @@ pack_C_Initialize_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Initialize_Return(
         dercursor* pack_target,
@@ -5303,11 +5591,13 @@ pack_C_Initialize_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Initialize_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pInitArgs (type ANY)
+
 
     // TODO: finish this in case not null (ANY pInitArgs)
 
@@ -5335,6 +5625,7 @@ pack_C_Initialize_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Login_Call(
         dercursor* pack_target,
@@ -5352,11 +5643,13 @@ pack_C_Login_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Login_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING userType (type CK_USER_TYPE_PTR)
+
 
     der_buf_ulong_t userType_storage = { 0 };
     C_Login_Call.userType = der_put_ulong(userType_storage, *userType);
@@ -5364,12 +5657,14 @@ pack_C_Login_Call(
 
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
+
     CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin, ulPinLen);
     if (pPin_status != CKR_OK)
         return pPin_status;
 
 
     // PACKING ulPinLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPinLen_storage = { 0 };
     C_Login_Call.ulPinLen = der_put_ulong(ulPinLen_storage, *ulPinLen);
@@ -5393,6 +5688,7 @@ pack_C_Login_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Login_Return(
         dercursor* pack_target,
@@ -5406,6 +5702,7 @@ pack_C_Login_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_Login_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5431,6 +5728,7 @@ pack_C_Login_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Logout_Call(
         dercursor* pack_target,
@@ -5444,6 +5742,7 @@ pack_C_Logout_Call(
 
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t hSession_storage = { 0 };
     C_Logout_Call.hSession = der_put_ulong(hSession_storage, *hSession);
@@ -5467,6 +5766,7 @@ pack_C_Logout_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Logout_Return(
         dercursor* pack_target,
@@ -5480,6 +5780,7 @@ pack_C_Logout_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_Logout_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5505,6 +5806,7 @@ pack_C_Logout_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_OpenSession_Call(
         dercursor* pack_target,
@@ -5522,17 +5824,20 @@ pack_C_OpenSession_Call(
 
     // PACKING slotID (type CK_SLOT_ID_PTR)
 
+
     der_buf_ulong_t slotID_storage = { 0 };
     C_OpenSession_Call.slotID = der_put_ulong(slotID_storage, *slotID);
 
 
     // PACKING flags (type CK_FLAGS_PTR)
 
+
     der_buf_ulong_t flags_storage = { 0 };
     C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
 
 
     // PACKING pApplication (type ANY)
+
 
     // TODO: finish this in case not null (ANY pApplication)
 
@@ -5541,6 +5846,7 @@ pack_C_OpenSession_Call(
 
 
     // PACKING notify (type CK_NOTIFY)
+
 
     // TODO: finish this in case not null (CK_NOTIFY notify)
     if (*notify != NULL)
@@ -5567,6 +5873,7 @@ pack_C_OpenSession_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_OpenSession_Return(
         dercursor* pack_target,
@@ -5582,11 +5889,13 @@ pack_C_OpenSession_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_OpenSession_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phSession (type CK_SESSION_HANDLE_PTR)
+
 
     der_buf_ulong_t phSession_storage = { 0 };
     C_OpenSession_Return.phSession = der_put_ulong(phSession_storage, *phSession);
@@ -5612,6 +5921,7 @@ pack_C_OpenSession_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SeedRandom_Call(
         dercursor* pack_target,
@@ -5628,11 +5938,13 @@ pack_C_SeedRandom_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SeedRandom_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pSeed (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSeed_innerlist = NULL;
@@ -5652,6 +5964,7 @@ pack_C_SeedRandom_Call(
 
 
     // PACKING ulSeedLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulSeedLen_storage = { 0 };
     C_SeedRandom_Call.ulSeedLen = der_put_ulong(ulSeedLen_storage, *ulSeedLen);
@@ -5675,6 +5988,7 @@ pack_C_SeedRandom_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SeedRandom_Return(
         dercursor* pack_target,
@@ -5688,6 +6002,7 @@ pack_C_SeedRandom_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SeedRandom_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5713,6 +6028,7 @@ pack_C_SeedRandom_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetAttributeValue_Call(
         dercursor* pack_target,
@@ -5730,17 +6046,20 @@ pack_C_SetAttributeValue_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SetAttributeValue_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING hObject (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hObject_storage = { 0 };
     C_SetAttributeValue_Call.hObject = der_put_ulong(hObject_storage, *hObject);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -5759,6 +6078,7 @@ pack_C_SetAttributeValue_Call(
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulCount_storage = { 0 };
     C_SetAttributeValue_Call.ulCount = der_put_ulong(ulCount_storage, *ulCount);
@@ -5782,6 +6102,7 @@ pack_C_SetAttributeValue_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetAttributeValue_Return(
         dercursor* pack_target,
@@ -5795,6 +6116,7 @@ pack_C_SetAttributeValue_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SetAttributeValue_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5820,6 +6142,7 @@ pack_C_SetAttributeValue_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetOperationState_Call(
         dercursor* pack_target,
@@ -5838,11 +6161,13 @@ pack_C_SetOperationState_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SetOperationState_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pOperationState (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pOperationState_innerlist = NULL;
@@ -5863,17 +6188,20 @@ pack_C_SetOperationState_Call(
 
     // PACKING ulOperationStateLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulOperationStateLen_storage = { 0 };
     C_SetOperationState_Call.ulOperationStateLen = der_put_ulong(ulOperationStateLen_storage, *ulOperationStateLen);
 
 
     // PACKING hEncryptionKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hEncryptionKey_storage = { 0 };
     C_SetOperationState_Call.hEncryptionKey = der_put_ulong(hEncryptionKey_storage, *hEncryptionKey);
 
 
     // PACKING hAuthenticationKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hAuthenticationKey_storage = { 0 };
     C_SetOperationState_Call.hAuthenticationKey = der_put_ulong(hAuthenticationKey_storage, *hAuthenticationKey);
@@ -5897,6 +6225,7 @@ pack_C_SetOperationState_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetOperationState_Return(
         dercursor* pack_target,
@@ -5910,6 +6239,7 @@ pack_C_SetOperationState_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SetOperationState_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -5935,6 +6265,7 @@ pack_C_SetOperationState_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetPIN_Call(
         dercursor* pack_target,
@@ -5953,11 +6284,13 @@ pack_C_SetPIN_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SetPIN_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pOldPin (type CK_UTF8CHAR_ARRAY)
+
 
     CK_RV pOldPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin, ulOldLen);
     if (pOldPin_status != CKR_OK)
@@ -5966,11 +6299,13 @@ pack_C_SetPIN_Call(
 
     // PACKING ulOldLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulOldLen_storage = { 0 };
     C_SetPIN_Call.ulOldLen = der_put_ulong(ulOldLen_storage, *ulOldLen);
 
 
     // PACKING pNewPin (type CK_UTF8CHAR_ARRAY)
+
 
     CK_RV pNewPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin, ulNewPin);
     if (pNewPin_status != CKR_OK)
@@ -5978,6 +6313,7 @@ pack_C_SetPIN_Call(
 
 
     // PACKING ulNewPin (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulNewPin_storage = { 0 };
     C_SetPIN_Call.ulNewPin = der_put_ulong(ulNewPin_storage, *ulNewPin);
@@ -6001,6 +6337,7 @@ pack_C_SetPIN_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SetPIN_Return(
         dercursor* pack_target,
@@ -6014,6 +6351,7 @@ pack_C_SetPIN_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SetPIN_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -6039,6 +6377,7 @@ pack_C_SetPIN_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Sign_Call(
         dercursor* pack_target,
@@ -6056,11 +6395,13 @@ pack_C_Sign_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Sign_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -6081,11 +6422,13 @@ pack_C_Sign_Call(
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulDataLen_storage = { 0 };
     C_Sign_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_Sign_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6109,6 +6452,7 @@ pack_C_Sign_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Sign_Return(
         dercursor* pack_target,
@@ -6125,11 +6469,13 @@ pack_C_Sign_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_Sign_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -6149,6 +6495,7 @@ pack_C_Sign_Return(
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_Sign_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6174,6 +6521,7 @@ pack_C_Sign_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignEncryptUpdate_Call(
         dercursor* pack_target,
@@ -6191,11 +6539,13 @@ pack_C_SignEncryptUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignEncryptUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -6216,11 +6566,13 @@ pack_C_SignEncryptUpdate_Call(
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_SignEncryptUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_SignEncryptUpdate_Call.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -6244,6 +6596,7 @@ pack_C_SignEncryptUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignEncryptUpdate_Return(
         dercursor* pack_target,
@@ -6260,11 +6613,13 @@ pack_C_SignEncryptUpdate_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_SignEncryptUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pEncryptedPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pEncryptedPart_innerlist = NULL;
@@ -6284,6 +6639,7 @@ pack_C_SignEncryptUpdate_Return(
 
 
     // PACKING pulEncryptedPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulEncryptedPartLen_storage = { 0 };
     C_SignEncryptUpdate_Return.pulEncryptedPartLen = der_put_ulong(pulEncryptedPartLen_storage, *pulEncryptedPartLen);
@@ -6309,6 +6665,7 @@ pack_C_SignEncryptUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignFinal_Call(
         dercursor* pack_target,
@@ -6324,11 +6681,13 @@ pack_C_SignFinal_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_SignFinal_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6352,6 +6711,7 @@ pack_C_SignFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignFinal_Return(
         dercursor* pack_target,
@@ -6368,11 +6728,13 @@ pack_C_SignFinal_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_SignFinal_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -6392,6 +6754,7 @@ pack_C_SignFinal_Return(
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_SignFinal_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6417,6 +6780,7 @@ pack_C_SignFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignInit_Call(
         dercursor* pack_target,
@@ -6433,11 +6797,13 @@ pack_C_SignInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -6445,6 +6811,7 @@ pack_C_SignInit_Call(
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_SignInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -6468,6 +6835,7 @@ pack_C_SignInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignInit_Return(
         dercursor* pack_target,
@@ -6481,6 +6849,7 @@ pack_C_SignInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SignInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -6506,6 +6875,7 @@ pack_C_SignInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignRecover_Call(
         dercursor* pack_target,
@@ -6523,11 +6893,13 @@ pack_C_SignRecover_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignRecover_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -6548,11 +6920,13 @@ pack_C_SignRecover_Call(
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulDataLen_storage = { 0 };
     C_SignRecover_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_SignRecover_Call.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6576,6 +6950,7 @@ pack_C_SignRecover_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignRecover_Return(
         dercursor* pack_target,
@@ -6592,11 +6967,13 @@ pack_C_SignRecover_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_SignRecover_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -6616,6 +6993,7 @@ pack_C_SignRecover_Return(
 
 
     // PACKING pulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulSignatureLen_storage = { 0 };
     C_SignRecover_Return.pulSignatureLen = der_put_ulong(pulSignatureLen_storage, *pulSignatureLen);
@@ -6641,6 +7019,7 @@ pack_C_SignRecover_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignRecoverInit_Call(
         dercursor* pack_target,
@@ -6657,11 +7036,13 @@ pack_C_SignRecoverInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignRecoverInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -6669,6 +7050,7 @@ pack_C_SignRecoverInit_Call(
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_SignRecoverInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -6692,6 +7074,7 @@ pack_C_SignRecoverInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignRecoverInit_Return(
         dercursor* pack_target,
@@ -6705,6 +7088,7 @@ pack_C_SignRecoverInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SignRecoverInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -6730,6 +7114,7 @@ pack_C_SignRecoverInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignUpdate_Call(
         dercursor* pack_target,
@@ -6746,11 +7131,13 @@ pack_C_SignUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_SignUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -6770,6 +7157,7 @@ pack_C_SignUpdate_Call(
 
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_SignUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
@@ -6793,6 +7181,7 @@ pack_C_SignUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_SignUpdate_Return(
         dercursor* pack_target,
@@ -6806,6 +7195,7 @@ pack_C_SignUpdate_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_SignUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -6831,6 +7221,7 @@ pack_C_SignUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_UnwrapKey_Call(
         dercursor* pack_target,
@@ -6851,11 +7242,13 @@ pack_C_UnwrapKey_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_UnwrapKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -6864,11 +7257,13 @@ pack_C_UnwrapKey_Call(
 
     // PACKING hUnwrappingKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hUnwrappingKey_storage = { 0 };
     C_UnwrapKey_Call.hUnwrappingKey = der_put_ulong(hUnwrappingKey_storage, *hUnwrappingKey);
 
 
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pWrappedKey_innerlist = NULL;
@@ -6889,11 +7284,13 @@ pack_C_UnwrapKey_Call(
 
     // PACKING ulWrappedKeyLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulWrappedKeyLen_storage = { 0 };
     C_UnwrapKey_Call.ulWrappedKeyLen = der_put_ulong(ulWrappedKeyLen_storage, *ulWrappedKeyLen);
 
 
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
+
 
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
@@ -6912,6 +7309,7 @@ pack_C_UnwrapKey_Call(
 
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulAttributeCount_storage = { 0 };
     C_UnwrapKey_Call.ulAttributeCount = der_put_ulong(ulAttributeCount_storage, *ulAttributeCount);
@@ -6935,6 +7333,7 @@ pack_C_UnwrapKey_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_UnwrapKey_Return(
         dercursor* pack_target,
@@ -6950,11 +7349,13 @@ pack_C_UnwrapKey_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_UnwrapKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING phKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t phKey_storage = { 0 };
     C_UnwrapKey_Return.phKey = der_put_ulong(phKey_storage, *phKey);
@@ -6980,6 +7381,7 @@ pack_C_UnwrapKey_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Verify_Call(
         dercursor* pack_target,
@@ -6998,11 +7400,13 @@ pack_C_Verify_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_Verify_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -7023,11 +7427,13 @@ pack_C_Verify_Call(
 
     // PACKING ulDataLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulDataLen_storage = { 0 };
     C_Verify_Call.ulDataLen = der_put_ulong(ulDataLen_storage, *ulDataLen);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -7047,6 +7453,7 @@ pack_C_Verify_Call(
 
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulSignatureLen_storage = { 0 };
     C_Verify_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
@@ -7070,6 +7477,7 @@ pack_C_Verify_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_Verify_Return(
         dercursor* pack_target,
@@ -7083,6 +7491,7 @@ pack_C_Verify_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_Verify_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -7108,6 +7517,7 @@ pack_C_Verify_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyFinal_Call(
         dercursor* pack_target,
@@ -7124,11 +7534,13 @@ pack_C_VerifyFinal_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_VerifyFinal_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -7148,6 +7560,7 @@ pack_C_VerifyFinal_Call(
 
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulSignatureLen_storage = { 0 };
     C_VerifyFinal_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
@@ -7171,6 +7584,7 @@ pack_C_VerifyFinal_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyFinal_Return(
         dercursor* pack_target,
@@ -7184,6 +7598,7 @@ pack_C_VerifyFinal_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_VerifyFinal_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -7209,6 +7624,7 @@ pack_C_VerifyFinal_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyInit_Call(
         dercursor* pack_target,
@@ -7225,11 +7641,13 @@ pack_C_VerifyInit_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_VerifyInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -7237,6 +7655,7 @@ pack_C_VerifyInit_Call(
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
 
     der_buf_ulong_t hKey_storage = { 0 };
     C_VerifyInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
@@ -7260,6 +7679,7 @@ pack_C_VerifyInit_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyInit_Return(
         dercursor* pack_target,
@@ -7273,6 +7693,7 @@ pack_C_VerifyInit_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_VerifyInit_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -7298,6 +7719,7 @@ pack_C_VerifyInit_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyRecover_Call(
         dercursor* pack_target,
@@ -7315,11 +7737,13 @@ pack_C_VerifyRecover_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_VerifyRecover_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pSignature (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pSignature_innerlist = NULL;
@@ -7340,11 +7764,13 @@ pack_C_VerifyRecover_Call(
 
     // PACKING ulSignatureLen (type CK_ULONG_PTR)
 
+
     der_buf_ulong_t ulSignatureLen_storage = { 0 };
     C_VerifyRecover_Call.ulSignatureLen = der_put_ulong(ulSignatureLen_storage, *ulSignatureLen);
 
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDataLen_storage = { 0 };
     C_VerifyRecover_Call.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
@@ -7368,6 +7794,7 @@ pack_C_VerifyRecover_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyRecover_Return(
         dercursor* pack_target,
@@ -7384,11 +7811,13 @@ pack_C_VerifyRecover_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_VerifyRecover_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pData (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pData_innerlist = NULL;
@@ -7408,6 +7837,7 @@ pack_C_VerifyRecover_Return(
 
 
     // PACKING pulDataLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulDataLen_storage = { 0 };
     C_VerifyRecover_Return.pulDataLen = der_put_ulong(pulDataLen_storage, *pulDataLen);
@@ -7433,6 +7863,7 @@ pack_C_VerifyRecover_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyUpdate_Call(
         dercursor* pack_target,
@@ -7449,11 +7880,13 @@ pack_C_VerifyUpdate_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_VerifyUpdate_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pPart (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pPart_innerlist = NULL;
@@ -7473,6 +7906,7 @@ pack_C_VerifyUpdate_Call(
 
 
     // PACKING ulPartLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t ulPartLen_storage = { 0 };
     C_VerifyUpdate_Call.ulPartLen = der_put_ulong(ulPartLen_storage, *ulPartLen);
@@ -7496,6 +7930,7 @@ pack_C_VerifyUpdate_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_VerifyUpdate_Return(
         dercursor* pack_target,
@@ -7509,6 +7944,7 @@ pack_C_VerifyUpdate_Return(
 
 
     // PACKING retval (type CK_RV_PTR)
+
 
     der_buf_ulong_t retval_storage = { 0 };
     C_VerifyUpdate_Return.retval = der_put_ulong(retval_storage, *retval);
@@ -7534,6 +7970,7 @@ pack_C_VerifyUpdate_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_WaitForSlotEvent_Call(
         dercursor* pack_target,
@@ -7549,11 +7986,13 @@ pack_C_WaitForSlotEvent_Call(
 
     // PACKING flags (type CK_FLAGS_PTR)
 
+
     der_buf_ulong_t flags_storage = { 0 };
     C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
 
 
     // PACKING pReserved (type CK_VOID_PTR)
+
 
     C_WaitForSlotEvent_Call.pReserved.null = der_put_CK_VOID_PTR(pReserved);
 
@@ -7576,6 +8015,7 @@ pack_C_WaitForSlotEvent_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_WaitForSlotEvent_Return(
         dercursor* pack_target,
@@ -7592,17 +8032,20 @@ pack_C_WaitForSlotEvent_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_WaitForSlotEvent_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pSlot (type CK_SLOT_ID_PTR)
 
+
     der_buf_ulong_t pSlot_storage = { 0 };
     C_WaitForSlotEvent_Return.pSlot = der_put_ulong(pSlot_storage, *pSlot);
 
 
     // PACKING pReserved (type CK_VOID_PTR)
+
 
     C_WaitForSlotEvent_Return.pReserved.null = der_put_CK_VOID_PTR(pReserved);
 
@@ -7627,6 +8070,7 @@ pack_C_WaitForSlotEvent_Return(
 
 
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_WrapKey_Call(
         dercursor* pack_target,
@@ -7645,11 +8089,13 @@ pack_C_WrapKey_Call(
 
     // PACKING hSession (type CK_SESSION_HANDLE_PTR)
 
+
     der_buf_ulong_t hSession_storage = { 0 };
     C_WrapKey_Call.hSession = der_put_ulong(hSession_storage, *hSession);
 
 
     // PACKING pMechanism (type CK_MECHANISM_PTR)
+
 
     CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
     if (pMechanism_status != CKR_OK)
@@ -7658,17 +8104,20 @@ pack_C_WrapKey_Call(
 
     // PACKING hWrappingKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hWrappingKey_storage = { 0 };
     C_WrapKey_Call.hWrappingKey = der_put_ulong(hWrappingKey_storage, *hWrappingKey);
 
 
     // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
 
+
     der_buf_ulong_t hKey_storage = { 0 };
     C_WrapKey_Call.hKey = der_put_ulong(hKey_storage, *hKey);
 
 
     // PACKING pulWrappedKeyLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulWrappedKeyLen_storage = { 0 };
     C_WrapKey_Call.pulWrappedKeyLen = der_put_ulong(pulWrappedKeyLen_storage, *pulWrappedKeyLen);
@@ -7692,6 +8141,7 @@ pack_C_WrapKey_Call(
     return CKR_OK;
 };
 
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_WrapKey_Return(
         dercursor* pack_target,
@@ -7708,11 +8158,13 @@ pack_C_WrapKey_Return(
 
     // PACKING retval (type CK_RV_PTR)
 
+
     der_buf_ulong_t retval_storage = { 0 };
     C_WrapKey_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
     // PACKING pWrappedKey (type CK_BYTE_ARRAY)
+
 
 
     uint8_t *pWrappedKey_innerlist = NULL;
@@ -7732,6 +8184,7 @@ pack_C_WrapKey_Return(
 
 
     // PACKING pulWrappedKeyLen (type CK_ULONG_PTR)
+
 
     der_buf_ulong_t pulWrappedKeyLen_storage = { 0 };
     C_WrapKey_Return.pulWrappedKeyLen = der_put_ulong(pulWrappedKeyLen_storage, *pulWrappedKeyLen);

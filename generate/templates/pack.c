@@ -49,6 +49,7 @@ static const derwalk ByteArray_packer[] = {
 
 {% for call, return_ in zipped %}
 {% for f, o in ((call, return_), (return_, call)) %}
+/* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_{{ f.type_name|under }}(
         dercursor* pack_target
@@ -66,6 +67,7 @@ pack_{{ f.type_name|under }}(
 
 {% for type, pointerized, var, other in extract_args(f, o ,True) %}
     // PACKING {{ var }} (type {{ type }})
+
 {% if type[:-4] in ("CK_ULONG", "CK_RV", "CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_MECHANISM_TYPE", "CK_USER_TYPE") %}
     der_buf_ulong_t {{ var }}_storage = { 0 };
     {{ f.type_name|under }}.{{ var }} = der_put_ulong({{ var }}_storage, *{{ var }});

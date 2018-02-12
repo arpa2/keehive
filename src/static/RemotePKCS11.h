@@ -1171,9 +1171,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_VerifyUpdate_Return {
 typedef struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call {
 	DER_OVLY_RemotePKCS11_ACK_FLAGS flags; // [0] ACK-FLAGS
 	struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved {
-	dercursor null; // NULL
-	/* ...ASN.1 extensions... */
-} pReserved; // [2] CHOICE { null NULL, ... }
+		dercursor null; // NULL
+		/* ...ASN.1 extensions... */
+	} pReserved; // [2] CHOICE { null NULL, ... }
 } DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved;

@@ -8,6 +8,9 @@
 {% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 void test_client_{{ f }}(void **state){
+
+    (void) state; /* unused */
+
     {% for type, pointerized, value in combined_args(call, return_) -%}
     {{ initialise(type, value) }}
     {% endfor %}

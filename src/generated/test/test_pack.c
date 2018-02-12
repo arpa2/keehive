@@ -14,7 +14,7 @@ void test_pack_C_CancelFunction_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_CancelFunction_Call(
@@ -24,15 +24,24 @@ void test_pack_C_CancelFunction_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_CancelFunction_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_CancelFunction_Return(void **state) {
@@ -51,15 +60,24 @@ void test_pack_C_CancelFunction_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_CancelFunction_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -70,7 +88,7 @@ void test_pack_C_CloseAllSessions_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
+    CK_SLOT_ID slotID = 13;
     
 
     CK_RV status = pack_C_CloseAllSessions_Call(
@@ -80,15 +98,24 @@ void test_pack_C_CloseAllSessions_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    
 
     status = unpack_C_CloseAllSessions_Call(
         &dercursor,
-        &slotID
+        &slotID_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+
 };
 
 void test_pack_C_CloseAllSessions_Return(void **state) {
@@ -107,15 +134,24 @@ void test_pack_C_CloseAllSessions_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_CloseAllSessions_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -126,7 +162,7 @@ void test_pack_C_CloseSession_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_CloseSession_Call(
@@ -136,15 +172,24 @@ void test_pack_C_CloseSession_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_CloseSession_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_CloseSession_Return(void **state) {
@@ -163,15 +208,24 @@ void test_pack_C_CloseSession_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_CloseSession_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -182,12 +236,12 @@ void test_pack_C_CopyObject_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_CopyObject_Call(
@@ -200,18 +254,42 @@ void test_pack_C_CopyObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_CopyObject_Call(
         &dercursor,
-        &hSession,
-        &hObject,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        &hObject_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hObject, hObject_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_CopyObject_Return(void **state) {
@@ -221,7 +299,7 @@ void test_pack_C_CopyObject_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phObject = 0;
+    CK_OBJECT_HANDLE phObject = 13;
     
 
     CK_RV status = pack_C_CopyObject_Return(
@@ -232,16 +310,30 @@ void test_pack_C_CopyObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phObject_unpack = 0;
+    CK_OBJECT_HANDLE phObject_unpack;
+    
 
     status = unpack_C_CopyObject_Return(
         &dercursor,
-        &retval,
-        &phObject
+        &retval_unpack,
+        &phObject_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phObject, phObject_unpack);
+
+
+
 };
 
 
@@ -252,11 +344,11 @@ void test_pack_C_CreateObject_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_CreateObject_Call(
@@ -268,17 +360,36 @@ void test_pack_C_CreateObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_CreateObject_Call(
         &dercursor,
-        &hSession,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_CreateObject_Return(void **state) {
@@ -288,7 +399,7 @@ void test_pack_C_CreateObject_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phObject = 0;
+    CK_OBJECT_HANDLE phObject = 13;
     
 
     CK_RV status = pack_C_CreateObject_Return(
@@ -299,16 +410,30 @@ void test_pack_C_CreateObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phObject_unpack = 0;
+    CK_OBJECT_HANDLE phObject_unpack;
+    
 
     status = unpack_C_CreateObject_Return(
         &dercursor,
-        &retval,
-        &phObject
+        &retval_unpack,
+        &phObject_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phObject, phObject_unpack);
+
+
+
 };
 
 
@@ -319,10 +444,10 @@ void test_pack_C_Decrypt_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulEncryptedDataLen = 0;
-    CK_ULONG pulDataLen = 0;
+    CK_ULONG ulEncryptedDataLen = 13;
+    CK_ULONG pulDataLen = 13;
     
 
     CK_RV status = pack_C_Decrypt_Call(
@@ -335,18 +460,42 @@ void test_pack_C_Decrypt_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedData_unpack;
+    //CK_ULONG ulEncryptedDataLen_unpack = 0;
+    CK_ULONG ulEncryptedDataLen_unpack;
+    //CK_ULONG pulDataLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack;
+    
 
     status = unpack_C_Decrypt_Call(
         &dercursor,
-        &hSession,
-        pEncryptedData,
-        &ulEncryptedDataLen,
-        &pulDataLen
+        &hSession_unpack,
+        pEncryptedData_unpack,
+        &ulEncryptedDataLen_unpack,
+        &pulDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pEncryptedData, pEncryptedData_unpack);
+
+
+    assert_int_equal(ulEncryptedDataLen, ulEncryptedDataLen_unpack);
+
+
+    assert_int_equal(pulDataLen, pulDataLen_unpack);
+
+
+
 };
 
 void test_pack_C_Decrypt_Return(void **state) {
@@ -357,7 +506,7 @@ void test_pack_C_Decrypt_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulDataLen = 0;
+    CK_ULONG pulDataLen = 13;
     
 
     CK_RV status = pack_C_Decrypt_Return(
@@ -369,17 +518,36 @@ void test_pack_C_Decrypt_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG pulDataLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack;
+    
 
     status = unpack_C_Decrypt_Return(
         &dercursor,
-        &retval,
-        pData,
-        &pulDataLen
+        &retval_unpack,
+        pData_unpack,
+        &pulDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(pulDataLen, pulDataLen_unpack);
+
+
+
 };
 
 
@@ -390,10 +558,10 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptDigestUpdate_Call(
@@ -406,18 +574,42 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG ulEncryptedPartLen_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptDigestUpdate_Call(
         &dercursor,
-        &hSession,
-        pEncryptedPart,
-        &ulEncryptedPartLen,
-        &pulPartLen
+        &hSession_unpack,
+        pEncryptedPart_unpack,
+        &ulEncryptedPartLen_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DecryptDigestUpdate_Return(void **state) {
@@ -428,7 +620,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptDigestUpdate_Return(
@@ -440,17 +632,36 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptDigestUpdate_Return(
         &dercursor,
-        &retval,
-        pPart,
-        &pulPartLen
+        &retval_unpack,
+        pPart_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 
@@ -461,8 +672,8 @@ void test_pack_C_DecryptFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG pulLastPartLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG pulLastPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptFinal_Call(
@@ -473,16 +684,30 @@ void test_pack_C_DecryptFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG pulLastPartLen_unpack = 0;
+    CK_ULONG pulLastPartLen_unpack;
+    
 
     status = unpack_C_DecryptFinal_Call(
         &dercursor,
-        &hSession,
-        &pulLastPartLen
+        &hSession_unpack,
+        &pulLastPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pulLastPartLen, pulLastPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DecryptFinal_Return(void **state) {
@@ -493,7 +718,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pLastPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulLastPartLen = 0;
+    CK_ULONG pulLastPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptFinal_Return(
@@ -505,17 +730,36 @@ void test_pack_C_DecryptFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pLastPart_unpack = NULL;
+    CK_BYTE_ARRAY pLastPart_unpack;
+    //CK_ULONG pulLastPartLen_unpack = 0;
+    CK_ULONG pulLastPartLen_unpack;
+    
 
     status = unpack_C_DecryptFinal_Return(
         &dercursor,
-        &retval,
-        pLastPart,
-        &pulLastPartLen
+        &retval_unpack,
+        pLastPart_unpack,
+        &pulLastPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pLastPart, pLastPart_unpack);
+
+
+    assert_int_equal(pulLastPartLen, pulLastPartLen_unpack);
+
+
+
 };
 
 
@@ -526,10 +770,10 @@ void test_pack_C_DecryptInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_DecryptInit_Call(
@@ -541,17 +785,36 @@ void test_pack_C_DecryptInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_DecryptInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hKey
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_DecryptInit_Return(void **state) {
@@ -570,15 +833,24 @@ void test_pack_C_DecryptInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_DecryptInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -589,10 +861,10 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptUpdate_Call(
@@ -605,18 +877,42 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG ulEncryptedPartLen_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptUpdate_Call(
         &dercursor,
-        &hSession,
-        pEncryptedPart,
-        &ulEncryptedPartLen,
-        &pulPartLen
+        &hSession_unpack,
+        pEncryptedPart_unpack,
+        &ulEncryptedPartLen_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DecryptUpdate_Return(void **state) {
@@ -627,7 +923,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptUpdate_Return(
@@ -639,17 +935,36 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptUpdate_Return(
         &dercursor,
-        &retval,
-        pPart,
-        &pulPartLen
+        &retval_unpack,
+        pPart_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 
@@ -660,10 +975,10 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptVerifyUpdate_Call(
@@ -676,18 +991,42 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG ulEncryptedPartLen_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptVerifyUpdate_Call(
         &dercursor,
-        &hSession,
-        pEncryptedPart,
-        &ulEncryptedPartLen,
-        &pulPartLen
+        &hSession_unpack,
+        pEncryptedPart_unpack,
+        &ulEncryptedPartLen_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
@@ -698,7 +1037,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulPartLen = 0;
+    CK_ULONG pulPartLen = 13;
     
 
     CK_RV status = pack_C_DecryptVerifyUpdate_Return(
@@ -710,17 +1049,36 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG pulPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack;
+    
 
     status = unpack_C_DecryptVerifyUpdate_Return(
         &dercursor,
-        &retval,
-        pPart,
-        &pulPartLen
+        &retval_unpack,
+        pPart_unpack,
+        &pulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(pulPartLen, pulPartLen_unpack);
+
+
+
 };
 
 
@@ -731,14 +1089,14 @@ void test_pack_C_DeriveKey_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hBaseKey = 0;
+    CK_OBJECT_HANDLE hBaseKey = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulAttributeCount = 0;
+    CK_ULONG ulAttributeCount = 13;
     
 
     CK_RV status = pack_C_DeriveKey_Call(
@@ -752,19 +1110,48 @@ void test_pack_C_DeriveKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hBaseKey_unpack = 0;
+    CK_OBJECT_HANDLE hBaseKey_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulAttributeCount_unpack = 0;
+    CK_ULONG ulAttributeCount_unpack;
+    
 
     status = unpack_C_DeriveKey_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hBaseKey,
-        pTemplate,
-        &ulAttributeCount
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hBaseKey_unpack,
+        pTemplate_unpack,
+        &ulAttributeCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hBaseKey, hBaseKey_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
+
+
+
 };
 
 void test_pack_C_DeriveKey_Return(void **state) {
@@ -774,7 +1161,7 @@ void test_pack_C_DeriveKey_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phKey = 0;
+    CK_OBJECT_HANDLE phKey = 13;
     
 
     CK_RV status = pack_C_DeriveKey_Return(
@@ -785,16 +1172,30 @@ void test_pack_C_DeriveKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phKey_unpack = 0;
+    CK_OBJECT_HANDLE phKey_unpack;
+    
 
     status = unpack_C_DeriveKey_Return(
         &dercursor,
-        &retval,
-        &phKey
+        &retval_unpack,
+        &phKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phKey, phKey_unpack);
+
+
+
 };
 
 
@@ -805,8 +1206,8 @@ void test_pack_C_DestroyObject_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     
 
     CK_RV status = pack_C_DestroyObject_Call(
@@ -817,16 +1218,30 @@ void test_pack_C_DestroyObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack;
+    
 
     status = unpack_C_DestroyObject_Call(
         &dercursor,
-        &hSession,
-        &hObject
+        &hSession_unpack,
+        &hObject_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hObject, hObject_unpack);
+
+
+
 };
 
 void test_pack_C_DestroyObject_Return(void **state) {
@@ -845,15 +1260,24 @@ void test_pack_C_DestroyObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_DestroyObject_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -864,10 +1288,10 @@ void test_pack_C_Digest_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulDataLen = 0;
-    CK_ULONG pulDigestLen = 0;
+    CK_ULONG ulDataLen = 13;
+    CK_ULONG pulDigestLen = 13;
     
 
     CK_RV status = pack_C_Digest_Call(
@@ -880,18 +1304,42 @@ void test_pack_C_Digest_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG ulDataLen_unpack;
+    //CK_ULONG pulDigestLen_unpack = 0;
+    CK_ULONG pulDigestLen_unpack;
+    
 
     status = unpack_C_Digest_Call(
         &dercursor,
-        &hSession,
-        pData,
-        &ulDataLen,
-        &pulDigestLen
+        &hSession_unpack,
+        pData_unpack,
+        &ulDataLen_unpack,
+        &pulDigestLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(ulDataLen, ulDataLen_unpack);
+
+
+    assert_int_equal(pulDigestLen, pulDigestLen_unpack);
+
+
+
 };
 
 void test_pack_C_Digest_Return(void **state) {
@@ -902,7 +1350,7 @@ void test_pack_C_Digest_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pDigest = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulDigestLen = 0;
+    CK_ULONG pulDigestLen = 13;
     
 
     CK_RV status = pack_C_Digest_Return(
@@ -914,17 +1362,36 @@ void test_pack_C_Digest_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pDigest_unpack = NULL;
+    CK_BYTE_ARRAY pDigest_unpack;
+    //CK_ULONG pulDigestLen_unpack = 0;
+    CK_ULONG pulDigestLen_unpack;
+    
 
     status = unpack_C_Digest_Return(
         &dercursor,
-        &retval,
-        pDigest,
-        &pulDigestLen
+        &retval_unpack,
+        pDigest_unpack,
+        &pulDigestLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pDigest, pDigest_unpack);
+
+
+    assert_int_equal(pulDigestLen, pulDigestLen_unpack);
+
+
+
 };
 
 
@@ -935,10 +1402,10 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG ulPartLen = 13;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_DigestEncryptUpdate_Call(
@@ -951,18 +1418,42 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_DigestEncryptUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen,
-        &pulEncryptedPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DigestEncryptUpdate_Return(void **state) {
@@ -973,7 +1464,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_DigestEncryptUpdate_Return(
@@ -985,17 +1476,36 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_DigestEncryptUpdate_Return(
         &dercursor,
-        &retval,
-        pEncryptedPart,
-        &pulEncryptedPartLen
+        &retval_unpack,
+        pEncryptedPart_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 
@@ -1006,8 +1516,8 @@ void test_pack_C_DigestFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG pulDigestLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG pulDigestLen = 13;
     
 
     CK_RV status = pack_C_DigestFinal_Call(
@@ -1018,16 +1528,30 @@ void test_pack_C_DigestFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG pulDigestLen_unpack = 0;
+    CK_ULONG pulDigestLen_unpack;
+    
 
     status = unpack_C_DigestFinal_Call(
         &dercursor,
-        &hSession,
-        &pulDigestLen
+        &hSession_unpack,
+        &pulDigestLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pulDigestLen, pulDigestLen_unpack);
+
+
+
 };
 
 void test_pack_C_DigestFinal_Return(void **state) {
@@ -1038,7 +1562,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pDigest = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulDigestLen = 0;
+    CK_ULONG pulDigestLen = 13;
     
 
     CK_RV status = pack_C_DigestFinal_Return(
@@ -1050,17 +1574,36 @@ void test_pack_C_DigestFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pDigest_unpack = NULL;
+    CK_BYTE_ARRAY pDigest_unpack;
+    //CK_ULONG pulDigestLen_unpack = 0;
+    CK_ULONG pulDigestLen_unpack;
+    
 
     status = unpack_C_DigestFinal_Return(
         &dercursor,
-        &retval,
-        pDigest,
-        &pulDigestLen
+        &retval_unpack,
+        pDigest_unpack,
+        &pulDigestLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pDigest, pDigest_unpack);
+
+
+    assert_int_equal(pulDigestLen, pulDigestLen_unpack);
+
+
+
 };
 
 
@@ -1071,7 +1614,7 @@ void test_pack_C_DigestInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     
@@ -1084,16 +1627,30 @@ void test_pack_C_DigestInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    
 
     status = unpack_C_DigestInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism
+        &hSession_unpack,
+        pMechanism_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+
 };
 
 void test_pack_C_DigestInit_Return(void **state) {
@@ -1112,15 +1669,24 @@ void test_pack_C_DigestInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_DigestInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -1131,8 +1697,8 @@ void test_pack_C_DigestKey_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_DigestKey_Call(
@@ -1143,16 +1709,30 @@ void test_pack_C_DigestKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_DigestKey_Call(
         &dercursor,
-        &hSession,
-        &hKey
+        &hSession_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_DigestKey_Return(void **state) {
@@ -1171,15 +1751,24 @@ void test_pack_C_DigestKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_DigestKey_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -1190,9 +1779,9 @@ void test_pack_C_DigestUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = pack_C_DigestUpdate_Call(
@@ -1204,17 +1793,36 @@ void test_pack_C_DigestUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    
 
     status = unpack_C_DigestUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_DigestUpdate_Return(void **state) {
@@ -1233,15 +1841,24 @@ void test_pack_C_DigestUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_DigestUpdate_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -1252,10 +1869,10 @@ void test_pack_C_Encrypt_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulDataLen = 0;
-    CK_ULONG pulEncryptedDataLen = 0;
+    CK_ULONG ulDataLen = 13;
+    CK_ULONG pulEncryptedDataLen = 13;
     
 
     CK_RV status = pack_C_Encrypt_Call(
@@ -1268,18 +1885,42 @@ void test_pack_C_Encrypt_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG ulDataLen_unpack;
+    //CK_ULONG pulEncryptedDataLen_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack;
+    
 
     status = unpack_C_Encrypt_Call(
         &dercursor,
-        &hSession,
-        pData,
-        &ulDataLen,
-        &pulEncryptedDataLen
+        &hSession_unpack,
+        pData_unpack,
+        &ulDataLen_unpack,
+        &pulEncryptedDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(ulDataLen, ulDataLen_unpack);
+
+
+    assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
+
+
+
 };
 
 void test_pack_C_Encrypt_Return(void **state) {
@@ -1290,7 +1931,7 @@ void test_pack_C_Encrypt_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulEncryptedDataLen = 0;
+    CK_ULONG pulEncryptedDataLen = 13;
     
 
     CK_RV status = pack_C_Encrypt_Return(
@@ -1302,17 +1943,36 @@ void test_pack_C_Encrypt_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedData_unpack;
+    //CK_ULONG pulEncryptedDataLen_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack;
+    
 
     status = unpack_C_Encrypt_Return(
         &dercursor,
-        &retval,
-        pEncryptedData,
-        &pulEncryptedDataLen
+        &retval_unpack,
+        pEncryptedData_unpack,
+        &pulEncryptedDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pEncryptedData, pEncryptedData_unpack);
+
+
+    assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
+
+
+
 };
 
 
@@ -1323,8 +1983,8 @@ void test_pack_C_EncryptFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG pulEncryptedDataLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG pulEncryptedDataLen = 13;
     
 
     CK_RV status = pack_C_EncryptFinal_Call(
@@ -1335,16 +1995,30 @@ void test_pack_C_EncryptFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG pulEncryptedDataLen_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack;
+    
 
     status = unpack_C_EncryptFinal_Call(
         &dercursor,
-        &hSession,
-        &pulEncryptedDataLen
+        &hSession_unpack,
+        &pulEncryptedDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
+
+
+
 };
 
 void test_pack_C_EncryptFinal_Return(void **state) {
@@ -1355,7 +2029,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulEncryptedDataLen = 0;
+    CK_ULONG pulEncryptedDataLen = 13;
     
 
     CK_RV status = pack_C_EncryptFinal_Return(
@@ -1367,17 +2041,36 @@ void test_pack_C_EncryptFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedData_unpack;
+    //CK_ULONG pulEncryptedDataLen_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack;
+    
 
     status = unpack_C_EncryptFinal_Return(
         &dercursor,
-        &retval,
-        pEncryptedData,
-        &pulEncryptedDataLen
+        &retval_unpack,
+        pEncryptedData_unpack,
+        &pulEncryptedDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pEncryptedData, pEncryptedData_unpack);
+
+
+    assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
+
+
+
 };
 
 
@@ -1388,10 +2081,10 @@ void test_pack_C_EncryptInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_EncryptInit_Call(
@@ -1403,17 +2096,36 @@ void test_pack_C_EncryptInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_EncryptInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hKey
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_EncryptInit_Return(void **state) {
@@ -1432,15 +2144,24 @@ void test_pack_C_EncryptInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_EncryptInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -1451,10 +2172,10 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG ulPartLen = 13;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_EncryptUpdate_Call(
@@ -1467,18 +2188,42 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_EncryptUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen,
-        &pulEncryptedPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_EncryptUpdate_Return(void **state) {
@@ -1489,7 +2234,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_EncryptUpdate_Return(
@@ -1501,17 +2246,36 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_EncryptUpdate_Return(
         &dercursor,
-        &retval,
-        pEncryptedPart,
-        &pulEncryptedPartLen
+        &retval_unpack,
+        pEncryptedPart_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 
@@ -1532,15 +2296,24 @@ void test_pack_C_Finalize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
+    CK_VOID_PTR pReserved_unpack;
+    
 
     status = unpack_C_Finalize_Call(
         &dercursor,
-        pReserved
+        pReserved_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(pReserved, pReserved_unpack);
+
+
+
 };
 
 void test_pack_C_Finalize_Return(void **state) {
@@ -1561,16 +2334,30 @@ void test_pack_C_Finalize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //ANY pReserved_unpack = NULL;
+    ANY pReserved_unpack;
+    
 
     status = unpack_C_Finalize_Return(
         &dercursor,
-        &retval,
-        &pReserved
+        &retval_unpack,
+        &pReserved_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pReserved, pReserved_unpack);
+
+
+
 };
 
 
@@ -1581,8 +2368,8 @@ void test_pack_C_FindObjects_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG ulMaxObjectCount = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG ulMaxObjectCount = 13;
     
 
     CK_RV status = pack_C_FindObjects_Call(
@@ -1593,16 +2380,30 @@ void test_pack_C_FindObjects_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG ulMaxObjectCount_unpack = 0;
+    CK_ULONG ulMaxObjectCount_unpack;
+    
 
     status = unpack_C_FindObjects_Call(
         &dercursor,
-        &hSession,
-        &ulMaxObjectCount
+        &hSession_unpack,
+        &ulMaxObjectCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(ulMaxObjectCount, ulMaxObjectCount_unpack);
+
+
+
 };
 
 void test_pack_C_FindObjects_Return(void **state) {
@@ -1613,7 +2414,7 @@ void test_pack_C_FindObjects_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_OBJECT_HANDLE_ARRAY phObject = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulObjectCount = 0;
+    CK_ULONG pulObjectCount = 13;
     
 
     CK_RV status = pack_C_FindObjects_Return(
@@ -1625,17 +2426,36 @@ void test_pack_C_FindObjects_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE_ARRAY phObject_unpack = NULL;
+    CK_OBJECT_HANDLE_ARRAY phObject_unpack;
+    //CK_ULONG pulObjectCount_unpack = 0;
+    CK_ULONG pulObjectCount_unpack;
+    
 
     status = unpack_C_FindObjects_Return(
         &dercursor,
-        &retval,
-        phObject,
-        &pulObjectCount
+        &retval_unpack,
+        phObject_unpack,
+        &pulObjectCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phObject, phObject_unpack);
+
+
+    assert_int_equal(pulObjectCount, pulObjectCount_unpack);
+
+
+
 };
 
 
@@ -1646,7 +2466,7 @@ void test_pack_C_FindObjectsFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_FindObjectsFinal_Call(
@@ -1656,15 +2476,24 @@ void test_pack_C_FindObjectsFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_FindObjectsFinal_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_FindObjectsFinal_Return(void **state) {
@@ -1683,15 +2512,24 @@ void test_pack_C_FindObjectsFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_FindObjectsFinal_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -1702,11 +2540,11 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_FindObjectsInit_Call(
@@ -1718,17 +2556,36 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_FindObjectsInit_Call(
         &dercursor,
-        &hSession,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_FindObjectsInit_Return(void **state) {
@@ -1751,16 +2608,30 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    
 
     status = unpack_C_FindObjectsInit_Return(
         &dercursor,
-        &retval,
-        pTemplate
+        &retval_unpack,
+        pTemplate_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+
 };
 
 
@@ -1771,13 +2642,13 @@ void test_pack_C_GenerateKey_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_GenerateKey_Call(
@@ -1790,18 +2661,42 @@ void test_pack_C_GenerateKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_GenerateKey_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        pMechanism_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_GenerateKey_Return(void **state) {
@@ -1811,7 +2706,7 @@ void test_pack_C_GenerateKey_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phKey = 0;
+    CK_OBJECT_HANDLE phKey = 13;
     
 
     CK_RV status = pack_C_GenerateKey_Return(
@@ -1822,16 +2717,30 @@ void test_pack_C_GenerateKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phKey_unpack = 0;
+    CK_OBJECT_HANDLE phKey_unpack;
+    
 
     status = unpack_C_GenerateKey_Return(
         &dercursor,
-        &retval,
-        &phKey
+        &retval_unpack,
+        &phKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phKey, phKey_unpack);
+
+
+
 };
 
 
@@ -1842,17 +2751,17 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pPublicKeyTemplate[] = {
                             {CKA_LABEL, pPublicKeyTemplate_label, sizeof(pPublicKeyTemplate_label)-1} };
-    CK_ULONG ulPublicKeyAttributeCount = 0;
+    CK_ULONG ulPublicKeyAttributeCount = 13;
     CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pPrivateKeyTemplate[] = {
                             {CKA_LABEL, pPrivateKeyTemplate_label, sizeof(pPrivateKeyTemplate_label)-1} };
-    CK_ULONG ulPrivateKeyAttributeCount = 0;
+    CK_ULONG ulPrivateKeyAttributeCount = 13;
     
 
     CK_RV status = pack_C_GenerateKeyPair_Call(
@@ -1867,20 +2776,54 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack;
+    //CK_ULONG ulPublicKeyAttributeCount_unpack = 0;
+    CK_ULONG ulPublicKeyAttributeCount_unpack;
+    //CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack;
+    //CK_ULONG ulPrivateKeyAttributeCount_unpack = 0;
+    CK_ULONG ulPrivateKeyAttributeCount_unpack;
+    
 
     status = unpack_C_GenerateKeyPair_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        pPublicKeyTemplate,
-        &ulPublicKeyAttributeCount,
-        pPrivateKeyTemplate,
-        &ulPrivateKeyAttributeCount
+        &hSession_unpack,
+        pMechanism_unpack,
+        pPublicKeyTemplate_unpack,
+        &ulPublicKeyAttributeCount_unpack,
+        pPrivateKeyTemplate_unpack,
+        &ulPrivateKeyAttributeCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(pPublicKeyTemplate, pPublicKeyTemplate_unpack);
+
+
+    assert_int_equal(ulPublicKeyAttributeCount, ulPublicKeyAttributeCount_unpack);
+
+
+    assert_int_equal(pPrivateKeyTemplate, pPrivateKeyTemplate_unpack);
+
+
+    assert_int_equal(ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount_unpack);
+
+
+
 };
 
 void test_pack_C_GenerateKeyPair_Return(void **state) {
@@ -1890,8 +2833,8 @@ void test_pack_C_GenerateKeyPair_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phPublicKey = 0;
-    CK_OBJECT_HANDLE phPrivateKey = 0;
+    CK_OBJECT_HANDLE phPublicKey = 13;
+    CK_OBJECT_HANDLE phPrivateKey = 13;
     
 
     CK_RV status = pack_C_GenerateKeyPair_Return(
@@ -1903,17 +2846,36 @@ void test_pack_C_GenerateKeyPair_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phPublicKey_unpack = 0;
+    CK_OBJECT_HANDLE phPublicKey_unpack;
+    //CK_OBJECT_HANDLE phPrivateKey_unpack = 0;
+    CK_OBJECT_HANDLE phPrivateKey_unpack;
+    
 
     status = unpack_C_GenerateKeyPair_Return(
         &dercursor,
-        &retval,
-        &phPublicKey,
-        &phPrivateKey
+        &retval_unpack,
+        &phPublicKey_unpack,
+        &phPrivateKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phPublicKey, phPublicKey_unpack);
+
+
+    assert_int_equal(phPrivateKey, phPrivateKey_unpack);
+
+
+
 };
 
 
@@ -1924,8 +2886,8 @@ void test_pack_C_GenerateRandom_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG ulRandomLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG ulRandomLen = 13;
     
 
     CK_RV status = pack_C_GenerateRandom_Call(
@@ -1936,16 +2898,30 @@ void test_pack_C_GenerateRandom_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG ulRandomLen_unpack = 0;
+    CK_ULONG ulRandomLen_unpack;
+    
 
     status = unpack_C_GenerateRandom_Call(
         &dercursor,
-        &hSession,
-        &ulRandomLen
+        &hSession_unpack,
+        &ulRandomLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(ulRandomLen, ulRandomLen_unpack);
+
+
+
 };
 
 void test_pack_C_GenerateRandom_Return(void **state) {
@@ -1966,16 +2942,30 @@ void test_pack_C_GenerateRandom_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pSeed_unpack = NULL;
+    CK_BYTE_ARRAY pSeed_unpack;
+    
 
     status = unpack_C_GenerateRandom_Return(
         &dercursor,
-        &retval,
-        pSeed
+        &retval_unpack,
+        pSeed_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSeed, pSeed_unpack);
+
+
+
 };
 
 
@@ -1986,12 +2976,12 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_GetAttributeValue_Call(
@@ -2004,18 +2994,42 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_GetAttributeValue_Call(
         &dercursor,
-        &hSession,
-        &hObject,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        &hObject_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hObject, hObject_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_GetAttributeValue_Return(void **state) {
@@ -2038,16 +3052,30 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    
 
     status = unpack_C_GetAttributeValue_Return(
         &dercursor,
-        &retval,
-        pTemplate
+        &retval_unpack,
+        pTemplate_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+
 };
 
 
@@ -2058,7 +3086,7 @@ void test_pack_C_GetFunctionStatus_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_GetFunctionStatus_Call(
@@ -2068,15 +3096,24 @@ void test_pack_C_GetFunctionStatus_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_GetFunctionStatus_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_GetFunctionStatus_Return(void **state) {
@@ -2095,15 +3132,24 @@ void test_pack_C_GetFunctionStatus_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_GetFunctionStatus_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -2122,6 +3168,7 @@ void test_pack_C_GetInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    
 
     status = unpack_C_GetInfo_Call(
         &dercursor
@@ -2130,6 +3177,9 @@ void test_pack_C_GetInfo_Call(void **state) {
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+
 };
 
 void test_pack_C_GetInfo_Return(void **state) {
@@ -2156,16 +3206,31 @@ void test_pack_C_GetInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_INFO pInfo_unpack = NULL;
+    CK_INFO pInfo_unpack;
+    
 
     status = unpack_C_GetInfo_Return(
         &dercursor,
-        &retval,
-        &pInfo
+        &retval_unpack,
+        &pInfo_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    // todo: assert for pInfo (CK_INFO)
+    assert_false(true);
+
+
+
 };
 
 
@@ -2176,8 +3241,8 @@ void test_pack_C_GetMechanismInfo_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
-    CK_MECHANISM_TYPE type = 0;
+    CK_SLOT_ID slotID = 13;
+    CK_MECHANISM_TYPE type = 13;
     
 
     CK_RV status = pack_C_GetMechanismInfo_Call(
@@ -2188,16 +3253,30 @@ void test_pack_C_GetMechanismInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    //CK_MECHANISM_TYPE type_unpack = 0;
+    CK_MECHANISM_TYPE type_unpack;
+    
 
     status = unpack_C_GetMechanismInfo_Call(
         &dercursor,
-        &slotID,
-        &type
+        &slotID_unpack,
+        &type_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+    assert_int_equal(type, type_unpack);
+
+
+
 };
 
 void test_pack_C_GetMechanismInfo_Return(void **state) {
@@ -2220,16 +3299,31 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_MECHANISM_INFO pInfo_unpack = NULL;
+    CK_MECHANISM_INFO pInfo_unpack;
+    
 
     status = unpack_C_GetMechanismInfo_Return(
         &dercursor,
-        &retval,
-        &pInfo
+        &retval_unpack,
+        &pInfo_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    // todo: assert for pInfo (CK_MECHANISM_INFO)
+    assert_false(true);
+
+
+
 };
 
 
@@ -2240,8 +3334,8 @@ void test_pack_C_GetMechanismList_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
-    CK_ULONG pulCount = 0;
+    CK_SLOT_ID slotID = 13;
+    CK_ULONG pulCount = 13;
     
 
     CK_RV status = pack_C_GetMechanismList_Call(
@@ -2252,16 +3346,30 @@ void test_pack_C_GetMechanismList_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    //CK_ULONG pulCount_unpack = 0;
+    CK_ULONG pulCount_unpack;
+    
 
     status = unpack_C_GetMechanismList_Call(
         &dercursor,
-        &slotID,
-        &pulCount
+        &slotID_unpack,
+        &pulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+    assert_int_equal(pulCount, pulCount_unpack);
+
+
+
 };
 
 void test_pack_C_GetMechanismList_Return(void **state) {
@@ -2272,7 +3380,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulCount = 0;
+    CK_ULONG pulCount = 13;
     
 
     CK_RV status = pack_C_GetMechanismList_Return(
@@ -2284,17 +3392,36 @@ void test_pack_C_GetMechanismList_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack = NULL;
+    CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack;
+    //CK_ULONG pulCount_unpack = 0;
+    CK_ULONG pulCount_unpack;
+    
 
     status = unpack_C_GetMechanismList_Return(
         &dercursor,
-        &retval,
-        pMechanismList,
-        &pulCount
+        &retval_unpack,
+        pMechanismList_unpack,
+        &pulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pMechanismList, pMechanismList_unpack);
+
+
+    assert_int_equal(pulCount, pulCount_unpack);
+
+
+
 };
 
 
@@ -2305,8 +3432,8 @@ void test_pack_C_GetObjectSize_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     
 
     CK_RV status = pack_C_GetObjectSize_Call(
@@ -2317,16 +3444,30 @@ void test_pack_C_GetObjectSize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack;
+    
 
     status = unpack_C_GetObjectSize_Call(
         &dercursor,
-        &hSession,
-        &hObject
+        &hSession_unpack,
+        &hObject_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hObject, hObject_unpack);
+
+
+
 };
 
 void test_pack_C_GetObjectSize_Return(void **state) {
@@ -2336,7 +3477,7 @@ void test_pack_C_GetObjectSize_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_ULONG pulSize = 0;
+    CK_ULONG pulSize = 13;
     
 
     CK_RV status = pack_C_GetObjectSize_Return(
@@ -2347,16 +3488,30 @@ void test_pack_C_GetObjectSize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_ULONG pulSize_unpack = 0;
+    CK_ULONG pulSize_unpack;
+    
 
     status = unpack_C_GetObjectSize_Return(
         &dercursor,
-        &retval,
-        &pulSize
+        &retval_unpack,
+        &pulSize_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pulSize, pulSize_unpack);
+
+
+
 };
 
 
@@ -2367,8 +3522,8 @@ void test_pack_C_GetOperationState_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG pulOperationStateLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG pulOperationStateLen = 13;
     
 
     CK_RV status = pack_C_GetOperationState_Call(
@@ -2379,16 +3534,30 @@ void test_pack_C_GetOperationState_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG pulOperationStateLen_unpack = 0;
+    CK_ULONG pulOperationStateLen_unpack;
+    
 
     status = unpack_C_GetOperationState_Call(
         &dercursor,
-        &hSession,
-        &pulOperationStateLen
+        &hSession_unpack,
+        &pulOperationStateLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pulOperationStateLen, pulOperationStateLen_unpack);
+
+
+
 };
 
 void test_pack_C_GetOperationState_Return(void **state) {
@@ -2399,7 +3568,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pOperationState = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulOperationStateLen = 0;
+    CK_ULONG pulOperationStateLen = 13;
     
 
     CK_RV status = pack_C_GetOperationState_Return(
@@ -2411,17 +3580,36 @@ void test_pack_C_GetOperationState_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pOperationState_unpack = NULL;
+    CK_BYTE_ARRAY pOperationState_unpack;
+    //CK_ULONG pulOperationStateLen_unpack = 0;
+    CK_ULONG pulOperationStateLen_unpack;
+    
 
     status = unpack_C_GetOperationState_Return(
         &dercursor,
-        &retval,
-        pOperationState,
-        &pulOperationStateLen
+        &retval_unpack,
+        pOperationState_unpack,
+        &pulOperationStateLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pOperationState, pOperationState_unpack);
+
+
+    assert_int_equal(pulOperationStateLen, pulOperationStateLen_unpack);
+
+
+
 };
 
 
@@ -2432,7 +3620,7 @@ void test_pack_C_GetSessionInfo_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_GetSessionInfo_Call(
@@ -2442,15 +3630,24 @@ void test_pack_C_GetSessionInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_GetSessionInfo_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_GetSessionInfo_Return(void **state) {
@@ -2471,16 +3668,31 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_SESSION_INFO pInfo_unpack = NULL;
+    CK_SESSION_INFO pInfo_unpack;
+    
 
     status = unpack_C_GetSessionInfo_Return(
         &dercursor,
-        &retval,
-        &pInfo
+        &retval_unpack,
+        &pInfo_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    // todo: assert for pInfo (CK_SESSION_INFO)
+    assert_false(true);
+
+
+
 };
 
 
@@ -2491,7 +3703,7 @@ void test_pack_C_GetSlotInfo_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
+    CK_SLOT_ID slotID = 13;
     
 
     CK_RV status = pack_C_GetSlotInfo_Call(
@@ -2501,15 +3713,24 @@ void test_pack_C_GetSlotInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    
 
     status = unpack_C_GetSlotInfo_Call(
         &dercursor,
-        &slotID
+        &slotID_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+
 };
 
 void test_pack_C_GetSlotInfo_Return(void **state) {
@@ -2536,16 +3757,31 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_SLOT_INFO pInfo_unpack = NULL;
+    CK_SLOT_INFO pInfo_unpack;
+    
 
     status = unpack_C_GetSlotInfo_Return(
         &dercursor,
-        &retval,
-        &pInfo
+        &retval_unpack,
+        &pInfo_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    // todo: assert for pInfo (CK_SLOT_INFO)
+    assert_false(true);
+
+
+
 };
 
 
@@ -2556,8 +3792,8 @@ void test_pack_C_GetSlotList_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_BBOOL tokenPresent = 0;
-    CK_ULONG pulCount = 0;
+    CK_BBOOL tokenPresent = 13;
+    CK_ULONG pulCount = 13;
     
 
     CK_RV status = pack_C_GetSlotList_Call(
@@ -2568,16 +3804,30 @@ void test_pack_C_GetSlotList_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_BBOOL tokenPresent_unpack = 0;
+    CK_BBOOL tokenPresent_unpack;
+    //CK_ULONG pulCount_unpack = 0;
+    CK_ULONG pulCount_unpack;
+    
 
     status = unpack_C_GetSlotList_Call(
         &dercursor,
-        &tokenPresent,
-        &pulCount
+        &tokenPresent_unpack,
+        &pulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(tokenPresent, tokenPresent_unpack);
+
+
+    assert_int_equal(pulCount, pulCount_unpack);
+
+
+
 };
 
 void test_pack_C_GetSlotList_Return(void **state) {
@@ -2588,7 +3838,7 @@ void test_pack_C_GetSlotList_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_SLOT_ID_ARRAY pSlotList = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulCount = 0;
+    CK_ULONG pulCount = 13;
     
 
     CK_RV status = pack_C_GetSlotList_Return(
@@ -2600,17 +3850,36 @@ void test_pack_C_GetSlotList_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_SLOT_ID_ARRAY pSlotList_unpack = NULL;
+    CK_SLOT_ID_ARRAY pSlotList_unpack;
+    //CK_ULONG pulCount_unpack = 0;
+    CK_ULONG pulCount_unpack;
+    
 
     status = unpack_C_GetSlotList_Return(
         &dercursor,
-        &retval,
-        pSlotList,
-        &pulCount
+        &retval_unpack,
+        pSlotList_unpack,
+        &pulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSlotList, pSlotList_unpack);
+
+
+    assert_int_equal(pulCount, pulCount_unpack);
+
+
+
 };
 
 
@@ -2621,7 +3890,7 @@ void test_pack_C_GetTokenInfo_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
+    CK_SLOT_ID slotID = 13;
     
 
     CK_RV status = pack_C_GetTokenInfo_Call(
@@ -2631,15 +3900,24 @@ void test_pack_C_GetTokenInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    
 
     status = unpack_C_GetTokenInfo_Call(
         &dercursor,
-        &slotID
+        &slotID_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+
 };
 
 void test_pack_C_GetTokenInfo_Return(void **state) {
@@ -2680,16 +3958,31 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_TOKEN_INFO pInfo_unpack = NULL;
+    CK_TOKEN_INFO pInfo_unpack;
+    
 
     status = unpack_C_GetTokenInfo_Return(
         &dercursor,
-        &retval,
-        &pInfo
+        &retval_unpack,
+        &pInfo_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    // todo: assert for pInfo (CK_TOKEN_INFO)
+    assert_false(true);
+
+
+
 };
 
 
@@ -2700,9 +3993,9 @@ void test_pack_C_InitPIN_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR_ARRAY pPin = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPinLen = 0;
+    CK_ULONG ulPinLen = 13;
     
 
     CK_RV status = pack_C_InitPIN_Call(
@@ -2714,17 +4007,36 @@ void test_pack_C_InitPIN_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_UTF8CHAR_ARRAY pPin_unpack = NULL;
+    CK_UTF8CHAR_ARRAY pPin_unpack;
+    //CK_ULONG ulPinLen_unpack = 0;
+    CK_ULONG ulPinLen_unpack;
+    
 
     status = unpack_C_InitPIN_Call(
         &dercursor,
-        &hSession,
-        pPin,
-        &ulPinLen
+        &hSession_unpack,
+        pPin_unpack,
+        &ulPinLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPin, pPin_unpack);
+
+
+    assert_int_equal(ulPinLen, ulPinLen_unpack);
+
+
+
 };
 
 void test_pack_C_InitPIN_Return(void **state) {
@@ -2743,15 +4055,24 @@ void test_pack_C_InitPIN_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_InitPIN_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -2762,9 +4083,9 @@ void test_pack_C_InitToken_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
+    CK_SLOT_ID slotID = 13;
     UTF8String pPin = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPinLen = 0;
+    CK_ULONG ulPinLen = 13;
     UTF8String pLabel = NULL; /* todo: probably requires finetuning */
     
 
@@ -2778,18 +4099,42 @@ void test_pack_C_InitToken_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    //UTF8String pPin_unpack = NULL;
+    UTF8String pPin_unpack;
+    //CK_ULONG ulPinLen_unpack = 0;
+    CK_ULONG ulPinLen_unpack;
+    //UTF8String pLabel_unpack = NULL;
+    UTF8String pLabel_unpack;
+    
 
     status = unpack_C_InitToken_Call(
         &dercursor,
-        &slotID,
-        pPin,
-        &ulPinLen,
-        pLabel
+        &slotID_unpack,
+        pPin_unpack,
+        &ulPinLen_unpack,
+        pLabel_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+    assert_int_equal(pPin, pPin_unpack);
+
+
+    assert_int_equal(ulPinLen, ulPinLen_unpack);
+
+
+    assert_int_equal(pLabel, pLabel_unpack);
+
+
+
 };
 
 void test_pack_C_InitToken_Return(void **state) {
@@ -2808,15 +4153,24 @@ void test_pack_C_InitToken_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_InitToken_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -2837,15 +4191,24 @@ void test_pack_C_Initialize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack = NULL_PTR;
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack;
+    
 
     status = unpack_C_Initialize_Call(
         &dercursor,
-        pInitArgs
+        pInitArgs_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(pInitArgs, pInitArgs_unpack);
+
+
+
 };
 
 void test_pack_C_Initialize_Return(void **state) {
@@ -2866,16 +4229,30 @@ void test_pack_C_Initialize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //ANY pInitArgs_unpack = NULL;
+    ANY pInitArgs_unpack;
+    
 
     status = unpack_C_Initialize_Return(
         &dercursor,
-        &retval,
-        &pInitArgs
+        &retval_unpack,
+        &pInitArgs_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pInitArgs, pInitArgs_unpack);
+
+
+
 };
 
 
@@ -2886,10 +4263,10 @@ void test_pack_C_Login_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_USER_TYPE userType = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_USER_TYPE userType = 13;
     CK_UTF8CHAR_ARRAY pPin = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPinLen = 0;
+    CK_ULONG ulPinLen = 13;
     
 
     CK_RV status = pack_C_Login_Call(
@@ -2902,18 +4279,42 @@ void test_pack_C_Login_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_USER_TYPE userType_unpack = 0;
+    CK_USER_TYPE userType_unpack;
+    //CK_UTF8CHAR_ARRAY pPin_unpack = NULL;
+    CK_UTF8CHAR_ARRAY pPin_unpack;
+    //CK_ULONG ulPinLen_unpack = 0;
+    CK_ULONG ulPinLen_unpack;
+    
 
     status = unpack_C_Login_Call(
         &dercursor,
-        &hSession,
-        &userType,
-        pPin,
-        &ulPinLen
+        &hSession_unpack,
+        &userType_unpack,
+        pPin_unpack,
+        &ulPinLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(userType, userType_unpack);
+
+
+    assert_int_equal(pPin, pPin_unpack);
+
+
+    assert_int_equal(ulPinLen, ulPinLen_unpack);
+
+
+
 };
 
 void test_pack_C_Login_Return(void **state) {
@@ -2932,15 +4333,24 @@ void test_pack_C_Login_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_Login_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -2951,7 +4361,7 @@ void test_pack_C_Logout_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = pack_C_Logout_Call(
@@ -2961,15 +4371,24 @@ void test_pack_C_Logout_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    
 
     status = unpack_C_Logout_Call(
         &dercursor,
-        &hSession
+        &hSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+
 };
 
 void test_pack_C_Logout_Return(void **state) {
@@ -2988,15 +4407,24 @@ void test_pack_C_Logout_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_Logout_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3007,8 +4435,8 @@ void test_pack_C_OpenSession_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SLOT_ID slotID = 0;
-    CK_FLAGS flags = 0;
+    CK_SLOT_ID slotID = 13;
+    CK_FLAGS flags = 13;
     ANY pApplication = NULL; /* todo: probably requires finetuning */
     CK_NOTIFY notify = NULL; /* todo: probably requires finetuning */
     
@@ -3023,18 +4451,42 @@ void test_pack_C_OpenSession_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SLOT_ID slotID_unpack = 0;
+    CK_SLOT_ID slotID_unpack;
+    //CK_FLAGS flags_unpack = 0;
+    CK_FLAGS flags_unpack;
+    //ANY pApplication_unpack = NULL;
+    ANY pApplication_unpack;
+    //CK_NOTIFY notify_unpack = NULL;
+    CK_NOTIFY notify_unpack;
+    
 
     status = unpack_C_OpenSession_Call(
         &dercursor,
-        &slotID,
-        &flags,
-        &pApplication,
-        notify
+        &slotID_unpack,
+        &flags_unpack,
+        &pApplication_unpack,
+        notify_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(slotID, slotID_unpack);
+
+
+    assert_int_equal(flags, flags_unpack);
+
+
+    assert_int_equal(pApplication, pApplication_unpack);
+
+
+    assert_int_equal(notify, notify_unpack);
+
+
+
 };
 
 void test_pack_C_OpenSession_Return(void **state) {
@@ -3044,7 +4496,7 @@ void test_pack_C_OpenSession_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_SESSION_HANDLE phSession = 0;
+    CK_SESSION_HANDLE phSession = 13;
     
 
     CK_RV status = pack_C_OpenSession_Return(
@@ -3055,16 +4507,30 @@ void test_pack_C_OpenSession_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_SESSION_HANDLE phSession_unpack = 0;
+    CK_SESSION_HANDLE phSession_unpack;
+    
 
     status = unpack_C_OpenSession_Return(
         &dercursor,
-        &retval,
-        &phSession
+        &retval_unpack,
+        &phSession_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phSession, phSession_unpack);
+
+
+
 };
 
 
@@ -3075,9 +4541,9 @@ void test_pack_C_SeedRandom_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pSeed = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulSeedLen = 0;
+    CK_ULONG ulSeedLen = 13;
     
 
     CK_RV status = pack_C_SeedRandom_Call(
@@ -3089,17 +4555,36 @@ void test_pack_C_SeedRandom_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pSeed_unpack = NULL;
+    CK_BYTE_ARRAY pSeed_unpack;
+    //CK_ULONG ulSeedLen_unpack = 0;
+    CK_ULONG ulSeedLen_unpack;
+    
 
     status = unpack_C_SeedRandom_Call(
         &dercursor,
-        &hSession,
-        pSeed,
-        &ulSeedLen
+        &hSession_unpack,
+        pSeed_unpack,
+        &ulSeedLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pSeed, pSeed_unpack);
+
+
+    assert_int_equal(ulSeedLen, ulSeedLen_unpack);
+
+
+
 };
 
 void test_pack_C_SeedRandom_Return(void **state) {
@@ -3118,15 +4603,24 @@ void test_pack_C_SeedRandom_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SeedRandom_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3137,12 +4631,12 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 0;
+    CK_ULONG ulCount = 13;
     
 
     CK_RV status = pack_C_SetAttributeValue_Call(
@@ -3155,18 +4649,42 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulCount_unpack = 0;
+    CK_ULONG ulCount_unpack;
+    
 
     status = unpack_C_SetAttributeValue_Call(
         &dercursor,
-        &hSession,
-        &hObject,
-        pTemplate,
-        &ulCount
+        &hSession_unpack,
+        &hObject_unpack,
+        pTemplate_unpack,
+        &ulCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(hObject, hObject_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulCount, ulCount_unpack);
+
+
+
 };
 
 void test_pack_C_SetAttributeValue_Return(void **state) {
@@ -3185,15 +4703,24 @@ void test_pack_C_SetAttributeValue_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SetAttributeValue_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3204,11 +4731,11 @@ void test_pack_C_SetOperationState_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pOperationState = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulOperationStateLen = 0;
-    CK_OBJECT_HANDLE hEncryptionKey = 0;
-    CK_OBJECT_HANDLE hAuthenticationKey = 0;
+    CK_ULONG ulOperationStateLen = 13;
+    CK_OBJECT_HANDLE hEncryptionKey = 13;
+    CK_OBJECT_HANDLE hAuthenticationKey = 13;
     
 
     CK_RV status = pack_C_SetOperationState_Call(
@@ -3222,19 +4749,48 @@ void test_pack_C_SetOperationState_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pOperationState_unpack = NULL;
+    CK_BYTE_ARRAY pOperationState_unpack;
+    //CK_ULONG ulOperationStateLen_unpack = 0;
+    CK_ULONG ulOperationStateLen_unpack;
+    //CK_OBJECT_HANDLE hEncryptionKey_unpack = 0;
+    CK_OBJECT_HANDLE hEncryptionKey_unpack;
+    //CK_OBJECT_HANDLE hAuthenticationKey_unpack = 0;
+    CK_OBJECT_HANDLE hAuthenticationKey_unpack;
+    
 
     status = unpack_C_SetOperationState_Call(
         &dercursor,
-        &hSession,
-        pOperationState,
-        &ulOperationStateLen,
-        &hEncryptionKey,
-        &hAuthenticationKey
+        &hSession_unpack,
+        pOperationState_unpack,
+        &ulOperationStateLen_unpack,
+        &hEncryptionKey_unpack,
+        &hAuthenticationKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pOperationState, pOperationState_unpack);
+
+
+    assert_int_equal(ulOperationStateLen, ulOperationStateLen_unpack);
+
+
+    assert_int_equal(hEncryptionKey, hEncryptionKey_unpack);
+
+
+    assert_int_equal(hAuthenticationKey, hAuthenticationKey_unpack);
+
+
+
 };
 
 void test_pack_C_SetOperationState_Return(void **state) {
@@ -3253,15 +4809,24 @@ void test_pack_C_SetOperationState_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SetOperationState_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3272,11 +4837,11 @@ void test_pack_C_SetPIN_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR_ARRAY pOldPin = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulOldLen = 0;
+    CK_ULONG ulOldLen = 13;
     CK_UTF8CHAR_ARRAY pNewPin = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulNewPin = 0;
+    CK_ULONG ulNewPin = 13;
     
 
     CK_RV status = pack_C_SetPIN_Call(
@@ -3290,19 +4855,48 @@ void test_pack_C_SetPIN_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_UTF8CHAR_ARRAY pOldPin_unpack = NULL;
+    CK_UTF8CHAR_ARRAY pOldPin_unpack;
+    //CK_ULONG ulOldLen_unpack = 0;
+    CK_ULONG ulOldLen_unpack;
+    //CK_UTF8CHAR_ARRAY pNewPin_unpack = NULL;
+    CK_UTF8CHAR_ARRAY pNewPin_unpack;
+    //CK_ULONG ulNewPin_unpack = 0;
+    CK_ULONG ulNewPin_unpack;
+    
 
     status = unpack_C_SetPIN_Call(
         &dercursor,
-        &hSession,
-        pOldPin,
-        &ulOldLen,
-        pNewPin,
-        &ulNewPin
+        &hSession_unpack,
+        pOldPin_unpack,
+        &ulOldLen_unpack,
+        pNewPin_unpack,
+        &ulNewPin_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pOldPin, pOldPin_unpack);
+
+
+    assert_int_equal(ulOldLen, ulOldLen_unpack);
+
+
+    assert_int_equal(pNewPin, pNewPin_unpack);
+
+
+    assert_int_equal(ulNewPin, ulNewPin_unpack);
+
+
+
 };
 
 void test_pack_C_SetPIN_Return(void **state) {
@@ -3321,15 +4915,24 @@ void test_pack_C_SetPIN_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SetPIN_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3340,10 +4943,10 @@ void test_pack_C_Sign_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulDataLen = 0;
-    CK_ULONG pulSignatureLen = 0;
+    CK_ULONG ulDataLen = 13;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_Sign_Call(
@@ -3356,18 +4959,42 @@ void test_pack_C_Sign_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG ulDataLen_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_Sign_Call(
         &dercursor,
-        &hSession,
-        pData,
-        &ulDataLen,
-        &pulSignatureLen
+        &hSession_unpack,
+        pData_unpack,
+        &ulDataLen_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(ulDataLen, ulDataLen_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 void test_pack_C_Sign_Return(void **state) {
@@ -3378,7 +5005,7 @@ void test_pack_C_Sign_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulSignatureLen = 0;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_Sign_Return(
@@ -3390,17 +5017,36 @@ void test_pack_C_Sign_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_Sign_Return(
         &dercursor,
-        &retval,
-        pSignature,
-        &pulSignatureLen
+        &retval_unpack,
+        pSignature_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 
@@ -3411,10 +5057,10 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG ulPartLen = 13;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_SignEncryptUpdate_Call(
@@ -3427,18 +5073,42 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_SignEncryptUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen,
-        &pulEncryptedPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_SignEncryptUpdate_Return(void **state) {
@@ -3449,7 +5119,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulEncryptedPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 13;
     
 
     CK_RV status = pack_C_SignEncryptUpdate_Return(
@@ -3461,17 +5131,36 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
+    CK_BYTE_ARRAY pEncryptedPart_unpack;
+    //CK_ULONG pulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack;
+    
 
     status = unpack_C_SignEncryptUpdate_Return(
         &dercursor,
-        &retval,
-        pEncryptedPart,
-        &pulEncryptedPartLen
+        &retval_unpack,
+        pEncryptedPart_unpack,
+        &pulEncryptedPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pEncryptedPart, pEncryptedPart_unpack);
+
+
+    assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
+
+
+
 };
 
 
@@ -3482,8 +5171,8 @@ void test_pack_C_SignFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ULONG pulSignatureLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_SignFinal_Call(
@@ -3494,16 +5183,30 @@ void test_pack_C_SignFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_SignFinal_Call(
         &dercursor,
-        &hSession,
-        &pulSignatureLen
+        &hSession_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 void test_pack_C_SignFinal_Return(void **state) {
@@ -3514,7 +5217,7 @@ void test_pack_C_SignFinal_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulSignatureLen = 0;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_SignFinal_Return(
@@ -3526,17 +5229,36 @@ void test_pack_C_SignFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_SignFinal_Return(
         &dercursor,
-        &retval,
-        pSignature,
-        &pulSignatureLen
+        &retval_unpack,
+        pSignature_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 
@@ -3547,10 +5269,10 @@ void test_pack_C_SignInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_SignInit_Call(
@@ -3562,17 +5284,36 @@ void test_pack_C_SignInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_SignInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hKey
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_SignInit_Return(void **state) {
@@ -3591,15 +5332,24 @@ void test_pack_C_SignInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SignInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3610,10 +5360,10 @@ void test_pack_C_SignRecover_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulDataLen = 0;
-    CK_ULONG pulSignatureLen = 0;
+    CK_ULONG ulDataLen = 13;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_SignRecover_Call(
@@ -3626,18 +5376,42 @@ void test_pack_C_SignRecover_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG ulDataLen_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_SignRecover_Call(
         &dercursor,
-        &hSession,
-        pData,
-        &ulDataLen,
-        &pulSignatureLen
+        &hSession_unpack,
+        pData_unpack,
+        &ulDataLen_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(ulDataLen, ulDataLen_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 void test_pack_C_SignRecover_Return(void **state) {
@@ -3648,7 +5422,7 @@ void test_pack_C_SignRecover_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulSignatureLen = 0;
+    CK_ULONG pulSignatureLen = 13;
     
 
     CK_RV status = pack_C_SignRecover_Return(
@@ -3660,17 +5434,36 @@ void test_pack_C_SignRecover_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG pulSignatureLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack;
+    
 
     status = unpack_C_SignRecover_Return(
         &dercursor,
-        &retval,
-        pSignature,
-        &pulSignatureLen
+        &retval_unpack,
+        pSignature_unpack,
+        &pulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
+
+
+
 };
 
 
@@ -3681,10 +5474,10 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_SignRecoverInit_Call(
@@ -3696,17 +5489,36 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_SignRecoverInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hKey
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_SignRecoverInit_Return(void **state) {
@@ -3725,15 +5537,24 @@ void test_pack_C_SignRecoverInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SignRecoverInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3744,9 +5565,9 @@ void test_pack_C_SignUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = pack_C_SignUpdate_Call(
@@ -3758,17 +5579,36 @@ void test_pack_C_SignUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    
 
     status = unpack_C_SignUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_SignUpdate_Return(void **state) {
@@ -3787,15 +5627,24 @@ void test_pack_C_SignUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_SignUpdate_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3806,16 +5655,16 @@ void test_pack_C_UnwrapKey_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hUnwrappingKey = 0;
+    CK_OBJECT_HANDLE hUnwrappingKey = 13;
     CK_BYTE_ARRAY pWrappedKey = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulWrappedKeyLen = 0;
+    CK_ULONG ulWrappedKeyLen = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
                             CK_ATTRIBUTE pTemplate[] = {
                             {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulAttributeCount = 0;
+    CK_ULONG ulAttributeCount = 13;
     
 
     CK_RV status = pack_C_UnwrapKey_Call(
@@ -3831,21 +5680,60 @@ void test_pack_C_UnwrapKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hUnwrappingKey_unpack = 0;
+    CK_OBJECT_HANDLE hUnwrappingKey_unpack;
+    //CK_BYTE_ARRAY pWrappedKey_unpack = NULL;
+    CK_BYTE_ARRAY pWrappedKey_unpack;
+    //CK_ULONG ulWrappedKeyLen_unpack = 0;
+    CK_ULONG ulWrappedKeyLen_unpack;
+    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    //CK_ULONG ulAttributeCount_unpack = 0;
+    CK_ULONG ulAttributeCount_unpack;
+    
 
     status = unpack_C_UnwrapKey_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hUnwrappingKey,
-        pWrappedKey,
-        &ulWrappedKeyLen,
-        pTemplate,
-        &ulAttributeCount
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hUnwrappingKey_unpack,
+        pWrappedKey_unpack,
+        &ulWrappedKeyLen_unpack,
+        pTemplate_unpack,
+        &ulAttributeCount_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hUnwrappingKey, hUnwrappingKey_unpack);
+
+
+    assert_int_equal(pWrappedKey, pWrappedKey_unpack);
+
+
+    assert_int_equal(ulWrappedKeyLen, ulWrappedKeyLen_unpack);
+
+
+    assert_int_equal(pTemplate, pTemplate_unpack);
+
+
+    assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
+
+
+
 };
 
 void test_pack_C_UnwrapKey_Return(void **state) {
@@ -3855,7 +5743,7 @@ void test_pack_C_UnwrapKey_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phKey = 0;
+    CK_OBJECT_HANDLE phKey = 13;
     
 
     CK_RV status = pack_C_UnwrapKey_Return(
@@ -3866,16 +5754,30 @@ void test_pack_C_UnwrapKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_OBJECT_HANDLE phKey_unpack = 0;
+    CK_OBJECT_HANDLE phKey_unpack;
+    
 
     status = unpack_C_UnwrapKey_Return(
         &dercursor,
-        &retval,
-        &phKey
+        &retval_unpack,
+        &phKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(phKey, phKey_unpack);
+
+
+
 };
 
 
@@ -3886,11 +5788,11 @@ void test_pack_C_Verify_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulDataLen = 0;
+    CK_ULONG ulDataLen = 13;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulSignatureLen = 0;
+    CK_ULONG ulSignatureLen = 13;
     
 
     CK_RV status = pack_C_Verify_Call(
@@ -3904,19 +5806,48 @@ void test_pack_C_Verify_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG ulDataLen_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG ulSignatureLen_unpack = 0;
+    CK_ULONG ulSignatureLen_unpack;
+    
 
     status = unpack_C_Verify_Call(
         &dercursor,
-        &hSession,
-        pData,
-        &ulDataLen,
-        pSignature,
-        &ulSignatureLen
+        &hSession_unpack,
+        pData_unpack,
+        &ulDataLen_unpack,
+        pSignature_unpack,
+        &ulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(ulDataLen, ulDataLen_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
+
+
+
 };
 
 void test_pack_C_Verify_Return(void **state) {
@@ -3935,15 +5866,24 @@ void test_pack_C_Verify_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_Verify_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -3954,9 +5894,9 @@ void test_pack_C_VerifyFinal_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulSignatureLen = 0;
+    CK_ULONG ulSignatureLen = 13;
     
 
     CK_RV status = pack_C_VerifyFinal_Call(
@@ -3968,17 +5908,36 @@ void test_pack_C_VerifyFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG ulSignatureLen_unpack = 0;
+    CK_ULONG ulSignatureLen_unpack;
+    
 
     status = unpack_C_VerifyFinal_Call(
         &dercursor,
-        &hSession,
-        pSignature,
-        &ulSignatureLen
+        &hSession_unpack,
+        pSignature_unpack,
+        &ulSignatureLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
+
+
+
 };
 
 void test_pack_C_VerifyFinal_Return(void **state) {
@@ -3997,15 +5956,24 @@ void test_pack_C_VerifyFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_VerifyFinal_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -4016,10 +5984,10 @@ void test_pack_C_VerifyInit_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = pack_C_VerifyInit_Call(
@@ -4031,17 +5999,36 @@ void test_pack_C_VerifyInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    
 
     status = unpack_C_VerifyInit_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hKey
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
 };
 
 void test_pack_C_VerifyInit_Return(void **state) {
@@ -4060,15 +6047,24 @@ void test_pack_C_VerifyInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_VerifyInit_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -4079,10 +6075,10 @@ void test_pack_C_VerifyRecover_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulSignatureLen = 0;
-    CK_ULONG pulDataLen = 0;
+    CK_ULONG ulSignatureLen = 13;
+    CK_ULONG pulDataLen = 13;
     
 
     CK_RV status = pack_C_VerifyRecover_Call(
@@ -4095,18 +6091,42 @@ void test_pack_C_VerifyRecover_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pSignature_unpack = NULL;
+    CK_BYTE_ARRAY pSignature_unpack;
+    //CK_ULONG ulSignatureLen_unpack = 0;
+    CK_ULONG ulSignatureLen_unpack;
+    //CK_ULONG pulDataLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack;
+    
 
     status = unpack_C_VerifyRecover_Call(
         &dercursor,
-        &hSession,
-        pSignature,
-        &ulSignatureLen,
-        &pulDataLen
+        &hSession_unpack,
+        pSignature_unpack,
+        &ulSignatureLen_unpack,
+        &pulDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pSignature, pSignature_unpack);
+
+
+    assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
+
+
+    assert_int_equal(pulDataLen, pulDataLen_unpack);
+
+
+
 };
 
 void test_pack_C_VerifyRecover_Return(void **state) {
@@ -4117,7 +6137,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulDataLen = 0;
+    CK_ULONG pulDataLen = 13;
     
 
     CK_RV status = pack_C_VerifyRecover_Return(
@@ -4129,17 +6149,36 @@ void test_pack_C_VerifyRecover_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pData_unpack = NULL;
+    CK_BYTE_ARRAY pData_unpack;
+    //CK_ULONG pulDataLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack;
+    
 
     status = unpack_C_VerifyRecover_Return(
         &dercursor,
-        &retval,
-        pData,
-        &pulDataLen
+        &retval_unpack,
+        pData_unpack,
+        &pulDataLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pData, pData_unpack);
+
+
+    assert_int_equal(pulDataLen, pulDataLen_unpack);
+
+
+
 };
 
 
@@ -4150,9 +6189,9 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
-    CK_ULONG ulPartLen = 0;
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = pack_C_VerifyUpdate_Call(
@@ -4164,17 +6203,36 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_BYTE_ARRAY pPart_unpack = NULL;
+    CK_BYTE_ARRAY pPart_unpack;
+    //CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG ulPartLen_unpack;
+    
 
     status = unpack_C_VerifyUpdate_Call(
         &dercursor,
-        &hSession,
-        pPart,
-        &ulPartLen
+        &hSession_unpack,
+        pPart_unpack,
+        &ulPartLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pPart, pPart_unpack);
+
+
+    assert_int_equal(ulPartLen, ulPartLen_unpack);
+
+
+
 };
 
 void test_pack_C_VerifyUpdate_Return(void **state) {
@@ -4193,15 +6251,24 @@ void test_pack_C_VerifyUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    
 
     status = unpack_C_VerifyUpdate_Return(
         &dercursor,
-        &retval
+        &retval_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
 };
 
 
@@ -4212,7 +6279,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_FLAGS flags = 0;
+    CK_FLAGS flags = 13;
     CK_VOID_PTR pReserved = NULL_PTR;  /* todo: probably requires finetuning */
     
 
@@ -4224,16 +6291,30 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_FLAGS flags_unpack = 0;
+    CK_FLAGS flags_unpack;
+    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
+    CK_VOID_PTR pReserved_unpack;
+    
 
     status = unpack_C_WaitForSlotEvent_Call(
         &dercursor,
-        &flags,
-        pReserved
+        &flags_unpack,
+        pReserved_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(flags, flags_unpack);
+
+
+    assert_int_equal(pReserved, pReserved_unpack);
+
+
+
 };
 
 void test_pack_C_WaitForSlotEvent_Return(void **state) {
@@ -4243,7 +6324,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_SLOT_ID pSlot = 0;
+    CK_SLOT_ID pSlot = 13;
     CK_VOID_PTR pReserved = NULL_PTR;  /* todo: probably requires finetuning */
     
 
@@ -4256,17 +6337,36 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_SLOT_ID pSlot_unpack = 0;
+    CK_SLOT_ID pSlot_unpack;
+    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
+    CK_VOID_PTR pReserved_unpack;
+    
 
     status = unpack_C_WaitForSlotEvent_Return(
         &dercursor,
-        &retval,
-        &pSlot,
-        pReserved
+        &retval_unpack,
+        &pSlot_unpack,
+        pReserved_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pSlot, pSlot_unpack);
+
+
+    assert_int_equal(pReserved, pReserved_unpack);
+
+
+
 };
 
 
@@ -4277,12 +6377,12 @@ void test_pack_C_WrapKey_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
-    CK_OBJECT_HANDLE hWrappingKey = 0;
-    CK_OBJECT_HANDLE hKey = 0;
-    CK_ULONG pulWrappedKeyLen = 0;
+    CK_OBJECT_HANDLE hWrappingKey = 13;
+    CK_OBJECT_HANDLE hKey = 13;
+    CK_ULONG pulWrappedKeyLen = 13;
     
 
     CK_RV status = pack_C_WrapKey_Call(
@@ -4296,19 +6396,48 @@ void test_pack_C_WrapKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_SESSION_HANDLE hSession_unpack;
+    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism_unpack;
+    //CK_OBJECT_HANDLE hWrappingKey_unpack = 0;
+    CK_OBJECT_HANDLE hWrappingKey_unpack;
+    //CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack;
+    //CK_ULONG pulWrappedKeyLen_unpack = 0;
+    CK_ULONG pulWrappedKeyLen_unpack;
+    
 
     status = unpack_C_WrapKey_Call(
         &dercursor,
-        &hSession,
-        pMechanism,
-        &hWrappingKey,
-        &hKey,
-        &pulWrappedKeyLen
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hWrappingKey_unpack,
+        &hKey_unpack,
+        &pulWrappedKeyLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism, pMechanism_unpack);
+
+
+    assert_int_equal(hWrappingKey, hWrappingKey_unpack);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+    assert_int_equal(pulWrappedKeyLen, pulWrappedKeyLen_unpack);
+
+
+
 };
 
 void test_pack_C_WrapKey_Return(void **state) {
@@ -4319,7 +6448,7 @@ void test_pack_C_WrapKey_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_BYTE_ARRAY pWrappedKey = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulWrappedKeyLen = 0;
+    CK_ULONG pulWrappedKeyLen = 13;
     
 
     CK_RV status = pack_C_WrapKey_Return(
@@ -4331,17 +6460,36 @@ void test_pack_C_WrapKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
+    //CK_RV retval_unpack = NULL;
+    CK_RV retval_unpack;
+    //CK_BYTE_ARRAY pWrappedKey_unpack = NULL;
+    CK_BYTE_ARRAY pWrappedKey_unpack;
+    //CK_ULONG pulWrappedKeyLen_unpack = 0;
+    CK_ULONG pulWrappedKeyLen_unpack;
+    
 
     status = unpack_C_WrapKey_Return(
         &dercursor,
-        &retval,
-        pWrappedKey,
-        &pulWrappedKeyLen
+        &retval_unpack,
+        pWrappedKey_unpack,
+        &pulWrappedKeyLen_unpack
     );
 
     free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+    assert_int_equal(pWrappedKey, pWrappedKey_unpack);
+
+
+    assert_int_equal(pulWrappedKeyLen, pulWrappedKeyLen_unpack);
+
+
+
 };
 
 
@@ -4351,137 +6499,8 @@ int main(void) {
     const struct CMUnitTest tests[] = {
             
             cmocka_unit_test(test_pack_C_CancelFunction_Call),
-            cmocka_unit_test(test_pack_C_CloseAllSessions_Call),
-            cmocka_unit_test(test_pack_C_CloseSession_Call),
-            cmocka_unit_test(test_pack_C_CopyObject_Call),
-            cmocka_unit_test(test_pack_C_CreateObject_Call),
-            cmocka_unit_test(test_pack_C_Decrypt_Call),
-            cmocka_unit_test(test_pack_C_DecryptDigestUpdate_Call),
-            cmocka_unit_test(test_pack_C_DecryptFinal_Call),
-            cmocka_unit_test(test_pack_C_DecryptInit_Call),
-            cmocka_unit_test(test_pack_C_DecryptUpdate_Call),
-            cmocka_unit_test(test_pack_C_DecryptVerifyUpdate_Call),
-            cmocka_unit_test(test_pack_C_DeriveKey_Call),
-            cmocka_unit_test(test_pack_C_DestroyObject_Call),
-            cmocka_unit_test(test_pack_C_Digest_Call),
-            cmocka_unit_test(test_pack_C_DigestEncryptUpdate_Call),
-            cmocka_unit_test(test_pack_C_DigestFinal_Call),
-            cmocka_unit_test(test_pack_C_DigestInit_Call),
-            cmocka_unit_test(test_pack_C_DigestKey_Call),
-            cmocka_unit_test(test_pack_C_DigestUpdate_Call),
-            cmocka_unit_test(test_pack_C_Encrypt_Call),
-            cmocka_unit_test(test_pack_C_EncryptFinal_Call),
-            cmocka_unit_test(test_pack_C_EncryptInit_Call),
-            cmocka_unit_test(test_pack_C_EncryptUpdate_Call),
-            cmocka_unit_test(test_pack_C_Finalize_Call),
-            cmocka_unit_test(test_pack_C_FindObjects_Call),
-            cmocka_unit_test(test_pack_C_FindObjectsFinal_Call),
-            cmocka_unit_test(test_pack_C_FindObjectsInit_Call),
-            cmocka_unit_test(test_pack_C_GenerateKey_Call),
-            cmocka_unit_test(test_pack_C_GenerateKeyPair_Call),
-            cmocka_unit_test(test_pack_C_GenerateRandom_Call),
-            cmocka_unit_test(test_pack_C_GetAttributeValue_Call),
-            cmocka_unit_test(test_pack_C_GetFunctionStatus_Call),
-            cmocka_unit_test(test_pack_C_GetInfo_Call),
-            cmocka_unit_test(test_pack_C_GetMechanismInfo_Call),
-            cmocka_unit_test(test_pack_C_GetMechanismList_Call),
-            cmocka_unit_test(test_pack_C_GetObjectSize_Call),
-            cmocka_unit_test(test_pack_C_GetOperationState_Call),
-            cmocka_unit_test(test_pack_C_GetSessionInfo_Call),
-            cmocka_unit_test(test_pack_C_GetSlotInfo_Call),
-            cmocka_unit_test(test_pack_C_GetSlotList_Call),
-            cmocka_unit_test(test_pack_C_GetTokenInfo_Call),
-            cmocka_unit_test(test_pack_C_InitPIN_Call),
-            cmocka_unit_test(test_pack_C_InitToken_Call),
-            cmocka_unit_test(test_pack_C_Initialize_Call),
-            cmocka_unit_test(test_pack_C_Login_Call),
-            cmocka_unit_test(test_pack_C_Logout_Call),
-            cmocka_unit_test(test_pack_C_OpenSession_Call),
-            cmocka_unit_test(test_pack_C_SeedRandom_Call),
-            cmocka_unit_test(test_pack_C_SetAttributeValue_Call),
-            cmocka_unit_test(test_pack_C_SetOperationState_Call),
-            cmocka_unit_test(test_pack_C_SetPIN_Call),
-            cmocka_unit_test(test_pack_C_Sign_Call),
-            cmocka_unit_test(test_pack_C_SignEncryptUpdate_Call),
-            cmocka_unit_test(test_pack_C_SignFinal_Call),
-            cmocka_unit_test(test_pack_C_SignInit_Call),
-            cmocka_unit_test(test_pack_C_SignRecover_Call),
-            cmocka_unit_test(test_pack_C_SignRecoverInit_Call),
-            cmocka_unit_test(test_pack_C_SignUpdate_Call),
-            cmocka_unit_test(test_pack_C_UnwrapKey_Call),
-            cmocka_unit_test(test_pack_C_Verify_Call),
-            cmocka_unit_test(test_pack_C_VerifyFinal_Call),
-            cmocka_unit_test(test_pack_C_VerifyInit_Call),
-            cmocka_unit_test(test_pack_C_VerifyRecover_Call),
-            cmocka_unit_test(test_pack_C_VerifyUpdate_Call),
-            cmocka_unit_test(test_pack_C_WaitForSlotEvent_Call),
-            cmocka_unit_test(test_pack_C_WrapKey_Call),
-            cmocka_unit_test(test_pack_C_CancelFunction_Return),
-            cmocka_unit_test(test_pack_C_CloseAllSessions_Return),
-            cmocka_unit_test(test_pack_C_CloseSession_Return),
-            cmocka_unit_test(test_pack_C_CopyObject_Return),
-            cmocka_unit_test(test_pack_C_CreateObject_Return),
-            cmocka_unit_test(test_pack_C_Decrypt_Return),
-            cmocka_unit_test(test_pack_C_DecryptDigestUpdate_Return),
-            cmocka_unit_test(test_pack_C_DecryptFinal_Return),
-            cmocka_unit_test(test_pack_C_DecryptInit_Return),
-            cmocka_unit_test(test_pack_C_DecryptUpdate_Return),
-            cmocka_unit_test(test_pack_C_DecryptVerifyUpdate_Return),
-            cmocka_unit_test(test_pack_C_DeriveKey_Return),
-            cmocka_unit_test(test_pack_C_DestroyObject_Return),
-            cmocka_unit_test(test_pack_C_Digest_Return),
-            cmocka_unit_test(test_pack_C_DigestEncryptUpdate_Return),
-            cmocka_unit_test(test_pack_C_DigestFinal_Return),
-            cmocka_unit_test(test_pack_C_DigestInit_Return),
-            cmocka_unit_test(test_pack_C_DigestKey_Return),
-            cmocka_unit_test(test_pack_C_DigestUpdate_Return),
-            cmocka_unit_test(test_pack_C_Encrypt_Return),
-            cmocka_unit_test(test_pack_C_EncryptFinal_Return),
-            cmocka_unit_test(test_pack_C_EncryptInit_Return),
-            cmocka_unit_test(test_pack_C_EncryptUpdate_Return),
-            cmocka_unit_test(test_pack_C_Finalize_Return),
-            cmocka_unit_test(test_pack_C_FindObjects_Return),
-            cmocka_unit_test(test_pack_C_FindObjectsFinal_Return),
-            cmocka_unit_test(test_pack_C_FindObjectsInit_Return),
-            cmocka_unit_test(test_pack_C_GenerateKey_Return),
-            cmocka_unit_test(test_pack_C_GenerateKeyPair_Return),
-            cmocka_unit_test(test_pack_C_GenerateRandom_Return),
-            cmocka_unit_test(test_pack_C_GetAttributeValue_Return),
-            cmocka_unit_test(test_pack_C_GetFunctionStatus_Return),
-            cmocka_unit_test(test_pack_C_GetInfo_Return),
-            cmocka_unit_test(test_pack_C_GetMechanismInfo_Return),
-            cmocka_unit_test(test_pack_C_GetMechanismList_Return),
-            cmocka_unit_test(test_pack_C_GetObjectSize_Return),
-            cmocka_unit_test(test_pack_C_GetOperationState_Return),
-            cmocka_unit_test(test_pack_C_GetSessionInfo_Return),
-            cmocka_unit_test(test_pack_C_GetSlotInfo_Return),
-            cmocka_unit_test(test_pack_C_GetSlotList_Return),
-            cmocka_unit_test(test_pack_C_GetTokenInfo_Return),
-            cmocka_unit_test(test_pack_C_InitPIN_Return),
-            cmocka_unit_test(test_pack_C_InitToken_Return),
-            cmocka_unit_test(test_pack_C_Initialize_Return),
-            cmocka_unit_test(test_pack_C_Login_Return),
-            cmocka_unit_test(test_pack_C_Logout_Return),
-            cmocka_unit_test(test_pack_C_OpenSession_Return),
-            cmocka_unit_test(test_pack_C_SeedRandom_Return),
-            cmocka_unit_test(test_pack_C_SetAttributeValue_Return),
-            cmocka_unit_test(test_pack_C_SetOperationState_Return),
-            cmocka_unit_test(test_pack_C_SetPIN_Return),
-            cmocka_unit_test(test_pack_C_Sign_Return),
-            cmocka_unit_test(test_pack_C_SignEncryptUpdate_Return),
-            cmocka_unit_test(test_pack_C_SignFinal_Return),
-            cmocka_unit_test(test_pack_C_SignInit_Return),
-            cmocka_unit_test(test_pack_C_SignRecover_Return),
-            cmocka_unit_test(test_pack_C_SignRecoverInit_Return),
-            cmocka_unit_test(test_pack_C_SignUpdate_Return),
-            cmocka_unit_test(test_pack_C_UnwrapKey_Return),
-            cmocka_unit_test(test_pack_C_Verify_Return),
-            cmocka_unit_test(test_pack_C_VerifyFinal_Return),
-            cmocka_unit_test(test_pack_C_VerifyInit_Return),
-            cmocka_unit_test(test_pack_C_VerifyRecover_Return),
-            cmocka_unit_test(test_pack_C_VerifyUpdate_Return),
-            cmocka_unit_test(test_pack_C_WaitForSlotEvent_Return),
-            cmocka_unit_test(test_pack_C_WrapKey_Return)
+            cmocka_unit_test(test_pack_C_CloseAllSessions_Call)
+
     };
     return cmocka_run_group_tests(tests, NULL, NULL);
 }

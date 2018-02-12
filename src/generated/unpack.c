@@ -692,12 +692,15 @@ unpack_C_CancelFunction_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CancelFunction_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -719,12 +722,15 @@ unpack_C_CancelFunction_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CancelFunction_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -748,11 +754,15 @@ unpack_C_CloseAllSessions_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_CloseAllSessions_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -774,12 +784,15 @@ unpack_C_CloseAllSessions_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CloseAllSessions_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -803,12 +816,15 @@ unpack_C_CloseSession_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CloseSession_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -830,12 +846,15 @@ unpack_C_CloseSession_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CloseSession_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -862,25 +881,33 @@ unpack_C_CopyObject_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CopyObject_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
-    der_get_CK_OBJECT_HANDLE_PTR(hObject);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_ulong(C_CopyObject_Call.hObject, hObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CopyObject_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_CopyObject_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -903,16 +930,21 @@ unpack_C_CopyObject_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CopyObject_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phObject)
-    der_get_CK_OBJECT_HANDLE_PTR(phObject);
-    
-    
+
+
+
+    status = der_get_ulong(C_CopyObject_Return.phObject, phObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -938,21 +970,27 @@ unpack_C_CreateObject_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CreateObject_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CreateObject_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_CreateObject_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -975,16 +1013,21 @@ unpack_C_CreateObject_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_CreateObject_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phObject)
-    der_get_CK_OBJECT_HANDLE_PTR(phObject);
-    
-    
+
+
+
+    status = der_get_ulong(C_CreateObject_Return.phObject, phObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1011,26 +1054,33 @@ unpack_C_Decrypt_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Decrypt_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
-    der_get_CK_BYTE_ARRAY(pEncryptedData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Call.pEncryptedData, pEncryptedData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Decrypt_Call.ulEncryptedDataLen, ulEncryptedDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_Decrypt_Call.pulDataLen, pulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1054,21 +1104,27 @@ unpack_C_Decrypt_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Decrypt_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Return.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Decrypt_Return.pulDataLen, pulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1095,26 +1151,33 @@ unpack_C_DecryptDigestUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptDigestUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Call.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptDigestUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DecryptDigestUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1138,21 +1201,27 @@ unpack_C_DecryptDigestUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptDigestUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Return.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptDigestUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1177,17 +1246,21 @@ unpack_C_DecryptFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DecryptFinal_Call.pulLastPartLen, pulLastPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1211,21 +1284,27 @@ unpack_C_DecryptFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pLastPart)
-    der_get_CK_BYTE_ARRAY(pLastPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptFinal_Return.pLastPart, pLastPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptFinal_Return.pulLastPartLen, pulLastPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1251,20 +1330,27 @@ unpack_C_DecryptInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_DecryptInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1286,12 +1372,15 @@ unpack_C_DecryptInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1318,26 +1407,33 @@ unpack_C_DecryptUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Call.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DecryptUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1361,21 +1457,27 @@ unpack_C_DecryptUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Return.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1402,26 +1504,33 @@ unpack_C_DecryptVerifyUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Call.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1445,21 +1554,27 @@ unpack_C_DecryptVerifyUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DecryptVerifyUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Return.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DecryptVerifyUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1487,29 +1602,39 @@ unpack_C_DeriveKey_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DeriveKey_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hBaseKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hBaseKey);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_DeriveKey_Call.hBaseKey, hBaseKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_DeriveKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DeriveKey_Call.ulAttributeCount, ulAttributeCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1532,16 +1657,21 @@ unpack_C_DeriveKey_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DeriveKey_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
-    der_get_CK_OBJECT_HANDLE_PTR(phKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_DeriveKey_Return.phKey, phKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1566,16 +1696,21 @@ unpack_C_DestroyObject_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DestroyObject_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
-    der_get_CK_OBJECT_HANDLE_PTR(hObject);
-    
-    
+
+
+
+    status = der_get_ulong(C_DestroyObject_Call.hObject, hObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1597,12 +1732,15 @@ unpack_C_DestroyObject_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DestroyObject_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1629,26 +1767,33 @@ unpack_C_Digest_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Digest_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Digest_Call.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Digest_Call.ulDataLen, ulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_Digest_Call.pulDigestLen, pulDigestLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1672,21 +1817,27 @@ unpack_C_Digest_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Digest_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pDigest)
-    der_get_CK_BYTE_ARRAY(pDigest);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Digest_Return.pDigest, pDigest);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Digest_Return.pulDigestLen, pulDigestLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1713,26 +1864,33 @@ unpack_C_DigestEncryptUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestEncryptUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DigestEncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DigestEncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1756,21 +1914,27 @@ unpack_C_DigestEncryptUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestEncryptUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DigestEncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1795,17 +1959,21 @@ unpack_C_DigestFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_DigestFinal_Call.pulDigestLen, pulDigestLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1829,21 +1997,27 @@ unpack_C_DigestFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pDigest)
-    der_get_CK_BYTE_ARRAY(pDigest);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DigestFinal_Return.pDigest, pDigest);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DigestFinal_Return.pulDigestLen, pulDigestLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1868,16 +2042,21 @@ unpack_C_DigestInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1899,12 +2078,15 @@ unpack_C_DigestInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1929,16 +2111,21 @@ unpack_C_DigestKey_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestKey_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_DigestKey_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -1960,12 +2147,15 @@ unpack_C_DigestKey_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestKey_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -1991,21 +2181,27 @@ unpack_C_DigestUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_DigestUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_DigestUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2027,12 +2223,15 @@ unpack_C_DigestUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_DigestUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2059,26 +2258,33 @@ unpack_C_Encrypt_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Encrypt_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Call.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Encrypt_Call.ulDataLen, ulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_Encrypt_Call.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2102,21 +2308,27 @@ unpack_C_Encrypt_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Encrypt_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
-    der_get_CK_BYTE_ARRAY(pEncryptedData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Return.pEncryptedData, pEncryptedData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Encrypt_Return.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2141,17 +2353,21 @@ unpack_C_EncryptFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_EncryptFinal_Call.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2175,21 +2391,27 @@ unpack_C_EncryptFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedData)
-    der_get_CK_BYTE_ARRAY(pEncryptedData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_EncryptFinal_Return.pEncryptedData, pEncryptedData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_EncryptFinal_Return.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2215,20 +2437,27 @@ unpack_C_EncryptInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_EncryptInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2250,12 +2479,15 @@ unpack_C_EncryptInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2282,26 +2514,33 @@ unpack_C_EncryptUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_EncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_EncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2325,21 +2564,27 @@ unpack_C_EncryptUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_EncryptUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_EncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2363,11 +2608,15 @@ unpack_C_Finalize_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_VOID_PTR (pReserved)
-    der_get_CK_VOID_PTR(pReserved);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_CK_VOID_PTR(&C_Finalize_Call.pReserved, pReserved);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2390,16 +2639,19 @@ unpack_C_Finalize_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Finalize_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert ANY (pReserved)
-    der_get_ANY(pReserved);
-    
-    
+
+
+
+    // todo: do we need to convert ANY?
+
+
+
 
     return CKR_OK;
 };
@@ -2424,17 +2676,21 @@ unpack_C_FindObjects_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjects_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_FindObjects_Call.ulMaxObjectCount, ulMaxObjectCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2458,21 +2714,27 @@ unpack_C_FindObjects_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjects_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_ARRAY (phObject)
-    der_get_CK_OBJECT_HANDLE_ARRAY(phObject);
-    
-    
+
+
+
+    status = der_get_CK_OBJECT_HANDLE_ARRAY(&C_FindObjects_Return.phObject, phObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_FindObjects_Return.pulObjectCount, pulObjectCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2496,12 +2758,15 @@ unpack_C_FindObjectsFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjectsFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2523,12 +2788,15 @@ unpack_C_FindObjectsFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjectsFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2554,21 +2822,27 @@ unpack_C_FindObjectsInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjectsInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_FindObjectsInit_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2591,16 +2865,21 @@ unpack_C_FindObjectsInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_FindObjectsInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Return.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2627,25 +2906,33 @@ unpack_C_GenerateKey_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateKey_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GenerateKey_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2668,16 +2955,21 @@ unpack_C_GenerateKey_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateKey_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
-    der_get_CK_OBJECT_HANDLE_PTR(phKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_GenerateKey_Return.phKey, phKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2706,34 +2998,45 @@ unpack_C_GenerateKeyPair_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateKeyPair_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pPublicKeyTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pPublicKeyTemplate);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPublicKeyAttributeCount, ulPublicKeyAttributeCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pPrivateKeyTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pPrivateKeyTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2757,20 +3060,27 @@ unpack_C_GenerateKeyPair_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateKeyPair_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phPublicKey)
-    der_get_CK_OBJECT_HANDLE_PTR(phPublicKey);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phPrivateKey)
-    der_get_CK_OBJECT_HANDLE_PTR(phPrivateKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_GenerateKeyPair_Return.phPublicKey, phPublicKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_GenerateKeyPair_Return.phPrivateKey, phPrivateKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2795,17 +3105,21 @@ unpack_C_GenerateRandom_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateRandom_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_GenerateRandom_Call.ulRandomLen, ulRandomLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2828,16 +3142,21 @@ unpack_C_GenerateRandom_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GenerateRandom_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSeed)
-    der_get_CK_BYTE_ARRAY(pSeed);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_GenerateRandom_Return.pSeed, pSeed);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2864,25 +3183,33 @@ unpack_C_GetAttributeValue_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetAttributeValue_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
-    der_get_CK_OBJECT_HANDLE_PTR(hObject);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_ulong(C_GetAttributeValue_Call.hObject, hObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetAttributeValue_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2905,16 +3232,21 @@ unpack_C_GetAttributeValue_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetAttributeValue_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Return.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -2938,12 +3270,15 @@ unpack_C_GetFunctionStatus_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetFunctionStatus_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2965,12 +3300,15 @@ unpack_C_GetFunctionStatus_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetFunctionStatus_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -2993,7 +3331,9 @@ unpack_C_GetInfo_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
 
     return CKR_OK;
 };
@@ -3016,16 +3356,21 @@ unpack_C_GetInfo_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetInfo_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_INFO_PTR (pInfo)
-    der_get_CK_INFO_PTR(pInfo);
-    
-    
+
+
+
+    status = der_get_CK_INFO_PTR(&C_GetInfo_Return.pInfo, pInfo);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3050,15 +3395,21 @@ unpack_C_GetMechanismInfo_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
-    // TODO: properly convert CK_MECHANISM_TYPE_PTR (type)
-    der_get_CK_MECHANISM_TYPE_PTR(type);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_GetMechanismInfo_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_GetMechanismInfo_Call.type, type);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3081,16 +3432,21 @@ unpack_C_GetMechanismInfo_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetMechanismInfo_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_INFO_PTR (pInfo)
-    der_get_CK_MECHANISM_INFO_PTR(pInfo);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_INFO_PTR(&C_GetMechanismInfo_Return.pInfo, pInfo);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3115,16 +3471,21 @@ unpack_C_GetMechanismList_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_GetMechanismList_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetMechanismList_Call.pulCount, pulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3148,21 +3509,27 @@ unpack_C_GetMechanismList_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetMechanismList_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_TYPE_ARRAY (pMechanismList)
-    der_get_CK_MECHANISM_TYPE_ARRAY(pMechanismList);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_TYPE_ARRAY(&C_GetMechanismList_Return.pMechanismList, pMechanismList);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetMechanismList_Return.pulCount, pulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3187,16 +3554,21 @@ unpack_C_GetObjectSize_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetObjectSize_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
-    der_get_CK_OBJECT_HANDLE_PTR(hObject);
-    
-    
+
+
+
+    status = der_get_ulong(C_GetObjectSize_Call.hObject, hObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3219,17 +3591,21 @@ unpack_C_GetObjectSize_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetObjectSize_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_GetObjectSize_Return.pulSize, pulSize);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3254,17 +3630,21 @@ unpack_C_GetOperationState_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetOperationState_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_GetOperationState_Call.pulOperationStateLen, pulOperationStateLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3288,21 +3668,27 @@ unpack_C_GetOperationState_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetOperationState_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pOperationState)
-    der_get_CK_BYTE_ARRAY(pOperationState);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_GetOperationState_Return.pOperationState, pOperationState);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetOperationState_Return.pulOperationStateLen, pulOperationStateLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3326,12 +3712,15 @@ unpack_C_GetSessionInfo_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetSessionInfo_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3354,16 +3743,21 @@ unpack_C_GetSessionInfo_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetSessionInfo_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_SESSION_INFO_PTR (pInfo)
-    der_get_CK_SESSION_INFO_PTR(pInfo);
-    
-    
+
+
+
+    status = der_get_CK_SESSION_INFO_PTR(&C_GetSessionInfo_Return.pInfo, pInfo);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3387,11 +3781,15 @@ unpack_C_GetSlotInfo_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_GetSlotInfo_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3414,16 +3812,21 @@ unpack_C_GetSlotInfo_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetSlotInfo_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_SLOT_INFO_PTR (pInfo)
-    der_get_CK_SLOT_INFO_PTR(pInfo);
-    
-    
+
+
+
+    status = der_get_CK_SLOT_INFO_PTR(&C_GetSlotInfo_Return.pInfo, pInfo);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3448,16 +3851,21 @@ unpack_C_GetSlotList_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_BBOOL_PTR (tokenPresent)
-    der_get_CK_BBOOL_PTR(tokenPresent);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_CK_BBOOL_PTR(&C_GetSlotList_Call.tokenPresent, tokenPresent);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetSlotList_Call.pulCount, pulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3481,21 +3889,27 @@ unpack_C_GetSlotList_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetSlotList_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_SLOT_ID_ARRAY (pSlotList)
-    der_get_CK_SLOT_ID_ARRAY(pSlotList);
-    
-    
+
+
+
+    status = der_get_CK_SLOT_ID_ARRAY(&C_GetSlotList_Return.pSlotList, pSlotList);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_GetSlotList_Return.pulCount, pulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3519,11 +3933,15 @@ unpack_C_GetTokenInfo_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_GetTokenInfo_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3546,16 +3964,21 @@ unpack_C_GetTokenInfo_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_GetTokenInfo_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_TOKEN_INFO_PTR (pInfo)
-    der_get_CK_TOKEN_INFO_PTR(pInfo);
-    
-    
+
+
+
+    status = der_get_CK_TOKEN_INFO_PTR(&C_GetTokenInfo_Return.pInfo, pInfo);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3581,21 +4004,27 @@ unpack_C_InitPIN_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_InitPIN_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_UTF8CHAR_ARRAY (pPin)
-    der_get_CK_UTF8CHAR_ARRAY(pPin);
-    
-    
+
+
+
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_InitPIN_Call.ulPinLen, ulPinLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3617,12 +4046,15 @@ unpack_C_InitPIN_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_InitPIN_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3649,24 +4081,33 @@ unpack_C_InitToken_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
-    // TODO: properly convert UTF8String (pPin)
-    der_get_UTF8String(pPin);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_InitToken_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_UTF8String(&C_InitToken_Call.pPin, pPin);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_InitToken_Call.ulPinLen, ulPinLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert UTF8String (pLabel)
-    der_get_UTF8String(pLabel);
-    
-    
+
+
+
+    status = der_get_UTF8String(&C_InitToken_Call.pLabel, pLabel);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3688,12 +4129,15 @@ unpack_C_InitToken_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_InitToken_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3717,11 +4161,15 @@ unpack_C_Initialize_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_C_INITIALIZE_ARGS_PTR (pInitArgs)
-    der_get_CK_C_INITIALIZE_ARGS_PTR(pInitArgs);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call.pInitArgs, pInitArgs);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3744,16 +4192,19 @@ unpack_C_Initialize_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Initialize_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert ANY (pInitArgs)
-    der_get_ANY(pInitArgs);
-    
-    
+
+
+
+    // todo: do we need to convert ANY?
+
+
+
 
     return CKR_OK;
 };
@@ -3780,26 +4231,33 @@ unpack_C_Login_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Login_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_Login_Call.userType, userType);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_UTF8CHAR_ARRAY (pPin)
-    der_get_CK_UTF8CHAR_ARRAY(pPin);
-    
-    
+
+
+
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Login_Call.ulPinLen, ulPinLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3821,12 +4279,15 @@ unpack_C_Login_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Login_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3850,12 +4311,15 @@ unpack_C_Logout_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Logout_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3877,12 +4341,15 @@ unpack_C_Logout_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Logout_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3909,23 +4376,31 @@ unpack_C_OpenSession_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (slotID)
-    der_get_CK_SLOT_ID_PTR(slotID);
-    
-    
-    // TODO: properly convert CK_FLAGS_PTR (flags)
-    der_get_CK_FLAGS_PTR(flags);
-    
-    
-    // TODO: properly convert ANY (pApplication)
-    der_get_ANY(pApplication);
-    
-    
-    // TODO: properly convert CK_NOTIFY (notify)
-    der_get_CK_NOTIFY(notify);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_OpenSession_Call.slotID, slotID);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_FLAGS_PTR(&C_OpenSession_Call.flags, flags);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    // todo: do we need to convert ANY?
+
+
+
+    status = der_get_CK_NOTIFY(&C_OpenSession_Call.notify, notify);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -3948,17 +4423,21 @@ unpack_C_OpenSession_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_OpenSession_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_OpenSession_Return.phSession, phSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -3984,21 +4463,27 @@ unpack_C_SeedRandom_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SeedRandom_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSeed)
-    der_get_CK_BYTE_ARRAY(pSeed);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SeedRandom_Call.pSeed, pSeed);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SeedRandom_Call.ulSeedLen, ulSeedLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4020,12 +4505,15 @@ unpack_C_SeedRandom_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SeedRandom_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4052,25 +4540,33 @@ unpack_C_SetAttributeValue_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetAttributeValue_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hObject)
-    der_get_CK_OBJECT_HANDLE_PTR(hObject);
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_ulong(C_SetAttributeValue_Call.hObject, hObject);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_SetAttributeValue_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SetAttributeValue_Call.ulCount, ulCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4092,12 +4588,15 @@ unpack_C_SetAttributeValue_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetAttributeValue_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4125,29 +4624,39 @@ unpack_C_SetOperationState_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetOperationState_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pOperationState)
-    der_get_CK_BYTE_ARRAY(pOperationState);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SetOperationState_Call.pOperationState, pOperationState);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SetOperationState_Call.ulOperationStateLen, ulOperationStateLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hEncryptionKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hEncryptionKey);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hAuthenticationKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hAuthenticationKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_SetOperationState_Call.hEncryptionKey, hEncryptionKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_SetOperationState_Call.hAuthenticationKey, hAuthenticationKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -4169,12 +4678,15 @@ unpack_C_SetOperationState_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetOperationState_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4202,30 +4714,39 @@ unpack_C_SetPIN_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetPIN_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_UTF8CHAR_ARRAY (pOldPin)
-    der_get_CK_UTF8CHAR_ARRAY(pOldPin);
-    
-    
+
+
+
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SetPIN_Call.ulOldLen, ulOldLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_UTF8CHAR_ARRAY (pNewPin)
-    der_get_CK_UTF8CHAR_ARRAY(pNewPin);
-    
-    
+
+
+
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SetPIN_Call.ulNewPin, ulNewPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4247,12 +4768,15 @@ unpack_C_SetPIN_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SetPIN_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4279,26 +4803,33 @@ unpack_C_Sign_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Sign_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Sign_Call.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Sign_Call.ulDataLen, ulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_Sign_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4322,21 +4853,27 @@ unpack_C_Sign_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Sign_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Sign_Return.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Sign_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4363,26 +4900,33 @@ unpack_C_SignEncryptUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignEncryptUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignEncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_SignEncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4406,21 +4950,27 @@ unpack_C_SignEncryptUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignEncryptUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pEncryptedPart)
-    der_get_CK_BYTE_ARRAY(pEncryptedPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignEncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4445,17 +4995,21 @@ unpack_C_SignFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_SignFinal_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4479,21 +5033,27 @@ unpack_C_SignFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignFinal_Return.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignFinal_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4519,20 +5079,27 @@ unpack_C_SignInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_SignInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -4554,12 +5121,15 @@ unpack_C_SignInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4586,26 +5156,33 @@ unpack_C_SignRecover_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignRecover_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Call.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignRecover_Call.ulDataLen, ulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_SignRecover_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4629,21 +5206,27 @@ unpack_C_SignRecover_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignRecover_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Return.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignRecover_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4669,20 +5252,27 @@ unpack_C_SignRecoverInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignRecoverInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_SignRecoverInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -4704,12 +5294,15 @@ unpack_C_SignRecoverInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignRecoverInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4735,21 +5328,27 @@ unpack_C_SignUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_SignUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_SignUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4771,12 +5370,15 @@ unpack_C_SignUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_SignUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4806,38 +5408,51 @@ unpack_C_UnwrapKey_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_UnwrapKey_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hUnwrappingKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hUnwrappingKey);
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pWrappedKey)
-    der_get_CK_BYTE_ARRAY(pWrappedKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_UnwrapKey_Call.hUnwrappingKey, hUnwrappingKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_UnwrapKey_Call.pWrappedKey, pWrappedKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_UnwrapKey_Call.ulWrappedKeyLen, ulWrappedKeyLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_ATTRIBUTE_ARRAY (pTemplate)
-    der_get_CK_ATTRIBUTE_ARRAY(pTemplate);
-    
-    
+
+
+
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_UnwrapKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_UnwrapKey_Call.ulAttributeCount, ulAttributeCount);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4860,16 +5475,21 @@ unpack_C_UnwrapKey_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_UnwrapKey_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (phKey)
-    der_get_CK_OBJECT_HANDLE_PTR(phKey);
-    
-    
+
+
+
+    status = der_get_ulong(C_UnwrapKey_Return.phKey, phKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -4897,30 +5517,39 @@ unpack_C_Verify_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Verify_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Verify_Call.ulDataLen, ulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_Verify_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4942,12 +5571,15 @@ unpack_C_Verify_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_Verify_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -4973,21 +5605,27 @@ unpack_C_VerifyFinal_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyFinal_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_VerifyFinal_Call.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_VerifyFinal_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5009,12 +5647,15 @@ unpack_C_VerifyFinal_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyFinal_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5040,20 +5681,27 @@ unpack_C_VerifyInit_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyInit_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_VerifyInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -5075,12 +5723,15 @@ unpack_C_VerifyInit_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5107,26 +5758,33 @@ unpack_C_VerifyRecover_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyRecover_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pSignature)
-    der_get_CK_BYTE_ARRAY(pSignature);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Call.pSignature, pSignature);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_VerifyRecover_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
     status = der_get_ulong(C_VerifyRecover_Call.pulDataLen, pulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5150,21 +5808,27 @@ unpack_C_VerifyRecover_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyRecover_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pData)
-    der_get_CK_BYTE_ARRAY(pData);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Return.pData, pData);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_VerifyRecover_Return.pulDataLen, pulDataLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5190,21 +5854,27 @@ unpack_C_VerifyUpdate_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyUpdate_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pPart)
-    der_get_CK_BYTE_ARRAY(pPart);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_VerifyUpdate_Call.pPart, pPart);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_VerifyUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5226,12 +5896,15 @@ unpack_C_VerifyUpdate_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_VerifyUpdate_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5256,15 +5929,21 @@ unpack_C_WaitForSlotEvent_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
-    // TODO: properly convert CK_FLAGS_PTR (flags)
-    der_get_CK_FLAGS_PTR(flags);
-    
-    
-    // TODO: properly convert CK_VOID_PTR (pReserved)
-    der_get_CK_VOID_PTR(pReserved);
-    
-    
+    // STARTING UNPACKING
+
+
+    status = der_get_CK_FLAGS_PTR(&C_WaitForSlotEvent_Call.flags, flags);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Call.pReserved, pReserved);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -5288,20 +5967,27 @@ unpack_C_WaitForSlotEvent_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_WaitForSlotEvent_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_SLOT_ID_PTR (pSlot)
-    der_get_CK_SLOT_ID_PTR(pSlot);
-    
-    
-    // TODO: properly convert CK_VOID_PTR (pReserved)
-    der_get_CK_VOID_PTR(pReserved);
-    
-    
+
+
+
+    status = der_get_ulong(C_WaitForSlotEvent_Return.pSlot, pSlot);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Return.pReserved, pReserved);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
 
     return CKR_OK;
 };
@@ -5329,29 +6015,39 @@ unpack_C_WrapKey_Call(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_WrapKey_Call.hSession, hSession);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_MECHANISM_PTR (pMechanism)
-    der_get_CK_MECHANISM_PTR(pMechanism);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hWrappingKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hWrappingKey);
-    
-    
-    // TODO: properly convert CK_OBJECT_HANDLE_PTR (hKey)
-    der_get_CK_OBJECT_HANDLE_PTR(hKey);
-    
-    
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_WrapKey_Call.hWrappingKey, hWrappingKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
+    status = der_get_ulong(C_WrapKey_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_WrapKey_Call.pulWrappedKeyLen, pulWrappedKeyLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };
@@ -5375,21 +6071,27 @@ unpack_C_WrapKey_Return(
     if (status != 0)
         return der_error_helper(errno);
 
-    
+    // STARTING UNPACKING
+
+
     status = der_get_ulong(C_WrapKey_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
-    // TODO: properly convert CK_BYTE_ARRAY (pWrappedKey)
-    der_get_CK_BYTE_ARRAY(pWrappedKey);
-    
-    
+
+
+
+    status = der_get_CK_BYTE_ARRAY(&C_WrapKey_Return.pWrappedKey, pWrappedKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+
+
     status = der_get_ulong(C_WrapKey_Return.pulWrappedKeyLen, pulWrappedKeyLen);
     if (status == -1)
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-    
-    
+
+
+
 
     return CKR_OK;
 };

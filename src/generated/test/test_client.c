@@ -8,6 +8,9 @@
 
 
 void test_client_C_CancelFunction(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     
 
@@ -20,6 +23,9 @@ void test_client_C_CancelFunction(void **state){
 
 
 void test_client_C_CloseAllSessions(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     
 
@@ -32,6 +38,9 @@ void test_client_C_CloseAllSessions(void **state){
 
 
 void test_client_C_CloseSession(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     
 
@@ -44,6 +53,9 @@ void test_client_C_CloseSession(void **state){
 
 
 void test_client_C_CopyObject(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
@@ -64,6 +76,9 @@ void test_client_C_CopyObject(void **state){
 
 
 void test_client_C_CreateObject(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
@@ -82,6 +97,9 @@ void test_client_C_CreateObject(void **state){
 
 
 void test_client_C_Decrypt(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
     CK_ULONG ulEncryptedDataLen = 0;
@@ -102,6 +120,9 @@ void test_client_C_Decrypt(void **state){
 
 
 void test_client_C_DecryptDigestUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
@@ -122,6 +143,9 @@ void test_client_C_DecryptDigestUpdate(void **state){
 
 
 void test_client_C_DecryptFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pLastPart = NULL;
     CK_ULONG_PTR pulLastPartLen = NULL_PTR;
@@ -138,6 +162,9 @@ void test_client_C_DecryptFinal(void **state){
 
 
 void test_client_C_DecryptInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hKey = 0;
@@ -154,6 +181,9 @@ void test_client_C_DecryptInit(void **state){
 
 
 void test_client_C_DecryptUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
@@ -174,6 +204,9 @@ void test_client_C_DecryptUpdate(void **state){
 
 
 void test_client_C_DecryptVerifyUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
@@ -194,6 +227,9 @@ void test_client_C_DecryptVerifyUpdate(void **state){
 
 
 void test_client_C_DeriveKey(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hBaseKey = 0;
@@ -216,6 +252,9 @@ void test_client_C_DeriveKey(void **state){
 
 
 void test_client_C_DestroyObject(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
@@ -230,6 +269,9 @@ void test_client_C_DestroyObject(void **state){
 
 
 void test_client_C_Digest(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
@@ -250,6 +292,9 @@ void test_client_C_Digest(void **state){
 
 
 void test_client_C_DigestEncryptUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -270,6 +315,9 @@ void test_client_C_DigestEncryptUpdate(void **state){
 
 
 void test_client_C_DigestFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pDigest = NULL;
     CK_ULONG_PTR pulDigestLen = NULL_PTR;
@@ -286,6 +334,9 @@ void test_client_C_DigestFinal(void **state){
 
 
 void test_client_C_DigestInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     
@@ -300,6 +351,9 @@ void test_client_C_DigestInit(void **state){
 
 
 void test_client_C_DigestKey(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hKey = 0;
     
@@ -314,6 +368,9 @@ void test_client_C_DigestKey(void **state){
 
 
 void test_client_C_DigestUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -330,6 +387,9 @@ void test_client_C_DigestUpdate(void **state){
 
 
 void test_client_C_Encrypt(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
@@ -350,6 +410,9 @@ void test_client_C_Encrypt(void **state){
 
 
 void test_client_C_EncryptFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
     CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
@@ -366,6 +429,9 @@ void test_client_C_EncryptFinal(void **state){
 
 
 void test_client_C_EncryptInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hKey = 0;
@@ -382,6 +448,9 @@ void test_client_C_EncryptInit(void **state){
 
 
 void test_client_C_EncryptUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -402,6 +471,9 @@ void test_client_C_EncryptUpdate(void **state){
 
 
 void test_client_C_Finalize(void **state){
+
+    (void) state; /* unused */
+
     ANY pReserved = NULL;
     
 
@@ -414,6 +486,9 @@ void test_client_C_Finalize(void **state){
 
 
 void test_client_C_FindObjects(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE_ARRAY phObject = NULL;
     CK_ULONG ulMaxObjectCount = 0;
@@ -432,6 +507,9 @@ void test_client_C_FindObjects(void **state){
 
 
 void test_client_C_FindObjectsFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     
 
@@ -444,6 +522,9 @@ void test_client_C_FindObjectsFinal(void **state){
 
 
 void test_client_C_FindObjectsInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
@@ -460,6 +541,9 @@ void test_client_C_FindObjectsInit(void **state){
 
 
 void test_client_C_GenerateKey(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
@@ -480,6 +564,9 @@ void test_client_C_GenerateKey(void **state){
 
 
 void test_client_C_GenerateKeyPair(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
@@ -506,6 +593,9 @@ void test_client_C_GenerateKeyPair(void **state){
 
 
 void test_client_C_GenerateRandom(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSeed = NULL;
     CK_ULONG ulRandomLen = 0;
@@ -522,6 +612,9 @@ void test_client_C_GenerateRandom(void **state){
 
 
 void test_client_C_GetAttributeValue(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
@@ -540,6 +633,9 @@ void test_client_C_GetAttributeValue(void **state){
 
 
 void test_client_C_GetFunctionStatus(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     
 
@@ -552,6 +648,9 @@ void test_client_C_GetFunctionStatus(void **state){
 
 
 void test_client_C_GetInfo(void **state){
+
+    (void) state; /* unused */
+
     CK_INFO_PTR pInfo = NULL_PTR;
     
 
@@ -564,6 +663,9 @@ void test_client_C_GetInfo(void **state){
 
 
 void test_client_C_GetMechanismInfo(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
     CK_MECHANISM_INFO_PTR pInfo = NULL_PTR;
@@ -580,6 +682,9 @@ void test_client_C_GetMechanismInfo(void **state){
 
 
 void test_client_C_GetMechanismList(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
     CK_ULONG_PTR pulCount = NULL_PTR;
@@ -596,6 +701,9 @@ void test_client_C_GetMechanismList(void **state){
 
 
 void test_client_C_GetObjectSize(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ULONG_PTR pulSize = NULL_PTR;
@@ -612,6 +720,9 @@ void test_client_C_GetObjectSize(void **state){
 
 
 void test_client_C_GetOperationState(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pOperationState = NULL;
     CK_ULONG_PTR pulOperationStateLen = NULL_PTR;
@@ -628,6 +739,9 @@ void test_client_C_GetOperationState(void **state){
 
 
 void test_client_C_GetSessionInfo(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_SESSION_INFO_PTR pInfo = NULL_PTR;
     
@@ -642,6 +756,9 @@ void test_client_C_GetSessionInfo(void **state){
 
 
 void test_client_C_GetSlotInfo(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     CK_SLOT_INFO_PTR pInfo = NULL_PTR;
     
@@ -656,6 +773,9 @@ void test_client_C_GetSlotInfo(void **state){
 
 
 void test_client_C_GetSlotList(void **state){
+
+    (void) state; /* unused */
+
     CK_BBOOL tokenPresent = 0;
     CK_SLOT_ID_ARRAY pSlotList = NULL;
     CK_ULONG_PTR pulCount = NULL_PTR;
@@ -672,6 +792,9 @@ void test_client_C_GetSlotList(void **state){
 
 
 void test_client_C_GetTokenInfo(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     CK_TOKEN_INFO_PTR pInfo = NULL_PTR;
     
@@ -686,6 +809,9 @@ void test_client_C_GetTokenInfo(void **state){
 
 
 void test_client_C_InitPIN(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_UTF8CHAR_ARRAY pPin = NULL;
     CK_ULONG ulPinLen = 0;
@@ -702,6 +828,9 @@ void test_client_C_InitPIN(void **state){
 
 
 void test_client_C_InitToken(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     UTF8String pPin = NULL;
     CK_ULONG ulPinLen = 0;
@@ -720,6 +849,9 @@ void test_client_C_InitToken(void **state){
 
 
 void test_client_C_Initialize(void **state){
+
+    (void) state; /* unused */
+
     CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL_PTR;
     
 
@@ -732,6 +864,9 @@ void test_client_C_Initialize(void **state){
 
 
 void test_client_C_Login(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_USER_TYPE userType = 0;
     CK_UTF8CHAR_ARRAY pPin = NULL;
@@ -750,6 +885,9 @@ void test_client_C_Login(void **state){
 
 
 void test_client_C_Logout(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     
 
@@ -762,6 +900,9 @@ void test_client_C_Logout(void **state){
 
 
 void test_client_C_OpenSession(void **state){
+
+    (void) state; /* unused */
+
     CK_SLOT_ID slotID = 0;
     CK_FLAGS flags = 0;
     ANY pApplication = NULL;
@@ -782,6 +923,9 @@ void test_client_C_OpenSession(void **state){
 
 
 void test_client_C_SeedRandom(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSeed = NULL;
     CK_ULONG ulSeedLen = 0;
@@ -798,6 +942,9 @@ void test_client_C_SeedRandom(void **state){
 
 
 void test_client_C_SetAttributeValue(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
@@ -816,6 +963,9 @@ void test_client_C_SetAttributeValue(void **state){
 
 
 void test_client_C_SetOperationState(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pOperationState = NULL;
     CK_ULONG ulOperationStateLen = 0;
@@ -836,6 +986,9 @@ void test_client_C_SetOperationState(void **state){
 
 
 void test_client_C_SetPIN(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_UTF8CHAR_ARRAY pOldPin = NULL;
     CK_ULONG ulOldLen = 0;
@@ -856,6 +1009,9 @@ void test_client_C_SetPIN(void **state){
 
 
 void test_client_C_Sign(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
@@ -876,6 +1032,9 @@ void test_client_C_Sign(void **state){
 
 
 void test_client_C_SignEncryptUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -896,6 +1055,9 @@ void test_client_C_SignEncryptUpdate(void **state){
 
 
 void test_client_C_SignFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = NULL;
     CK_ULONG_PTR pulSignatureLen = NULL_PTR;
@@ -912,6 +1074,9 @@ void test_client_C_SignFinal(void **state){
 
 
 void test_client_C_SignInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hKey = 0;
@@ -928,6 +1093,9 @@ void test_client_C_SignInit(void **state){
 
 
 void test_client_C_SignRecover(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
@@ -948,6 +1116,9 @@ void test_client_C_SignRecover(void **state){
 
 
 void test_client_C_SignRecoverInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hKey = 0;
@@ -964,6 +1135,9 @@ void test_client_C_SignRecoverInit(void **state){
 
 
 void test_client_C_SignUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -980,6 +1154,9 @@ void test_client_C_SignUpdate(void **state){
 
 
 void test_client_C_UnwrapKey(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
@@ -1006,6 +1183,9 @@ void test_client_C_UnwrapKey(void **state){
 
 
 void test_client_C_Verify(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
@@ -1026,6 +1206,9 @@ void test_client_C_Verify(void **state){
 
 
 void test_client_C_VerifyFinal(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = NULL;
     CK_ULONG ulSignatureLen = 0;
@@ -1042,6 +1225,9 @@ void test_client_C_VerifyFinal(void **state){
 
 
 void test_client_C_VerifyInit(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hKey = 0;
@@ -1058,6 +1244,9 @@ void test_client_C_VerifyInit(void **state){
 
 
 void test_client_C_VerifyRecover(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = NULL;
     CK_ULONG ulSignatureLen = 0;
@@ -1078,6 +1267,9 @@ void test_client_C_VerifyRecover(void **state){
 
 
 void test_client_C_VerifyUpdate(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
@@ -1094,6 +1286,9 @@ void test_client_C_VerifyUpdate(void **state){
 
 
 void test_client_C_WaitForSlotEvent(void **state){
+
+    (void) state; /* unused */
+
     CK_FLAGS flags = 0;
     CK_SLOT_ID_PTR pSlot = NULL_PTR;
     CK_VOID_PTR pReserved = NULL_PTR;
@@ -1110,6 +1305,9 @@ void test_client_C_WaitForSlotEvent(void **state){
 
 
 void test_client_C_WrapKey(void **state){
+
+    (void) state; /* unused */
+
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = NULL_PTR;
     CK_OBJECT_HANDLE hWrappingKey = 0;
