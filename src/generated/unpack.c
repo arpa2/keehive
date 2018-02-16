@@ -697,7 +697,7 @@ unpack_C_CancelFunction_Call(
 
     status = der_get_ulong(C_CancelFunction_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -727,7 +727,7 @@ unpack_C_CancelFunction_Return(
 
     status = der_get_ulong(C_CancelFunction_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -759,7 +759,7 @@ unpack_C_CloseAllSessions_Call(
 
     status = der_get_ulong(C_CloseAllSessions_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -789,7 +789,7 @@ unpack_C_CloseAllSessions_Return(
 
     status = der_get_ulong(C_CloseAllSessions_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -821,7 +821,7 @@ unpack_C_CloseSession_Call(
 
     status = der_get_ulong(C_CloseSession_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -851,7 +851,7 @@ unpack_C_CloseSession_Return(
 
     status = der_get_ulong(C_CloseSession_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -886,25 +886,25 @@ unpack_C_CopyObject_Call(
 
     status = der_get_ulong(C_CopyObject_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_CopyObject_Call.hObject, hObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_CopyObject_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_CopyObject_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -935,13 +935,13 @@ unpack_C_CopyObject_Return(
 
     status = der_get_ulong(C_CopyObject_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_CopyObject_Return.phObject, phObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -975,19 +975,19 @@ unpack_C_CreateObject_Call(
 
     status = der_get_ulong(C_CreateObject_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_CreateObject_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_CreateObject_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1018,13 +1018,13 @@ unpack_C_CreateObject_Return(
 
     status = der_get_ulong(C_CreateObject_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_CreateObject_Return.phObject, phObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1059,25 +1059,25 @@ unpack_C_Decrypt_Call(
 
     status = der_get_ulong(C_Decrypt_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Call.pEncryptedData, pEncryptedData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Decrypt_Call.ulEncryptedDataLen, ulEncryptedDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Decrypt_Call.pulDataLen, pulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1109,19 +1109,19 @@ unpack_C_Decrypt_Return(
 
     status = der_get_ulong(C_Decrypt_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Return.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Decrypt_Return.pulDataLen, pulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1156,25 +1156,25 @@ unpack_C_DecryptDigestUpdate_Call(
 
     status = der_get_ulong(C_DecryptDigestUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptDigestUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptDigestUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1206,19 +1206,19 @@ unpack_C_DecryptDigestUpdate_Return(
 
     status = der_get_ulong(C_DecryptDigestUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Return.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptDigestUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1251,13 +1251,13 @@ unpack_C_DecryptFinal_Call(
 
     status = der_get_ulong(C_DecryptFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptFinal_Call.pulLastPartLen, pulLastPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1289,19 +1289,19 @@ unpack_C_DecryptFinal_Return(
 
     status = der_get_ulong(C_DecryptFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptFinal_Return.pLastPart, pLastPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptFinal_Return.pulLastPartLen, pulLastPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1335,19 +1335,19 @@ unpack_C_DecryptInit_Call(
 
     status = der_get_ulong(C_DecryptInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptInit_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1377,7 +1377,7 @@ unpack_C_DecryptInit_Return(
 
     status = der_get_ulong(C_DecryptInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1412,25 +1412,25 @@ unpack_C_DecryptUpdate_Call(
 
     status = der_get_ulong(C_DecryptUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1462,19 +1462,19 @@ unpack_C_DecryptUpdate_Return(
 
     status = der_get_ulong(C_DecryptUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Return.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1509,25 +1509,25 @@ unpack_C_DecryptVerifyUpdate_Call(
 
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.ulEncryptedPartLen, ulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptVerifyUpdate_Call.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1559,19 +1559,19 @@ unpack_C_DecryptVerifyUpdate_Return(
 
     status = der_get_ulong(C_DecryptVerifyUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Return.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DecryptVerifyUpdate_Return.pulPartLen, pulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1607,31 +1607,31 @@ unpack_C_DeriveKey_Call(
 
     status = der_get_ulong(C_DeriveKey_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DeriveKey_Call.hBaseKey, hBaseKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_DeriveKey_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DeriveKey_Call.ulAttributeCount, ulAttributeCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1662,13 +1662,13 @@ unpack_C_DeriveKey_Return(
 
     status = der_get_ulong(C_DeriveKey_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DeriveKey_Return.phKey, phKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1701,13 +1701,13 @@ unpack_C_DestroyObject_Call(
 
     status = der_get_ulong(C_DestroyObject_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DestroyObject_Call.hObject, hObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1737,7 +1737,7 @@ unpack_C_DestroyObject_Return(
 
     status = der_get_ulong(C_DestroyObject_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1772,25 +1772,25 @@ unpack_C_Digest_Call(
 
     status = der_get_ulong(C_Digest_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Digest_Call.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Digest_Call.ulDataLen, ulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Digest_Call.pulDigestLen, pulDigestLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1822,19 +1822,19 @@ unpack_C_Digest_Return(
 
     status = der_get_ulong(C_Digest_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Digest_Return.pDigest, pDigest);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Digest_Return.pulDigestLen, pulDigestLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1869,25 +1869,25 @@ unpack_C_DigestEncryptUpdate_Call(
 
     status = der_get_ulong(C_DigestEncryptUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestEncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestEncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1919,19 +1919,19 @@ unpack_C_DigestEncryptUpdate_Return(
 
     status = der_get_ulong(C_DigestEncryptUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestEncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -1964,13 +1964,13 @@ unpack_C_DigestFinal_Call(
 
     status = der_get_ulong(C_DigestFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestFinal_Call.pulDigestLen, pulDigestLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2002,19 +2002,19 @@ unpack_C_DigestFinal_Return(
 
     status = der_get_ulong(C_DigestFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DigestFinal_Return.pDigest, pDigest);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestFinal_Return.pulDigestLen, pulDigestLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2047,13 +2047,13 @@ unpack_C_DigestInit_Call(
 
     status = der_get_ulong(C_DigestInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2083,7 +2083,7 @@ unpack_C_DigestInit_Return(
 
     status = der_get_ulong(C_DigestInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2116,13 +2116,13 @@ unpack_C_DigestKey_Call(
 
     status = der_get_ulong(C_DigestKey_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestKey_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2152,7 +2152,7 @@ unpack_C_DigestKey_Return(
 
     status = der_get_ulong(C_DigestKey_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2186,19 +2186,19 @@ unpack_C_DigestUpdate_Call(
 
     status = der_get_ulong(C_DigestUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_DigestUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_DigestUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2228,7 +2228,7 @@ unpack_C_DigestUpdate_Return(
 
     status = der_get_ulong(C_DigestUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2263,25 +2263,25 @@ unpack_C_Encrypt_Call(
 
     status = der_get_ulong(C_Encrypt_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Call.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Encrypt_Call.ulDataLen, ulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Encrypt_Call.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2313,19 +2313,19 @@ unpack_C_Encrypt_Return(
 
     status = der_get_ulong(C_Encrypt_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Return.pEncryptedData, pEncryptedData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Encrypt_Return.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2358,13 +2358,13 @@ unpack_C_EncryptFinal_Call(
 
     status = der_get_ulong(C_EncryptFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptFinal_Call.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2396,19 +2396,19 @@ unpack_C_EncryptFinal_Return(
 
     status = der_get_ulong(C_EncryptFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_EncryptFinal_Return.pEncryptedData, pEncryptedData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptFinal_Return.pulEncryptedDataLen, pulEncryptedDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2442,19 +2442,19 @@ unpack_C_EncryptInit_Call(
 
     status = der_get_ulong(C_EncryptInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptInit_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2484,7 +2484,7 @@ unpack_C_EncryptInit_Return(
 
     status = der_get_ulong(C_EncryptInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2519,25 +2519,25 @@ unpack_C_EncryptUpdate_Call(
 
     status = der_get_ulong(C_EncryptUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2569,19 +2569,19 @@ unpack_C_EncryptUpdate_Return(
 
     status = der_get_ulong(C_EncryptUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_EncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2613,7 +2613,7 @@ unpack_C_Finalize_Call(
 
     status = der_get_CK_VOID_PTR(&C_Finalize_Call.pReserved, pReserved);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2644,7 +2644,7 @@ unpack_C_Finalize_Return(
 
     status = der_get_ulong(C_Finalize_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2681,13 +2681,13 @@ unpack_C_FindObjects_Call(
 
     status = der_get_ulong(C_FindObjects_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_FindObjects_Call.ulMaxObjectCount, ulMaxObjectCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2719,19 +2719,19 @@ unpack_C_FindObjects_Return(
 
     status = der_get_ulong(C_FindObjects_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_OBJECT_HANDLE_ARRAY(&C_FindObjects_Return.phObject, phObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_FindObjects_Return.pulObjectCount, pulObjectCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2763,7 +2763,7 @@ unpack_C_FindObjectsFinal_Call(
 
     status = der_get_ulong(C_FindObjectsFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2793,7 +2793,7 @@ unpack_C_FindObjectsFinal_Return(
 
     status = der_get_ulong(C_FindObjectsFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2827,19 +2827,19 @@ unpack_C_FindObjectsInit_Call(
 
     status = der_get_ulong(C_FindObjectsInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_FindObjectsInit_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2870,13 +2870,13 @@ unpack_C_FindObjectsInit_Return(
 
     status = der_get_ulong(C_FindObjectsInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Return.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2911,25 +2911,25 @@ unpack_C_GenerateKey_Call(
 
     status = der_get_ulong(C_GenerateKey_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKey_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKey_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2960,13 +2960,13 @@ unpack_C_GenerateKey_Return(
 
     status = der_get_ulong(C_GenerateKey_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKey_Return.phKey, phKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3003,37 +3003,37 @@ unpack_C_GenerateKeyPair_Call(
 
     status = der_get_ulong(C_GenerateKeyPair_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPublicKeyAttributeCount, ulPublicKeyAttributeCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3065,19 +3065,19 @@ unpack_C_GenerateKeyPair_Return(
 
     status = der_get_ulong(C_GenerateKeyPair_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKeyPair_Return.phPublicKey, phPublicKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateKeyPair_Return.phPrivateKey, phPrivateKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3110,13 +3110,13 @@ unpack_C_GenerateRandom_Call(
 
     status = der_get_ulong(C_GenerateRandom_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GenerateRandom_Call.ulRandomLen, ulRandomLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3147,13 +3147,13 @@ unpack_C_GenerateRandom_Return(
 
     status = der_get_ulong(C_GenerateRandom_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_GenerateRandom_Return.pSeed, pSeed);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3188,25 +3188,25 @@ unpack_C_GetAttributeValue_Call(
 
     status = der_get_ulong(C_GetAttributeValue_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetAttributeValue_Call.hObject, hObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetAttributeValue_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3237,13 +3237,13 @@ unpack_C_GetAttributeValue_Return(
 
     status = der_get_ulong(C_GetAttributeValue_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Return.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3275,7 +3275,7 @@ unpack_C_GetFunctionStatus_Call(
 
     status = der_get_ulong(C_GetFunctionStatus_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3305,7 +3305,7 @@ unpack_C_GetFunctionStatus_Return(
 
     status = der_get_ulong(C_GetFunctionStatus_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3361,13 +3361,13 @@ unpack_C_GetInfo_Return(
 
     status = der_get_ulong(C_GetInfo_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_INFO_PTR(&C_GetInfo_Return.pInfo, pInfo);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3400,13 +3400,13 @@ unpack_C_GetMechanismInfo_Call(
 
     status = der_get_ulong(C_GetMechanismInfo_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetMechanismInfo_Call.type, type);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3437,13 +3437,13 @@ unpack_C_GetMechanismInfo_Return(
 
     status = der_get_ulong(C_GetMechanismInfo_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_INFO_PTR(&C_GetMechanismInfo_Return.pInfo, pInfo);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3476,13 +3476,13 @@ unpack_C_GetMechanismList_Call(
 
     status = der_get_ulong(C_GetMechanismList_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetMechanismList_Call.pulCount, pulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3514,19 +3514,19 @@ unpack_C_GetMechanismList_Return(
 
     status = der_get_ulong(C_GetMechanismList_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_TYPE_ARRAY(&C_GetMechanismList_Return.pMechanismList, pMechanismList);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetMechanismList_Return.pulCount, pulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3559,13 +3559,13 @@ unpack_C_GetObjectSize_Call(
 
     status = der_get_ulong(C_GetObjectSize_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetObjectSize_Call.hObject, hObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3596,13 +3596,13 @@ unpack_C_GetObjectSize_Return(
 
     status = der_get_ulong(C_GetObjectSize_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetObjectSize_Return.pulSize, pulSize);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3635,13 +3635,13 @@ unpack_C_GetOperationState_Call(
 
     status = der_get_ulong(C_GetOperationState_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetOperationState_Call.pulOperationStateLen, pulOperationStateLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3673,19 +3673,19 @@ unpack_C_GetOperationState_Return(
 
     status = der_get_ulong(C_GetOperationState_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_GetOperationState_Return.pOperationState, pOperationState);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetOperationState_Return.pulOperationStateLen, pulOperationStateLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3717,7 +3717,7 @@ unpack_C_GetSessionInfo_Call(
 
     status = der_get_ulong(C_GetSessionInfo_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3748,13 +3748,13 @@ unpack_C_GetSessionInfo_Return(
 
     status = der_get_ulong(C_GetSessionInfo_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_SESSION_INFO_PTR(&C_GetSessionInfo_Return.pInfo, pInfo);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3786,7 +3786,7 @@ unpack_C_GetSlotInfo_Call(
 
     status = der_get_ulong(C_GetSlotInfo_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3817,13 +3817,13 @@ unpack_C_GetSlotInfo_Return(
 
     status = der_get_ulong(C_GetSlotInfo_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_SLOT_INFO_PTR(&C_GetSlotInfo_Return.pInfo, pInfo);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3856,13 +3856,13 @@ unpack_C_GetSlotList_Call(
 
     status = der_get_CK_BBOOL_PTR(&C_GetSlotList_Call.tokenPresent, tokenPresent);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetSlotList_Call.pulCount, pulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3894,19 +3894,19 @@ unpack_C_GetSlotList_Return(
 
     status = der_get_ulong(C_GetSlotList_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_SLOT_ID_ARRAY(&C_GetSlotList_Return.pSlotList, pSlotList);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_GetSlotList_Return.pulCount, pulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3938,7 +3938,7 @@ unpack_C_GetTokenInfo_Call(
 
     status = der_get_ulong(C_GetTokenInfo_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3969,13 +3969,13 @@ unpack_C_GetTokenInfo_Return(
 
     status = der_get_ulong(C_GetTokenInfo_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_TOKEN_INFO_PTR(&C_GetTokenInfo_Return.pInfo, pInfo);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4009,19 +4009,19 @@ unpack_C_InitPIN_Call(
 
     status = der_get_ulong(C_InitPIN_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_InitPIN_Call.ulPinLen, ulPinLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4051,7 +4051,7 @@ unpack_C_InitPIN_Return(
 
     status = der_get_ulong(C_InitPIN_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4086,25 +4086,25 @@ unpack_C_InitToken_Call(
 
     status = der_get_ulong(C_InitToken_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_UTF8String(&C_InitToken_Call.pPin, pPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_InitToken_Call.ulPinLen, ulPinLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_UTF8String(&C_InitToken_Call.pLabel, pLabel);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4134,7 +4134,7 @@ unpack_C_InitToken_Return(
 
     status = der_get_ulong(C_InitToken_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4166,7 +4166,7 @@ unpack_C_Initialize_Call(
 
     status = der_get_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call.pInitArgs, pInitArgs);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4197,7 +4197,7 @@ unpack_C_Initialize_Return(
 
     status = der_get_ulong(C_Initialize_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4236,25 +4236,25 @@ unpack_C_Login_Call(
 
     status = der_get_ulong(C_Login_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Login_Call.userType, userType);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Login_Call.ulPinLen, ulPinLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4284,7 +4284,7 @@ unpack_C_Login_Return(
 
     status = der_get_ulong(C_Login_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4316,7 +4316,7 @@ unpack_C_Logout_Call(
 
     status = der_get_ulong(C_Logout_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4346,7 +4346,7 @@ unpack_C_Logout_Return(
 
     status = der_get_ulong(C_Logout_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4381,13 +4381,13 @@ unpack_C_OpenSession_Call(
 
     status = der_get_ulong(C_OpenSession_Call.slotID, slotID);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_FLAGS_PTR(&C_OpenSession_Call.flags, flags);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4397,7 +4397,7 @@ unpack_C_OpenSession_Call(
 
     status = der_get_CK_NOTIFY(&C_OpenSession_Call.notify, notify);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4428,13 +4428,13 @@ unpack_C_OpenSession_Return(
 
     status = der_get_ulong(C_OpenSession_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_OpenSession_Return.phSession, phSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4468,19 +4468,19 @@ unpack_C_SeedRandom_Call(
 
     status = der_get_ulong(C_SeedRandom_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SeedRandom_Call.pSeed, pSeed);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SeedRandom_Call.ulSeedLen, ulSeedLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4510,7 +4510,7 @@ unpack_C_SeedRandom_Return(
 
     status = der_get_ulong(C_SeedRandom_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4545,25 +4545,25 @@ unpack_C_SetAttributeValue_Call(
 
     status = der_get_ulong(C_SetAttributeValue_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetAttributeValue_Call.hObject, hObject);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_SetAttributeValue_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetAttributeValue_Call.ulCount, ulCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4593,7 +4593,7 @@ unpack_C_SetAttributeValue_Return(
 
     status = der_get_ulong(C_SetAttributeValue_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4629,31 +4629,31 @@ unpack_C_SetOperationState_Call(
 
     status = der_get_ulong(C_SetOperationState_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SetOperationState_Call.pOperationState, pOperationState);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetOperationState_Call.ulOperationStateLen, ulOperationStateLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetOperationState_Call.hEncryptionKey, hEncryptionKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetOperationState_Call.hAuthenticationKey, hAuthenticationKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4683,7 +4683,7 @@ unpack_C_SetOperationState_Return(
 
     status = der_get_ulong(C_SetOperationState_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4719,31 +4719,31 @@ unpack_C_SetPIN_Call(
 
     status = der_get_ulong(C_SetPIN_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetPIN_Call.ulOldLen, ulOldLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SetPIN_Call.ulNewPin, ulNewPin);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4773,7 +4773,7 @@ unpack_C_SetPIN_Return(
 
     status = der_get_ulong(C_SetPIN_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4808,25 +4808,25 @@ unpack_C_Sign_Call(
 
     status = der_get_ulong(C_Sign_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Sign_Call.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Sign_Call.ulDataLen, ulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Sign_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4858,19 +4858,19 @@ unpack_C_Sign_Return(
 
     status = der_get_ulong(C_Sign_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Sign_Return.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Sign_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4905,25 +4905,25 @@ unpack_C_SignEncryptUpdate_Call(
 
     status = der_get_ulong(C_SignEncryptUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignEncryptUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignEncryptUpdate_Call.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -4955,19 +4955,19 @@ unpack_C_SignEncryptUpdate_Return(
 
     status = der_get_ulong(C_SignEncryptUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignEncryptUpdate_Return.pulEncryptedPartLen, pulEncryptedPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5000,13 +5000,13 @@ unpack_C_SignFinal_Call(
 
     status = der_get_ulong(C_SignFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignFinal_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5038,19 +5038,19 @@ unpack_C_SignFinal_Return(
 
     status = der_get_ulong(C_SignFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignFinal_Return.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignFinal_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5084,19 +5084,19 @@ unpack_C_SignInit_Call(
 
     status = der_get_ulong(C_SignInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignInit_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5126,7 +5126,7 @@ unpack_C_SignInit_Return(
 
     status = der_get_ulong(C_SignInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5161,25 +5161,25 @@ unpack_C_SignRecover_Call(
 
     status = der_get_ulong(C_SignRecover_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Call.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignRecover_Call.ulDataLen, ulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignRecover_Call.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5211,19 +5211,19 @@ unpack_C_SignRecover_Return(
 
     status = der_get_ulong(C_SignRecover_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Return.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignRecover_Return.pulSignatureLen, pulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5257,19 +5257,19 @@ unpack_C_SignRecoverInit_Call(
 
     status = der_get_ulong(C_SignRecoverInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignRecoverInit_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5299,7 +5299,7 @@ unpack_C_SignRecoverInit_Return(
 
     status = der_get_ulong(C_SignRecoverInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5333,19 +5333,19 @@ unpack_C_SignUpdate_Call(
 
     status = der_get_ulong(C_SignUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_SignUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_SignUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5375,7 +5375,7 @@ unpack_C_SignUpdate_Return(
 
     status = der_get_ulong(C_SignUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5413,43 +5413,43 @@ unpack_C_UnwrapKey_Call(
 
     status = der_get_ulong(C_UnwrapKey_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_UnwrapKey_Call.hUnwrappingKey, hUnwrappingKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_UnwrapKey_Call.pWrappedKey, pWrappedKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_UnwrapKey_Call.ulWrappedKeyLen, ulWrappedKeyLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_ATTRIBUTE_ARRAY(&C_UnwrapKey_Call.pTemplate, pTemplate);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_UnwrapKey_Call.ulAttributeCount, ulAttributeCount);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5480,13 +5480,13 @@ unpack_C_UnwrapKey_Return(
 
     status = der_get_ulong(C_UnwrapKey_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_UnwrapKey_Return.phKey, phKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5522,31 +5522,31 @@ unpack_C_Verify_Call(
 
     status = der_get_ulong(C_Verify_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Verify_Call.ulDataLen, ulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_Verify_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5576,7 +5576,7 @@ unpack_C_Verify_Return(
 
     status = der_get_ulong(C_Verify_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5610,19 +5610,19 @@ unpack_C_VerifyFinal_Call(
 
     status = der_get_ulong(C_VerifyFinal_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_VerifyFinal_Call.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyFinal_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5652,7 +5652,7 @@ unpack_C_VerifyFinal_Return(
 
     status = der_get_ulong(C_VerifyFinal_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5686,19 +5686,19 @@ unpack_C_VerifyInit_Call(
 
     status = der_get_ulong(C_VerifyInit_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyInit_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5728,7 +5728,7 @@ unpack_C_VerifyInit_Return(
 
     status = der_get_ulong(C_VerifyInit_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5763,25 +5763,25 @@ unpack_C_VerifyRecover_Call(
 
     status = der_get_ulong(C_VerifyRecover_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Call.pSignature, pSignature);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyRecover_Call.ulSignatureLen, ulSignatureLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyRecover_Call.pulDataLen, pulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5813,19 +5813,19 @@ unpack_C_VerifyRecover_Return(
 
     status = der_get_ulong(C_VerifyRecover_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Return.pData, pData);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyRecover_Return.pulDataLen, pulDataLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5859,19 +5859,19 @@ unpack_C_VerifyUpdate_Call(
 
     status = der_get_ulong(C_VerifyUpdate_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_VerifyUpdate_Call.pPart, pPart);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_VerifyUpdate_Call.ulPartLen, ulPartLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5901,7 +5901,7 @@ unpack_C_VerifyUpdate_Return(
 
     status = der_get_ulong(C_VerifyUpdate_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5934,13 +5934,13 @@ unpack_C_WaitForSlotEvent_Call(
 
     status = der_get_CK_FLAGS_PTR(&C_WaitForSlotEvent_Call.flags, flags);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Call.pReserved, pReserved);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -5972,19 +5972,19 @@ unpack_C_WaitForSlotEvent_Return(
 
     status = der_get_ulong(C_WaitForSlotEvent_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_WaitForSlotEvent_Return.pSlot, pSlot);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Return.pReserved, pReserved);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -6020,31 +6020,31 @@ unpack_C_WrapKey_Call(
 
     status = der_get_ulong(C_WrapKey_Call.hSession, hSession);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_WrapKey_Call.hWrappingKey, hWrappingKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_WrapKey_Call.hKey, hKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_WrapKey_Call.pulWrappedKeyLen, pulWrappedKeyLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -6076,19 +6076,19 @@ unpack_C_WrapKey_Return(
 
     status = der_get_ulong(C_WrapKey_Return.retval, retval);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_CK_BYTE_ARRAY(&C_WrapKey_Return.pWrappedKey, pWrappedKey);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
     status = der_get_ulong(C_WrapKey_Return.pulWrappedKeyLen, pulWrappedKeyLen);
     if (status == -1)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 

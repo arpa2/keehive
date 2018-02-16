@@ -2,120 +2,150 @@
 #include "convert.h"
 
 
+
 dercursor not_implemented(uint8_t *der_buf_uint32, uint32_t value) {
     dercursor cursor;
     return cursor;
 };
 
 
-void populate() {
-    //func_array[CKA_ALLOWED_MECHANISMS+1] = { not_implemented };
-    func_array[CKA_TOKEN] = not_implemented;
-    func_array[CKA_CLASS] = not_implemented;
-    func_array[CKA_PRIVATE] = not_implemented;
-    func_array[CKA_LABEL] = not_implemented;
-    func_array[CKA_APPLICATION] = not_implemented;
-    func_array[CKA_VALUE] = not_implemented;
-    func_array[CKA_OBJECT_ID] = not_implemented;
-    func_array[CKA_CERTIFICATE_TYPE] = not_implemented;
-    func_array[CKA_ISSUER] = not_implemented;
-    func_array[CKA_SERIAL_NUMBER] = not_implemented;
-    func_array[CKA_AC_ISSUER] = not_implemented;
-    func_array[CKA_OWNER] = not_implemented;
-    func_array[CKA_ATTR_TYPES] = not_implemented;
-    func_array[CKA_TRUSTED] = not_implemented;
-    func_array[CKA_CERTIFICATE_CATEGORY] = not_implemented;
-    func_array[CKA_JAVA_MIDP_SECURITY_DOMAIN] = not_implemented;
-    func_array[CKA_URL] = not_implemented;
-    func_array[CKA_HASH_OF_SUBJECT_PUBLIC_KEY] = not_implemented;
-    func_array[CKA_HASH_OF_ISSUER_PUBLIC_KEY] = not_implemented;
-    func_array[CKA_NAME_HASH_ALGORITHM] = not_implemented;
-    func_array[CKA_CHECK_VALUE] = not_implemented;
-    func_array[CKA_KEY_TYPE] = not_implemented;
-    func_array[CKA_SUBJECT] = not_implemented;
-    func_array[CKA_ID] = not_implemented;
-    func_array[CKA_SENSITIVE] = not_implemented;
-    func_array[CKA_ENCRYPT] = not_implemented;
-    func_array[CKA_DECRYPT] = not_implemented;
-    func_array[CKA_WRAP] = not_implemented;
-    func_array[CKA_UNWRAP] = not_implemented;
-    func_array[CKA_SIGN] = not_implemented;
-    func_array[CKA_SIGN_RECOVER] = not_implemented;
-    func_array[CKA_VERIFY] = not_implemented;
-    func_array[CKA_VERIFY_RECOVER] = not_implemented;
-    func_array[CKA_DERIVE] = not_implemented;
-    func_array[CKA_START_DATE] = not_implemented;
-    func_array[CKA_END_DATE] = not_implemented;
-    func_array[CKA_MODULUS] = not_implemented;
-    func_array[CKA_MODULUS_BITS] = not_implemented;
-    func_array[CKA_PUBLIC_EXPONENT] = not_implemented;
-    func_array[CKA_PRIVATE_EXPONENT] = not_implemented;
-    func_array[CKA_PRIME_1] = not_implemented;
-    func_array[CKA_PRIME_2] = not_implemented;
-    func_array[CKA_EXPONENT_1] = not_implemented;
-    func_array[CKA_EXPONENT_2] = not_implemented;
-    func_array[CKA_COEFFICIENT] = not_implemented;
-    func_array[CKA_PUBLIC_KEY_INFO] = not_implemented;
-    func_array[CKA_PRIME] = not_implemented;
-    func_array[CKA_SUBPRIME] = not_implemented;
-    func_array[CKA_BASE] = not_implemented;
-    func_array[CKA_PRIME_BITS] = not_implemented;
-    func_array[CKA_SUBPRIME_BITS] = not_implemented;
-    func_array[CKA_SUB_PRIME_BITS] = not_implemented;
-    func_array[CKA_VALUE_BITS] = not_implemented;
-    func_array[CKA_VALUE_LEN] = not_implemented;
-    func_array[CKA_EXTRACTABLE] = not_implemented;
-    func_array[CKA_LOCAL] = not_implemented;
-    func_array[CKA_NEVER_EXTRACTABLE] = not_implemented;
-    func_array[CKA_ALWAYS_SENSITIVE] = not_implemented;
-    func_array[CKA_KEY_GEN_MECHANISM] = not_implemented;
-    func_array[CKA_MODIFIABLE] = not_implemented;
-    func_array[CKA_COPYABLE] = not_implemented;
-    func_array[CKA_DESTROYABLE] = not_implemented;
-    func_array[CKA_ECDSA_PARAMS] = not_implemented;
-    func_array[CKA_EC_PARAMS] = not_implemented;
-    func_array[CKA_EC_POINT] = not_implemented;
-    func_array[CKA_SECONDARY_AUTH] = not_implemented;
-    func_array[CKA_AUTH_PIN_FLAGS] = not_implemented;
-    func_array[CKA_ALWAYS_AUTHENTICATE] = not_implemented;
-    func_array[CKA_WRAP_WITH_TRUSTED] = not_implemented;
-    //func_array[CKA_WRAP_TEMPLATE] = not_implemented;
-    //func_array[CKA_UNWRAP_TEMPLATE] = not_implemented;
-    //func_array[CKA_DERIVE_TEMPLATE] = not_implemented;
-    func_array[CKA_OTP_FORMAT] = not_implemented;
-    func_array[CKA_OTP_LENGTH] = not_implemented;
-    func_array[CKA_OTP_TIME_INTERVAL] = not_implemented;
-    func_array[CKA_OTP_USER_FRIENDLY_MODE] = not_implemented;
-    func_array[CKA_OTP_CHALLENGE_REQUIREMENT] = not_implemented;
-    func_array[CKA_OTP_TIME_REQUIREMENT] = not_implemented;
-    func_array[CKA_OTP_COUNTER_REQUIREMENT] = not_implemented;
-    func_array[CKA_OTP_PIN_REQUIREMENT] = not_implemented;
-    func_array[CKA_OTP_COUNTER] = not_implemented;
-    func_array[CKA_OTP_TIME] = not_implemented;
-    func_array[CKA_OTP_USER_IDENTIFIER] = not_implemented;
-    func_array[CKA_OTP_SERVICE_IDENTIFIER] = not_implemented;
-    func_array[CKA_OTP_SERVICE_LOGO] = not_implemented;
-    func_array[CKA_OTP_SERVICE_LOGO_TYPE] = not_implemented;
-    func_array[CKA_GOSTR3410_PARAMS] = not_implemented;
-    func_array[CKA_GOSTR3411_PARAMS] = not_implemented;
-    func_array[CKA_GOST28147_PARAMS] = not_implemented;
-    func_array[CKA_HW_FEATURE_TYPE] = not_implemented;
-    func_array[CKA_RESET_ON_INIT] = not_implemented;
-    func_array[CKA_HAS_RESET] = not_implemented;
-    func_array[CKA_PIXEL_X] = not_implemented;
-    func_array[CKA_PIXEL_Y] = not_implemented;
-    func_array[CKA_RESOLUTION] = not_implemented;
-    func_array[CKA_CHAR_ROWS] = not_implemented;
-    func_array[CKA_CHAR_COLUMNS] = not_implemented;
-    func_array[CKA_COLOR] = not_implemented;
-    func_array[CKA_BITS_PER_PIXEL] = not_implemented;
-    func_array[CKA_CHAR_SETS] = not_implemented;
-    func_array[CKA_ENCODING_METHODS] = not_implemented;
-    func_array[CKA_MIME_TYPES] = not_implemented;
-    func_array[CKA_MECHANISM_TYPE] = not_implemented;
-    func_array[CKA_REQUIRED_CMS_ATTRIBUTES] = not_implemented;
-    func_array[CKA_DEFAULT_CMS_ATTRIBUTES] = not_implemented;
-    func_array[CKA_SUPPORTED_CMS_ATTRIBUTES] = not_implemented;
-    //func_array[CKA_ALLOWED_MECHANISMS] = not_implemented;
-    //func_array[CKA_VENDOR_DEFINED] = not_implemented;
+static func_tree_t functree;
+
+
+func_t func_array[] = {
+        {.key=CKA_TOKEN, .func=not_implemented},
+        {.key=CKA_CLASS, .func=not_implemented},
+        {.key=CKA_PRIVATE, .func=not_implemented},
+        {.key=CKA_LABEL, .func=not_implemented},
+        {.key=CKA_APPLICATION, .func=not_implemented},
+        {.key=CKA_VALUE, .func=not_implemented},
+        {.key=CKA_OBJECT_ID, .func=not_implemented},
+        {.key=CKA_CERTIFICATE_TYPE, .func=not_implemented},
+        {.key=CKA_ISSUER, .func=not_implemented},
+        {.key=CKA_SERIAL_NUMBER, .func=not_implemented},
+        {.key=CKA_AC_ISSUER, .func=not_implemented},
+        {.key=CKA_OWNER, .func=not_implemented},
+        {.key=CKA_ATTR_TYPES, .func=not_implemented},
+        {.key=CKA_TRUSTED, .func=not_implemented},
+        {.key=CKA_CERTIFICATE_CATEGORY, .func=not_implemented},
+        {.key=CKA_JAVA_MIDP_SECURITY_DOMAIN, .func=not_implemented},
+        {.key=CKA_URL, .func=not_implemented},
+        {.key=CKA_HASH_OF_SUBJECT_PUBLIC_KEY, .func=not_implemented},
+        {.key=CKA_HASH_OF_ISSUER_PUBLIC_KEY, .func=not_implemented},
+        {.key=CKA_NAME_HASH_ALGORITHM, .func=not_implemented},
+        {.key=CKA_CHECK_VALUE, .func=not_implemented},
+        {.key=CKA_KEY_TYPE, .func=not_implemented},
+        {.key=CKA_SUBJECT, .func=not_implemented},
+        {.key=CKA_ID, .func=not_implemented},
+        {.key=CKA_SENSITIVE, .func=not_implemented},
+        {.key=CKA_ENCRYPT, .func=not_implemented},
+        {.key=CKA_DECRYPT, .func=not_implemented},
+        {.key=CKA_WRAP, .func=not_implemented},
+        {.key=CKA_UNWRAP, .func=not_implemented},
+        {.key=CKA_SIGN, .func=not_implemented},
+        {.key=CKA_SIGN_RECOVER, .func=not_implemented},
+        {.key=CKA_VERIFY, .func=not_implemented},
+        {.key=CKA_VERIFY_RECOVER, .func=not_implemented},
+        {.key=CKA_DERIVE, .func=not_implemented},
+        {.key=CKA_START_DATE, .func=not_implemented},
+        {.key=CKA_END_DATE, .func=not_implemented},
+        {.key=CKA_MODULUS, .func=not_implemented},
+        {.key=CKA_MODULUS_BITS, .func=not_implemented},
+        {.key=CKA_PUBLIC_EXPONENT, .func=not_implemented},
+        {.key=CKA_PRIVATE_EXPONENT, .func=not_implemented},
+        {.key=CKA_PRIME_1, .func=not_implemented},
+        {.key=CKA_PRIME_2, .func=not_implemented},
+        {.key=CKA_EXPONENT_1, .func=not_implemented},
+        {.key=CKA_EXPONENT_2, .func=not_implemented},
+        {.key=CKA_COEFFICIENT, .func=not_implemented},
+        {.key=CKA_PUBLIC_KEY_INFO, .func=not_implemented},
+        {.key=CKA_PRIME, .func=not_implemented},
+        {.key=CKA_SUBPRIME, .func=not_implemented},
+        {.key=CKA_BASE, .func=not_implemented},
+        {.key=CKA_PRIME_BITS, .func=not_implemented},
+        {.key=CKA_SUBPRIME_BITS, .func=not_implemented},
+        {.key=CKA_SUB_PRIME_BITS, .func=not_implemented},
+        {.key=CKA_VALUE_BITS, .func=not_implemented},
+        {.key=CKA_VALUE_LEN, .func=not_implemented},
+        {.key=CKA_EXTRACTABLE, .func=not_implemented},
+        {.key=CKA_LOCAL, .func=not_implemented},
+        {.key=CKA_NEVER_EXTRACTABLE, .func=not_implemented},
+        {.key=CKA_ALWAYS_SENSITIVE, .func=not_implemented},
+        {.key=CKA_KEY_GEN_MECHANISM, .func=not_implemented},
+        {.key=CKA_MODIFIABLE, .func=not_implemented},
+        {.key=CKA_COPYABLE, .func=not_implemented},
+        {.key=CKA_DESTROYABLE, .func=not_implemented},
+        {.key=CKA_ECDSA_PARAMS, .func=not_implemented},
+        {.key=CKA_EC_PARAMS, .func=not_implemented},
+        {.key=CKA_EC_POINT, .func=not_implemented},
+        {.key=CKA_SECONDARY_AUTH, .func=not_implemented},
+        {.key=CKA_AUTH_PIN_FLAGS, .func=not_implemented},
+        {.key=CKA_ALWAYS_AUTHENTICATE, .func=not_implemented},
+        {.key=CKA_WRAP_WITH_TRUSTED, .func=not_implemented},
+        {.key=CKA_WRAP_TEMPLATE, .func=not_implemented},
+        {.key=CKA_UNWRAP_TEMPLATE, .func=not_implemented},
+        {.key=CKA_DERIVE_TEMPLATE, .func=not_implemented},
+        {.key=CKA_OTP_FORMAT, .func=not_implemented},
+        {.key=CKA_OTP_LENGTH, .func=not_implemented},
+        {.key=CKA_OTP_TIME_INTERVAL, .func=not_implemented},
+        {.key=CKA_OTP_USER_FRIENDLY_MODE, .func=not_implemented},
+        {.key=CKA_OTP_CHALLENGE_REQUIREMENT, .func=not_implemented},
+        {.key=CKA_OTP_TIME_REQUIREMENT, .func=not_implemented},
+        {.key=CKA_OTP_COUNTER_REQUIREMENT, .func=not_implemented},
+        {.key=CKA_OTP_PIN_REQUIREMENT, .func=not_implemented},
+        {.key=CKA_OTP_COUNTER, .func=not_implemented},
+        {.key=CKA_OTP_TIME, .func=not_implemented},
+        {.key=CKA_OTP_USER_IDENTIFIER, .func=not_implemented},
+        {.key=CKA_OTP_SERVICE_IDENTIFIER, .func=not_implemented},
+        {.key=CKA_OTP_SERVICE_LOGO, .func=not_implemented},
+        {.key=CKA_OTP_SERVICE_LOGO_TYPE, .func=not_implemented},
+        {.key=CKA_GOSTR3410_PARAMS, .func=not_implemented},
+        {.key=CKA_GOSTR3411_PARAMS, .func=not_implemented},
+        {.key=CKA_GOST28147_PARAMS, .func=not_implemented},
+        {.key=CKA_HW_FEATURE_TYPE, .func=not_implemented},
+        {.key=CKA_RESET_ON_INIT, .func=not_implemented},
+        {.key=CKA_HAS_RESET, .func=not_implemented},
+        {.key=CKA_PIXEL_X, .func=not_implemented},
+        {.key=CKA_PIXEL_Y, .func=not_implemented},
+        {.key=CKA_RESOLUTION, .func=not_implemented},
+        {.key=CKA_CHAR_ROWS, .func=not_implemented},
+        {.key=CKA_CHAR_COLUMNS, .func=not_implemented},
+        {.key=CKA_COLOR, .func=not_implemented},
+        {.key=CKA_BITS_PER_PIXEL, .func=not_implemented},
+        {.key=CKA_CHAR_SETS, .func=not_implemented},
+        {.key=CKA_ENCODING_METHODS, .func=not_implemented},
+        {.key=CKA_MIME_TYPES, .func=not_implemented},
+        {.key=CKA_MECHANISM_TYPE, .func=not_implemented},
+        {.key=CKA_REQUIRED_CMS_ATTRIBUTES, .func=not_implemented},
+        {.key=CKA_DEFAULT_CMS_ATTRIBUTES, .func=not_implemented},
+        {.key=CKA_SUPPORTED_CMS_ATTRIBUTES, .func=not_implemented},
+        {.key=CKA_ALLOWED_MECHANISMS, .func=not_implemented},
+        {.key=CKA_VENDOR_DEFINED, .func=not_implemented}
 };
+
+size_t funckeyfunct(const func_t *r)
+{
+    return r->key;
+}
+
+
+NEDTRIE_HEAD(func_tree_s, func_s);
+
+
+NEDTRIE_GENERATE(static, func_tree_s, func_s, link, funckeyfunct, NEDTRIE_NOBBLEZEROS(func_tree_s));
+
+
+void init_func_tree()
+{
+    NEDTRIE_INIT(&functree);
+    int i;
+    for (i=0; i< sizeof(func_array)/ sizeof(func_t); i++)
+        NEDTRIE_INSERT(func_tree_s, &functree, &func_array[i]);
+}
+
+func_t* find_func(size_t key) {
+    func_t s, *r;
+    s.key = key;
+    r = NEDTRIE_FIND(func_tree_s, &functree, &s);
+    return r;
+}

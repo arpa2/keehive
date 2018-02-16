@@ -29,8 +29,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(status, CKR_OK);
 
     {% for type_, pointerized, identifier, other in extract_args(f, o) -%}
-    //{{ initialise(type_, identifier + "_unpack") }}
-    {{ type_ }} {{ identifier }}_unpack;
+    {{ initialise_verify(type_, identifier + "_unpack") }}
     {% endfor %}
 
     status = unpack_{{ f.type_name|under }}(
@@ -61,7 +60,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-            {% for f in functions[:2] %}
+            {% for f in functions[:4] %}
             cmocka_unit_test(test_pack_{{ f.type_name|under }}){% if not loop.last %},{% endif -%}
             {% endfor %}
 

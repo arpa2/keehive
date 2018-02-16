@@ -217,6 +217,19 @@ def initialise_test(type_, identifier):
         return "{} {} = NULL_PTR;  /* todo: probably requires finetuning */".format(type_, identifier)
 
 
+def initialise_verify(type_, identifier):
+    """used to initialise the verification variables used in tests, typically set to something else than the test
+    initialise variables :)"""
+    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+        return "{} {} = 0;".format(type_, identifier)
+    elif type_ in type_test_templates:
+        return type_test_templates[type_].format(identifier=identifier, type_=type_)
+    elif not type_.endswith("_PTR"):
+        return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
+    else:
+        return "{} {} = NULL_PTR;  /* todo: probably requires finetuning */".format(type_, identifier)
+
+
 def free(type_, identifier):
     if type_ == "CK_ATTRIBUTE_PTR":
         return "free({});\n".format(identifier)

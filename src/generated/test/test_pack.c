@@ -24,8 +24,7 @@ void test_pack_C_CancelFunction_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_CancelFunction_Call(
@@ -60,8 +59,7 @@ void test_pack_C_CancelFunction_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_CancelFunction_Return(
@@ -98,8 +96,7 @@ void test_pack_C_CloseAllSessions_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
     
 
     status = unpack_C_CloseAllSessions_Call(
@@ -134,8 +131,7 @@ void test_pack_C_CloseAllSessions_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_CloseAllSessions_Return(
@@ -172,8 +168,7 @@ void test_pack_C_CloseSession_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_CloseSession_Call(
@@ -208,8 +203,7 @@ void test_pack_C_CloseSession_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_CloseSession_Return(
@@ -254,14 +248,12 @@ void test_pack_C_CopyObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_OBJECT_HANDLE hObject_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_CopyObject_Call(
@@ -310,10 +302,8 @@ void test_pack_C_CopyObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phObject_unpack = 0;
-    CK_OBJECT_HANDLE phObject_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phObject_unpack = 0;
     
 
     status = unpack_C_CopyObject_Return(
@@ -360,12 +350,11 @@ void test_pack_C_CreateObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_CreateObject_Call(
@@ -410,10 +399,8 @@ void test_pack_C_CreateObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phObject_unpack = 0;
-    CK_OBJECT_HANDLE phObject_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phObject_unpack = 0;
     
 
     status = unpack_C_CreateObject_Return(
@@ -460,14 +447,10 @@ void test_pack_C_Decrypt_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedData_unpack;
-    //CK_ULONG ulEncryptedDataLen_unpack = 0;
-    CK_ULONG ulEncryptedDataLen_unpack;
-    //CK_ULONG pulDataLen_unpack = 0;
-    CK_ULONG pulDataLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulEncryptedDataLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack = 0;
     
 
     status = unpack_C_Decrypt_Call(
@@ -518,12 +501,9 @@ void test_pack_C_Decrypt_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG pulDataLen_unpack = 0;
-    CK_ULONG pulDataLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulDataLen_unpack = 0;
     
 
     status = unpack_C_Decrypt_Return(
@@ -574,14 +554,10 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG ulEncryptedPartLen_unpack = 0;
-    CK_ULONG ulEncryptedPartLen_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptDigestUpdate_Call(
@@ -632,12 +608,9 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptDigestUpdate_Return(
@@ -684,10 +657,8 @@ void test_pack_C_DecryptFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG pulLastPartLen_unpack = 0;
-    CK_ULONG pulLastPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG pulLastPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptFinal_Call(
@@ -730,12 +701,9 @@ void test_pack_C_DecryptFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pLastPart_unpack = NULL;
-    CK_BYTE_ARRAY pLastPart_unpack;
-    //CK_ULONG pulLastPartLen_unpack = 0;
-    CK_ULONG pulLastPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pLastPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulLastPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptFinal_Return(
@@ -785,12 +753,10 @@ void test_pack_C_DecryptInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_DecryptInit_Call(
@@ -833,8 +799,7 @@ void test_pack_C_DecryptInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_DecryptInit_Return(
@@ -877,14 +842,10 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG ulEncryptedPartLen_unpack = 0;
-    CK_ULONG ulEncryptedPartLen_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptUpdate_Call(
@@ -935,12 +896,9 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptUpdate_Return(
@@ -991,14 +949,10 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG ulEncryptedPartLen_unpack = 0;
-    CK_ULONG ulEncryptedPartLen_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulEncryptedPartLen_unpack = 0;
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptVerifyUpdate_Call(
@@ -1049,12 +1003,9 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG pulPartLen_unpack = 0;
-    CK_ULONG pulPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_unpack = 0;
     
 
     status = unpack_C_DecryptVerifyUpdate_Return(
@@ -1110,16 +1061,14 @@ void test_pack_C_DeriveKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hBaseKey_unpack = 0;
-    CK_OBJECT_HANDLE hBaseKey_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulAttributeCount_unpack = 0;
-    CK_ULONG ulAttributeCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hBaseKey_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulAttributeCount_unpack = 0;
     
 
     status = unpack_C_DeriveKey_Call(
@@ -1172,10 +1121,8 @@ void test_pack_C_DeriveKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phKey_unpack = 0;
-    CK_OBJECT_HANDLE phKey_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phKey_unpack = 0;
     
 
     status = unpack_C_DeriveKey_Return(
@@ -1218,10 +1165,8 @@ void test_pack_C_DestroyObject_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_OBJECT_HANDLE hObject_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack = 0;
     
 
     status = unpack_C_DestroyObject_Call(
@@ -1260,8 +1205,7 @@ void test_pack_C_DestroyObject_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_DestroyObject_Return(
@@ -1304,14 +1248,10 @@ void test_pack_C_Digest_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG ulDataLen_unpack = 0;
-    CK_ULONG ulDataLen_unpack;
-    //CK_ULONG pulDigestLen_unpack = 0;
-    CK_ULONG pulDigestLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG pulDigestLen_unpack = 0;
     
 
     status = unpack_C_Digest_Call(
@@ -1362,12 +1302,9 @@ void test_pack_C_Digest_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pDigest_unpack = NULL;
-    CK_BYTE_ARRAY pDigest_unpack;
-    //CK_ULONG pulDigestLen_unpack = 0;
-    CK_ULONG pulDigestLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pDigest_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulDigestLen_unpack = 0;
     
 
     status = unpack_C_Digest_Return(
@@ -1418,14 +1355,10 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_DigestEncryptUpdate_Call(
@@ -1476,12 +1409,9 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_DigestEncryptUpdate_Return(
@@ -1528,10 +1458,8 @@ void test_pack_C_DigestFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG pulDigestLen_unpack = 0;
-    CK_ULONG pulDigestLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG pulDigestLen_unpack = 0;
     
 
     status = unpack_C_DigestFinal_Call(
@@ -1574,12 +1502,9 @@ void test_pack_C_DigestFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pDigest_unpack = NULL;
-    CK_BYTE_ARRAY pDigest_unpack;
-    //CK_ULONG pulDigestLen_unpack = 0;
-    CK_ULONG pulDigestLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pDigest_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulDigestLen_unpack = 0;
     
 
     status = unpack_C_DigestFinal_Return(
@@ -1627,10 +1552,9 @@ void test_pack_C_DigestInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
     
 
     status = unpack_C_DigestInit_Call(
@@ -1669,8 +1593,7 @@ void test_pack_C_DigestInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_DigestInit_Return(
@@ -1709,10 +1632,8 @@ void test_pack_C_DigestKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_DigestKey_Call(
@@ -1751,8 +1672,7 @@ void test_pack_C_DigestKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_DigestKey_Return(
@@ -1793,12 +1713,9 @@ void test_pack_C_DigestUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
     
 
     status = unpack_C_DigestUpdate_Call(
@@ -1841,8 +1758,7 @@ void test_pack_C_DigestUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_DigestUpdate_Return(
@@ -1885,14 +1801,10 @@ void test_pack_C_Encrypt_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG ulDataLen_unpack = 0;
-    CK_ULONG ulDataLen_unpack;
-    //CK_ULONG pulEncryptedDataLen_unpack = 0;
-    CK_ULONG pulEncryptedDataLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
     status = unpack_C_Encrypt_Call(
@@ -1943,12 +1855,9 @@ void test_pack_C_Encrypt_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedData_unpack;
-    //CK_ULONG pulEncryptedDataLen_unpack = 0;
-    CK_ULONG pulEncryptedDataLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
     status = unpack_C_Encrypt_Return(
@@ -1995,10 +1904,8 @@ void test_pack_C_EncryptFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG pulEncryptedDataLen_unpack = 0;
-    CK_ULONG pulEncryptedDataLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
     status = unpack_C_EncryptFinal_Call(
@@ -2041,12 +1948,9 @@ void test_pack_C_EncryptFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pEncryptedData_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedData_unpack;
-    //CK_ULONG pulEncryptedDataLen_unpack = 0;
-    CK_ULONG pulEncryptedDataLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
     status = unpack_C_EncryptFinal_Return(
@@ -2096,12 +2000,10 @@ void test_pack_C_EncryptInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_EncryptInit_Call(
@@ -2144,8 +2046,7 @@ void test_pack_C_EncryptInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_EncryptInit_Return(
@@ -2188,14 +2089,10 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_EncryptUpdate_Call(
@@ -2246,12 +2143,9 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_EncryptUpdate_Return(
@@ -2296,8 +2190,7 @@ void test_pack_C_Finalize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
-    CK_VOID_PTR pReserved_unpack;
+    CK_VOID_PTR pReserved_unpack = NULL_PTR;  /* todo: probably requires finetuning */
     
 
     status = unpack_C_Finalize_Call(
@@ -2334,10 +2227,8 @@ void test_pack_C_Finalize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //ANY pReserved_unpack = NULL;
-    ANY pReserved_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    ANY pReserved_unpack = NULL; /* todo: probably requires finetuning */
     
 
     status = unpack_C_Finalize_Return(
@@ -2380,10 +2271,8 @@ void test_pack_C_FindObjects_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG ulMaxObjectCount_unpack = 0;
-    CK_ULONG ulMaxObjectCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG ulMaxObjectCount_unpack = 0;
     
 
     status = unpack_C_FindObjects_Call(
@@ -2426,12 +2315,9 @@ void test_pack_C_FindObjects_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE_ARRAY phObject_unpack = NULL;
-    CK_OBJECT_HANDLE_ARRAY phObject_unpack;
-    //CK_ULONG pulObjectCount_unpack = 0;
-    CK_ULONG pulObjectCount_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE_ARRAY phObject_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulObjectCount_unpack = 0;
     
 
     status = unpack_C_FindObjects_Return(
@@ -2476,8 +2362,7 @@ void test_pack_C_FindObjectsFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_FindObjectsFinal_Call(
@@ -2512,8 +2397,7 @@ void test_pack_C_FindObjectsFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_FindObjectsFinal_Return(
@@ -2556,12 +2440,11 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_FindObjectsInit_Call(
@@ -2608,10 +2491,10 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     
 
     status = unpack_C_FindObjectsInit_Return(
@@ -2661,14 +2544,13 @@ void test_pack_C_GenerateKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_GenerateKey_Call(
@@ -2717,10 +2599,8 @@ void test_pack_C_GenerateKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phKey_unpack = 0;
-    CK_OBJECT_HANDLE phKey_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phKey_unpack = 0;
     
 
     status = unpack_C_GenerateKey_Return(
@@ -2776,18 +2656,17 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack;
-    //CK_ULONG ulPublicKeyAttributeCount_unpack = 0;
-    CK_ULONG ulPublicKeyAttributeCount_unpack;
-    //CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack;
-    //CK_ULONG ulPrivateKeyAttributeCount_unpack = 0;
-    CK_ULONG ulPrivateKeyAttributeCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_UTF8CHAR pPublicKeyTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pPublicKeyTemplate_unpack[] = {
+                            {CKA_LABEL, pPublicKeyTemplate_unpack_label, sizeof(pPublicKeyTemplate_unpack_label)-1} };
+    CK_ULONG ulPublicKeyAttributeCount_unpack = 0;
+    CK_UTF8CHAR pPrivateKeyTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pPrivateKeyTemplate_unpack[] = {
+                            {CKA_LABEL, pPrivateKeyTemplate_unpack_label, sizeof(pPrivateKeyTemplate_unpack_label)-1} };
+    CK_ULONG ulPrivateKeyAttributeCount_unpack = 0;
     
 
     status = unpack_C_GenerateKeyPair_Call(
@@ -2846,12 +2725,9 @@ void test_pack_C_GenerateKeyPair_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phPublicKey_unpack = 0;
-    CK_OBJECT_HANDLE phPublicKey_unpack;
-    //CK_OBJECT_HANDLE phPrivateKey_unpack = 0;
-    CK_OBJECT_HANDLE phPrivateKey_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phPublicKey_unpack = 0;
+    CK_OBJECT_HANDLE phPrivateKey_unpack = 0;
     
 
     status = unpack_C_GenerateKeyPair_Return(
@@ -2898,10 +2774,8 @@ void test_pack_C_GenerateRandom_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG ulRandomLen_unpack = 0;
-    CK_ULONG ulRandomLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG ulRandomLen_unpack = 0;
     
 
     status = unpack_C_GenerateRandom_Call(
@@ -2942,10 +2816,8 @@ void test_pack_C_GenerateRandom_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pSeed_unpack = NULL;
-    CK_BYTE_ARRAY pSeed_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pSeed_unpack = NULL; /* todo: probably requires finetuning */
     
 
     status = unpack_C_GenerateRandom_Return(
@@ -2994,14 +2866,12 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_OBJECT_HANDLE hObject_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_GetAttributeValue_Call(
@@ -3052,10 +2922,10 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     
 
     status = unpack_C_GetAttributeValue_Return(
@@ -3096,8 +2966,7 @@ void test_pack_C_GetFunctionStatus_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_GetFunctionStatus_Call(
@@ -3132,8 +3001,7 @@ void test_pack_C_GetFunctionStatus_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_GetFunctionStatus_Return(
@@ -3206,10 +3074,14 @@ void test_pack_C_GetInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_INFO pInfo_unpack = NULL;
-    CK_INFO pInfo_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_INFO pInfo_unpack = { .cryptokiVersion.major = 1,
+                            .cryptokiVersion.minor = 1,
+                            .manufacturerID = "gijs",
+                            .flags = 1,
+                            .libraryDescription = "gijs",
+                            .libraryVersion.major = 1,
+                            .libraryVersion.minor = 1 };
     
 
     status = unpack_C_GetInfo_Return(
@@ -3253,10 +3125,8 @@ void test_pack_C_GetMechanismInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
-    //CK_MECHANISM_TYPE type_unpack = 0;
-    CK_MECHANISM_TYPE type_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
+    CK_MECHANISM_TYPE type_unpack = 0;
     
 
     status = unpack_C_GetMechanismInfo_Call(
@@ -3299,10 +3169,10 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_MECHANISM_INFO pInfo_unpack = NULL;
-    CK_MECHANISM_INFO pInfo_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_MECHANISM_INFO pInfo_unpack = { .ulMinKeySize = 1,
+                            .ulMaxKeySize = 1,
+                            .flags = 1 };
     
 
     status = unpack_C_GetMechanismInfo_Return(
@@ -3346,10 +3216,8 @@ void test_pack_C_GetMechanismList_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
-    //CK_ULONG pulCount_unpack = 0;
-    CK_ULONG pulCount_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
+    CK_ULONG pulCount_unpack = 0;
     
 
     status = unpack_C_GetMechanismList_Call(
@@ -3392,12 +3260,9 @@ void test_pack_C_GetMechanismList_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack = NULL;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack;
-    //CK_ULONG pulCount_unpack = 0;
-    CK_ULONG pulCount_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulCount_unpack = 0;
     
 
     status = unpack_C_GetMechanismList_Return(
@@ -3444,10 +3309,8 @@ void test_pack_C_GetObjectSize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_OBJECT_HANDLE hObject_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack = 0;
     
 
     status = unpack_C_GetObjectSize_Call(
@@ -3488,10 +3351,8 @@ void test_pack_C_GetObjectSize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_ULONG pulSize_unpack = 0;
-    CK_ULONG pulSize_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_ULONG pulSize_unpack = 0;
     
 
     status = unpack_C_GetObjectSize_Return(
@@ -3534,10 +3395,8 @@ void test_pack_C_GetOperationState_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG pulOperationStateLen_unpack = 0;
-    CK_ULONG pulOperationStateLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG pulOperationStateLen_unpack = 0;
     
 
     status = unpack_C_GetOperationState_Call(
@@ -3580,12 +3439,9 @@ void test_pack_C_GetOperationState_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pOperationState_unpack = NULL;
-    CK_BYTE_ARRAY pOperationState_unpack;
-    //CK_ULONG pulOperationStateLen_unpack = 0;
-    CK_ULONG pulOperationStateLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pOperationState_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulOperationStateLen_unpack = 0;
     
 
     status = unpack_C_GetOperationState_Return(
@@ -3630,8 +3486,7 @@ void test_pack_C_GetSessionInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_GetSessionInfo_Call(
@@ -3668,10 +3523,8 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_SESSION_INFO pInfo_unpack = NULL;
-    CK_SESSION_INFO pInfo_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_SESSION_INFO pInfo_unpack = { .slotID = 1, .state = 1, .flags = 1 };
     
 
     status = unpack_C_GetSessionInfo_Return(
@@ -3713,8 +3566,7 @@ void test_pack_C_GetSlotInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
     
 
     status = unpack_C_GetSlotInfo_Call(
@@ -3757,10 +3609,14 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_SLOT_INFO pInfo_unpack = NULL;
-    CK_SLOT_INFO pInfo_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_SLOT_INFO pInfo_unpack = { .slotDescription = "gijs",
+                            .manufacturerID = "gijs",
+                            .flags = 1,
+                            .hardwareVersion.major = 1,
+                            .hardwareVersion.minor = 1,
+                            .firmwareVersion.major = 1,
+                            .firmwareVersion.minor = 1 };
     
 
     status = unpack_C_GetSlotInfo_Return(
@@ -3804,10 +3660,8 @@ void test_pack_C_GetSlotList_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_BBOOL tokenPresent_unpack = 0;
-    CK_BBOOL tokenPresent_unpack;
-    //CK_ULONG pulCount_unpack = 0;
-    CK_ULONG pulCount_unpack;
+    CK_BBOOL tokenPresent_unpack = 0;
+    CK_ULONG pulCount_unpack = 0;
     
 
     status = unpack_C_GetSlotList_Call(
@@ -3850,12 +3704,9 @@ void test_pack_C_GetSlotList_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_SLOT_ID_ARRAY pSlotList_unpack = NULL;
-    CK_SLOT_ID_ARRAY pSlotList_unpack;
-    //CK_ULONG pulCount_unpack = 0;
-    CK_ULONG pulCount_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_SLOT_ID_ARRAY pSlotList_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulCount_unpack = 0;
     
 
     status = unpack_C_GetSlotList_Return(
@@ -3900,8 +3751,7 @@ void test_pack_C_GetTokenInfo_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
     
 
     status = unpack_C_GetTokenInfo_Call(
@@ -3958,10 +3808,28 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_TOKEN_INFO pInfo_unpack = NULL;
-    CK_TOKEN_INFO pInfo_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_TOKEN_INFO pInfo_unpack = {
+                            .label = "labeltje",     
+                            .manufacturerID = "manufacturetje",  
+                            .model = "modeletje",
+                            .serialNumber = "serialletje",    
+                            .flags = 10,
+                            .ulMaxSessionCount = 1,   
+                            .ulSessionCount = 2,
+                            .ulMaxRwSessionCount = 3, 
+                            .ulRwSessionCount = 4,
+                            .ulMaxPinLen = 5,
+                            .ulMinPinLen = 6,         
+                            .ulTotalPublicMemory = 7, 
+                            .ulFreePublicMemory = 8,
+                            .ulTotalPrivateMemory = 9,
+                            .ulFreePrivateMemory = 10,
+                            .hardwareVersion.major = 11,
+                            .hardwareVersion.minor = 12,
+                            .firmwareVersion.major = 13,
+                            .firmwareVersion.minor = 14, 
+                            .utcTime = "gijs time" };
     
 
     status = unpack_C_GetTokenInfo_Return(
@@ -4007,12 +3875,9 @@ void test_pack_C_InitPIN_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_UTF8CHAR_ARRAY pPin_unpack = NULL;
-    CK_UTF8CHAR_ARRAY pPin_unpack;
-    //CK_ULONG ulPinLen_unpack = 0;
-    CK_ULONG ulPinLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_UTF8CHAR_ARRAY pPin_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPinLen_unpack = 0;
     
 
     status = unpack_C_InitPIN_Call(
@@ -4055,8 +3920,7 @@ void test_pack_C_InitPIN_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_InitPIN_Return(
@@ -4099,14 +3963,10 @@ void test_pack_C_InitToken_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
-    //UTF8String pPin_unpack = NULL;
-    UTF8String pPin_unpack;
-    //CK_ULONG ulPinLen_unpack = 0;
-    CK_ULONG ulPinLen_unpack;
-    //UTF8String pLabel_unpack = NULL;
-    UTF8String pLabel_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
+    UTF8String pPin_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPinLen_unpack = 0;
+    UTF8String pLabel_unpack = NULL; /* todo: probably requires finetuning */
     
 
     status = unpack_C_InitToken_Call(
@@ -4153,8 +4013,7 @@ void test_pack_C_InitToken_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_InitToken_Return(
@@ -4191,8 +4050,7 @@ void test_pack_C_Initialize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack = NULL_PTR;
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack;
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack = NULL_PTR;  /* todo: probably requires finetuning */
     
 
     status = unpack_C_Initialize_Call(
@@ -4229,10 +4087,8 @@ void test_pack_C_Initialize_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //ANY pInitArgs_unpack = NULL;
-    ANY pInitArgs_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    ANY pInitArgs_unpack = NULL; /* todo: probably requires finetuning */
     
 
     status = unpack_C_Initialize_Return(
@@ -4279,14 +4135,10 @@ void test_pack_C_Login_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_USER_TYPE userType_unpack = 0;
-    CK_USER_TYPE userType_unpack;
-    //CK_UTF8CHAR_ARRAY pPin_unpack = NULL;
-    CK_UTF8CHAR_ARRAY pPin_unpack;
-    //CK_ULONG ulPinLen_unpack = 0;
-    CK_ULONG ulPinLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_USER_TYPE userType_unpack = 0;
+    CK_UTF8CHAR_ARRAY pPin_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPinLen_unpack = 0;
     
 
     status = unpack_C_Login_Call(
@@ -4333,8 +4185,7 @@ void test_pack_C_Login_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_Login_Return(
@@ -4371,8 +4222,7 @@ void test_pack_C_Logout_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
     
 
     status = unpack_C_Logout_Call(
@@ -4407,8 +4257,7 @@ void test_pack_C_Logout_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_Logout_Return(
@@ -4451,14 +4300,10 @@ void test_pack_C_OpenSession_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SLOT_ID slotID_unpack = 0;
-    CK_SLOT_ID slotID_unpack;
-    //CK_FLAGS flags_unpack = 0;
-    CK_FLAGS flags_unpack;
-    //ANY pApplication_unpack = NULL;
-    ANY pApplication_unpack;
-    //CK_NOTIFY notify_unpack = NULL;
-    CK_NOTIFY notify_unpack;
+    CK_SLOT_ID slotID_unpack = 0;
+    CK_FLAGS flags_unpack = 0;
+    ANY pApplication_unpack = NULL; /* todo: probably requires finetuning */
+    CK_NOTIFY notify_unpack = NULL; /* todo: probably requires finetuning */
     
 
     status = unpack_C_OpenSession_Call(
@@ -4507,10 +4352,8 @@ void test_pack_C_OpenSession_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_SESSION_HANDLE phSession_unpack = 0;
-    CK_SESSION_HANDLE phSession_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_SESSION_HANDLE phSession_unpack = 0;
     
 
     status = unpack_C_OpenSession_Return(
@@ -4555,12 +4398,9 @@ void test_pack_C_SeedRandom_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pSeed_unpack = NULL;
-    CK_BYTE_ARRAY pSeed_unpack;
-    //CK_ULONG ulSeedLen_unpack = 0;
-    CK_ULONG ulSeedLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pSeed_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulSeedLen_unpack = 0;
     
 
     status = unpack_C_SeedRandom_Call(
@@ -4603,8 +4443,7 @@ void test_pack_C_SeedRandom_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SeedRandom_Return(
@@ -4649,14 +4488,12 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_OBJECT_HANDLE hObject_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulCount_unpack = 0;
-    CK_ULONG ulCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_OBJECT_HANDLE hObject_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulCount_unpack = 0;
     
 
     status = unpack_C_SetAttributeValue_Call(
@@ -4703,8 +4540,7 @@ void test_pack_C_SetAttributeValue_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SetAttributeValue_Return(
@@ -4749,16 +4585,11 @@ void test_pack_C_SetOperationState_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pOperationState_unpack = NULL;
-    CK_BYTE_ARRAY pOperationState_unpack;
-    //CK_ULONG ulOperationStateLen_unpack = 0;
-    CK_ULONG ulOperationStateLen_unpack;
-    //CK_OBJECT_HANDLE hEncryptionKey_unpack = 0;
-    CK_OBJECT_HANDLE hEncryptionKey_unpack;
-    //CK_OBJECT_HANDLE hAuthenticationKey_unpack = 0;
-    CK_OBJECT_HANDLE hAuthenticationKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pOperationState_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulOperationStateLen_unpack = 0;
+    CK_OBJECT_HANDLE hEncryptionKey_unpack = 0;
+    CK_OBJECT_HANDLE hAuthenticationKey_unpack = 0;
     
 
     status = unpack_C_SetOperationState_Call(
@@ -4809,8 +4640,7 @@ void test_pack_C_SetOperationState_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SetOperationState_Return(
@@ -4855,16 +4685,11 @@ void test_pack_C_SetPIN_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_UTF8CHAR_ARRAY pOldPin_unpack = NULL;
-    CK_UTF8CHAR_ARRAY pOldPin_unpack;
-    //CK_ULONG ulOldLen_unpack = 0;
-    CK_ULONG ulOldLen_unpack;
-    //CK_UTF8CHAR_ARRAY pNewPin_unpack = NULL;
-    CK_UTF8CHAR_ARRAY pNewPin_unpack;
-    //CK_ULONG ulNewPin_unpack = 0;
-    CK_ULONG ulNewPin_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_UTF8CHAR_ARRAY pOldPin_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulOldLen_unpack = 0;
+    CK_UTF8CHAR_ARRAY pNewPin_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulNewPin_unpack = 0;
     
 
     status = unpack_C_SetPIN_Call(
@@ -4915,8 +4740,7 @@ void test_pack_C_SetPIN_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SetPIN_Return(
@@ -4959,14 +4783,10 @@ void test_pack_C_Sign_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG ulDataLen_unpack = 0;
-    CK_ULONG ulDataLen_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_Sign_Call(
@@ -5017,12 +4837,9 @@ void test_pack_C_Sign_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_Sign_Return(
@@ -5073,14 +4890,10 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_SignEncryptUpdate_Call(
@@ -5131,12 +4944,9 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pEncryptedPart_unpack = NULL;
-    CK_BYTE_ARRAY pEncryptedPart_unpack;
-    //CK_ULONG pulEncryptedPartLen_unpack = 0;
-    CK_ULONG pulEncryptedPartLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
     status = unpack_C_SignEncryptUpdate_Return(
@@ -5183,10 +4993,8 @@ void test_pack_C_SignFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_SignFinal_Call(
@@ -5229,12 +5037,9 @@ void test_pack_C_SignFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_SignFinal_Return(
@@ -5284,12 +5089,10 @@ void test_pack_C_SignInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_SignInit_Call(
@@ -5332,8 +5135,7 @@ void test_pack_C_SignInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SignInit_Return(
@@ -5376,14 +5178,10 @@ void test_pack_C_SignRecover_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG ulDataLen_unpack = 0;
-    CK_ULONG ulDataLen_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulDataLen_unpack = 0;
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_SignRecover_Call(
@@ -5434,12 +5232,9 @@ void test_pack_C_SignRecover_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG pulSignatureLen_unpack = 0;
-    CK_ULONG pulSignatureLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_unpack = 0;
     
 
     status = unpack_C_SignRecover_Return(
@@ -5489,12 +5284,10 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_SignRecoverInit_Call(
@@ -5537,8 +5330,7 @@ void test_pack_C_SignRecoverInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SignRecoverInit_Return(
@@ -5579,12 +5371,9 @@ void test_pack_C_SignUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
     
 
     status = unpack_C_SignUpdate_Call(
@@ -5627,8 +5416,7 @@ void test_pack_C_SignUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_SignUpdate_Return(
@@ -5680,20 +5468,16 @@ void test_pack_C_UnwrapKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hUnwrappingKey_unpack = 0;
-    CK_OBJECT_HANDLE hUnwrappingKey_unpack;
-    //CK_BYTE_ARRAY pWrappedKey_unpack = NULL;
-    CK_BYTE_ARRAY pWrappedKey_unpack;
-    //CK_ULONG ulWrappedKeyLen_unpack = 0;
-    CK_ULONG ulWrappedKeyLen_unpack;
-    //CK_ATTRIBUTE_ARRAY pTemplate_unpack = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack;
-    //CK_ULONG ulAttributeCount_unpack = 0;
-    CK_ULONG ulAttributeCount_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hUnwrappingKey_unpack = 0;
+    CK_BYTE_ARRAY pWrappedKey_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulWrappedKeyLen_unpack = 0;
+    CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
+                            CK_ATTRIBUTE pTemplate_unpack[] = {
+                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ULONG ulAttributeCount_unpack = 0;
     
 
     status = unpack_C_UnwrapKey_Call(
@@ -5754,10 +5538,8 @@ void test_pack_C_UnwrapKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_OBJECT_HANDLE phKey_unpack = 0;
-    CK_OBJECT_HANDLE phKey_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_OBJECT_HANDLE phKey_unpack = 0;
     
 
     status = unpack_C_UnwrapKey_Return(
@@ -5806,16 +5588,11 @@ void test_pack_C_Verify_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG ulDataLen_unpack = 0;
-    CK_ULONG ulDataLen_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG ulSignatureLen_unpack = 0;
-    CK_ULONG ulSignatureLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulDataLen_unpack = 0;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulSignatureLen_unpack = 0;
     
 
     status = unpack_C_Verify_Call(
@@ -5866,8 +5643,7 @@ void test_pack_C_Verify_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_Verify_Return(
@@ -5908,12 +5684,9 @@ void test_pack_C_VerifyFinal_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG ulSignatureLen_unpack = 0;
-    CK_ULONG ulSignatureLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulSignatureLen_unpack = 0;
     
 
     status = unpack_C_VerifyFinal_Call(
@@ -5956,8 +5729,7 @@ void test_pack_C_VerifyFinal_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_VerifyFinal_Return(
@@ -5999,12 +5771,10 @@ void test_pack_C_VerifyInit_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
     status = unpack_C_VerifyInit_Call(
@@ -6047,8 +5817,7 @@ void test_pack_C_VerifyInit_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_VerifyInit_Return(
@@ -6091,14 +5860,10 @@ void test_pack_C_VerifyRecover_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pSignature_unpack = NULL;
-    CK_BYTE_ARRAY pSignature_unpack;
-    //CK_ULONG ulSignatureLen_unpack = 0;
-    CK_ULONG ulSignatureLen_unpack;
-    //CK_ULONG pulDataLen_unpack = 0;
-    CK_ULONG pulDataLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulSignatureLen_unpack = 0;
+    CK_ULONG pulDataLen_unpack = 0;
     
 
     status = unpack_C_VerifyRecover_Call(
@@ -6149,12 +5914,9 @@ void test_pack_C_VerifyRecover_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pData_unpack = NULL;
-    CK_BYTE_ARRAY pData_unpack;
-    //CK_ULONG pulDataLen_unpack = 0;
-    CK_ULONG pulDataLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulDataLen_unpack = 0;
     
 
     status = unpack_C_VerifyRecover_Return(
@@ -6203,12 +5965,9 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_BYTE_ARRAY pPart_unpack = NULL;
-    CK_BYTE_ARRAY pPart_unpack;
-    //CK_ULONG ulPartLen_unpack = 0;
-    CK_ULONG ulPartLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG ulPartLen_unpack = 0;
     
 
     status = unpack_C_VerifyUpdate_Call(
@@ -6251,8 +6010,7 @@ void test_pack_C_VerifyUpdate_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
+    CK_RV retval_unpack = CKR_OK;
     
 
     status = unpack_C_VerifyUpdate_Return(
@@ -6291,10 +6049,8 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_FLAGS flags_unpack = 0;
-    CK_FLAGS flags_unpack;
-    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
-    CK_VOID_PTR pReserved_unpack;
+    CK_FLAGS flags_unpack = 0;
+    CK_VOID_PTR pReserved_unpack = NULL_PTR;  /* todo: probably requires finetuning */
     
 
     status = unpack_C_WaitForSlotEvent_Call(
@@ -6337,12 +6093,9 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_SLOT_ID pSlot_unpack = 0;
-    CK_SLOT_ID pSlot_unpack;
-    //CK_VOID_PTR pReserved_unpack = NULL_PTR;
-    CK_VOID_PTR pReserved_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_SLOT_ID pSlot_unpack = 0;
+    CK_VOID_PTR pReserved_unpack = NULL_PTR;  /* todo: probably requires finetuning */
     
 
     status = unpack_C_WaitForSlotEvent_Return(
@@ -6396,16 +6149,12 @@ void test_pack_C_WrapKey_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_SESSION_HANDLE hSession_unpack;
-    //CK_MECHANISM_PTR pMechanism_unpack = NULL_PTR;
-    CK_MECHANISM_PTR pMechanism_unpack;
-    //CK_OBJECT_HANDLE hWrappingKey_unpack = 0;
-    CK_OBJECT_HANDLE hWrappingKey_unpack;
-    //CK_OBJECT_HANDLE hKey_unpack = 0;
-    CK_OBJECT_HANDLE hKey_unpack;
-    //CK_ULONG pulWrappedKeyLen_unpack = 0;
-    CK_ULONG pulWrappedKeyLen_unpack;
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
+    CK_OBJECT_HANDLE hWrappingKey_unpack = 0;
+    CK_OBJECT_HANDLE hKey_unpack = 0;
+    CK_ULONG pulWrappedKeyLen_unpack = 0;
     
 
     status = unpack_C_WrapKey_Call(
@@ -6460,12 +6209,9 @@ void test_pack_C_WrapKey_Return(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    //CK_RV retval_unpack = NULL;
-    CK_RV retval_unpack;
-    //CK_BYTE_ARRAY pWrappedKey_unpack = NULL;
-    CK_BYTE_ARRAY pWrappedKey_unpack;
-    //CK_ULONG pulWrappedKeyLen_unpack = 0;
-    CK_ULONG pulWrappedKeyLen_unpack;
+    CK_RV retval_unpack = CKR_OK;
+    CK_BYTE_ARRAY pWrappedKey_unpack = NULL; /* todo: probably requires finetuning */
+    CK_ULONG pulWrappedKeyLen_unpack = 0;
     
 
     status = unpack_C_WrapKey_Return(
@@ -6499,7 +6245,9 @@ int main(void) {
     const struct CMUnitTest tests[] = {
             
             cmocka_unit_test(test_pack_C_CancelFunction_Call),
-            cmocka_unit_test(test_pack_C_CloseAllSessions_Call)
+            cmocka_unit_test(test_pack_C_CloseAllSessions_Call),
+            cmocka_unit_test(test_pack_C_CloseSession_Call),
+            cmocka_unit_test(test_pack_C_CopyObject_Call)
 
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

@@ -14,7 +14,9 @@ set(LIB_H
         static/util.h
         static/returncodes.h
         static/derput.h
-        static/derget.h)
+        static/derget.h
+        static/nedtrie.h
+        )
 
 set(LIB_SRC
         generated/pack.c
@@ -39,10 +41,11 @@ enable_testing()
 
 add_executable(client.test generated/test/test_client.c)
 add_executable(pack.test generated/test/test_pack.c)
-
+#add_executable(server.test generated/test/test_server.c)
 
 add_dependencies(client.test client.test)
 add_dependencies(pack.test pack.test)
+#add_dependencies(server.test server.test)
 
 
 set(KEEHIVE_TEST_LINK_LIRARIES
@@ -52,7 +55,8 @@ set(KEEHIVE_TEST_LINK_LIRARIES
 
 target_link_libraries(client.test keehive ${KEEHIVE_TEST_LINK_LIRARIES})
 target_link_libraries(pack.test keehive ${KEEHIVE_TEST_LINK_LIRARIES})
-
+#target_link_libraries(server.test keehive ${KEEHIVE_TEST_LINK_LIRARIES})
 
 add_test(client.test client.test)
 add_test(pack.test pack.test)
+#add_test(server.test server.test)

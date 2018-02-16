@@ -138,16 +138,23 @@ der_put_CK_ATTRIBUTE_ARRAY(
         size_t* pLength,
         const derwalk* pack
 ) {
+    init_func_tree();
+
     int i;
     der_buf_uint32_t buf = { 0 };
     dercursor crs;
     CK_ATTRIBUTE attribute;
     size_t innerlen = 0;
     size_t tmp = 0;
+    func_t* func;
 
     for (i = 0; i < *count; i++) {
         attribute = pTemplate[i];
-        crs = (*func_array[attribute.type])(buf, *(uint32_t*)attribute.pValue);
+        func = find_func(attribute.type);
+        if (func == NULL)
+            return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        crs = (*func->func)(buf, *(uint32_t*)attribute.pValue);
+
         tmp = der_pack(pack, &crs, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
@@ -161,7 +168,10 @@ der_put_CK_ATTRIBUTE_ARRAY(
     while (i-- > 0) {
         assert(innerlen >= 0);
         attribute = pTemplate[i];
-        crs = (*func_array[attribute.type])(buf, *(uint32_t*)attribute.pValue);
+        func = find_func(attribute.type);
+        if (func == NULL)
+            return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        crs = (*func->func)(buf, *(uint32_t*)attribute.pValue);
         tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;

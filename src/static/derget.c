@@ -31,8 +31,9 @@ int der_get_long(dercursor cursor, long int *valp)
 int
 der_get_ulong(
         dercursor cursor,
-        long unsigned int *valp
+        long unsigned int* valp
 ) {
+    *valp = 0; // make sure long part is reset
     return der_get_uint32 (cursor, (u_int32_t *)valp);
 };
 
