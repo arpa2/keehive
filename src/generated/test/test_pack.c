@@ -3890,7 +3890,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     status = unpack_C_InitPIN_Call(
         &dercursor,
         &hSession_unpack,
-        pPin_unpack,
+        &pPin_unpack,
         &ulPinLen_unpack
     );
 
@@ -3902,7 +3902,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pPin, pPin_unpack);
+    assert_string_equal(pPin, pPin_unpack);
 
 
     assert_int_equal(ulPinLen, ulPinLen_unpack);

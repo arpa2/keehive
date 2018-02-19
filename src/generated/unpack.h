@@ -697,7 +697,7 @@ CK_RV
 unpack_C_InitPIN_Call(
         dercursor* packed,
         CK_SESSION_HANDLE_PTR hSession,
-        CK_UTF8CHAR_ARRAY pPin,
+        CK_UTF8CHAR_ARRAY* pPin,
         CK_ULONG_PTR ulPinLen
 );
 

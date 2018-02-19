@@ -14,7 +14,7 @@ der_get_CK_ATTRIBUTE_ARRAY(
 CK_RV
 der_get_CK_BYTE_ARRAY(
         ACK_BYTE_ARRAY_t* Ack_Byte_Array,
-        CK_BYTE_ARRAY pEncryptedData
+        CK_BYTE_ARRAY* pEncryptedData
 );
 
 CK_RV
@@ -22,6 +22,19 @@ der_get_CK_MECHANISM_PTR(
         ACK_MECHANISM_t* Ack_Mechanism,
         CK_MECHANISM_PTR pMechanism
 );
+
+int
+der_get_CK_UTF8CHAR_ARRAY(
+        ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array,
+        CK_UTF8CHAR_PTR* pPin
+);
+
+int
+der_get_UTF8String(
+        dercursor* cursor,
+        UTF8String pPin
+);
+
 
 int der_get_char(dercursor cursor, char *val );
 
@@ -32,16 +45,11 @@ int der_get_long (dercursor cursor, long int *valp);
 int der_get_ulong (dercursor cursor, long unsigned int *valp);
 
 
-
 int der_get_CK_MECHANISM_TYPE_PTR(ACK_MECHANISM_TYPE_t* Ack_Mechanism_Type, CK_MECHANISM_TYPE_PTR pMechanismList);
 
 int der_get_CK_MECHANISM_INFO_PTR(ACK_MECHANISM_INFO_t* Ack_Mechanism_Info, CK_MECHANISM_INFO_PTR pInfo);
 
 int der_get_CK_VOID_PTR(void* Ack_Void, CK_VOID_PTR pReserved);
-
-int der_get_CK_UTF8CHAR_ARRAY(ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array, CK_UTF8CHAR_PTR pPin);
-
-int der_get_UTF8String(dercursor* cursor, UTF8String pPin);
 
 int der_get_CK_BBOOL_PTR(ACK_BBOOL_t* Ack_Bbool, CK_BBOOL_PTR tokenPresent);
 

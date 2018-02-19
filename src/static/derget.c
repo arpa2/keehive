@@ -87,7 +87,7 @@ der_get_CK_ATTRIBUTE_ARRAY(
 CK_RV
 der_get_CK_BYTE_ARRAY(
         ACK_BYTE_ARRAY_t* Ack_Byte_Array,
-        CK_BYTE_ARRAY pEncryptedData
+        CK_BYTE_ARRAY* pEncryptedData
 ) {
     dercursor iterator;
     int status;
@@ -97,8 +97,8 @@ der_get_CK_BYTE_ARRAY(
 
     ACK_BYTE_t der_byte;
 
-    pEncryptedData = malloc(Ack_Byte_Array->derlen*sizeof(CK_BYTE));
-    if (pEncryptedData == NULL) {
+    *pEncryptedData = malloc(Ack_Byte_Array->derlen*sizeof(CK_BYTE));
+    if (*pEncryptedData == NULL) {
         return CKR_KEEHIVE_MEMORY_ERROR;
     }
 
@@ -111,7 +111,7 @@ der_get_CK_BYTE_ARRAY(
             status = der_get_uchar(der_byte, &value);
             if (status == -1)
                 return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-            (pEncryptedData)[i] = value;
+            (*pEncryptedData)[i] = value;
 
             i++;
         } while (der_iterate_next(&iterator));
@@ -161,8 +161,13 @@ der_get_CK_VOID_PTR(
     return 0;
 };
 
-int der_get_CK_UTF8CHAR_ARRAY(ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array, CK_UTF8CHAR_PTR pPin) {
-    return -1;
+int der_get_CK_UTF8CHAR_ARRAY(
+        ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array,
+        CK_UTF8CHAR_PTR* pPin
+) {
+    *pPin = malloc(sizeof(CK_UTF8CHAR) * Ack_Utf8char_Array->derlen+1);
+    memcpy(*pPin, Ack_Utf8char_Array->derptr, Ack_Utf8char_Array->derlen+1);
+    return 0;
 };
 
 int der_get_UTF8String(dercursor* cursor, UTF8String pPin) {

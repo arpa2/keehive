@@ -331,10 +331,9 @@ der_put_CK_UTF8CHAR_ARRAY(
     if (*pinlen == 0) {
         *cursor = der_put_null();
     } else {
-        // TODO: implement
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        cursor->derptr = (uint8_t *)pin;
+        cursor->derlen = *pinlen;
     }
-
     return CKR_OK;
 };
 
@@ -348,8 +347,8 @@ der_put_UTF8String(
     if (*pinlen == 0) {
         *cursor = der_put_null();
     } else {
-        // TODO: implement
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        cursor->derptr = (uint8_t *)pin;
+        cursor->derlen = *pinlen;
     }
 
     return CKR_OK;

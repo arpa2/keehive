@@ -2116,7 +2116,7 @@ server_C_InitPIN(
     CK_RV status = unpack_C_InitPIN_Call(
         cursorIn,
         &hSession,
-        pPin,
+        &pPin,
         &ulPinLen
     );
 
