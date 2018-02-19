@@ -114,7 +114,9 @@ pack_{{ f.type_name|under }}(
         return status;
 
 {% elif type == "CK_MECHANISM_PTR" %}
-    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.pMechanism, {{ var }});
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.pMechanism, {{ var }}, mechanism_buf, ulParameterLen_buf);
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
 

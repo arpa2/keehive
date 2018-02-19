@@ -5,8 +5,10 @@
 
 
 
-int der_get_char(dercursor cursor, char *val )
-{
+int der_get_char(
+        dercursor cursor,
+        char *val
+) {
     if (cursor.derlen == 0)
         return -1;
     *val = *(cursor.derptr);
@@ -15,8 +17,11 @@ int der_get_char(dercursor cursor, char *val )
 }
 
 
-int der_get_uchar(dercursor cursor, unsigned char *val )
-{
+int
+der_get_uchar(
+        dercursor cursor,
+        unsigned char *val
+)  {
     if (cursor.derlen == 0)
         return -1;
     *val = *(cursor.derptr);
@@ -49,31 +54,90 @@ der_get_CK_ATTRIBUTE_ARRAY(
     dercursor iterator;
     int status;
     int i = 0;
-    dercursor der_attribute;
 
-    CK_ATTRIBUTE attribute;
+    unsigned long type;
+    unsigned long ulValueLen;
+
+    ACK_ATTRIBUTE_t der_attribute;
 
     if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, AttributeArray_packer, &der_attribute, REPEAT);
+            status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_attribute, REPEAT);
             if (status == -1)
                 return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-            /*status = der_get_ulong(der_attribute, &attribute);
+
+            status = der_get_ulong(der_attribute.type, &type);
+            if (status == -1)
+                    return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            (pTemplate)[i].type = type;
+
+            status = der_get_ulong(der_attribute.ulValueLen, &ulValueLen);
             if (status == -1)
                 return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-            (pTemplate)[i] = attribute; */
+            (pTemplate)[i].ulValueLen = ulValueLen;
+
+            // TODO: convert the eventual value (also)
+
             i++;
         } while (der_iterate_next(&iterator));
     }
     return CKR_OK;
 };
 
-int der_get_CK_BYTE_ARRAY(ACK_BYTE_ARRAY_t* Ack_Byte_Array, CK_BYTE_ARRAY pEncryptedData) {
-    return -1;
+CK_RV
+der_get_CK_BYTE_ARRAY(
+        ACK_BYTE_ARRAY_t* Ack_Byte_Array,
+        CK_BYTE_ARRAY pEncryptedData
+) {
+    dercursor iterator;
+    int status;
+    int i = 0;
+
+    unsigned char value;
+
+    ACK_BYTE_t der_byte;
+
+    pEncryptedData = malloc(Ack_Byte_Array->derlen*sizeof(CK_BYTE));
+    if (pEncryptedData == NULL) {
+        return CKR_KEEHIVE_MEMORY_ERROR;
+    }
+
+    if (der_iterate_first(Ack_Byte_Array, &iterator)) {
+        do {
+            status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_byte, REPEAT);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+            status = der_get_uchar(der_byte, &value);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            (pEncryptedData)[i] = value;
+
+            i++;
+        } while (der_iterate_next(&iterator));
+    }
+    return CKR_OK;
 };
 
-int der_get_CK_MECHANISM_PTR(ACK_MECHANISM_t* Ack_Mechanism, CK_MECHANISM_PTR pMechanism) {
-    return -1;
+CK_RV
+der_get_CK_MECHANISM_PTR(
+        ACK_MECHANISM_t* Ack_Mechanism,
+        CK_MECHANISM_PTR pMechanism
+) {
+    int status;
+
+    status = der_get_ulong(Ack_Mechanism->mechanism, &pMechanism->mechanism);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    // todo: implement properly
+    pMechanism->pParameter = NULL_PTR;
+
+    status = der_get_ulong(Ack_Mechanism->ulParameterLen, &pMechanism->ulParameterLen);
+    if (status != 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    return CKR_OK;
 };
 
 int der_get_CK_MECHANISM_TYPE_PTR(ACK_MECHANISM_TYPE_t* Ack_Mechanism_Type, CK_MECHANISM_TYPE_PTR pMechanismList) {
@@ -89,11 +153,12 @@ der_get_CK_VOID_PTR(
         void* Ack_Void,
         CK_VOID_PTR pReserved
 ) {
-/* TODO: ok problem here, which one do we want?
+/* TODO: potential problem here, which one do we want for Ack_Void?
  *  - 'struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved *'
  *  - 'struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved *'
 */
-    return -1;
+    pReserved = NULL_PTR;
+    return 0;
 };
 
 int der_get_CK_UTF8CHAR_ARRAY(ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array, CK_UTF8CHAR_PTR pPin) {
@@ -104,8 +169,18 @@ int der_get_UTF8String(dercursor* cursor, UTF8String pPin) {
     return -1;
 };
 
-int der_get_CK_BBOOL_PTR(ACK_BBOOL_t* Ack_Bbool, CK_BBOOL_PTR tokenPresent) {
-    return -1;
+int der_get_CK_BBOOL_PTR(
+        ACK_BBOOL_t* Ack_Bbool,
+        CK_BBOOL_PTR tokenPresent
+) {
+    bool flag;
+    der_get_bool(*Ack_Bbool, &flag);
+    if (flag) {
+        *tokenPresent = CK_TRUE;
+    } else {
+        *tokenPresent = CK_FALSE;
+    }
+    return 0;
 };
 
 int der_get_CK_FLAGS_PTR(ACK_FLAGS_t* Ack_Flags, CK_FLAGS_PTR flags) {

@@ -139,9 +139,9 @@ typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE
 typedef struct DER_OVLY_RemotePKCS11_ACK_MECHANISM {
 	DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE mechanism; // ACK-MECHANISM-TYPE
 	struct DER_OVLY_RemotePKCS11_ACK_MECHANISM_pParameter {
-	dercursor null; // NULL
-	DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
-} pParameter; // CHOICE { null NULL, data ACK-OPAQUE }
+		dercursor null; // NULL
+		DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
+	} pParameter; // CHOICE { null NULL, data ACK-OPAQUE }
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulParameterLen; // ACK-ULONG
 } DER_OVLY_RemotePKCS11_ACK_MECHANISM;
 
@@ -571,9 +571,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_EncryptUpdate_Return {
 
 typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Call {
 	struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved {
-	dercursor null; // NULL
-	/* ...ASN.1 extensions... */
-} pReserved; // [0] CHOICE { null NULL, ... }
+		dercursor null; // NULL
+		/* ...ASN.1 extensions... */
+	} pReserved; // [0] CHOICE { null NULL, ... }
 } DER_OVLY_RemotePKCS11_C_Finalize_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved;

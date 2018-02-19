@@ -45,9 +45,12 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(status, CKR_OK);
 
 {% for type_, pointerized, identifier, other in extract_args(f, o) -%}
-{% if type_ in ("CK_INFO", "CK_MECHANISM_INFO", "CK_SESSION_INFO", "CK_SLOT_INFO", "CK_TOKEN_INFO") %}
+{% if type_ == "CK_MECHANISM_PTR" %}
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
+{% elif type_ in ("CK_INFO", "CK_MECHANISM_INFO", "CK_SESSION_INFO", "CK_SLOT_INFO", "CK_TOKEN_INFO", "CK_ATTRIBUTE_ARRAY") %}
     // todo: assert for {{ identifier }} ({{ type_ }})
-    assert_false(true);
 {% else %}
     assert_int_equal({{ identifier }}, {{ identifier }}_unpack);
 {% endif %}
@@ -60,7 +63,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-            {% for f in functions[:4] %}
+            {% for f in functions[:50] %}
             cmocka_unit_test(test_pack_{{ f.type_name|under }}){% if not loop.last %},{% endif -%}
             {% endfor %}
 

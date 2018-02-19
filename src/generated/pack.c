@@ -914,7 +914,9 @@ pack_C_DecryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -1299,7 +1301,9 @@ pack_C_DeriveKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -1916,7 +1920,9 @@ pack_C_DigestInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -2456,7 +2462,9 @@ pack_C_EncryptInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -3098,7 +3106,9 @@ pack_C_GenerateKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -3223,7 +3233,9 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -6125,7 +6137,9 @@ pack_C_SignInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -6364,7 +6378,9 @@ pack_C_SignRecoverInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -6570,7 +6586,9 @@ pack_C_UnwrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -6969,7 +6987,9 @@ pack_C_VerifyInit_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 
@@ -7417,7 +7437,9 @@ pack_C_WrapKey_Call(
     // PACKING pMechanism (type CK_MECHANISM_PTR)
 
 
-    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
     if (pMechanism_status != CKR_OK)
         return pMechanism_status;
 

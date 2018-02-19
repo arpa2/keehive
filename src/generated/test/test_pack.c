@@ -233,9 +233,9 @@ void test_pack_C_CopyObject_Call(void **state) {
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_CopyObject_Call(
@@ -251,8 +251,8 @@ void test_pack_C_CopyObject_Call(void **state) {
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -275,7 +275,7 @@ void test_pack_C_CopyObject_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -336,9 +336,9 @@ void test_pack_C_CreateObject_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_CreateObject_Call(
@@ -352,8 +352,8 @@ void test_pack_C_CreateObject_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -372,7 +372,7 @@ void test_pack_C_CreateObject_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -432,7 +432,7 @@ void test_pack_C_Decrypt_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedDataLen = 13;
     CK_ULONG pulDataLen = 13;
     
@@ -448,7 +448,7 @@ void test_pack_C_Decrypt_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedDataLen_unpack = 0;
     CK_ULONG pulDataLen_unpack = 0;
     
@@ -488,7 +488,7 @@ void test_pack_C_Decrypt_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDataLen = 13;
     
 
@@ -502,7 +502,7 @@ void test_pack_C_Decrypt_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDataLen_unpack = 0;
     
 
@@ -539,7 +539,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_ULONG pulPartLen = 13;
     
@@ -555,7 +555,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -595,7 +595,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen = 13;
     
 
@@ -609,7 +609,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -688,7 +688,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pLastPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pLastPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulLastPartLen = 13;
     
 
@@ -702,7 +702,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pLastPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pLastPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulLastPartLen_unpack = 0;
     
 
@@ -774,7 +774,9 @@ void test_pack_C_DecryptInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hKey, hKey_unpack);
@@ -827,7 +829,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_ULONG pulPartLen = 13;
     
@@ -843,7 +845,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -883,7 +885,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen = 13;
     
 
@@ -897,7 +899,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -934,7 +936,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_ULONG pulPartLen = 13;
     
@@ -950,7 +952,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -990,7 +992,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen = 13;
     
 
@@ -1004,7 +1006,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -1045,9 +1047,9 @@ void test_pack_C_DeriveKey_Call(void **state) {
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hBaseKey = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulAttributeCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_DeriveKey_Call(
@@ -1066,8 +1068,8 @@ void test_pack_C_DeriveKey_Call(void **state) {
     CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
     CK_OBJECT_HANDLE hBaseKey_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulAttributeCount_unpack = 0;
     
 
@@ -1088,13 +1090,15 @@ void test_pack_C_DeriveKey_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hBaseKey, hBaseKey_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
@@ -1233,7 +1237,7 @@ void test_pack_C_Digest_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_ULONG pulDigestLen = 13;
     
@@ -1249,7 +1253,7 @@ void test_pack_C_Digest_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulDigestLen_unpack = 0;
     
@@ -1289,7 +1293,7 @@ void test_pack_C_Digest_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pDigest = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDigestLen = 13;
     
 
@@ -1303,7 +1307,7 @@ void test_pack_C_Digest_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pDigest_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pDigest_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDigestLen_unpack = 0;
     
 
@@ -1340,7 +1344,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_ULONG pulEncryptedPartLen = 13;
     
@@ -1356,7 +1360,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -1396,7 +1400,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen = 13;
     
 
@@ -1410,7 +1414,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -1489,7 +1493,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pDigest = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDigestLen = 13;
     
 
@@ -1503,7 +1507,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pDigest_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pDigest_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDigestLen_unpack = 0;
     
 
@@ -1571,7 +1575,9 @@ void test_pack_C_DigestInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
 
@@ -1700,7 +1706,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     
 
@@ -1714,7 +1720,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -1786,7 +1792,7 @@ void test_pack_C_Encrypt_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_ULONG pulEncryptedDataLen = 13;
     
@@ -1802,7 +1808,7 @@ void test_pack_C_Encrypt_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
@@ -1842,7 +1848,7 @@ void test_pack_C_Encrypt_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedDataLen = 13;
     
 
@@ -1856,7 +1862,7 @@ void test_pack_C_Encrypt_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
@@ -1935,7 +1941,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedDataLen = 13;
     
 
@@ -1949,7 +1955,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
@@ -2021,7 +2027,9 @@ void test_pack_C_EncryptInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hKey, hKey_unpack);
@@ -2074,7 +2082,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_ULONG pulEncryptedPartLen = 13;
     
@@ -2090,7 +2098,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -2130,7 +2138,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen = 13;
     
 
@@ -2144,7 +2152,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -2426,9 +2434,9 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_FindObjectsInit_Call(
@@ -2442,8 +2450,8 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -2462,7 +2470,7 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2479,8 +2487,8 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
     
 
     CK_RV status = pack_C_FindObjectsInit_Return(
@@ -2493,8 +2501,8 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
 
     CK_RV retval_unpack = CKR_OK;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     
 
     status = unpack_C_FindObjectsInit_Return(
@@ -2511,7 +2519,7 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
 
@@ -2529,9 +2537,9 @@ void test_pack_C_GenerateKey_Call(void **state) {
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_GenerateKey_Call(
@@ -2548,8 +2556,8 @@ void test_pack_C_GenerateKey_Call(void **state) {
     CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -2569,10 +2577,12 @@ void test_pack_C_GenerateKey_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2635,13 +2645,13 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pPublicKeyTemplate[] = {
-                            {CKA_LABEL, pPublicKeyTemplate_label, sizeof(pPublicKeyTemplate_label)-1} };
-    CK_ULONG ulPublicKeyAttributeCount = 13;
+    CK_ATTRIBUTE pPublicKeyTemplate[] = {
+        {CKA_LABEL, pPublicKeyTemplate_label, sizeof(pPublicKeyTemplate_label)-1} };
+    CK_ULONG ulPublicKeyAttributeCount = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);
     CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pPrivateKeyTemplate[] = {
-                            {CKA_LABEL, pPrivateKeyTemplate_label, sizeof(pPrivateKeyTemplate_label)-1} };
-    CK_ULONG ulPrivateKeyAttributeCount = 13;
+    CK_ATTRIBUTE pPrivateKeyTemplate[] = {
+        {CKA_LABEL, pPrivateKeyTemplate_label, sizeof(pPrivateKeyTemplate_label)-1} };
+    CK_ULONG ulPrivateKeyAttributeCount = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_GenerateKeyPair_Call(
@@ -2660,12 +2670,12 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
     CK_UTF8CHAR pPublicKeyTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pPublicKeyTemplate_unpack[] = {
-                            {CKA_LABEL, pPublicKeyTemplate_unpack_label, sizeof(pPublicKeyTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pPublicKeyTemplate_unpack[] = {
+        {CKA_LABEL, pPublicKeyTemplate_unpack_label, sizeof(pPublicKeyTemplate_unpack_label)-1} };
     CK_ULONG ulPublicKeyAttributeCount_unpack = 0;
     CK_UTF8CHAR pPrivateKeyTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pPrivateKeyTemplate_unpack[] = {
-                            {CKA_LABEL, pPrivateKeyTemplate_unpack_label, sizeof(pPrivateKeyTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pPrivateKeyTemplate_unpack[] = {
+        {CKA_LABEL, pPrivateKeyTemplate_unpack_label, sizeof(pPrivateKeyTemplate_unpack_label)-1} };
     CK_ULONG ulPrivateKeyAttributeCount_unpack = 0;
     
 
@@ -2687,16 +2697,18 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    assert_int_equal(pPublicKeyTemplate, pPublicKeyTemplate_unpack);
+    // todo: assert for pPublicKeyTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulPublicKeyAttributeCount, ulPublicKeyAttributeCount_unpack);
 
 
-    assert_int_equal(pPrivateKeyTemplate, pPrivateKeyTemplate_unpack);
+    // todo: assert for pPrivateKeyTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount_unpack);
@@ -2805,7 +2817,7 @@ void test_pack_C_GenerateRandom_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pSeed = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSeed = (CK_BYTE_ARRAY) "abcdefghijklm";
     
 
     CK_RV status = pack_C_GenerateRandom_Return(
@@ -2817,7 +2829,7 @@ void test_pack_C_GenerateRandom_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pSeed_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSeed_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     
 
     status = unpack_C_GenerateRandom_Return(
@@ -2851,9 +2863,9 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_GetAttributeValue_Call(
@@ -2869,8 +2881,8 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -2893,7 +2905,7 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2910,8 +2922,8 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
     
 
     CK_RV status = pack_C_GetAttributeValue_Return(
@@ -2924,8 +2936,8 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
 
     CK_RV retval_unpack = CKR_OK;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     
 
     status = unpack_C_GetAttributeValue_Return(
@@ -2942,7 +2954,7 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
 
@@ -3099,7 +3111,6 @@ void test_pack_C_GetInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_INFO)
-    assert_false(true);
 
 
 
@@ -3190,7 +3201,6 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_MECHANISM_INFO)
-    assert_false(true);
 
 
 
@@ -3426,7 +3436,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pOperationState = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pOperationState = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulOperationStateLen = 13;
     
 
@@ -3440,7 +3450,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pOperationState_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pOperationState_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulOperationStateLen_unpack = 0;
     
 
@@ -3542,7 +3552,6 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_SESSION_INFO)
-    assert_false(true);
 
 
 
@@ -3634,7 +3643,6 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_SLOT_INFO)
-    assert_false(true);
 
 
 
@@ -3648,7 +3656,7 @@ void test_pack_C_GetSlotList_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_BBOOL tokenPresent = 13;
+    CK_BBOOL tokenPresent = CK_TRUE;
     CK_ULONG pulCount = 13;
     
 
@@ -3847,7 +3855,6 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_TOKEN_INFO)
-    assert_false(true);
 
 
 
@@ -3862,7 +3869,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_UTF8CHAR_ARRAY pPin = NULL; /* todo: probably requires finetuning */
+    CK_UTF8CHAR_ARRAY pPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
     CK_ULONG ulPinLen = 13;
     
 
@@ -3948,9 +3955,9 @@ void test_pack_C_InitToken_Call(void **state) {
     dercursor dercursor;
 
     CK_SLOT_ID slotID = 13;
-    UTF8String pPin = NULL; /* todo: probably requires finetuning */
+    UTF8String pPin = (UTF8String) "abcdefghijklm";
     CK_ULONG ulPinLen = 13;
-    UTF8String pLabel = NULL; /* todo: probably requires finetuning */
+    UTF8String pLabel = (UTF8String) "abcdefghijklm";
     
 
     CK_RV status = pack_C_InitToken_Call(
@@ -4121,7 +4128,7 @@ void test_pack_C_Login_Call(void **state) {
 
     CK_SESSION_HANDLE hSession = 13;
     CK_USER_TYPE userType = 13;
-    CK_UTF8CHAR_ARRAY pPin = NULL; /* todo: probably requires finetuning */
+    CK_UTF8CHAR_ARRAY pPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
     CK_ULONG ulPinLen = 13;
     
 
@@ -4385,7 +4392,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pSeed = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSeed = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSeedLen = 13;
     
 
@@ -4399,7 +4406,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSeed_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSeed_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSeedLen_unpack = 0;
     
 
@@ -4473,9 +4480,9 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_SetAttributeValue_Call(
@@ -4491,8 +4498,8 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -4515,7 +4522,7 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -4568,7 +4575,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pOperationState = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pOperationState = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulOperationStateLen = 13;
     CK_OBJECT_HANDLE hEncryptionKey = 13;
     CK_OBJECT_HANDLE hAuthenticationKey = 13;
@@ -4586,7 +4593,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pOperationState_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pOperationState_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulOperationStateLen_unpack = 0;
     CK_OBJECT_HANDLE hEncryptionKey_unpack = 0;
     CK_OBJECT_HANDLE hAuthenticationKey_unpack = 0;
@@ -4668,9 +4675,9 @@ void test_pack_C_SetPIN_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_UTF8CHAR_ARRAY pOldPin = NULL; /* todo: probably requires finetuning */
+    CK_UTF8CHAR_ARRAY pOldPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
     CK_ULONG ulOldLen = 13;
-    CK_UTF8CHAR_ARRAY pNewPin = NULL; /* todo: probably requires finetuning */
+    CK_UTF8CHAR_ARRAY pNewPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
     CK_ULONG ulNewPin = 13;
     
 
@@ -4768,7 +4775,7 @@ void test_pack_C_Sign_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_ULONG pulSignatureLen = 13;
     
@@ -4784,7 +4791,7 @@ void test_pack_C_Sign_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulSignatureLen_unpack = 0;
     
@@ -4824,7 +4831,7 @@ void test_pack_C_Sign_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen = 13;
     
 
@@ -4838,7 +4845,7 @@ void test_pack_C_Sign_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -4875,7 +4882,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_ULONG pulEncryptedPartLen = 13;
     
@@ -4891,7 +4898,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -4931,7 +4938,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen = 13;
     
 
@@ -4945,7 +4952,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pEncryptedPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -5024,7 +5031,7 @@ void test_pack_C_SignFinal_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen = 13;
     
 
@@ -5038,7 +5045,7 @@ void test_pack_C_SignFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -5110,7 +5117,9 @@ void test_pack_C_SignInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hKey, hKey_unpack);
@@ -5163,7 +5172,7 @@ void test_pack_C_SignRecover_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_ULONG pulSignatureLen = 13;
     
@@ -5179,7 +5188,7 @@ void test_pack_C_SignRecover_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulSignatureLen_unpack = 0;
     
@@ -5219,7 +5228,7 @@ void test_pack_C_SignRecover_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen = 13;
     
 
@@ -5233,7 +5242,7 @@ void test_pack_C_SignRecover_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -5305,7 +5314,9 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hKey, hKey_unpack);
@@ -5358,7 +5369,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     
 
@@ -5372,7 +5383,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -5447,12 +5458,12 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hUnwrappingKey = 13;
-    CK_BYTE_ARRAY pWrappedKey = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulWrappedKeyLen = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate[] = {
-                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulAttributeCount = 13;
+    CK_ATTRIBUTE pTemplate[] = {
+        {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_UnwrapKey_Call(
@@ -5472,11 +5483,11 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     CK_MECHANISM pMechanism_unpack_pointed = {CKM_MD5, NULL_PTR, 0};
     CK_MECHANISM_PTR pMechanism_unpack = &pMechanism_unpack_pointed; 
     CK_OBJECT_HANDLE hUnwrappingKey_unpack = 0;
-    CK_BYTE_ARRAY pWrappedKey_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pWrappedKey_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulWrappedKeyLen_unpack = 0;
     CK_UTF8CHAR pTemplate_unpack_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE pTemplate_unpack[] = {
-                            {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
+    CK_ATTRIBUTE pTemplate_unpack[] = {
+        {CKA_LABEL, pTemplate_unpack_label, sizeof(pTemplate_unpack_label)-1} };
     CK_ULONG ulAttributeCount_unpack = 0;
     
 
@@ -5499,7 +5510,9 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hUnwrappingKey, hUnwrappingKey_unpack);
@@ -5511,7 +5524,7 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(ulWrappedKeyLen, ulWrappedKeyLen_unpack);
 
 
-    assert_int_equal(pTemplate, pTemplate_unpack);
+    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
@@ -5571,9 +5584,9 @@ void test_pack_C_Verify_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen = 13;
     
 
@@ -5589,9 +5602,9 @@ void test_pack_C_Verify_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen_unpack = 0;
     
 
@@ -5671,7 +5684,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen = 13;
     
 
@@ -5685,7 +5698,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen_unpack = 0;
     
 
@@ -5792,7 +5805,9 @@ void test_pack_C_VerifyInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hKey, hKey_unpack);
@@ -5845,7 +5860,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pSignature = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen = 13;
     CK_ULONG pulDataLen = 13;
     
@@ -5861,7 +5876,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pSignature_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen_unpack = 0;
     CK_ULONG pulDataLen_unpack = 0;
     
@@ -5901,7 +5916,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pData = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDataLen = 13;
     
 
@@ -5915,7 +5930,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pData_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pData_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulDataLen_unpack = 0;
     
 
@@ -5952,7 +5967,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_BYTE_ARRAY pPart = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     
 
@@ -5966,7 +5981,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pPart_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -6174,7 +6189,9 @@ void test_pack_C_WrapKey_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pMechanism, pMechanism_unpack);
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
     assert_int_equal(hWrappingKey, hWrappingKey_unpack);
@@ -6196,7 +6213,7 @@ void test_pack_C_WrapKey_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_BYTE_ARRAY pWrappedKey = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulWrappedKeyLen = 13;
     
 
@@ -6210,7 +6227,7 @@ void test_pack_C_WrapKey_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack = CKR_OK;
-    CK_BYTE_ARRAY pWrappedKey_unpack = NULL; /* todo: probably requires finetuning */
+    CK_BYTE_ARRAY pWrappedKey_unpack = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG pulWrappedKeyLen_unpack = 0;
     
 
@@ -6247,7 +6264,53 @@ int main(void) {
             cmocka_unit_test(test_pack_C_CancelFunction_Call),
             cmocka_unit_test(test_pack_C_CloseAllSessions_Call),
             cmocka_unit_test(test_pack_C_CloseSession_Call),
-            cmocka_unit_test(test_pack_C_CopyObject_Call)
+            cmocka_unit_test(test_pack_C_CopyObject_Call),
+            cmocka_unit_test(test_pack_C_CreateObject_Call),
+            cmocka_unit_test(test_pack_C_Decrypt_Call),
+            cmocka_unit_test(test_pack_C_DecryptDigestUpdate_Call),
+            cmocka_unit_test(test_pack_C_DecryptFinal_Call),
+            cmocka_unit_test(test_pack_C_DecryptInit_Call),
+            cmocka_unit_test(test_pack_C_DecryptUpdate_Call),
+            cmocka_unit_test(test_pack_C_DecryptVerifyUpdate_Call),
+            cmocka_unit_test(test_pack_C_DeriveKey_Call),
+            cmocka_unit_test(test_pack_C_DestroyObject_Call),
+            cmocka_unit_test(test_pack_C_Digest_Call),
+            cmocka_unit_test(test_pack_C_DigestEncryptUpdate_Call),
+            cmocka_unit_test(test_pack_C_DigestFinal_Call),
+            cmocka_unit_test(test_pack_C_DigestInit_Call),
+            cmocka_unit_test(test_pack_C_DigestKey_Call),
+            cmocka_unit_test(test_pack_C_DigestUpdate_Call),
+            cmocka_unit_test(test_pack_C_Encrypt_Call),
+            cmocka_unit_test(test_pack_C_EncryptFinal_Call),
+            cmocka_unit_test(test_pack_C_EncryptInit_Call),
+            cmocka_unit_test(test_pack_C_EncryptUpdate_Call),
+            cmocka_unit_test(test_pack_C_Finalize_Call),
+            cmocka_unit_test(test_pack_C_FindObjects_Call),
+            cmocka_unit_test(test_pack_C_FindObjectsFinal_Call),
+            cmocka_unit_test(test_pack_C_FindObjectsInit_Call),
+            cmocka_unit_test(test_pack_C_GenerateKey_Call),
+            cmocka_unit_test(test_pack_C_GenerateKeyPair_Call),
+            cmocka_unit_test(test_pack_C_GenerateRandom_Call),
+            cmocka_unit_test(test_pack_C_GetAttributeValue_Call),
+            cmocka_unit_test(test_pack_C_GetFunctionStatus_Call),
+            cmocka_unit_test(test_pack_C_GetInfo_Call),
+            cmocka_unit_test(test_pack_C_GetMechanismInfo_Call),
+            cmocka_unit_test(test_pack_C_GetMechanismList_Call),
+            cmocka_unit_test(test_pack_C_GetObjectSize_Call),
+            cmocka_unit_test(test_pack_C_GetOperationState_Call),
+            cmocka_unit_test(test_pack_C_GetSessionInfo_Call),
+            cmocka_unit_test(test_pack_C_GetSlotInfo_Call),
+            cmocka_unit_test(test_pack_C_GetSlotList_Call),
+            cmocka_unit_test(test_pack_C_GetTokenInfo_Call),
+            cmocka_unit_test(test_pack_C_InitPIN_Call),
+            cmocka_unit_test(test_pack_C_InitToken_Call),
+            cmocka_unit_test(test_pack_C_Initialize_Call),
+            cmocka_unit_test(test_pack_C_Login_Call),
+            cmocka_unit_test(test_pack_C_Logout_Call),
+            cmocka_unit_test(test_pack_C_OpenSession_Call),
+            cmocka_unit_test(test_pack_C_SeedRandom_Call),
+            cmocka_unit_test(test_pack_C_SetAttributeValue_Call),
+            cmocka_unit_test(test_pack_C_SetOperationState_Call)
 
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

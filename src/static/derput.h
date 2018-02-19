@@ -100,7 +100,9 @@ der_put_CK_VOID_PTR(
 CK_RV
 der_put_CK_MECHANISM_PTR(
         ACK_MECHANISM_t* Ack_Mechanism,
-        const CK_MECHANISM* pMechanism
+        const CK_MECHANISM* pMechanism,
+        der_buf_ulong_t mechanism_buf,
+        der_buf_ulong_t ulParameterLen_buf
 );
 
 

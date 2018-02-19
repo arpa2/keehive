@@ -198,19 +198,31 @@ type_test_templates = {
 
     "CK_ATTRIBUTE_ARRAY":
         """CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
-                            CK_ATTRIBUTE {identifier}[] = {{
-                            {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}} }};""",
+    CK_ATTRIBUTE {identifier}[] = {{
+        {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}} }};""",
     "CK_MECHANISM_PTR":
         """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL_PTR, 0}};
-    CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """
+    CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """,
+    "CK_BYTE_ARRAY":
+        """{type_} {identifier} = (CK_BYTE_ARRAY) "abcdefghijklm";"""
 }
 
 
 def initialise_test(type_, identifier):
-    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+    if identifier in ("ulCount", "ulAttributeCount"):
+        return "{} {} = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
+    elif identifier == "ulPrivateKeyAttributeCount":
+            return "{} {} = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
+    elif identifier == "ulPublicKeyAttributeCount":
+        return "{} {} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
+    elif type_ == "CK_BBOOL":
+        return "{} {} = CK_TRUE;".format(type_, identifier)
+    elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
         return "{} {} = 13;".format(type_, identifier)
     elif type_ in type_test_templates:
         return type_test_templates[type_].format(identifier=identifier, type_=type_)
+    elif type_ in ("CK_UTF8CHAR_ARRAY", "UTF8String"):
+        return "{type_} {identifier} = ({type_}) \"abcdefghijklm\";".format(type_=type_, identifier=identifier)
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
     else:

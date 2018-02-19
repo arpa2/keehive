@@ -11,6 +11,18 @@ der_get_CK_ATTRIBUTE_ARRAY(
         CK_ATTRIBUTE_ARRAY pTemplate
 );
 
+CK_RV
+der_get_CK_BYTE_ARRAY(
+        ACK_BYTE_ARRAY_t* Ack_Byte_Array,
+        CK_BYTE_ARRAY pEncryptedData
+);
+
+CK_RV
+der_get_CK_MECHANISM_PTR(
+        ACK_MECHANISM_t* Ack_Mechanism,
+        CK_MECHANISM_PTR pMechanism
+);
+
 int der_get_char(dercursor cursor, char *val );
 
 int der_get_uchar(dercursor cursor, unsigned char *val );
@@ -19,9 +31,7 @@ int der_get_long (dercursor cursor, long int *valp);
 
 int der_get_ulong (dercursor cursor, long unsigned int *valp);
 
-int der_get_CK_BYTE_ARRAY(ACK_BYTE_ARRAY_t* Ack_Byte_Array, CK_BYTE_ARRAY pEncryptedData);
 
-int der_get_CK_MECHANISM_PTR(ACK_MECHANISM_t* Ack_Mechanism, CK_MECHANISM_PTR pMechanism);
 
 int der_get_CK_MECHANISM_TYPE_PTR(ACK_MECHANISM_TYPE_t* Ack_Mechanism_Type, CK_MECHANISM_TYPE_PTR pMechanismList);
 

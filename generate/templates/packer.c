@@ -18,8 +18,9 @@ const derwalk ObjectHandlerPacker_packer[] = {
         DER_PACK_END
 };
 
+// TODO: is this right?
 const derwalk AttributeArray_packer[] = {
-        DER_PACK_STORE | DER_PACK_RemotePKCS11_ACK_ATTRIBUTE,
+        DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
 };
 

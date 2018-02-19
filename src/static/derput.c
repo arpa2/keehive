@@ -104,6 +104,7 @@ der_put_CK_BYTE_ARRAY(
     size_t tmp = 0;
 
     for (i = 0; i < *count; i++) {
+        byte = byte_array[i];
         crs = der_put_uchar(buf, byte);
         tmp = der_pack(pack, &crs, NULL);
         if (tmp == 0)
@@ -290,9 +291,11 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
 CK_RV
 der_put_CK_MECHANISM_PTR(
         ACK_MECHANISM_t* Ack_Mechanism,
-        const CK_MECHANISM* pMechanism
+        const CK_MECHANISM* pMechanism,
+        der_buf_ulong_t mechanism_buf,
+        der_buf_ulong_t ulParameterLen_buf
 ) {
-    der_buf_ulong_t mechanism_buf = { 0 };
+
     Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
 
     if (pMechanism->pParameter == NULL_PTR) {
@@ -302,7 +305,7 @@ der_put_CK_MECHANISM_PTR(
         return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
     }
 
-    der_buf_ulong_t ulParameterLen_buf = { 0 };
+
     Ack_Mechanism->ulParameterLen = der_put_ulong(ulParameterLen_buf, pMechanism->ulParameterLen);
 
     return CKR_OK;
