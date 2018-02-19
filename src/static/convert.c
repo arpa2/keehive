@@ -20,7 +20,7 @@ dercursor rfc2279_string(const CK_ATTRIBUTE* pTemplate)
 }
 
 
-static func_tree_t functree;
+func_tree_t functree;
 
 
 func_t func_array[] = {

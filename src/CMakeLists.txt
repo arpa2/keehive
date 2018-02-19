@@ -5,6 +5,7 @@ set(LIB_H
         generated/call.h
         generated/client.h
         generated/server.h
+        generated/packer.h
         static/RemotePKCS11.h
         static/pkcs11/pkcs11unix.h
         static/pkcs11/pkcs11.h
@@ -25,9 +26,11 @@ set(LIB_SRC
         generated/client.c
         generated/server.c
         static/convert.c
+        generated/packer.c
         static/util.c
         static/derput.c
-        static/derget.c)
+        static/derget.c
+)
 
 
 include_directories ("${PROJECT_BINARY_DIR}" "generated" "." "static")

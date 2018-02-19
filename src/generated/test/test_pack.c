@@ -233,8 +233,10 @@ void test_pack_C_CopyObject_Call(void **state) {
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
-    CK_ATTRIBUTE pTemplate[] = { {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
-    CK_ULONG ulCount = sizeof(pTemplate_label) / sizeof(CK_ATTRIBUTE);
+                            CK_ATTRIBUTE pTemplate[] = {
+                            {CKA_LABEL, pTemplate_label, sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = 13;
+    
 
     CK_RV status = pack_C_CopyObject_Call(
         &dercursor,

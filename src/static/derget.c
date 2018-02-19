@@ -1,11 +1,8 @@
 #include "derget.h"
 #include "unpack.h"
 #include "returncodes.h"
+#include "packer.h"
 
-static const derwalk Ack_Attribute_Array_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
 
 
 int der_get_char(dercursor cursor, char *val )
@@ -58,7 +55,7 @@ der_get_CK_ATTRIBUTE_ARRAY(
 
     if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, Ack_Attribute_Array_packer, &der_attribute, REPEAT);
+            status = der_unpack(&iterator, AttributeArray_packer, &der_attribute, REPEAT);
             if (status == -1)
                 return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
             /*status = der_get_ulong(der_attribute, &attribute);

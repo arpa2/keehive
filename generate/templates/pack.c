@@ -2,6 +2,7 @@
 #include "static/returncodes.h"
 #include "static/util.h"
 #include "static/derput.h"
+#include "packer.h"
 
 CK_ULONG ulSeedLen = 0;
 CK_ULONG_PTR pulSeedLen = &ulSeedLen;
@@ -19,32 +20,6 @@ CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
 {% set utf8_len_mapping = { "pPin": "ulPinLen", "pOldPin": "ulOldLen", "pNewPin": "ulNewPin", "pLabel": "pulSeedLen"} %}
 
-{% for f in functions %}
-static const derwalk {{ f.type_name|under }}_packer[] = {
-    DER_PACK_RemotePKCS11_{{ f.type_name|under }},
-    DER_PACK_END
-};
-{% endfor %}
-
-static const derwalk pSlotList_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
-
-static const derwalk ObjectHandlerPacker_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
-
-static const derwalk AttributeArray_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
-
-static const derwalk ByteArray_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
 
 
 {% for call, return_ in zipped %}

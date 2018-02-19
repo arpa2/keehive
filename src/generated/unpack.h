@@ -6,9 +6,7 @@
 #include "static/RemotePKCS11.h"
 #include "quick-der/api.h"
 
-// always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
-// the length of the SEQUENCE
-#define REPEAT 1
+
 
 
 CK_RV

@@ -4,19 +4,7 @@
 #include "derget.h"
 #include "static/util.h"
 #include "static/returncodes.h"
-
-// always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
-// the length of the SEQUENCE
-#define REPEAT 1
-
-
-{% for f in functions %}
-static const derwalk {{ f.type_name|under }}_packer[] = {
-        DER_PACK_RemotePKCS11_{{ f.type_name|under }},
-        DER_PACK_END
-};
-{% endfor %}
-
+#include "packer.h"
 
 {% for call, return_ in zipped %}
 {% for f, o in ((call, return_), (return_, call)) %}
