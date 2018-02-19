@@ -6,12 +6,14 @@
 #include <quick-der/api.h>
 #include "nedtrie.h"
 
-dercursor not_implemented(uint8_t *der_buf_uint32, uint32_t value);
+dercursor not_implemented(const CK_ATTRIBUTE* pTemplate);
+
+dercursor rfc2279_string(const CK_ATTRIBUTE* pTemplate);
 
 struct func_s {
     NEDTRIE_ENTRY(func_s) link;
     size_t key;
-    dercursor (*func)(uint8_t*, uint32_t);
+    dercursor (*func)(const CK_ATTRIBUTE*);
 };
 
 typedef struct func_s func_t;

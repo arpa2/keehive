@@ -1,5 +1,11 @@
 #include "derget.h"
+#include "unpack.h"
+#include "returncodes.h"
 
+static const derwalk Ack_Attribute_Array_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
 
 
 int der_get_char(dercursor cursor, char *val )
@@ -38,11 +44,31 @@ der_get_ulong(
 };
 
 
-int
+CK_RV
 der_get_CK_ATTRIBUTE_ARRAY(
         ACK_ATTRIBUTE_ARRAY_t* Ack_Attribute_Array,
         CK_ATTRIBUTE_ARRAY pTemplate) {
-    return -1;
+
+    dercursor iterator;
+    int status;
+    int i = 0;
+    dercursor der_attribute;
+
+    CK_ATTRIBUTE attribute;
+
+    if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
+        do {
+            status = der_unpack(&iterator, Ack_Attribute_Array_packer, &der_attribute, REPEAT);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            /*status = der_get_ulong(der_attribute, &attribute);
+            if (status == -1)
+                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+            (pTemplate)[i] = attribute; */
+            i++;
+        } while (der_iterate_next(&iterator));
+    }
+    return CKR_OK;
 };
 
 int der_get_CK_BYTE_ARRAY(ACK_BYTE_ARRAY_t* Ack_Byte_Array, CK_BYTE_ARRAY pEncryptedData) {

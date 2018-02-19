@@ -1,12 +1,23 @@
-
+#include "derput.h"
 #include "convert.h"
 
 
 
-dercursor not_implemented(uint8_t *der_buf_uint32, uint32_t value) {
-    dercursor cursor;
-    return cursor;
+dercursor not_implemented(const CK_ATTRIBUTE* pTemplate) {
+
+    (void) pTemplate; // not used
+
+    return der_put_null();
 };
+
+
+dercursor rfc2279_string(const CK_ATTRIBUTE* pTemplate)
+{
+    dercursor cursor;
+    cursor.derptr = pTemplate->pValue;
+    cursor.derlen = pTemplate->ulValueLen;
+    return cursor;
+}
 
 
 static func_tree_t functree;
@@ -16,7 +27,7 @@ func_t func_array[] = {
         {.key=CKA_TOKEN, .func=not_implemented},
         {.key=CKA_CLASS, .func=not_implemented},
         {.key=CKA_PRIVATE, .func=not_implemented},
-        {.key=CKA_LABEL, .func=not_implemented},
+        {.key=CKA_LABEL, .func=rfc2279_string},
         {.key=CKA_APPLICATION, .func=not_implemented},
         {.key=CKA_VALUE, .func=not_implemented},
         {.key=CKA_OBJECT_ID, .func=not_implemented},

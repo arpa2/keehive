@@ -5,9 +5,7 @@
 #include "static/util.h"
 #include "static/returncodes.h"
 
-// always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
-// the length of the SEQUENCE
-#define REPEAT 1
+
 
 
 

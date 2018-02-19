@@ -130,6 +130,7 @@ der_put_CK_BYTE_ARRAY(
 };
 
 
+/* dont forget to free(pInnerlist) */
 CK_RV
 der_put_CK_ATTRIBUTE_ARRAY(
         const CK_ATTRIBUTE* pTemplate,
@@ -153,7 +154,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
         func = find_func(attribute.type);
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-        crs = (*func->func)(buf, *(uint32_t*)attribute.pValue);
+        crs = (*func->func)(&attribute);
 
         tmp = der_pack(pack, &crs, NULL);
         if (tmp == 0)
@@ -171,7 +172,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
         func = find_func(attribute.type);
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-        crs = (*func->func)(buf, *(uint32_t*)attribute.pValue);
+        crs = (*func->func)(&attribute);
         tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
