@@ -49,8 +49,18 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
     assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
-{% elif type_ in ("CK_INFO", "CK_MECHANISM_INFO", "CK_SESSION_INFO", "CK_SLOT_INFO", "CK_TOKEN_INFO", "CK_ATTRIBUTE_ARRAY") %}
+{% elif type_ == "CK_UTF8CHAR_ARRAY" %}
+    assert_memory_equal({{ identifier }}, {{ identifier }}_unpack, {{ identifier|utf8_len_mapping }});
+{% elif type_ == "CK_ATTRIBUTE_ARRAY" %}
+    int {{ identifier }}_i;
+    for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ template_len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
+        assert_int_equal({{ identifier }}[{{ identifier }}_i].type, {{ identifier }}_unpack[{{ identifier }}_i].type);
+        // todo: assert_ptr_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue);
+        assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
+    }
+{% elif type_ in ("CK_INFO", "CK_MECHANISM_INFO", "CK_SESSION_INFO", "CK_SLOT_INFO", "CK_TOKEN_INFO") %}
     // todo: assert for {{ identifier }} ({{ type_ }})
+    assert_false(true);
 {% else %}
     assert_int_equal({{ identifier }}, {{ identifier }}_unpack);
 {% endif %}

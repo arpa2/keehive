@@ -9,13 +9,6 @@ CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
 
 
-
-
-
-
-
-
-
 /* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
 pack_C_CancelFunction_Call(
@@ -3048,7 +3041,7 @@ pack_C_FindObjectsInit_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            pulSeedLen /* TODO: this is wrong, determine this number somehow */,
+            0 /* TODO: this is wrong, determine this number somehow */,
             &pTemplate_innerlist,
             &pTemplate_length,
             AttributeArray_packer);
@@ -3575,7 +3568,7 @@ pack_C_GetAttributeValue_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            pulSeedLen /* TODO: this is wrong, determine this number somehow */,
+            0 /* TODO: this is wrong, determine this number somehow */,
             &pTemplate_innerlist,
             &pTemplate_length,
             AttributeArray_packer);

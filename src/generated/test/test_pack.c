@@ -275,7 +275,12 @@ void test_pack_C_CopyObject_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -372,7 +377,12 @@ void test_pack_C_CreateObject_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -1098,7 +1108,12 @@ void test_pack_C_DeriveKey_Call(void **state) {
     assert_int_equal(hBaseKey, hBaseKey_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
@@ -2470,7 +2485,12 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2519,7 +2539,12 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < 0 /* TODO: this is wrong, determine this number somehow */; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
 
@@ -2582,7 +2607,12 @@ void test_pack_C_GenerateKey_Call(void **state) {
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2702,13 +2732,23 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    // todo: assert for pPublicKeyTemplate (CK_ATTRIBUTE_ARRAY)
+    int pPublicKeyTemplate_i;
+    for (pPublicKeyTemplate_i = 0; pPublicKeyTemplate_i < ulPublicKeyAttributeCount; pPublicKeyTemplate_i++) {
+        assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].type, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].type);
+        // todo: assert_ptr_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].pValue, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].pValue);
+        assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].ulValueLen, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulPublicKeyAttributeCount, ulPublicKeyAttributeCount_unpack);
 
 
-    // todo: assert for pPrivateKeyTemplate (CK_ATTRIBUTE_ARRAY)
+    int pPrivateKeyTemplate_i;
+    for (pPrivateKeyTemplate_i = 0; pPrivateKeyTemplate_i < ulPrivateKeyAttributeCount; pPrivateKeyTemplate_i++) {
+        assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].type, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].type);
+        // todo: assert_ptr_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].pValue, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].pValue);
+        assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].ulValueLen, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount_unpack);
@@ -2905,7 +2945,12 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2954,7 +2999,12 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < 0 /* TODO: this is wrong, determine this number somehow */; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
 
@@ -3111,6 +3161,7 @@ void test_pack_C_GetInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_INFO)
+    assert_false(true);
 
 
 
@@ -3201,6 +3252,7 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_MECHANISM_INFO)
+    assert_false(true);
 
 
 
@@ -3552,6 +3604,7 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_SESSION_INFO)
+    assert_false(true);
 
 
 
@@ -3643,6 +3696,7 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_SLOT_INFO)
+    assert_false(true);
 
 
 
@@ -3855,6 +3909,7 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
 
 
     // todo: assert for pInfo (CK_TOKEN_INFO)
+    assert_false(true);
 
 
 
@@ -3890,7 +3945,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     status = unpack_C_InitPIN_Call(
         &dercursor,
         &hSession_unpack,
-        &pPin_unpack,
+        pPin_unpack,
         &ulPinLen_unpack
     );
 
@@ -3902,7 +3957,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_string_equal(pPin, pPin_unpack);
+    assert_memory_equal(pPin, pPin_unpack, ulPinLen);
 
 
     assert_int_equal(ulPinLen, ulPinLen_unpack);
@@ -4167,7 +4222,7 @@ void test_pack_C_Login_Call(void **state) {
     assert_int_equal(userType, userType_unpack);
 
 
-    assert_int_equal(pPin, pPin_unpack);
+    assert_memory_equal(pPin, pPin_unpack, ulPinLen);
 
 
     assert_int_equal(ulPinLen, ulPinLen_unpack);
@@ -4522,7 +4577,12 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -4716,13 +4776,13 @@ void test_pack_C_SetPIN_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    assert_int_equal(pOldPin, pOldPin_unpack);
+    assert_memory_equal(pOldPin, pOldPin_unpack, ulOldLen);
 
 
     assert_int_equal(ulOldLen, ulOldLen_unpack);
 
 
-    assert_int_equal(pNewPin, pNewPin_unpack);
+    assert_memory_equal(pNewPin, pNewPin_unpack, ulNewPin);
 
 
     assert_int_equal(ulNewPin, ulNewPin_unpack);
@@ -5524,7 +5584,12 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(ulWrappedKeyLen, ulWrappedKeyLen_unpack);
 
 
-    // todo: assert for pTemplate (CK_ATTRIBUTE_ARRAY)
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);

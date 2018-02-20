@@ -7,21 +7,6 @@
 CK_ULONG ulSeedLen = 0;
 CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
-{# this is a bit of an ugly hack, used by converting type CK_ATTRIBUTE_ARRAY. For now i leave this here, sorry #}
-{% set mapping = {
-        ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
-        ("C_FindObjectsInit_Return",  "pTemplate"): "pulSeedLen /* TODO: this is wrong, determine this number somehow */",
-        ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
-        ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-        ("C_GetAttributeValue_Return",  "pTemplate"): "pulSeedLen /* TODO: this is wrong, determine this number somehow */",
-        ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
-}
-%}
-
-{% set utf8_len_mapping = { "pPin": "ulPinLen", "pOldPin": "ulOldLen", "pNewPin": "ulNewPin", "pLabel": "pulSeedLen"} %}
-
-
-
 {% for call, return_ in zipped %}
 {% for f, o in ((call, return_), (return_, call)) %}
 /* if you use this function, don't forget to free(pack_target->derptr) */
@@ -94,7 +79,7 @@ pack_{{ f.type_name|under }}(
     size_t {{ var }}_length = 0;
     CK_RV {{ var }}_status = der_put_{{ type }}(
             {{ var }},
-            {{ mapping.get((f.type_name|under, var), "ulCount") }},
+            {{ template_len_mapper(f.type_name|under, var) }},
             &{{ var }}_innerlist,
             &{{ var }}_length,
             AttributeArray_packer);
@@ -125,13 +110,13 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_buf, {{ var }});
 
 {% elif type == "CK_UTF8CHAR_ARRAY" %}
-    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ utf8_len_mapping[var] }});
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ var|utf8_len_mapping }});
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
 
 {% elif type == "UTF8String" %}
     // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
-    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ utf8_len_mapping[var] }});
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ var|utf8_len_mapping }});
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
 

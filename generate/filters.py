@@ -268,3 +268,27 @@ def depointerize(type_):
         return type_
     else:
         raise Exception("dont know what to do with type '{}'".format(type_))
+
+
+def utf8_len_mapping(in_):
+    # TODO: in case of pLabel we now use pulSeedLen, which is wrong.
+    map = { "pPin": "ulPinLen", "pOldPin": "ulOldLen", "pNewPin": "ulNewPin", "pLabel": "pulSeedLen"}
+    return map[in_]
+
+
+def template_len_mapper(func, identifier):
+    map = {
+         ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
+         ("C_FindObjectsInit_Return",  "pTemplate"): "0 /* TODO: this is wrong, determine this number somehow */",
+         ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
+         ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
+         ("C_GetAttributeValue_Return",  "pTemplate"): "0 /* TODO: this is wrong, determine this number somehow */",
+         ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
+         ("C_CopyObject_Call", "pTemplate"): "ulCount",
+         ("C_CreateObject_Call", "pTemplate"): "ulCount",
+         ("C_FindObjectsInit_Call", "pTemplate"): "ulCount",
+         ("C_GenerateKey_Call", "pTemplate"): "ulCount",
+         ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
+         ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
+    }
+    return map[(func, identifier)]

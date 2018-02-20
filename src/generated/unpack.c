@@ -3273,7 +3273,7 @@ CK_RV
 unpack_C_InitPIN_Call(
         dercursor* packed,
         CK_SESSION_HANDLE_PTR hSession,
-        CK_UTF8CHAR_ARRAY* pPin,
+        CK_UTF8CHAR_ARRAY pPin,
         CK_ULONG_PTR ulPinLen
 ) {
 
@@ -3525,7 +3525,7 @@ unpack_C_Login_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, &pPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3995,7 +3995,7 @@ unpack_C_SetPIN_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, &pOldPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4006,7 +4006,7 @@ unpack_C_SetPIN_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, &pNewPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
