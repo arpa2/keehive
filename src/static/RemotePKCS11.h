@@ -848,10 +848,10 @@ typedef struct DER_OVLY_RemotePKCS11_C_InitToken_Return {
 
 typedef struct DER_OVLY_RemotePKCS11_C_Initialize_Call {
 	struct DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs {
-	dercursor null; // NULL
-	DER_OVLY_RemotePKCS11_ACK_C_INITIALIZE_ARGS data; // [0] ACK-C-INITIALIZE-ARGS
-	/* ...ASN.1 extensions... */
-} pInitArgs; // [0] CHOICE { null NULL, data [0] ACK-C-INITIALIZE-ARGS, ... }
+		dercursor null; // NULL
+		DER_OVLY_RemotePKCS11_ACK_C_INITIALIZE_ARGS data; // [0] ACK-C-INITIALIZE-ARGS
+		/* ...ASN.1 extensions... */
+	} pInitArgs; // [0] CHOICE { null NULL, data [0] ACK-C-INITIALIZE-ARGS, ... }
 } DER_OVLY_RemotePKCS11_C_Initialize_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs;

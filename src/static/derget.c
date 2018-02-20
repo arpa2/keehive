@@ -46,7 +46,7 @@ der_get_ulong(
 };
 
 
-CK_RV
+int
 der_get_CK_ATTRIBUTE_ARRAY(
         ACK_ATTRIBUTE_ARRAY_t* Ack_Attribute_Array,
         CK_ATTRIBUTE_ARRAY pTemplate) {
@@ -64,16 +64,16 @@ der_get_CK_ATTRIBUTE_ARRAY(
         do {
             status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_attribute, REPEAT);
             if (status == -1)
-                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+                return -1;
 
             status = der_get_ulong(der_attribute.type, &type);
             if (status == -1)
-                    return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+                return -1;
             (pTemplate)[i].type = type;
 
             status = der_get_ulong(der_attribute.ulValueLen, &ulValueLen);
             if (status == -1)
-                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+                return -1;
             (pTemplate)[i].ulValueLen = ulValueLen;
 
             // TODO: convert the eventual value (also)
@@ -84,10 +84,10 @@ der_get_CK_ATTRIBUTE_ARRAY(
     return CKR_OK;
 };
 
-CK_RV
+int
 der_get_CK_BYTE_ARRAY(
         ACK_BYTE_ARRAY_t* Ack_Byte_Array,
-        CK_BYTE_ARRAY* pEncryptedData
+        CK_BYTE_ARRAY pEncryptedData
 ) {
     dercursor iterator;
     int status;
@@ -96,30 +96,28 @@ der_get_CK_BYTE_ARRAY(
     unsigned char value;
 
     ACK_BYTE_t der_byte;
-
-    *pEncryptedData = malloc(Ack_Byte_Array->derlen*sizeof(CK_BYTE));
-    if (*pEncryptedData == NULL) {
-        return CKR_KEEHIVE_MEMORY_ERROR;
+    if (pEncryptedData == NULL) {
+        return -1;
     }
 
     if (der_iterate_first(Ack_Byte_Array, &iterator)) {
         do {
             status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_byte, REPEAT);
             if (status == -1)
-                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+                return -1;
 
             status = der_get_uchar(der_byte, &value);
             if (status == -1)
-                return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-            (*pEncryptedData)[i] = value;
+                return -1;
+            (pEncryptedData)[i] = value;
 
             i++;
         } while (der_iterate_next(&iterator));
     }
-    return CKR_OK;
+    return 0;
 };
 
-CK_RV
+int
 der_get_CK_MECHANISM_PTR(
         ACK_MECHANISM_t* Ack_Mechanism,
         CK_MECHANISM_PTR pMechanism
@@ -128,16 +126,16 @@ der_get_CK_MECHANISM_PTR(
 
     status = der_get_ulong(Ack_Mechanism->mechanism, &pMechanism->mechanism);
     if (status != 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return -1;
 
     // todo: implement properly
     pMechanism->pParameter = NULL_PTR;
 
     status = der_get_ulong(Ack_Mechanism->ulParameterLen, &pMechanism->ulParameterLen);
     if (status != 0)
-        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+        return -1;
 
-    return CKR_OK;
+    return 0;
 };
 
 int der_get_CK_MECHANISM_TYPE_PTR(ACK_MECHANISM_TYPE_t* Ack_Mechanism_Type, CK_MECHANISM_TYPE_PTR pMechanismList) {
@@ -157,21 +155,26 @@ der_get_CK_VOID_PTR(
  *  - 'struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved *'
  *  - 'struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved *'
 */
-    pReserved = NULL_PTR;
+    *(int*)pReserved = NULL_PTR;
     return 0;
 };
 
-int der_get_CK_UTF8CHAR_ARRAY(
+int
+der_get_CK_UTF8CHAR_ARRAY(
         ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array,
-        CK_UTF8CHAR_PTR* pPin
+        CK_UTF8CHAR_PTR pPin
 ) {
-    *pPin = malloc(sizeof(CK_UTF8CHAR) * Ack_Utf8char_Array->derlen+1);
-    memcpy(*pPin, Ack_Utf8char_Array->derptr, Ack_Utf8char_Array->derlen+1);
+    memcpy(pPin, Ack_Utf8char_Array->derptr, Ack_Utf8char_Array->derlen+1);
     return 0;
 };
 
-int der_get_UTF8String(dercursor* cursor, UTF8String pPin) {
-    return -1;
+int
+der_get_UTF8String(
+        dercursor* cursor,
+        UTF8String pPin
+) {
+    memcpy(pPin, cursor->derptr, cursor->derlen+1);
+    return 0;
 };
 
 int der_get_CK_BBOOL_PTR(
@@ -188,8 +191,12 @@ int der_get_CK_BBOOL_PTR(
     return 0;
 };
 
-int der_get_CK_FLAGS_PTR(ACK_FLAGS_t* Ack_Flags, CK_FLAGS_PTR flags) {
-    return -1;
+int
+der_get_CK_FLAGS_PTR(
+        ACK_FLAGS_t* Ack_Flags,
+        CK_FLAGS_PTR flags
+) {
+    return der_get_ulong(*Ack_Flags, flags);
 };
 
 int
@@ -201,12 +208,25 @@ der_get_ANY(
     return -1;
 };
 
-int der_get_CK_NOTIFY(DER_OVLY_RemotePKCS11_C_OpenSession_Call_notify* bla, CK_NOTIFY notify) {
-    return -1;
+int
+der_get_CK_NOTIFY(
+        DER_OVLY_RemotePKCS11_C_OpenSession_Call_notify* bla,
+        CK_NOTIFY notify
+) {
+    // todo: don't know what to do here
+    return 0;
 };
 
-int der_get_CK_C_INITIALIZE_ARGS_PTR(DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* bla, CK_C_INITIALIZE_ARGS_PTR pInitArgs) {
-    return -1;
+int
+der_get_CK_C_INITIALIZE_ARGS_PTR(
+        DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* bla,
+        CK_C_INITIALIZE_ARGS_PTR pInitArgs
+) {
+    dercursor null = bla->null;
+
+    ACK_C_INITIALIZE_ARGS_t data = bla->data;
+    // todo: finalize.
+    return 0;
 };
 
 int der_get_CK_OBJECT_HANDLE_PTR(ACK_OBJECT_HANDLE_t* Ack_Object_Handle, CK_OBJECT_HANDLE_PTR phObject) {

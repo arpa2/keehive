@@ -280,10 +280,9 @@ pack_C_CopyObject_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -394,10 +393,9 @@ pack_C_CreateObject_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -1315,10 +1313,9 @@ pack_C_DeriveKey_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulAttributeCount,
+            *ulAttributeCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -2976,10 +2973,9 @@ pack_C_FindObjectsInit_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -3041,10 +3037,9 @@ pack_C_FindObjectsInit_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            0 /* TODO: this is wrong, determine this number somehow */,
+            (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)),
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -3113,10 +3108,9 @@ pack_C_GenerateKey_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -3240,10 +3234,9 @@ pack_C_GenerateKeyPair_Call(
     size_t pPublicKeyTemplate_length = 0;
     CK_RV pPublicKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pPublicKeyTemplate,
-            ulPublicKeyAttributeCount,
+            *ulPublicKeyAttributeCount,
             &pPublicKeyTemplate_innerlist,
-            &pPublicKeyTemplate_length,
-            AttributeArray_packer);
+            &pPublicKeyTemplate_length);
 
     if (pPublicKeyTemplate_status != CKR_OK)
         return pPublicKeyTemplate_status;
@@ -3266,10 +3259,9 @@ pack_C_GenerateKeyPair_Call(
     size_t pPrivateKeyTemplate_length = 0;
     CK_RV pPrivateKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pPrivateKeyTemplate,
-            ulPrivateKeyAttributeCount,
+            *ulPrivateKeyAttributeCount,
             &pPrivateKeyTemplate_innerlist,
-            &pPrivateKeyTemplate_length,
-            AttributeArray_packer);
+            &pPrivateKeyTemplate_length);
 
     if (pPrivateKeyTemplate_status != CKR_OK)
         return pPrivateKeyTemplate_status;
@@ -3503,10 +3495,9 @@ pack_C_GetAttributeValue_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -3568,10 +3559,9 @@ pack_C_GetAttributeValue_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            0 /* TODO: this is wrong, determine this number somehow */,
+            (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)),
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -4685,7 +4675,7 @@ pack_C_InitPIN_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
 
-    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin, ulPinLen);
+    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin, *ulPinLen);
     if (pPin_status != CKR_OK)
         return pPin_status;
 
@@ -4781,8 +4771,7 @@ pack_C_InitToken_Call(
     // PACKING pPin (type UTF8String)
 
 
-    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
-    CK_RV pPin_status = der_put_UTF8String(&C_InitToken_Call.pPin, pPin, ulPinLen);
+    CK_RV pPin_status = der_put_UTF8String(&C_InitToken_Call.pPin, pPin, *ulPinLen);
     if (pPin_status != CKR_OK)
         return pPin_status;
 
@@ -4797,8 +4786,7 @@ pack_C_InitToken_Call(
     // PACKING pLabel (type UTF8String)
 
 
-    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
-    CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, pulSeedLen);
+    CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, (sizeof(pLabel) / sizeof(UTF8String)));
     if (pLabel_status != CKR_OK)
         return pLabel_status;
 
@@ -4877,7 +4865,20 @@ pack_C_Initialize_Call(
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
 
 
-    CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call, pInitArgs);
+    der_buf_ulong_t flags_buf = { 0 };
+    der_buf_bool_t createMutex_bool_buf = { 0 };
+    der_buf_bool_t destroyMutex_bool_buf = { 0 };
+    der_buf_bool_t lockMutex_bool_buf = { 0 };
+    der_buf_bool_t unlockMutex_bool_buf = { 0 };
+    CK_RV status = der_put_CK_C_INITIALIZE_ARGS_PTR(
+        &C_Initialize_Call,
+        pInitArgs,
+        flags_buf,
+        createMutex_bool_buf,
+        destroyMutex_bool_buf,
+        lockMutex_bool_buf,
+        unlockMutex_bool_buf
+);
     if (status != CKR_OK)
         return status;
 
@@ -4983,7 +4984,7 @@ pack_C_Login_Call(
     // PACKING pPin (type CK_UTF8CHAR_ARRAY)
 
 
-    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin, ulPinLen);
+    CK_RV pPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin, *ulPinLen);
     if (pPin_status != CKR_OK)
         return pPin_status;
 
@@ -5158,7 +5159,7 @@ pack_C_OpenSession_Call(
 
 
     der_buf_ulong_t flags_storage = { 0 };
-    C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
+    C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, *flags);
 
 
     // PACKING pApplication (type ANY)
@@ -5173,11 +5174,12 @@ pack_C_OpenSession_Call(
     // PACKING notify (type CK_NOTIFY)
 
 
-    // TODO: finish this in case not null (CK_NOTIFY notify)
-    if (*notify != NULL)
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-
-    C_OpenSession_Call.notify.null = der_put_null();
+    if (*notify != NULL) {
+        der_buf_bool_t notify_present_buf = { 0 };
+        C_OpenSession_Call.notify.present = der_put_bool(notify_present_buf, TRUE);
+    } else {
+        C_OpenSession_Call.notify.null = der_put_null();
+    }
 
 
     // END OF PACKING
@@ -5390,10 +5392,9 @@ pack_C_SetAttributeValue_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulCount,
+            *ulCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -5617,7 +5618,7 @@ pack_C_SetPIN_Call(
     // PACKING pOldPin (type CK_UTF8CHAR_ARRAY)
 
 
-    CK_RV pOldPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin, ulOldLen);
+    CK_RV pOldPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin, *ulOldLen);
     if (pOldPin_status != CKR_OK)
         return pOldPin_status;
 
@@ -5632,7 +5633,7 @@ pack_C_SetPIN_Call(
     // PACKING pNewPin (type CK_UTF8CHAR_ARRAY)
 
 
-    CK_RV pNewPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin, ulNewPin);
+    CK_RV pNewPin_status = der_put_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin, *ulNewPin);
     if (pNewPin_status != CKR_OK)
         return pNewPin_status;
 
@@ -6627,10 +6628,9 @@ pack_C_UnwrapKey_Call(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            ulAttributeCount,
+            *ulAttributeCount,
             &pTemplate_innerlist,
-            &pTemplate_length,
-            AttributeArray_packer);
+            &pTemplate_length);
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
@@ -7321,7 +7321,7 @@ pack_C_WaitForSlotEvent_Call(
 
 
     der_buf_ulong_t flags_storage = { 0 };
-    C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, flags);
+    C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, *flags);
 
 
     // PACKING pReserved (type CK_VOID_PTR)

@@ -54,10 +54,9 @@ der_put_uint8(
 CK_RV
 der_put_CK_ATTRIBUTE_ARRAY(
         const CK_ATTRIBUTE* pTemplate,
-        const CK_ULONG* count,
+        CK_ULONG count,
         uint8_t** pInnerlist,
-        size_t* pLength,
-        const derwalk* pack
+        size_t* pLength
 );
 
 
@@ -117,7 +116,7 @@ CK_RV
 der_put_CK_UTF8CHAR_ARRAY(
         dercursor* cursor,
         const CK_UTF8CHAR* pin,
-        const CK_ULONG* pinlen
+        const CK_ULONG pinlen
 );
 
 
@@ -125,21 +124,26 @@ CK_RV
 der_put_UTF8String(
         dercursor* cursor,
         const CK_UTF8CHAR* pin,
-        const CK_ULONG* pinlen
+        const CK_ULONG pinlen
 );
 
 
 CK_RV
 der_put_CK_C_INITIALIZE_ARGS_PTR(
-        C_Initialize_Call_t* pInitArgsDer,
-        const CK_C_INITIALIZE_ARGS* pInitArgs
+        C_Initialize_Call_t* C_Initialize_Call,
+        const CK_C_INITIALIZE_ARGS* pInitArgs,
+        der_buf_ulong_t flags_buf,
+        der_buf_bool_t createMutex_bool_buf,
+        der_buf_bool_t destroyMutex_bool_buf,
+        der_buf_bool_t lockMutex_bool_buf,
+        der_buf_bool_t unlockMutex_bool_buf
 );
 
 
 dercursor
 der_put_CK_FLAGS_PTR(
         u_int8_t* der_buf_ulong,
-        const CK_FLAGS* flags
+        const CK_FLAGS flags
 );
 
 

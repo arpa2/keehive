@@ -79,10 +79,9 @@ pack_{{ f.type_name|under }}(
     size_t {{ var }}_length = 0;
     CK_RV {{ var }}_status = der_put_{{ type }}(
             {{ var }},
-            {{ template_len_mapper(f.type_name|under, var) }},
+            {{ len_mapper(f.type_name|under, var, True) }},
             &{{ var }}_innerlist,
-            &{{ var }}_length,
-            AttributeArray_packer);
+            &{{ var }}_length);
 
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
@@ -94,7 +93,20 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
 
 {% elif type == "CK_C_INITIALIZE_ARGS_PTR" %}
-    CK_RV status = der_put_{{ type }}(&{{ f.type_name|under }}, {{ var }});
+    der_buf_ulong_t flags_buf = { 0 };
+    der_buf_bool_t createMutex_bool_buf = { 0 };
+    der_buf_bool_t destroyMutex_bool_buf = { 0 };
+    der_buf_bool_t lockMutex_bool_buf = { 0 };
+    der_buf_bool_t unlockMutex_bool_buf = { 0 };
+    CK_RV status = der_put_{{ type }}(
+        &{{ f.type_name|under }},
+        {{ var }},
+        flags_buf,
+        createMutex_bool_buf,
+        destroyMutex_bool_buf,
+        lockMutex_bool_buf,
+        unlockMutex_bool_buf
+);
     if (status != CKR_OK)
         return status;
 
@@ -109,20 +121,14 @@ pack_{{ f.type_name|under }}(
     der_buf_bool_t {{ var }}_buf = { 0 };
     {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_buf, {{ var }});
 
-{% elif type == "CK_UTF8CHAR_ARRAY" %}
-    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ var|utf8_len_mapping }});
-    if ({{ var }}_status != CKR_OK)
-        return {{ var }}_status;
-
-{% elif type == "UTF8String" %}
-    // TODO: in case of pLabel we now use pulSeedLen, which is wrong.
-    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {{ var|utf8_len_mapping }});
+{% elif type in ("CK_UTF8CHAR_ARRAY", "UTF8String") %}
+    CK_RV {{ var }}_status = der_put_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }}, {% if var != "pLabel" %}*{% endif %}{{ len_mapper(f.type_name|under, var) }});
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
 
 {% elif type == "CK_FLAGS_PTR" %}
     der_buf_ulong_t {{ var }}_storage = { 0 };
-    {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_storage, {{ var }});
+    {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_storage, *{{ var }});
 
 {% elif type == "ANY" %}
     // TODO: finish this in case not null ({{ type }} {{ var }})
@@ -133,11 +139,12 @@ pack_{{ f.type_name|under }}(
 {% endif %}
 
 {% elif type == "CK_NOTIFY" %}
-    // TODO: finish this in case not null ({{ type }} {{ var }})
-    if (*{{ var }} != NULL)
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-
-    {{ f.type_name|under }}.{{ var }}.null = der_put_null();
+    if (*{{ var }} != NULL) {
+        der_buf_bool_t {{ var }}_present_buf = { 0 };
+        {{ f.type_name|under }}.{{ var }}.present = der_put_bool({{ var }}_present_buf, TRUE);
+    } else {
+        {{ f.type_name|under }}.{{ var }}.null = der_put_null();
+    }
 
 {% elif type == "CK_INFO_PTR" %}
     manufacturerID_t manufacturerID_buf = { 0 };

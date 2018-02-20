@@ -39,10 +39,11 @@ unpack_{{ f.type_name|under }}(
 
 {% elif type  == "ANY" %}
     // todo: do we need to convert ANY?
-{% elif type  == "CK_BYTE_ARRAY" %}
-    status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, &{{ var }});
-    if (status == -1)
-        return CKR_KEEHIVE_DER_RANGE_ERROR;
+{% elif type  == "CK_ATTRIBUTE_ARRAY" %}
+    // todo: finish
+    //status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
+    //if (status == -1)
+    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
 {% else %}
     status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)

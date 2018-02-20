@@ -1,17 +1,9 @@
 #include <stdlib.h>
-#include <assert.h>
 #include "derput.h"
 #include "returncodes.h"
 #include "convert.h"
-#include "util.h"
+#include "packer.h"
 
-static const derwalk pValue_packer[] = {
-        DER_PACK_STORE | DER_TAG_INTEGER,
-        DER_PACK_END
-};
-
-
-typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_pValue ACK_ATTRIBUTE_pValue_t;
 
 
 dercursor
@@ -72,7 +64,7 @@ dercursor der_put_uchar(u_int8_t* der_buf_char, unsigned char value)
 dercursor
 der_put_CK_FLAGS_PTR(
         u_int8_t* der_buf_ulong,
-        const CK_FLAGS* flags
+        const CK_FLAGS flags
 ) {
     return der_put_uint32(der_buf_ulong, (u_int32_t)flags);
 };
@@ -135,10 +127,9 @@ der_put_CK_BYTE_ARRAY(
 CK_RV
 der_put_CK_ATTRIBUTE_ARRAY(
         const CK_ATTRIBUTE* pTemplate,
-        const CK_ULONG* count,
+        CK_ULONG count,
         uint8_t** pInnerlist,
-        size_t* pLength,
-        const derwalk* pack
+        size_t* pLength
 ) {
     init_func_tree();
 
@@ -150,14 +141,14 @@ der_put_CK_ATTRIBUTE_ARRAY(
     size_t tmp = 0;
     func_t* func;
 
-    for (i = 0; i < *count; i++) {
+    for (i = 0; i < count; i++) {
         attribute = pTemplate[i];
         func = find_func(attribute.type);
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
         crs = (*func->func)(&attribute);
 
-        tmp = der_pack(pack, &crs, NULL);
+        tmp = der_pack(AttributeArray_packer, &crs, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen += tmp;
@@ -174,7 +165,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
         crs = (*func->func)(&attribute);
-        tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
+        tmp = der_pack(AttributeArray_packer, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen -= tmp;
@@ -274,14 +265,43 @@ der_put_CK_OBJECT_HANDLE_ARRAY(
 CK_RV
 der_put_CK_C_INITIALIZE_ARGS_PTR(
         C_Initialize_Call_t* C_Initialize_Call,
-        const CK_C_INITIALIZE_ARGS* pInitArgs
+        const CK_C_INITIALIZE_ARGS* pInitArgs,
+        der_buf_ulong_t flags_buf,
+        der_buf_bool_t createMutex_bool_buf,
+        der_buf_bool_t destroyMutex_bool_buf,
+        der_buf_bool_t lockMutex_bool_buf,
+        der_buf_bool_t unlockMutex_bool_buf
 ) {
 
     if (pInitArgs == NULL_PTR) {
         C_Initialize_Call->pInitArgs.null = der_put_null();
     } else {
-        // TODO: implement
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+
+        C_Initialize_Call->pInitArgs.data.flags = der_put_ulong(flags_buf, pInitArgs->flags);
+        if (pInitArgs->CreateMutex == NULL_PTR) {
+            C_Initialize_Call->pInitArgs.data.createMutex.null = der_put_null();
+        } else {
+            C_Initialize_Call->pInitArgs.data.createMutex.present = der_put_bool(createMutex_bool_buf, TRUE);
+        }
+
+        if (pInitArgs->DestroyMutex == NULL_PTR) {
+            C_Initialize_Call->pInitArgs.data.destroyMutex.null = der_put_null();
+        } else {
+            C_Initialize_Call->pInitArgs.data.destroyMutex.present = der_put_bool(destroyMutex_bool_buf, TRUE);
+        }
+
+        if (pInitArgs->LockMutex == NULL_PTR) {
+            C_Initialize_Call->pInitArgs.data.lockMutex.null = der_put_null();
+        } else {
+            C_Initialize_Call->pInitArgs.data.lockMutex.present = der_put_bool(lockMutex_bool_buf, TRUE);
+        }
+
+        if (pInitArgs->UnlockMutex == NULL_PTR) {
+            C_Initialize_Call->pInitArgs.data.unlockMutex.null = der_put_null();
+        } else {
+            C_Initialize_Call->pInitArgs.data.unlockMutex.present = der_put_bool(unlockMutex_bool_buf, TRUE);
+        }
+        C_Initialize_Call->pInitArgs.data.pReserved = der_put_null();
     }
 
     return CKR_OK;
@@ -326,13 +346,13 @@ CK_RV
 der_put_CK_UTF8CHAR_ARRAY(
         dercursor* cursor,
         const CK_UTF8CHAR* pin,
-        const CK_ULONG* pinlen
+        const CK_ULONG pinlen
 ) {
-    if (*pinlen == 0) {
+    if (pinlen == 0) {
         *cursor = der_put_null();
     } else {
         cursor->derptr = (uint8_t *)pin;
-        cursor->derlen = *pinlen;
+        cursor->derlen = pinlen;
     }
     return CKR_OK;
 };
@@ -342,13 +362,13 @@ CK_RV
 der_put_UTF8String(
         dercursor* cursor,
         const CK_UTF8CHAR* pin,
-        const CK_ULONG* pinlen
+        const CK_ULONG pinlen
 ) {
-    if (*pinlen == 0) {
+    if (pinlen == 0) {
         *cursor = der_put_null();
     } else {
         cursor->derptr = (uint8_t *)pin;
-        cursor->derlen = *pinlen;
+        cursor->derlen = pinlen;
     }
 
     return CKR_OK;

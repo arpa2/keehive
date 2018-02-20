@@ -199,28 +199,45 @@ type_test_templates = {
     "CK_ATTRIBUTE_ARRAY":
         """CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE {identifier}[] = {{
-        {{CKA_LABEL, {identifier}_label, sizeof({identifier}_label)-1}} }};""",
+        {{.type=CKA_LABEL, .pValue={identifier}_label, .ulValueLen=sizeof({identifier}_label)-1}} }};""",
     "CK_MECHANISM_PTR":
         """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL_PTR, 0}};
     CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """,
     "CK_BYTE_ARRAY":
-        """{type_} {identifier} = (CK_BYTE_ARRAY) "abcdefghijklm";"""
+        """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
+    "CK_OBJECT_HANDLE_ARRAY":
+        """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
+    "ulPrivateKeyAttributeCount":
+        "{type_} {identifier} = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);",
+    "ulPublicKeyAttributeCount":
+        "{type_} {identifier} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);",
+    "CK_BBOOL":
+        "{type_} {identifier} = CK_TRUE;",
+    "CK_C_INITIALIZE_ARGS_PTR":
+        """CK_C_INITIALIZE_ARGS {identifier}_pointed = {{
+        .CreateMutex = NULL_PTR,
+        .DestroyMutex = NULL_PTR,
+        .LockMutex = NULL_PTR,
+        .UnlockMutex = NULL_PTR,
+        .flags = CKF_OS_LOCKING_OK,
+        .pReserved = NULL_PTR
+    }};
+    {type_} {identifier} = &{identifier}_pointed;
+    {identifier} = NULL_PTR; // todo: disabled for now, only works with null pointer. fix this.
+    """,
+    "CK_NOTIFY":
+        "{type_} {identifier} = NULL_PTR; // todo: set to notify_callback;"
 }
 
 
 def initialise_test(type_, identifier):
     if identifier in ("ulCount", "ulAttributeCount"):
         return "{} {} = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
-    elif identifier == "ulPrivateKeyAttributeCount":
-            return "{} {} = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
-    elif identifier == "ulPublicKeyAttributeCount":
-        return "{} {} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
-    elif type_ == "CK_BBOOL":
-        return "{} {} = CK_TRUE;".format(type_, identifier)
     elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
         return "{} {} = 13;".format(type_, identifier)
     elif type_ in type_test_templates:
-        return type_test_templates[type_].format(identifier=identifier, type_=type_)
+        x = type_test_templates[type_]
+        return x.format(identifier=identifier, type_=type_)
     elif type_ in ("CK_UTF8CHAR_ARRAY", "UTF8String"):
         return "{type_} {identifier} = ({type_}) \"abcdefghijklm\";".format(type_=type_, identifier=identifier)
     elif not type_.endswith("_PTR"):
@@ -234,12 +251,10 @@ def initialise_verify(type_, identifier):
     initialise variables :)"""
     if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
         return "{} {} = 0;".format(type_, identifier)
-    elif type_ in type_test_templates:
-        return type_test_templates[type_].format(identifier=identifier, type_=type_)
-    elif not type_.endswith("_PTR"):
-        return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
+    elif type_.endswith("_PTR") or type_.endswith("_ARRAY")or type_ == "UTF8String":
+        return "{} {} = malloc(1024);".format(type_, identifier)
     else:
-        return "{} {} = NULL_PTR;  /* todo: probably requires finetuning */".format(type_, identifier)
+        return "{} {};".format(type_, identifier)
 
 
 def free(type_, identifier):
@@ -270,19 +285,21 @@ def depointerize(type_):
         raise Exception("dont know what to do with type '{}'".format(type_))
 
 
-def utf8_len_mapping(in_):
-    # TODO: in case of pLabel we now use pulSeedLen, which is wrong.
-    map = { "pPin": "ulPinLen", "pOldPin": "ulOldLen", "pNewPin": "ulNewPin", "pLabel": "pulSeedLen"}
-    return map[in_]
-
-
-def template_len_mapper(func, identifier):
-    map = {
+def len_mapper(func, identifier, deref=False):
+    unambiguous = {
+        "pPin": "ulPinLen",
+        "pOldPin": "ulOldLen",
+        "pNewPin": "ulNewPin",
+        "pLabel": "(sizeof(pLabel) / sizeof(UTF8String))",
+        "pLastPart": "pulLastPartLen",
+        "pDigest": "pulDigestLen"
+    }
+    ambiguous = {
          ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
-         ("C_FindObjectsInit_Return",  "pTemplate"): "0 /* TODO: this is wrong, determine this number somehow */",
+         ("C_FindObjectsInit_Return",  "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
          ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
          ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-         ("C_GetAttributeValue_Return",  "pTemplate"): "0 /* TODO: this is wrong, determine this number somehow */",
+         ("C_GetAttributeValue_Return",  "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
          ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
          ("C_CopyObject_Call", "pTemplate"): "ulCount",
          ("C_CreateObject_Call", "pTemplate"): "ulCount",
@@ -290,5 +307,67 @@ def template_len_mapper(func, identifier):
          ("C_GenerateKey_Call", "pTemplate"): "ulCount",
          ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
          ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
+
+        ("C_SeedRandom_Call", "pSeed"): "ulSeedLen",
+        ("C_GenerateRandom_Return", "pSeed"): "(sizeof(pSeed) / sizeof(CK_BYTE)) ",
+
+        ("C_Digest_Call", "pData"): "ulDataLen",
+        ("C_Encrypt_Call", "pData"): "ulDataLen",
+        ("C_Sign_Call", "pData"): "ulDataLen",
+        ("C_SignRecover_Call", "pData"): "ulDataLen",
+        ("C_Verify_Call", "pData"): "ulDataLen",
+
+        ("C_Decrypt_Return", "pData"): "pulDataLen",
+        ("C_VerifyRecover_Return", "pData"): "pulDataLen",
+
+        ("C_SignEncryptUpdate_Call", "pPart"): "ulPartLen",
+        ("C_SignUpdate_Call", "pPart"): "ulPartLen",
+        ("C_VerifyUpdate_Call", "pPart"): "ulPartLen",
+        ("C_DigestEncryptUpdate_Call", "pPart"): "ulPartLen",
+        ("C_DigestUpdate_Call", "pPart"): "ulPartLen",
+        ("C_EncryptUpdate_Call", "pPart"): "ulPartLen",
+        ("C_DecryptDigestUpdate_Return", "pPart"): "pulPartLen",
+        ("C_DecryptUpdate_Return", "pPart"): "pulPartLen",
+        ("C_DecryptVerifyUpdate_Return", "pPart"): "pulPartLen",
+
+        ('C_GetOperationState_Return', 'pOperationState'): "pulOperationStateLen",
+        ('C_SetOperationState_Call', 'pOperationState'): "ulOperationStateLen",
+
+        ('C_Sign_Return', 'pSignature'): "pulSignatureLen",
+        ('C_SignFinal_Return', 'pSignature'): "pulSignatureLen",
+        ('C_SignRecover_Return', 'pSignature'): "pulSignatureLen",
+        ('C_Verify_Call', 'pSignature'): "ulSignatureLen",
+        ('C_VerifyFinal_Call', 'pSignature'): "ulSignatureLen",
+        ('C_VerifyRecover_Call', 'pSignature'): "ulSignatureLen",
+
+        ('C_UnwrapKey_Call', 'pWrappedKey'): "ulWrappedKeyLen",
+        ('C_WrapKey_Return', 'pWrappedKey'): "pulWrappedKeyLen",
+
+        ('C_DecryptDigestUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+        ('C_DecryptUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+        ('C_DecryptVerifyUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+        ('C_DigestEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+        ('C_EncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+        ('C_SignEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+
+        ("C_Decrypt_Call", "pEncryptedData"): "ulEncryptedDataLen",
+        ('C_Encrypt_Return', 'pEncryptedData'): "pulEncryptedDataLen",
+        ('C_EncryptFinal_Return', 'pEncryptedData'): "pulEncryptedDataLen",
+
     }
-    return map[(func, identifier)]
+
+    no_pointer = {
+        ("C_FindObjectsInit_Return",  "pTemplate"): True,
+        ("C_GetAttributeValue_Return",  "pTemplate"): True,
+        ("C_GenerateRandom_Return", "pSeed"): True,
+    }
+
+    if identifier in unambiguous:
+        answer = unambiguous[identifier]
+    else:
+        answer = ambiguous[(func, identifier)]
+
+    if deref and (func, identifier) not in no_pointer:
+        answer = "*" + answer
+
+    return answer

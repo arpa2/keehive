@@ -11,7 +11,7 @@ from asn1ate.sema import dependency_sort
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 from filters import combined_args, under, extract_args, initialise, free, is_pointer, depointerize, initialise_test,\
-    is_notify, initialise_verify, utf8_len_mapping, template_len_mapper
+    is_notify, initialise_verify, len_mapper
 
 
 # not required in pkcs11 or not exposed
@@ -96,7 +96,6 @@ def main(pickle_file):
     env.filters['is_pointer'] = is_pointer
     env.filters['depointerize'] = depointerize
     env.filters['is_notify'] = is_notify
-    env.filters['utf8_len_mapping'] = utf8_len_mapping
 
     # enhance the template function experience
     env.globals['combined_args'] = combined_args
@@ -105,7 +104,7 @@ def main(pickle_file):
     env.globals['initialise_test'] = initialise_test
     env.globals['initialise_verify'] = initialise_verify
     env.globals['free'] = free
-    env.globals['template_len_mapper'] = template_len_mapper
+    env.globals['len_mapper'] = len_mapper
 
     data = load_data(pickle_file)
 

@@ -5,19 +5,19 @@
 #include "types.h"
 
 
-CK_RV
+int
 der_get_CK_ATTRIBUTE_ARRAY(
         ACK_ATTRIBUTE_ARRAY_t* Ack_Attribute_Array,
         CK_ATTRIBUTE_ARRAY pTemplate
 );
 
-CK_RV
+int
 der_get_CK_BYTE_ARRAY(
         ACK_BYTE_ARRAY_t* Ack_Byte_Array,
-        CK_BYTE_ARRAY* pEncryptedData
+        CK_BYTE_ARRAY pEncryptedData
 );
 
-CK_RV
+int
 der_get_CK_MECHANISM_PTR(
         ACK_MECHANISM_t* Ack_Mechanism,
         CK_MECHANISM_PTR pMechanism
@@ -26,7 +26,7 @@ der_get_CK_MECHANISM_PTR(
 int
 der_get_CK_UTF8CHAR_ARRAY(
         ACK_UTF8CHAR_ARRAY_t* Ack_Utf8char_Array,
-        CK_UTF8CHAR_PTR* pPin
+        CK_UTF8CHAR_PTR pPin
 );
 
 int
