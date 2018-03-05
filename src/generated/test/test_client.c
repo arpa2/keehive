@@ -60,7 +60,7 @@ void test_client_C_CopyObject(void **state){
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
 
     CK_RV status = client_C_CopyObject(
@@ -82,7 +82,7 @@ void test_client_C_CreateObject(void **state){
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
 
     CK_RV status = client_C_CreateObject(
@@ -104,7 +104,7 @@ void test_client_C_Decrypt(void **state){
     CK_BYTE_ARRAY pEncryptedData = NULL;
     CK_ULONG ulEncryptedDataLen = 0;
     CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL_PTR;
+    CK_ULONG_PTR pulDataLen = NULL;
     
 
     CK_RV status = client_C_Decrypt(
@@ -127,7 +127,7 @@ void test_client_C_DecryptDigestUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = client_C_DecryptDigestUpdate(
@@ -148,7 +148,7 @@ void test_client_C_DecryptFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pLastPart = NULL;
-    CK_ULONG_PTR pulLastPartLen = NULL_PTR;
+    CK_ULONG_PTR pulLastPartLen = NULL;
     
 
     CK_RV status = client_C_DecryptFinal(
@@ -166,7 +166,7 @@ void test_client_C_DecryptInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -188,7 +188,7 @@ void test_client_C_DecryptUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = client_C_DecryptUpdate(
@@ -211,7 +211,7 @@ void test_client_C_DecryptVerifyUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = client_C_DecryptVerifyUpdate(
@@ -231,11 +231,11 @@ void test_client_C_DeriveKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hBaseKey = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = client_C_DeriveKey(
@@ -276,7 +276,7 @@ void test_client_C_Digest(void **state){
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL_PTR;
+    CK_ULONG_PTR pulDigestLen = NULL;
     
 
     CK_RV status = client_C_Digest(
@@ -299,7 +299,7 @@ void test_client_C_DigestEncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = client_C_DigestEncryptUpdate(
@@ -320,7 +320,7 @@ void test_client_C_DigestFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL_PTR;
+    CK_ULONG_PTR pulDigestLen = NULL;
     
 
     CK_RV status = client_C_DigestFinal(
@@ -338,7 +338,7 @@ void test_client_C_DigestInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     
 
     CK_RV status = client_C_DigestInit(
@@ -394,7 +394,7 @@ void test_client_C_Encrypt(void **state){
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
 
     CK_RV status = client_C_Encrypt(
@@ -415,7 +415,7 @@ void test_client_C_EncryptFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
 
     CK_RV status = client_C_EncryptFinal(
@@ -433,7 +433,7 @@ void test_client_C_EncryptInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -455,7 +455,7 @@ void test_client_C_EncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = client_C_EncryptUpdate(
@@ -492,7 +492,7 @@ void test_client_C_FindObjects(void **state){
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE_ARRAY phObject = NULL;
     CK_ULONG ulMaxObjectCount = 0;
-    CK_ULONG_PTR pulObjectCount = NULL_PTR;
+    CK_ULONG_PTR pulObjectCount = NULL;
     
 
     CK_RV status = client_C_FindObjects(
@@ -545,10 +545,10 @@ void test_client_C_GenerateKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = client_C_GenerateKey(
@@ -568,13 +568,13 @@ void test_client_C_GenerateKeyPair(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
     CK_ULONG ulPublicKeyAttributeCount = 0;
     CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = NULL;
     CK_ULONG ulPrivateKeyAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phPublicKey = NULL_PTR;
-    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phPublicKey = NULL;
+    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL;
     
 
     CK_RV status = client_C_GenerateKeyPair(
@@ -651,7 +651,7 @@ void test_client_C_GetInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_INFO_PTR pInfo = NULL_PTR;
+    CK_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = client_C_GetInfo(
@@ -668,7 +668,7 @@ void test_client_C_GetMechanismInfo(void **state){
 
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
-    CK_MECHANISM_INFO_PTR pInfo = NULL_PTR;
+    CK_MECHANISM_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = client_C_GetMechanismInfo(
@@ -687,7 +687,7 @@ void test_client_C_GetMechanismList(void **state){
 
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
-    CK_ULONG_PTR pulCount = NULL_PTR;
+    CK_ULONG_PTR pulCount = NULL;
     
 
     CK_RV status = client_C_GetMechanismList(
@@ -706,7 +706,7 @@ void test_client_C_GetObjectSize(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ULONG_PTR pulSize = NULL_PTR;
+    CK_ULONG_PTR pulSize = NULL;
     
 
     CK_RV status = client_C_GetObjectSize(
@@ -725,7 +725,7 @@ void test_client_C_GetOperationState(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pOperationState = NULL;
-    CK_ULONG_PTR pulOperationStateLen = NULL_PTR;
+    CK_ULONG_PTR pulOperationStateLen = NULL;
     
 
     CK_RV status = client_C_GetOperationState(
@@ -743,7 +743,7 @@ void test_client_C_GetSessionInfo(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_SESSION_INFO_PTR pInfo = NULL_PTR;
+    CK_SESSION_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = client_C_GetSessionInfo(
@@ -760,7 +760,7 @@ void test_client_C_GetSlotInfo(void **state){
     (void) state; /* unused */
 
     CK_SLOT_ID slotID = 0;
-    CK_SLOT_INFO_PTR pInfo = NULL_PTR;
+    CK_SLOT_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = client_C_GetSlotInfo(
@@ -778,7 +778,7 @@ void test_client_C_GetSlotList(void **state){
 
     CK_BBOOL tokenPresent = 0;
     CK_SLOT_ID_ARRAY pSlotList = NULL;
-    CK_ULONG_PTR pulCount = NULL_PTR;
+    CK_ULONG_PTR pulCount = NULL;
     
 
     CK_RV status = client_C_GetSlotList(
@@ -796,7 +796,7 @@ void test_client_C_GetTokenInfo(void **state){
     (void) state; /* unused */
 
     CK_SLOT_ID slotID = 0;
-    CK_TOKEN_INFO_PTR pInfo = NULL_PTR;
+    CK_TOKEN_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = client_C_GetTokenInfo(
@@ -852,7 +852,7 @@ void test_client_C_Initialize(void **state){
 
     (void) state; /* unused */
 
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL_PTR;
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL;
     
 
     CK_RV status = client_C_Initialize(
@@ -907,7 +907,7 @@ void test_client_C_OpenSession(void **state){
     CK_FLAGS flags = 0;
     ANY pApplication = NULL;
     CK_NOTIFY notify = NULL;
-    CK_SESSION_HANDLE_PTR phSession = NULL_PTR;
+    CK_SESSION_HANDLE_PTR phSession = NULL;
     
 
     CK_RV status = client_C_OpenSession(
@@ -1016,7 +1016,7 @@ void test_client_C_Sign(void **state){
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = client_C_Sign(
@@ -1039,7 +1039,7 @@ void test_client_C_SignEncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = client_C_SignEncryptUpdate(
@@ -1060,7 +1060,7 @@ void test_client_C_SignFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = client_C_SignFinal(
@@ -1078,7 +1078,7 @@ void test_client_C_SignInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -1100,7 +1100,7 @@ void test_client_C_SignRecover(void **state){
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = client_C_SignRecover(
@@ -1120,7 +1120,7 @@ void test_client_C_SignRecoverInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -1158,13 +1158,13 @@ void test_client_C_UnwrapKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
     CK_BYTE_ARRAY pWrappedKey = NULL;
     CK_ULONG ulWrappedKeyLen = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = client_C_UnwrapKey(
@@ -1229,7 +1229,7 @@ void test_client_C_VerifyInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -1251,7 +1251,7 @@ void test_client_C_VerifyRecover(void **state){
     CK_BYTE_ARRAY pSignature = NULL;
     CK_ULONG ulSignatureLen = 0;
     CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL_PTR;
+    CK_ULONG_PTR pulDataLen = NULL;
     
 
     CK_RV status = client_C_VerifyRecover(
@@ -1290,8 +1290,8 @@ void test_client_C_WaitForSlotEvent(void **state){
     (void) state; /* unused */
 
     CK_FLAGS flags = 0;
-    CK_SLOT_ID_PTR pSlot = NULL_PTR;
-    CK_VOID_PTR pReserved = NULL_PTR;
+    CK_SLOT_ID_PTR pSlot = NULL;
+    CK_VOID_PTR pReserved = NULL;
     
 
     CK_RV status = client_C_WaitForSlotEvent(
@@ -1309,11 +1309,11 @@ void test_client_C_WrapKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hWrappingKey = 0;
     CK_OBJECT_HANDLE hKey = 0;
     CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG_PTR pulWrappedKeyLen = NULL_PTR;
+    CK_ULONG_PTR pulWrappedKeyLen = NULL;
     
 
     CK_RV status = client_C_WrapKey(

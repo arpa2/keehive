@@ -182,7 +182,7 @@ server_C_CopyObject(
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
 
     CK_RV status = unpack_C_CopyObject_Call(
@@ -236,7 +236,7 @@ server_C_CreateObject(
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
 
     CK_RV status = unpack_C_CreateObject_Call(
@@ -289,7 +289,7 @@ server_C_Decrypt(
     CK_BYTE_ARRAY pEncryptedData = NULL;
     CK_ULONG ulEncryptedDataLen = 0;
     CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL_PTR;
+    CK_ULONG_PTR pulDataLen = NULL;
     
 
     CK_RV status = unpack_C_Decrypt_Call(
@@ -345,7 +345,7 @@ server_C_DecryptDigestUpdate(
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = unpack_C_DecryptDigestUpdate_Call(
@@ -399,7 +399,7 @@ server_C_DecryptFinal(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pLastPart = NULL;
-    CK_ULONG_PTR pulLastPartLen = NULL_PTR;
+    CK_ULONG_PTR pulLastPartLen = NULL;
     
 
     CK_RV status = unpack_C_DecryptFinal_Call(
@@ -448,7 +448,7 @@ server_C_DecryptInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -500,7 +500,7 @@ server_C_DecryptUpdate(
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = unpack_C_DecryptUpdate_Call(
@@ -556,7 +556,7 @@ server_C_DecryptVerifyUpdate(
     CK_BYTE_ARRAY pEncryptedPart = NULL;
     CK_ULONG ulEncryptedPartLen = 0;
     CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL_PTR;
+    CK_ULONG_PTR pulPartLen = NULL;
     
 
     CK_RV status = unpack_C_DecryptVerifyUpdate_Call(
@@ -609,11 +609,11 @@ server_C_DeriveKey(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hBaseKey = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = unpack_C_DeriveKey_Call(
@@ -716,7 +716,7 @@ server_C_Digest(
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL_PTR;
+    CK_ULONG_PTR pulDigestLen = NULL;
     
 
     CK_RV status = unpack_C_Digest_Call(
@@ -772,7 +772,7 @@ server_C_DigestEncryptUpdate(
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = unpack_C_DigestEncryptUpdate_Call(
@@ -826,7 +826,7 @@ server_C_DigestFinal(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL_PTR;
+    CK_ULONG_PTR pulDigestLen = NULL;
     
 
     CK_RV status = unpack_C_DigestFinal_Call(
@@ -875,7 +875,7 @@ server_C_DigestInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     
 
     CK_RV status = unpack_C_DigestInit_Call(
@@ -1019,7 +1019,7 @@ server_C_Encrypt(
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
 
     CK_RV status = unpack_C_Encrypt_Call(
@@ -1073,7 +1073,7 @@ server_C_EncryptFinal(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
 
     CK_RV status = unpack_C_EncryptFinal_Call(
@@ -1122,7 +1122,7 @@ server_C_EncryptInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -1174,7 +1174,7 @@ server_C_EncryptUpdate(
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = unpack_C_EncryptUpdate_Call(
@@ -1273,7 +1273,7 @@ server_C_FindObjects(
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE_ARRAY phObject = NULL;
     CK_ULONG ulMaxObjectCount = 0;
-    CK_ULONG_PTR pulObjectCount = NULL_PTR;
+    CK_ULONG_PTR pulObjectCount = NULL;
     
 
     CK_RV status = unpack_C_FindObjects_Call(
@@ -1416,10 +1416,10 @@ server_C_GenerateKey(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = unpack_C_GenerateKey_Call(
@@ -1471,13 +1471,13 @@ server_C_GenerateKeyPair(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
     CK_ULONG ulPublicKeyAttributeCount = 0;
     CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = NULL;
     CK_ULONG ulPrivateKeyAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phPublicKey = NULL_PTR;
-    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phPublicKey = NULL;
+    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL;
     
 
     CK_RV status = unpack_C_GenerateKeyPair_Call(
@@ -1679,7 +1679,7 @@ server_C_GetInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_INFO_PTR pInfo = NULL_PTR;
+    CK_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = unpack_C_GetInfo_Call(
@@ -1724,7 +1724,7 @@ server_C_GetMechanismInfo(
 
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
-    CK_MECHANISM_INFO_PTR pInfo = NULL_PTR;
+    CK_MECHANISM_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = unpack_C_GetMechanismInfo_Call(
@@ -1773,7 +1773,7 @@ server_C_GetMechanismList(
 
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
-    CK_ULONG_PTR pulCount = NULL_PTR;
+    CK_ULONG_PTR pulCount = NULL;
     
 
     CK_RV status = unpack_C_GetMechanismList_Call(
@@ -1823,7 +1823,7 @@ server_C_GetObjectSize(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ULONG_PTR pulSize = NULL_PTR;
+    CK_ULONG_PTR pulSize = NULL;
     
 
     CK_RV status = unpack_C_GetObjectSize_Call(
@@ -1872,7 +1872,7 @@ server_C_GetOperationState(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pOperationState = NULL;
-    CK_ULONG_PTR pulOperationStateLen = NULL_PTR;
+    CK_ULONG_PTR pulOperationStateLen = NULL;
     
 
     CK_RV status = unpack_C_GetOperationState_Call(
@@ -1921,7 +1921,7 @@ server_C_GetSessionInfo(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_SESSION_INFO_PTR pInfo = NULL_PTR;
+    CK_SESSION_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = unpack_C_GetSessionInfo_Call(
@@ -1967,7 +1967,7 @@ server_C_GetSlotInfo(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SLOT_ID slotID = 0;
-    CK_SLOT_INFO_PTR pInfo = NULL_PTR;
+    CK_SLOT_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = unpack_C_GetSlotInfo_Call(
@@ -2014,7 +2014,7 @@ server_C_GetSlotList(
 
     CK_BBOOL tokenPresent = 0;
     CK_SLOT_ID_ARRAY pSlotList = NULL;
-    CK_ULONG_PTR pulCount = NULL_PTR;
+    CK_ULONG_PTR pulCount = NULL;
     
 
     CK_RV status = unpack_C_GetSlotList_Call(
@@ -2063,7 +2063,7 @@ server_C_GetTokenInfo(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SLOT_ID slotID = 0;
-    CK_TOKEN_INFO_PTR pInfo = NULL_PTR;
+    CK_TOKEN_INFO_PTR pInfo = NULL;
     
 
     CK_RV status = unpack_C_GetTokenInfo_Call(
@@ -2209,7 +2209,7 @@ server_C_Initialize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL_PTR;
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL;
     
 
     CK_RV status = unpack_C_Initialize_Call(
@@ -2352,7 +2352,7 @@ server_C_OpenSession(
     CK_FLAGS flags = 0;
     ANY pApplication = NULL;
     CK_NOTIFY notify = NULL;
-    CK_SESSION_HANDLE_PTR phSession = NULL_PTR;
+    CK_SESSION_HANDLE_PTR phSession = NULL;
     
 
     CK_RV status = unpack_C_OpenSession_Call(
@@ -2618,7 +2618,7 @@ server_C_Sign(
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = unpack_C_Sign_Call(
@@ -2674,7 +2674,7 @@ server_C_SignEncryptUpdate(
     CK_BYTE_ARRAY pPart = NULL;
     CK_ULONG ulPartLen = 0;
     CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL_PTR;
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
 
     CK_RV status = unpack_C_SignEncryptUpdate_Call(
@@ -2728,7 +2728,7 @@ server_C_SignFinal(
 
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = unpack_C_SignFinal_Call(
@@ -2777,7 +2777,7 @@ server_C_SignInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -2829,7 +2829,7 @@ server_C_SignRecover(
     CK_BYTE_ARRAY pData = NULL;
     CK_ULONG ulDataLen = 0;
     CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL_PTR;
+    CK_ULONG_PTR pulSignatureLen = NULL;
     
 
     CK_RV status = unpack_C_SignRecover_Call(
@@ -2882,7 +2882,7 @@ server_C_SignRecoverInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -2980,13 +2980,13 @@ server_C_UnwrapKey(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
     CK_BYTE_ARRAY pWrappedKey = NULL;
     CK_ULONG ulWrappedKeyLen = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = NULL;
     CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL_PTR;
+    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
 
     CK_RV status = unpack_C_UnwrapKey_Call(
@@ -3148,7 +3148,7 @@ server_C_VerifyInit(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -3200,7 +3200,7 @@ server_C_VerifyRecover(
     CK_BYTE_ARRAY pSignature = NULL;
     CK_ULONG ulSignatureLen = 0;
     CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL_PTR;
+    CK_ULONG_PTR pulDataLen = NULL;
     
 
     CK_RV status = unpack_C_VerifyRecover_Call(
@@ -3302,8 +3302,8 @@ server_C_WaitForSlotEvent(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_FLAGS flags = 0;
-    CK_SLOT_ID_PTR pSlot = NULL_PTR;
-    CK_VOID_PTR pReserved = NULL_PTR;
+    CK_SLOT_ID_PTR pSlot = NULL;
+    CK_VOID_PTR pReserved = NULL;
     
 
     CK_RV status = unpack_C_WaitForSlotEvent_Call(
@@ -3352,11 +3352,11 @@ server_C_WrapKey(
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL_PTR;
+    CK_MECHANISM_PTR pMechanism = NULL;
     CK_OBJECT_HANDLE hWrappingKey = 0;
     CK_OBJECT_HANDLE hKey = 0;
     CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG_PTR pulWrappedKeyLen = NULL_PTR;
+    CK_ULONG_PTR pulWrappedKeyLen = NULL;
     
 
     CK_RV status = unpack_C_WrapKey_Call(

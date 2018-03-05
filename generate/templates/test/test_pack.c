@@ -24,7 +24,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     dercursor dercursor;
 
     {% for type_, pointerized, identifier, other in extract_args(f, o) -%}
-    {{ initialise_test(type_, identifier) }}
+    {{ initialise_test(type_, identifier, f.type_name|under) }}
     {% endfor %}
 
     CK_RV status = pack_{{ f.type_name|under }}(
@@ -78,6 +78,11 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     // todo: finish {{ identifier }} ({{ type_ }})
 {% elif type_ == "CK_C_INITIALIZE_ARGS_PTR" %}
     // todo: should we check for ANY?
+{% elif type_ == "CK_SLOT_ID_ARRAY" %}
+    int {{ identifier }}_i;
+    for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
+      assert_int_equal({{ identifier }}[{{ identifier }}_i], {{ identifier }}_unpack[{{ identifier }}_i]);
+    };
 {% else %}
     assert_int_equal({{ identifier }}, {{ identifier }}_unpack);
 {% endif %}

@@ -142,8 +142,10 @@ pack_{{ f.type_name|under }}(
     if (*{{ var }} != NULL) {
         der_buf_bool_t {{ var }}_present_buf = { 0 };
         {{ f.type_name|under }}.{{ var }}.present = der_put_bool({{ var }}_present_buf, TRUE);
+        {{ f.type_name|under }}.{{ var }}.null = der_put_empty();
     } else {
         {{ f.type_name|under }}.{{ var }}.null = der_put_null();
+        {{ f.type_name|under }}.{{ var }}.present = der_put_empty();
     }
 
 {% elif type == "CK_INFO_PTR" %}
@@ -183,9 +185,11 @@ pack_{{ f.type_name|under }}(
 
     if ({{var}} == NULL_PTR) {
         {{ f.type_name|under }}.{{ var }}.null = der_put_null();
+        {{ f.type_name|under }}.{{ var }}.data.wire = der_put_empty();
     } else {
         {{ f.type_name|under }}.{{ var }}.data.wire.derptr = {{ var }}_innerlist;
         {{ f.type_name|under }}.{{ var }}.data.wire.derlen = {{ var }}_length;
+        {{ f.type_name|under }}.{{ var }}.null = der_put_empty();
     }
 
 {% elif type == "CK_MECHANISM_INFO_PTR" %}

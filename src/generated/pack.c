@@ -3958,9 +3958,11 @@ pack_C_GetMechanismList_Return(
 
     if (pMechanismList == NULL_PTR) {
         C_GetMechanismList_Return.pMechanismList.null = der_put_null();
+        C_GetMechanismList_Return.pMechanismList.data.wire = der_put_empty();
     } else {
         C_GetMechanismList_Return.pMechanismList.data.wire.derptr = pMechanismList_innerlist;
         C_GetMechanismList_Return.pMechanismList.data.wire.derlen = pMechanismList_length;
+        C_GetMechanismList_Return.pMechanismList.null = der_put_empty();
     }
 
 
@@ -5177,8 +5179,10 @@ pack_C_OpenSession_Call(
     if (*notify != NULL) {
         der_buf_bool_t notify_present_buf = { 0 };
         C_OpenSession_Call.notify.present = der_put_bool(notify_present_buf, TRUE);
+        C_OpenSession_Call.notify.null = der_put_empty();
     } else {
         C_OpenSession_Call.notify.null = der_put_null();
+        C_OpenSession_Call.notify.present = der_put_empty();
     }
 
 

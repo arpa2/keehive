@@ -756,7 +756,7 @@ void test_pack_C_DecryptInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hKey = 13;
     
@@ -1059,7 +1059,7 @@ void test_pack_C_DeriveKey_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hBaseKey = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
@@ -1563,7 +1563,7 @@ void test_pack_C_DigestInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     
 
@@ -2010,7 +2010,7 @@ void test_pack_C_EncryptInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hKey = 13;
     
@@ -2205,7 +2205,7 @@ void test_pack_C_Finalize_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_VOID_PTR pReserved = NULL_PTR;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = pack_C_Finalize_Call(
@@ -2560,7 +2560,7 @@ void test_pack_C_GenerateKey_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pTemplate[] = {
@@ -2671,16 +2671,16 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pPublicKeyTemplate[] = {
         {.type=CKA_LABEL, .pValue=pPublicKeyTemplate_label, .ulValueLen=sizeof(pPublicKeyTemplate_label)-1} };
-    CK_ULONG ulPublicKeyAttributeCount = 13;
+    CK_ULONG ulPublicKeyAttributeCount = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);
     CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pPrivateKeyTemplate[] = {
         {.type=CKA_LABEL, .pValue=pPrivateKeyTemplate_label, .ulValueLen=sizeof(pPrivateKeyTemplate_label)-1} };
-    CK_ULONG ulPrivateKeyAttributeCount = 13;
+    CK_ULONG ulPrivateKeyAttributeCount = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = pack_C_GenerateKeyPair_Call(
@@ -3295,7 +3295,8 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL; /* todo: probably requires finetuning */
+    CK_MECHANISM_TYPE pMechanismList_pointed[] = { 13, 14 };
+    CK_MECHANISM_TYPE_ARRAY pMechanismList = &pMechanismList_pointed[0];
     CK_ULONG pulCount = 13;
     
 
@@ -3733,8 +3734,9 @@ void test_pack_C_GetSlotList_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_SLOT_ID_ARRAY pSlotList = NULL; /* todo: probably requires finetuning */
-    CK_ULONG pulCount = 13;
+    CK_SLOT_ID pSlotList_pointed[] = { 1, 5, 19 };
+    CK_SLOT_ID_ARRAY pSlotList = &pSlotList_pointed[0];
+    CK_ULONG pulCount = sizeof(pSlotList_pointed) / sizeof(CK_SLOT_ID);
     
 
     CK_RV status = pack_C_GetSlotList_Return(
@@ -3766,7 +3768,10 @@ void test_pack_C_GetSlotList_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_int_equal(pSlotList, pSlotList_unpack);
+    int pSlotList_i;
+    for (pSlotList_i = 0; pSlotList_i < pulCount; pSlotList_i++) {
+      assert_int_equal(pSlotList[pSlotList_i], pSlotList_unpack[pSlotList_i]);
+    };
 
 
     assert_int_equal(pulCount, pulCount_unpack);
@@ -4063,15 +4068,15 @@ void test_pack_C_Initialize_Call(void **state) {
     dercursor dercursor;
 
     CK_C_INITIALIZE_ARGS pInitArgs_pointed = {
-        .CreateMutex = NULL_PTR,
-        .DestroyMutex = NULL_PTR,
-        .LockMutex = NULL_PTR,
-        .UnlockMutex = NULL_PTR,
+        .CreateMutex = NULL,
+        .DestroyMutex = NULL,
+        .LockMutex = NULL,
+        .UnlockMutex = NULL,
         .flags = CKF_OS_LOCKING_OK,
-        .pReserved = NULL_PTR
+        .pReserved = NULL
     };
     CK_C_INITIALIZE_ARGS_PTR pInitArgs = &pInitArgs_pointed;
-    pInitArgs = NULL_PTR; // todo: disabled for now, only works with null pointer. fix this.
+    pInitArgs = NULL; // todo: disabled for now, only works with null pointer. fix this.
     
     
 
@@ -4319,7 +4324,7 @@ void test_pack_C_OpenSession_Call(void **state) {
     CK_SLOT_ID slotID = 13;
     CK_FLAGS flags = 13;
     ANY pApplication = NULL; /* todo: probably requires finetuning */
-    CK_NOTIFY notify = NULL_PTR; // todo: set to notify_callback;
+    CK_NOTIFY notify = NULL; // todo: set to notify_callback;
     
 
     CK_RV status = pack_C_OpenSession_Call(
@@ -5111,7 +5116,7 @@ void test_pack_C_SignInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hKey = 13;
     
@@ -5307,7 +5312,7 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hKey = 13;
     
@@ -5482,7 +5487,7 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hUnwrappingKey = 13;
     CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
@@ -5800,7 +5805,7 @@ void test_pack_C_VerifyInit_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hKey = 13;
     
@@ -6082,7 +6087,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
     dercursor dercursor;
 
     CK_FLAGS flags = 13;
-    CK_VOID_PTR pReserved = NULL_PTR;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Call(
@@ -6126,7 +6131,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_SLOT_ID pSlot = 13;
-    CK_VOID_PTR pReserved = NULL_PTR;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Return(
@@ -6177,7 +6182,7 @@ void test_pack_C_WrapKey_Call(void **state) {
     dercursor dercursor;
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL_PTR, 0};
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
     CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     CK_OBJECT_HANDLE hWrappingKey = 13;
     CK_OBJECT_HANDLE hKey = 13;

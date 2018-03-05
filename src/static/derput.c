@@ -6,15 +6,17 @@
 
 
 
+/* use this to reset a der. Often used in combination with a CHOICE. Not to be confused with put_null */
 dercursor
 der_put_empty() {
     dercursor retval;
-    retval.derptr = NULL_PTR;
+    retval.derptr = NULL;
     retval.derlen = 0;
     return retval;
 }
 
 
+/* use this one to set null in case a choice is NULL */
 dercursor
 der_put_null() {
     dercursor retval;
@@ -72,7 +74,7 @@ der_put_CK_FLAGS_PTR(
 
 dercursor
 der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
-    if (pReserved == NULL_PTR) {
+    if (pReserved == NULL) {
         return der_put_null();
     } else {
         // TODO: implement
@@ -318,7 +320,7 @@ der_put_CK_MECHANISM_PTR(
 
     Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
 
-    if (pMechanism->pParameter == NULL_PTR) {
+    if (pMechanism->pParameter == NULL) {
         Ack_Mechanism->pParameter.null = der_put_null();
     } else {
         // TODO: implement

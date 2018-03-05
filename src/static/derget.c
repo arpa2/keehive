@@ -265,6 +265,41 @@ int der_get_CK_MECHANISM_TYPE_ARRAY(struct DER_OVLY_RemotePKCS11_C_GetMechanismL
     return -1;
 };
 
-int der_get_CK_SLOT_ID_ARRAY(struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList * Ack_Slot_Id_Array, CK_SLOT_ID_ARRAY pSlot) {
-    return -1;
+int
+der_get_CK_SLOT_ID_ARRAY(
+        DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList * Ack_Slot_Id_Array,
+        CK_SLOT_ID_ARRAY pSlot) {
+    dercursor iterator;
+    int status;
+    int i = 0;
+
+    unsigned char value;
+
+    ACK_SLOT_ID_t der_slot;
+    if (pSlot == NULL) {
+        // need to allocate some memory for this
+        return -1;
+    }
+
+    /* todo: we need to fix the null stuff somehow
+    if (Ack_Slot_Id_Array->null.derlen == 0) {
+        *pSlot = (CK_SLOT_ID) NULL;
+        return -1;
+    } */
+
+    if (der_iterate_first(&Ack_Slot_Id_Array->data.wire, &iterator)) {
+        do {
+            status = der_unpack(&iterator, pSlotList_packer, &der_slot, REPEAT);
+            if (status == -1)
+                return -1;
+
+            status = der_get_uchar(der_slot, &value);
+            if (status == -1)
+                return -1;
+            (pSlot)[i] = value;
+
+            i++;
+        } while (der_iterate_next(&iterator));
+    }
+    return 0;
 };

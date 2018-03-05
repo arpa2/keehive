@@ -145,7 +145,7 @@ def initialise(type_, identifier):
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL;".format(type_, identifier)
     else:
-        return "{} {} = NULL_PTR;".format(type_, identifier)
+        return "{} {} = NULL;".format(type_, identifier)
 
 
 type_test_templates = {
@@ -201,49 +201,67 @@ type_test_templates = {
     CK_ATTRIBUTE {identifier}[] = {{
         {{.type=CKA_LABEL, .pValue={identifier}_label, .ulValueLen=sizeof({identifier}_label)-1}} }};""",
     "CK_MECHANISM_PTR":
-        """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL_PTR, 0}};
+        """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL, 0}};
     CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """,
     "CK_BYTE_ARRAY":
         """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
     "CK_OBJECT_HANDLE_ARRAY":
         """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
-    "ulPrivateKeyAttributeCount":
-        "{type_} {identifier} = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);",
-    "ulPublicKeyAttributeCount":
-        "{type_} {identifier} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);",
-    "CK_BBOOL":
-        "{type_} {identifier} = CK_TRUE;",
     "CK_C_INITIALIZE_ARGS_PTR":
         """CK_C_INITIALIZE_ARGS {identifier}_pointed = {{
-        .CreateMutex = NULL_PTR,
-        .DestroyMutex = NULL_PTR,
-        .LockMutex = NULL_PTR,
-        .UnlockMutex = NULL_PTR,
+        .CreateMutex = NULL,
+        .DestroyMutex = NULL,
+        .LockMutex = NULL,
+        .UnlockMutex = NULL,
         .flags = CKF_OS_LOCKING_OK,
-        .pReserved = NULL_PTR
+        .pReserved = NULL
     }};
     {type_} {identifier} = &{identifier}_pointed;
-    {identifier} = NULL_PTR; // todo: disabled for now, only works with null pointer. fix this.
+    {identifier} = NULL; // todo: disabled for now, only works with null pointer. fix this.
     """,
     "CK_NOTIFY":
-        "{type_} {identifier} = NULL_PTR; // todo: set to notify_callback;"
+        "{type_} {identifier} = NULL; // todo: set to notify_callback;",
+    "CK_BBOOL":
+        "{type_} {identifier} = CK_TRUE;",
+    "CK_MECHANISM_TYPE_ARRAY":
+        """CK_MECHANISM_TYPE {identifier}_pointed[] = {{ 13, 14 }};
+    {type_} {identifier} = &{identifier}_pointed[0];""",
+
+    "CK_SLOT_ID_ARRAY":
+        """CK_SLOT_ID {identifier}_pointed[] = {{ 1, 5, 19 }};
+    {type_} {identifier} = &{identifier}_pointed[0];""",
 }
 
 
-def initialise_test(type_, identifier):
+identifier_test_map = {
+    "ulPublicKeyAttributeCount":
+        "{type_} {identifier} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);",
+    "ulPrivateKeyAttributeCount":
+        "{type_} {identifier} = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);",
+}
+
+
+def initialise_test(type_, identifier, function_name=None):
+    if identifier in identifier_test_map:
+        x = identifier_test_map[identifier]
+        return x.format(identifier=identifier, type_=type_)
     if identifier in ("ulCount", "ulAttributeCount"):
         return "{} {} = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);".format(type_, identifier)
-    elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
-        return "{} {} = 13;".format(type_, identifier)
     elif type_ in type_test_templates:
         x = type_test_templates[type_]
         return x.format(identifier=identifier, type_=type_)
     elif type_ in ("CK_UTF8CHAR_ARRAY", "UTF8String"):
         return "{type_} {identifier} = ({type_}) \"abcdefghijklm\";".format(type_=type_, identifier=identifier)
+    elif function_name == "C_GetSlotList_Return":
+        if identifier == "pulCount":
+            return "{type_} {identifier} = sizeof(pSlotList_pointed) / sizeof(CK_SLOT_ID);".format(type_=type_,
+                                                                                               identifier=identifier)
+    elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
+        return "{} {} = 13;".format(type_, identifier)
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
     else:
-        return "{} {} = NULL_PTR;  /* todo: probably requires finetuning */".format(type_, identifier)
+        return "{} {} = NULL;  /* todo: probably requires finetuning */".format(type_, identifier)
 
 
 def initialise_verify(type_, identifier):
@@ -286,6 +304,7 @@ def depointerize(type_):
 
 
 def len_mapper(func, identifier, deref=False):
+    """this is a map of structure names to a variable that contains the length"""
     unambiguous = {
         "pPin": "ulPinLen",
         "pOldPin": "ulOldLen",
@@ -353,6 +372,8 @@ def len_mapper(func, identifier, deref=False):
         ("C_Decrypt_Call", "pEncryptedData"): "ulEncryptedDataLen",
         ('C_Encrypt_Return', 'pEncryptedData'): "pulEncryptedDataLen",
         ('C_EncryptFinal_Return', 'pEncryptedData'): "pulEncryptedDataLen",
+
+        ('C_GetSlotList_Return', 'pSlotList'): "pulCount",
 
     }
 

@@ -77,6 +77,10 @@ int der_get_CK_OBJECT_HANDLE_ARRAY(ACK_OBJECT_HANDLE_ARRAY_t* Ack_Object_Handle_
 
 int der_get_CK_MECHANISM_TYPE_ARRAY(struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return_pMechanismList *, CK_MECHANISM_TYPE_ARRAY pMechanism);
 
-int der_get_CK_SLOT_ID_ARRAY(struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList * Ack_Slot_Id_Array, CK_SLOT_ID_ARRAY pSlot);
+int
+der_get_CK_SLOT_ID_ARRAY(
+        DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList * Ack_Slot_Id_Array,
+        CK_SLOT_ID_ARRAY pSlot
+);
 
 #endif //KEEHIVE_DERGET_H
