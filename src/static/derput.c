@@ -5,6 +5,9 @@
 #include "packer.h"
 
 
+dercursor der_empty = {.derptr = NULL, .derlen = 0 };
+dercursor der_null = {.derptr = (uint8_t *)"", .derlen = 0 };
+
 
 /* use this to reset a der. Often used in combination with a CHOICE. Not to be confused with put_null */
 dercursor

@@ -367,7 +367,7 @@ call_C_InitToken(
 CK_RV
 call_C_Initialize(
     CK_FUNCTION_LIST_PTR_PTR function_list,
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs
+    CK_VOID_PTR pInitArgs
 );
 
 CK_RV

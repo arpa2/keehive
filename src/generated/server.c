@@ -2209,7 +2209,7 @@ server_C_Initialize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs = NULL;
+    CK_VOID_PTR pInitArgs = NULL;
     
 
     CK_RV status = unpack_C_Initialize_Call(

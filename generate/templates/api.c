@@ -1,4 +1,4 @@
-#include "client.h"
+#include "pkcs11/pkcs11unix.h"
 #include "server.h"
 #include "pack.h"
 #include "unpack.h"
@@ -7,7 +7,7 @@
 {% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
-client_{{ f }}(
+{{ f }}(
     {%- for type, pointerized, value in combined_args(call, return_) %}
     {{ type }} {{ value }}{%- if not loop.last %},{% endif -%}
     {% endfor %}

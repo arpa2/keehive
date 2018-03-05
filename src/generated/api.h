@@ -320,7 +320,7 @@ client_C_InitToken(
 
 CK_RV
 client_C_Initialize(
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs
+    CK_VOID_PTR pInitArgs
 );
 
 CK_RV

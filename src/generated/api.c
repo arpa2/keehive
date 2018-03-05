@@ -1,4 +1,4 @@
-#include "client.h"
+#include "pkcs11/pkcs11unix.h"
 #include "server.h"
 #include "pack.h"
 #include "unpack.h"
@@ -7,7 +7,7 @@
 
 
 CK_RV
-client_C_CancelFunction(
+C_CancelFunction(
     CK_SESSION_HANDLE hSession
 ) {
     CK_RV status;
@@ -70,7 +70,7 @@ client_C_CancelFunction(
 
 
 CK_RV
-client_C_CloseAllSessions(
+C_CloseAllSessions(
     CK_SLOT_ID slotID
 ) {
     CK_RV status;
@@ -133,7 +133,7 @@ client_C_CloseAllSessions(
 
 
 CK_RV
-client_C_CloseSession(
+C_CloseSession(
     CK_SESSION_HANDLE hSession
 ) {
     CK_RV status;
@@ -196,7 +196,7 @@ client_C_CloseSession(
 
 
 CK_RV
-client_C_CopyObject(
+C_CopyObject(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hObject,
     CK_ATTRIBUTE_ARRAY pTemplate,
@@ -267,7 +267,7 @@ client_C_CopyObject(
 
 
 CK_RV
-client_C_CreateObject(
+C_CreateObject(
     CK_SESSION_HANDLE hSession,
     CK_ATTRIBUTE_ARRAY pTemplate,
     CK_ULONG ulCount,
@@ -336,7 +336,7 @@ client_C_CreateObject(
 
 
 CK_RV
-client_C_Decrypt(
+C_Decrypt(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pEncryptedData,
     CK_ULONG ulEncryptedDataLen,
@@ -408,7 +408,7 @@ client_C_Decrypt(
 
 
 CK_RV
-client_C_DecryptDigestUpdate(
+C_DecryptDigestUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pEncryptedPart,
     CK_ULONG ulEncryptedPartLen,
@@ -480,7 +480,7 @@ client_C_DecryptDigestUpdate(
 
 
 CK_RV
-client_C_DecryptFinal(
+C_DecryptFinal(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pLastPart,
     CK_ULONG_PTR pulLastPartLen
@@ -548,7 +548,7 @@ client_C_DecryptFinal(
 
 
 CK_RV
-client_C_DecryptInit(
+C_DecryptInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hKey
@@ -615,7 +615,7 @@ client_C_DecryptInit(
 
 
 CK_RV
-client_C_DecryptUpdate(
+C_DecryptUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pEncryptedPart,
     CK_ULONG ulEncryptedPartLen,
@@ -687,7 +687,7 @@ client_C_DecryptUpdate(
 
 
 CK_RV
-client_C_DecryptVerifyUpdate(
+C_DecryptVerifyUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pEncryptedPart,
     CK_ULONG ulEncryptedPartLen,
@@ -759,7 +759,7 @@ client_C_DecryptVerifyUpdate(
 
 
 CK_RV
-client_C_DeriveKey(
+C_DeriveKey(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hBaseKey,
@@ -832,7 +832,7 @@ client_C_DeriveKey(
 
 
 CK_RV
-client_C_DestroyObject(
+C_DestroyObject(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hObject
 ) {
@@ -897,7 +897,7 @@ client_C_DestroyObject(
 
 
 CK_RV
-client_C_Digest(
+C_Digest(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pData,
     CK_ULONG ulDataLen,
@@ -969,7 +969,7 @@ client_C_Digest(
 
 
 CK_RV
-client_C_DigestEncryptUpdate(
+C_DigestEncryptUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen,
@@ -1041,7 +1041,7 @@ client_C_DigestEncryptUpdate(
 
 
 CK_RV
-client_C_DigestFinal(
+C_DigestFinal(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pDigest,
     CK_ULONG_PTR pulDigestLen
@@ -1109,7 +1109,7 @@ client_C_DigestFinal(
 
 
 CK_RV
-client_C_DigestInit(
+C_DigestInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism
 ) {
@@ -1174,7 +1174,7 @@ client_C_DigestInit(
 
 
 CK_RV
-client_C_DigestKey(
+C_DigestKey(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hKey
 ) {
@@ -1239,7 +1239,7 @@ client_C_DigestKey(
 
 
 CK_RV
-client_C_DigestUpdate(
+C_DigestUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen
@@ -1306,7 +1306,7 @@ client_C_DigestUpdate(
 
 
 CK_RV
-client_C_Encrypt(
+C_Encrypt(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pData,
     CK_ULONG ulDataLen,
@@ -1378,7 +1378,7 @@ client_C_Encrypt(
 
 
 CK_RV
-client_C_EncryptFinal(
+C_EncryptFinal(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pEncryptedData,
     CK_ULONG_PTR pulEncryptedDataLen
@@ -1446,7 +1446,7 @@ client_C_EncryptFinal(
 
 
 CK_RV
-client_C_EncryptInit(
+C_EncryptInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hKey
@@ -1513,7 +1513,7 @@ client_C_EncryptInit(
 
 
 CK_RV
-client_C_EncryptUpdate(
+C_EncryptUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen,
@@ -1585,7 +1585,7 @@ client_C_EncryptUpdate(
 
 
 CK_RV
-client_C_Finalize(
+C_Finalize(
     ANY pReserved
 ) {
     CK_RV status;
@@ -1649,7 +1649,7 @@ client_C_Finalize(
 
 
 CK_RV
-client_C_FindObjects(
+C_FindObjects(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE_ARRAY phObject,
     CK_ULONG ulMaxObjectCount,
@@ -1718,7 +1718,7 @@ client_C_FindObjects(
 
 
 CK_RV
-client_C_FindObjectsFinal(
+C_FindObjectsFinal(
     CK_SESSION_HANDLE hSession
 ) {
     CK_RV status;
@@ -1781,7 +1781,7 @@ client_C_FindObjectsFinal(
 
 
 CK_RV
-client_C_FindObjectsInit(
+C_FindObjectsInit(
     CK_SESSION_HANDLE hSession,
     CK_ATTRIBUTE_ARRAY pTemplate,
     CK_ULONG ulCount
@@ -1849,7 +1849,7 @@ client_C_FindObjectsInit(
 
 
 CK_RV
-client_C_GenerateKey(
+C_GenerateKey(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_ATTRIBUTE_ARRAY pTemplate,
@@ -1920,7 +1920,7 @@ client_C_GenerateKey(
 
 
 CK_RV
-client_C_GenerateKeyPair(
+C_GenerateKeyPair(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_ATTRIBUTE_ARRAY pPublicKeyTemplate,
@@ -1997,7 +1997,7 @@ client_C_GenerateKeyPair(
 
 
 CK_RV
-client_C_GenerateRandom(
+C_GenerateRandom(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pSeed,
     CK_ULONG ulRandomLen
@@ -2064,7 +2064,7 @@ client_C_GenerateRandom(
 
 
 CK_RV
-client_C_GetAttributeValue(
+C_GetAttributeValue(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hObject,
     CK_ATTRIBUTE_ARRAY pTemplate,
@@ -2134,7 +2134,7 @@ client_C_GetAttributeValue(
 
 
 CK_RV
-client_C_GetFunctionStatus(
+C_GetFunctionStatus(
     CK_SESSION_HANDLE hSession
 ) {
     CK_RV status;
@@ -2197,7 +2197,7 @@ client_C_GetFunctionStatus(
 
 
 CK_RV
-client_C_GetInfo(
+C_GetInfo(
     CK_INFO_PTR pInfo
 ) {
     CK_RV status;
@@ -2260,7 +2260,7 @@ client_C_GetInfo(
 
 
 CK_RV
-client_C_GetMechanismInfo(
+C_GetMechanismInfo(
     CK_SLOT_ID slotID,
     CK_MECHANISM_TYPE type,
     CK_MECHANISM_INFO_PTR pInfo
@@ -2327,7 +2327,7 @@ client_C_GetMechanismInfo(
 
 
 CK_RV
-client_C_GetMechanismList(
+C_GetMechanismList(
     CK_SLOT_ID slotID,
     CK_MECHANISM_TYPE_ARRAY pMechanismList,
     CK_ULONG_PTR pulCount
@@ -2395,7 +2395,7 @@ client_C_GetMechanismList(
 
 
 CK_RV
-client_C_GetObjectSize(
+C_GetObjectSize(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hObject,
     CK_ULONG_PTR pulSize
@@ -2462,7 +2462,7 @@ client_C_GetObjectSize(
 
 
 CK_RV
-client_C_GetOperationState(
+C_GetOperationState(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pOperationState,
     CK_ULONG_PTR pulOperationStateLen
@@ -2530,7 +2530,7 @@ client_C_GetOperationState(
 
 
 CK_RV
-client_C_GetSessionInfo(
+C_GetSessionInfo(
     CK_SESSION_HANDLE hSession,
     CK_SESSION_INFO_PTR pInfo
 ) {
@@ -2595,7 +2595,7 @@ client_C_GetSessionInfo(
 
 
 CK_RV
-client_C_GetSlotInfo(
+C_GetSlotInfo(
     CK_SLOT_ID slotID,
     CK_SLOT_INFO_PTR pInfo
 ) {
@@ -2660,7 +2660,7 @@ client_C_GetSlotInfo(
 
 
 CK_RV
-client_C_GetSlotList(
+C_GetSlotList(
     CK_BBOOL tokenPresent,
     CK_SLOT_ID_ARRAY pSlotList,
     CK_ULONG_PTR pulCount
@@ -2728,7 +2728,7 @@ client_C_GetSlotList(
 
 
 CK_RV
-client_C_GetTokenInfo(
+C_GetTokenInfo(
     CK_SLOT_ID slotID,
     CK_TOKEN_INFO_PTR pInfo
 ) {
@@ -2793,7 +2793,7 @@ client_C_GetTokenInfo(
 
 
 CK_RV
-client_C_InitPIN(
+C_InitPIN(
     CK_SESSION_HANDLE hSession,
     CK_UTF8CHAR_ARRAY pPin,
     CK_ULONG ulPinLen
@@ -2860,7 +2860,7 @@ client_C_InitPIN(
 
 
 CK_RV
-client_C_InitToken(
+C_InitToken(
     CK_SLOT_ID slotID,
     UTF8String pPin,
     CK_ULONG ulPinLen,
@@ -2929,8 +2929,8 @@ client_C_InitToken(
 
 
 CK_RV
-client_C_Initialize(
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs
+C_Initialize(
+    CK_VOID_PTR pInitArgs
 ) {
     CK_RV status;
     dercursor dercursorIn;
@@ -2993,7 +2993,7 @@ client_C_Initialize(
 
 
 CK_RV
-client_C_Login(
+C_Login(
     CK_SESSION_HANDLE hSession,
     CK_USER_TYPE userType,
     CK_UTF8CHAR_ARRAY pPin,
@@ -3062,7 +3062,7 @@ client_C_Login(
 
 
 CK_RV
-client_C_Logout(
+C_Logout(
     CK_SESSION_HANDLE hSession
 ) {
     CK_RV status;
@@ -3125,7 +3125,7 @@ client_C_Logout(
 
 
 CK_RV
-client_C_OpenSession(
+C_OpenSession(
     CK_SLOT_ID slotID,
     CK_FLAGS flags,
     ANY pApplication,
@@ -3196,7 +3196,7 @@ client_C_OpenSession(
 
 
 CK_RV
-client_C_SeedRandom(
+C_SeedRandom(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pSeed,
     CK_ULONG ulSeedLen
@@ -3263,7 +3263,7 @@ client_C_SeedRandom(
 
 
 CK_RV
-client_C_SetAttributeValue(
+C_SetAttributeValue(
     CK_SESSION_HANDLE hSession,
     CK_OBJECT_HANDLE hObject,
     CK_ATTRIBUTE_ARRAY pTemplate,
@@ -3332,7 +3332,7 @@ client_C_SetAttributeValue(
 
 
 CK_RV
-client_C_SetOperationState(
+C_SetOperationState(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pOperationState,
     CK_ULONG ulOperationStateLen,
@@ -3403,7 +3403,7 @@ client_C_SetOperationState(
 
 
 CK_RV
-client_C_SetPIN(
+C_SetPIN(
     CK_SESSION_HANDLE hSession,
     CK_UTF8CHAR_ARRAY pOldPin,
     CK_ULONG ulOldLen,
@@ -3474,7 +3474,7 @@ client_C_SetPIN(
 
 
 CK_RV
-client_C_Sign(
+C_Sign(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pData,
     CK_ULONG ulDataLen,
@@ -3546,7 +3546,7 @@ client_C_Sign(
 
 
 CK_RV
-client_C_SignEncryptUpdate(
+C_SignEncryptUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen,
@@ -3618,7 +3618,7 @@ client_C_SignEncryptUpdate(
 
 
 CK_RV
-client_C_SignFinal(
+C_SignFinal(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pSignature,
     CK_ULONG_PTR pulSignatureLen
@@ -3686,7 +3686,7 @@ client_C_SignFinal(
 
 
 CK_RV
-client_C_SignInit(
+C_SignInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hKey
@@ -3753,7 +3753,7 @@ client_C_SignInit(
 
 
 CK_RV
-client_C_SignRecover(
+C_SignRecover(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pData,
     CK_ULONG ulDataLen,
@@ -3825,7 +3825,7 @@ client_C_SignRecover(
 
 
 CK_RV
-client_C_SignRecoverInit(
+C_SignRecoverInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hKey
@@ -3892,7 +3892,7 @@ client_C_SignRecoverInit(
 
 
 CK_RV
-client_C_SignUpdate(
+C_SignUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen
@@ -3959,7 +3959,7 @@ client_C_SignUpdate(
 
 
 CK_RV
-client_C_UnwrapKey(
+C_UnwrapKey(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hUnwrappingKey,
@@ -4036,7 +4036,7 @@ client_C_UnwrapKey(
 
 
 CK_RV
-client_C_Verify(
+C_Verify(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pData,
     CK_ULONG ulDataLen,
@@ -4107,7 +4107,7 @@ client_C_Verify(
 
 
 CK_RV
-client_C_VerifyFinal(
+C_VerifyFinal(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pSignature,
     CK_ULONG ulSignatureLen
@@ -4174,7 +4174,7 @@ client_C_VerifyFinal(
 
 
 CK_RV
-client_C_VerifyInit(
+C_VerifyInit(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hKey
@@ -4241,7 +4241,7 @@ client_C_VerifyInit(
 
 
 CK_RV
-client_C_VerifyRecover(
+C_VerifyRecover(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pSignature,
     CK_ULONG ulSignatureLen,
@@ -4313,7 +4313,7 @@ client_C_VerifyRecover(
 
 
 CK_RV
-client_C_VerifyUpdate(
+C_VerifyUpdate(
     CK_SESSION_HANDLE hSession,
     CK_BYTE_ARRAY pPart,
     CK_ULONG ulPartLen
@@ -4380,7 +4380,7 @@ client_C_VerifyUpdate(
 
 
 CK_RV
-client_C_WaitForSlotEvent(
+C_WaitForSlotEvent(
     CK_FLAGS flags,
     CK_SLOT_ID_PTR pSlot,
     CK_VOID_PTR pReserved
@@ -4448,7 +4448,7 @@ client_C_WaitForSlotEvent(
 
 
 CK_RV
-client_C_WrapKey(
+C_WrapKey(
     CK_SESSION_HANDLE hSession,
     CK_MECHANISM_PTR pMechanism,
     CK_OBJECT_HANDLE hWrappingKey,

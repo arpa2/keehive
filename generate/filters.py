@@ -19,18 +19,17 @@ def format_type(typedef: str, make_pointer: bool=False) -> Tuple[str, bool]:
     if s.startswith('ACK_'):
         s = s[1:]
 
-    # An Array should be a pointer to the first element
-    #if s.endswith('_ARRAY'):
-    #    s = s[:-5] + "PTR"
-
     # if make_pointer, make point if not already pointer
     # UTF8String is a pointer
     if make_pointer and not s.endswith("PTR")and not s.endswith("ARRAY") and s not in ("CK_OPAQUE", "ANY", "UTF8String"):
         s = s + "_PTR"
         pointerize = True
 
+    if s == "CK_C_INITIALIZE_ARGS":
+        s = "CK_VOID_PTR"
+
     # we always want to make these pointers
-    if s in ("CK_MECHANISM", "CK_C_INITIALIZE_ARGS"):
+    if s in ("CK_MECHANISM",):   # , "CK_C_INITIALIZE_ARGS"):  todo: disabled this one for now
         s = s + "_PTR"
 
     return s, pointerize

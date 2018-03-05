@@ -4067,17 +4067,7 @@ void test_pack_C_Initialize_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_C_INITIALIZE_ARGS pInitArgs_pointed = {
-        .CreateMutex = NULL,
-        .DestroyMutex = NULL,
-        .LockMutex = NULL,
-        .UnlockMutex = NULL,
-        .flags = CKF_OS_LOCKING_OK,
-        .pReserved = NULL
-    };
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs = &pInitArgs_pointed;
-    pInitArgs = NULL; // todo: disabled for now, only works with null pointer. fix this.
-    
+    CK_VOID_PTR pInitArgs = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = pack_C_Initialize_Call(
@@ -4087,7 +4077,7 @@ void test_pack_C_Initialize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    CK_C_INITIALIZE_ARGS_PTR pInitArgs_unpack = malloc(1024);
+    CK_VOID_PTR pInitArgs_unpack = malloc(1024);
     
 
     status = unpack_C_Initialize_Call(
@@ -4100,7 +4090,8 @@ void test_pack_C_Initialize_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
 
-    // todo: should we check for ANY?
+    // todo: finish
+    // assert_int_equal(pInitArgs, pInitArgs_unpack);
 
 
 
