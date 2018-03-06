@@ -4,8 +4,6 @@
 #include "types.h"
 #include "cryptoki.h"
 
-// Only function we implement manually
-CK_RV call_C_GetFunctionList(const char *path, CK_FUNCTION_LIST_PTR_PTR function_list);
 
 {% for call, return_ in zipped if not call.type_name == "C-GetFunctionList-Call"  %}
 CK_RV

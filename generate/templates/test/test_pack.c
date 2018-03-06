@@ -38,7 +38,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(status, CKR_OK);
 
     {% for type_, pointerized, identifier, other in extract_args(f, o) -%}
-    {{ initialise_verify(type_, identifier + "_unpack") }}
+    {{ initialise_unpack_placeholders(type_, identifier + "_unpack") }}
     {% endfor %}
 
     status = unpack_{{ f.type_name|under }}(

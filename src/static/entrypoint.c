@@ -1,6 +1,5 @@
 #include "cryptoki.h"
 
-
 // PKCS #11 function list
 static CK_FUNCTION_LIST functionList =
         {

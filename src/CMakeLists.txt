@@ -30,7 +30,7 @@ set(LIB_SRC
         static/util.c
         static/derput.c
         static/derget.c
-        static/entrypoint.c)
+        static/entrypoint.c static/loader.c static/loader.h)
 
 
 include_directories (

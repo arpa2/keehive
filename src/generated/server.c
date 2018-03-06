@@ -4,22 +4,19 @@
 #include "call.h"
 #include "static/returncodes.h"
 #include "settings.h"
+#include "loader.h"
 
 
 const char path[] = LIBSOFTHSM2_LIBRARY;
 
 
-CK_FUNCTION_LIST_PTR function_list = NULL_PTR;
+CK_FUNCTION_LIST_PTR function_list = NULL;
 
 
 CK_RV
 server_Begin(){
-    CK_RV status = call_C_GetFunctionList(path, &function_list);
+    CK_RV status = cryptoki_loader(path, &function_list);
 
-    if (status != CKR_OK)
-        return status;
-
-    status = call_C_Initialize(&function_list, NULL_PTR);
     if (status != CKR_OK)
         return status;
 
@@ -29,12 +26,7 @@ server_Begin(){
 
 CK_RV
 server_End(){
-    CK_RV status = call_C_Finalize(&function_list, NULL_PTR);
-
-    if (status != CKR_OK)
-        return status;
-
-    function_list = NULL_PTR;
+    function_list = NULL;
     return CKR_OK;
 }
 
@@ -49,8 +41,11 @@ server_C_CancelFunction(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     
+
+
 
     CK_RV status = unpack_C_CancelFunction_Call(
         cursorIn,
@@ -60,21 +55,21 @@ server_C_CancelFunction(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_CancelFunction(
-        &function_list, hSession
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_CancelFunction(
+        &function_list,
+        hSession  // CK_SESSION_HANDLE
+    );
 
     status = pack_C_CancelFunction_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -92,8 +87,11 @@ server_C_CloseAllSessions(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SLOT_ID slotID = 0;
     
+
+
 
     CK_RV status = unpack_C_CloseAllSessions_Call(
         cursorIn,
@@ -103,21 +101,21 @@ server_C_CloseAllSessions(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_CloseAllSessions(
-        &function_list, slotID
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_CloseAllSessions(
+        &function_list,
+        slotID  // CK_SLOT_ID
+    );
 
     status = pack_C_CloseAllSessions_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -135,8 +133,11 @@ server_C_CloseSession(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     
+
+
 
     CK_RV status = unpack_C_CloseSession_Call(
         cursorIn,
@@ -146,21 +147,21 @@ server_C_CloseSession(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_CloseSession(
-        &function_list, hSession
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_CloseSession(
+        &function_list,
+        hSession  // CK_SESSION_HANDLE
+    );
 
     status = pack_C_CloseSession_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -178,12 +179,14 @@ server_C_CopyObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
+
+
 
     CK_RV status = unpack_C_CopyObject_Call(
         cursorIn,
@@ -196,26 +199,27 @@ server_C_CopyObject(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_CopyObject(
-        &function_list, hSession,
-        hObject,
-        pTemplate,
-        ulCount,
-        phObject
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phObject = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_CopyObject(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phObject  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_CopyObject_Return(
         CursorOut,
-        retval,
-        phObject
+        &retval,  // CK_RV
+        &phObject  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -233,11 +237,13 @@ server_C_CreateObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ULONG ulCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_CreateObject_Call(
         cursorIn,
@@ -249,25 +255,26 @@ server_C_CreateObject(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_CreateObject(
-        &function_list, hSession,
-        pTemplate,
-        ulCount,
-        phObject
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phObject = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_CreateObject(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phObject  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_CreateObject_Return(
         CursorOut,
-        retval,
-        phObject
+        &retval,  // CK_RV
+        &phObject  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -285,45 +292,49 @@ server_C_Decrypt(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG ulEncryptedDataLen = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    CK_ULONG ulEncryptedDataLen = 0;
+    CK_ULONG pulDataLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_Decrypt_Call(
         cursorIn,
         &hSession,
         pEncryptedData,
         &ulEncryptedDataLen,
-        pulDataLen
+        &pulDataLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Decrypt(
-        &function_list, hSession,
-        pEncryptedData,
-        ulEncryptedDataLen,
-        pData,
-        pulDataLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Decrypt(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedData,  // CK_BYTE_ARRAY
+        ulEncryptedDataLen,  // CK_ULONG
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_Decrypt_Return(
         CursorOut,
-        retval,
-        pData,
-        pulDataLen
+        &retval,  // CK_RV
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -341,45 +352,49 @@ server_C_DecryptDigestUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_ULONG ulEncryptedPartLen = 0;
+    CK_ULONG pulPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DecryptDigestUpdate_Call(
         cursorIn,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
-        pulPartLen
+        &pulPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DecryptDigestUpdate(
-        &function_list, hSession,
-        pEncryptedPart,
-        ulEncryptedPartLen,
-        pPart,
-        pulPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DecryptDigestUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DecryptDigestUpdate_Return(
         CursorOut,
-        retval,
-        pPart,
-        pulPartLen
+        &retval,  // CK_RV
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -397,39 +412,43 @@ server_C_DecryptFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pLastPart = NULL;
-    CK_ULONG_PTR pulLastPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG pulLastPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DecryptFinal_Call(
         cursorIn,
         &hSession,
-        pulLastPartLen
+        &pulLastPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DecryptFinal(
-        &function_list, hSession,
-        pLastPart,
-        pulLastPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pLastPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DecryptFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pLastPart,  // CK_BYTE_ARRAY
+        &pulLastPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DecryptFinal_Return(
         CursorOut,
-        retval,
-        pLastPart,
-        pulLastPartLen
+        &retval,  // CK_RV
+        pLastPart,  // CK_BYTE_ARRAY
+        &pulLastPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -447,10 +466,13 @@ server_C_DecryptInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_DecryptInit_Call(
         cursorIn,
@@ -462,23 +484,23 @@ server_C_DecryptInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DecryptInit(
-        &function_list, hSession,
-        pMechanism,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DecryptInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_DecryptInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -496,45 +518,49 @@ server_C_DecryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_ULONG ulEncryptedPartLen = 0;
+    CK_ULONG pulPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DecryptUpdate_Call(
         cursorIn,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
-        pulPartLen
+        &pulPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DecryptUpdate(
-        &function_list, hSession,
-        pEncryptedPart,
-        ulEncryptedPartLen,
-        pPart,
-        pulPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DecryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DecryptUpdate_Return(
         CursorOut,
-        retval,
-        pPart,
-        pulPartLen
+        &retval,  // CK_RV
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -552,45 +578,49 @@ server_C_DecryptVerifyUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_ULONG ulEncryptedPartLen = 0;
+    CK_ULONG pulPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DecryptVerifyUpdate_Call(
         cursorIn,
         &hSession,
         pEncryptedPart,
         &ulEncryptedPartLen,
-        pulPartLen
+        &pulPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DecryptVerifyUpdate(
-        &function_list, hSession,
-        pEncryptedPart,
-        ulEncryptedPartLen,
-        pPart,
-        pulPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DecryptVerifyUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DecryptVerifyUpdate_Return(
         CursorOut,
-        retval,
-        pPart,
-        pulPartLen
+        &retval,  // CK_RV
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -608,13 +638,15 @@ server_C_DeriveKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hBaseKey = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_OBJECT_HANDLE hBaseKey = 0;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ULONG ulAttributeCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_DeriveKey_Call(
         cursorIn,
@@ -628,27 +660,28 @@ server_C_DeriveKey(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DeriveKey(
-        &function_list, hSession,
-        pMechanism,
-        hBaseKey,
-        pTemplate,
-        ulAttributeCount,
-        phKey
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phKey = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DeriveKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hBaseKey,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulAttributeCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_DeriveKey_Return(
         CursorOut,
-        retval,
-        phKey
+        &retval,  // CK_RV
+        &phKey  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -666,9 +699,12 @@ server_C_DestroyObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
+
+
 
     CK_RV status = unpack_C_DestroyObject_Call(
         cursorIn,
@@ -679,22 +715,22 @@ server_C_DestroyObject(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DestroyObject(
-        &function_list, hSession,
-        hObject
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DestroyObject(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_DestroyObject_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -712,45 +748,49 @@ server_C_Digest(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_ULONG ulDataLen = 0;
+    CK_ULONG pulDigestLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_Digest_Call(
         cursorIn,
         &hSession,
         pData,
         &ulDataLen,
-        pulDigestLen
+        &pulDigestLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Digest(
-        &function_list, hSession,
-        pData,
-        ulDataLen,
-        pDigest,
-        pulDigestLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pDigest = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Digest(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_Digest_Return(
         CursorOut,
-        retval,
-        pDigest,
-        pulDigestLen
+        &retval,  // CK_RV
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -768,45 +808,49 @@ server_C_DigestEncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_ULONG ulPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DigestEncryptUpdate_Call(
         cursorIn,
         &hSession,
         pPart,
         &ulPartLen,
-        pulEncryptedPartLen
+        &pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DigestEncryptUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen,
-        pEncryptedPart,
-        pulEncryptedPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DigestEncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DigestEncryptUpdate_Return(
         CursorOut,
-        retval,
-        pEncryptedPart,
-        pulEncryptedPartLen
+        &retval,  // CK_RV
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -824,39 +868,43 @@ server_C_DigestFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG pulDigestLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_DigestFinal_Call(
         cursorIn,
         &hSession,
-        pulDigestLen
+        &pulDigestLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DigestFinal(
-        &function_list, hSession,
-        pDigest,
-        pulDigestLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pDigest = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DigestFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_DigestFinal_Return(
         CursorOut,
-        retval,
-        pDigest,
-        pulDigestLen
+        &retval,  // CK_RV
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -874,9 +922,12 @@ server_C_DigestInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    
+
+
 
     CK_RV status = unpack_C_DigestInit_Call(
         cursorIn,
@@ -887,22 +938,22 @@ server_C_DigestInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DigestInit(
-        &function_list, hSession,
-        pMechanism
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DigestInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism  // CK_MECHANISM_PTR
+    );
 
     status = pack_C_DigestInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -920,9 +971,12 @@ server_C_DigestKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_DigestKey_Call(
         cursorIn,
@@ -933,22 +987,22 @@ server_C_DigestKey(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DigestKey(
-        &function_list, hSession,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DigestKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_DigestKey_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -966,10 +1020,13 @@ server_C_DigestUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
+    CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
+
+
 
     CK_RV status = unpack_C_DigestUpdate_Call(
         cursorIn,
@@ -981,23 +1038,23 @@ server_C_DigestUpdate(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_DigestUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_DigestUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+    );
 
     status = pack_C_DigestUpdate_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1015,45 +1072,49 @@ server_C_Encrypt(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_ULONG ulDataLen = 0;
+    CK_ULONG pulEncryptedDataLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_Encrypt_Call(
         cursorIn,
         &hSession,
         pData,
         &ulDataLen,
-        pulEncryptedDataLen
+        &pulEncryptedDataLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Encrypt(
-        &function_list, hSession,
-        pData,
-        ulDataLen,
-        pEncryptedData,
-        pulEncryptedDataLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Encrypt(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_Encrypt_Return(
         CursorOut,
-        retval,
-        pEncryptedData,
-        pulEncryptedDataLen
+        &retval,  // CK_RV
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1071,39 +1132,43 @@ server_C_EncryptFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG pulEncryptedDataLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_EncryptFinal_Call(
         cursorIn,
         &hSession,
-        pulEncryptedDataLen
+        &pulEncryptedDataLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_EncryptFinal(
-        &function_list, hSession,
-        pEncryptedData,
-        pulEncryptedDataLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_EncryptFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_EncryptFinal_Return(
         CursorOut,
-        retval,
-        pEncryptedData,
-        pulEncryptedDataLen
+        &retval,  // CK_RV
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1121,10 +1186,13 @@ server_C_EncryptInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_EncryptInit_Call(
         cursorIn,
@@ -1136,23 +1204,23 @@ server_C_EncryptInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_EncryptInit(
-        &function_list, hSession,
-        pMechanism,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_EncryptInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_EncryptInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1170,45 +1238,49 @@ server_C_EncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_ULONG ulPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_EncryptUpdate_Call(
         cursorIn,
         &hSession,
         pPart,
         &ulPartLen,
-        pulEncryptedPartLen
+        &pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_EncryptUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen,
-        pEncryptedPart,
-        pulEncryptedPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_EncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_EncryptUpdate_Return(
         CursorOut,
-        retval,
-        pEncryptedPart,
-        pulEncryptedPartLen
+        &retval,  // CK_RV
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1226,8 +1298,11 @@ server_C_Finalize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    ANY pReserved = NULL;
     
+    CK_VOID_PTR pReserved = malloc(1024);
+    
+
+
 
     CK_RV status = unpack_C_Finalize_Call(
         cursorIn,
@@ -1237,22 +1312,23 @@ server_C_Finalize(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Finalize(
-        &function_list, pReserved
-        
-    );
+    
+    CK_RV retval;
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Finalize(
+        &function_list,
+        pReserved  // ANY
+    );
 
     status = pack_C_Finalize_Return(
         CursorOut,
-        retval,
-        &pReserved
+        &retval,  // CK_RV
+        &pReserved  // ANY
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1270,11 +1346,12 @@ server_C_FindObjects(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE_ARRAY phObject = NULL;
-    CK_ULONG ulMaxObjectCount = 0;
-    CK_ULONG_PTR pulObjectCount = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG ulMaxObjectCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_FindObjects_Call(
         cursorIn,
@@ -1285,26 +1362,28 @@ server_C_FindObjects(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_FindObjects(
-        &function_list, hSession,
-        phObject,
-        ulMaxObjectCount,
-        pulObjectCount
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE_ARRAY phObject = malloc(1024);
+    CK_ULONG pulObjectCount = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_FindObjects(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        phObject,  // CK_OBJECT_HANDLE_ARRAY
+        ulMaxObjectCount,  // CK_ULONG
+        &pulObjectCount  // CK_ULONG_PTR
+    );
 
     status = pack_C_FindObjects_Return(
         CursorOut,
-        retval,
-        phObject,
-        pulObjectCount
+        &retval,  // CK_RV
+        phObject,  // CK_OBJECT_HANDLE_ARRAY
+        &pulObjectCount  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1322,8 +1401,11 @@ server_C_FindObjectsFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     
+
+
 
     CK_RV status = unpack_C_FindObjectsFinal_Call(
         cursorIn,
@@ -1333,21 +1415,21 @@ server_C_FindObjectsFinal(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_FindObjectsFinal(
-        &function_list, hSession
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_FindObjectsFinal(
+        &function_list,
+        hSession  // CK_SESSION_HANDLE
+    );
 
     status = pack_C_FindObjectsFinal_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1365,10 +1447,13 @@ server_C_FindObjectsInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
+
+
 
     CK_RV status = unpack_C_FindObjectsInit_Call(
         cursorIn,
@@ -1380,24 +1465,25 @@ server_C_FindObjectsInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_FindObjectsInit(
-        &function_list, hSession,
-        pTemplate,
-        ulCount
-        
-    );
+    
+    CK_RV retval;
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_FindObjectsInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+    );
 
     status = pack_C_FindObjectsInit_Return(
         CursorOut,
-        retval,
-        pTemplate
+        &retval,  // CK_RV
+        pTemplate  // CK_ATTRIBUTE_ARRAY
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1415,12 +1501,14 @@ server_C_GenerateKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ULONG ulCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_GenerateKey_Call(
         cursorIn,
@@ -1433,26 +1521,27 @@ server_C_GenerateKey(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GenerateKey(
-        &function_list, hSession,
-        pMechanism,
-        pTemplate,
-        ulCount,
-        phKey
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phKey = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GenerateKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_GenerateKey_Return(
         CursorOut,
-        retval,
-        phKey
+        &retval,  // CK_RV
+        &phKey  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1470,15 +1559,16 @@ server_C_GenerateKeyPair(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
-    CK_ULONG ulPublicKeyAttributeCount = 0;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = NULL;
-    CK_ULONG ulPrivateKeyAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phPublicKey = NULL;
-    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = malloc(1024);
+    CK_ULONG ulPublicKeyAttributeCount = 0;
+    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = malloc(1024);
+    CK_ULONG ulPrivateKeyAttributeCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_GenerateKeyPair_Call(
         cursorIn,
@@ -1493,30 +1583,32 @@ server_C_GenerateKeyPair(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GenerateKeyPair(
-        &function_list, hSession,
-        pMechanism,
-        pPublicKeyTemplate,
-        ulPublicKeyAttributeCount,
-        pPrivateKeyTemplate,
-        ulPrivateKeyAttributeCount,
-        phPublicKey,
-        phPrivateKey
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phPublicKey = 0;
+    CK_OBJECT_HANDLE phPrivateKey = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GenerateKeyPair(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        pPublicKeyTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulPublicKeyAttributeCount,  // CK_ULONG
+        pPrivateKeyTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulPrivateKeyAttributeCount,  // CK_ULONG
+        &phPublicKey,  // CK_OBJECT_HANDLE_PTR
+        &phPrivateKey  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_GenerateKeyPair_Return(
         CursorOut,
-        retval,
-        phPublicKey,
-        phPrivateKey
+        &retval,  // CK_RV
+        &phPublicKey,  // CK_OBJECT_HANDLE
+        &phPrivateKey  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1534,10 +1626,12 @@ server_C_GenerateRandom(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSeed = NULL;
     CK_ULONG ulRandomLen = 0;
     
+
+
 
     CK_RV status = unpack_C_GenerateRandom_Call(
         cursorIn,
@@ -1548,24 +1642,25 @@ server_C_GenerateRandom(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GenerateRandom(
-        &function_list, hSession,
-        pSeed,
-        ulRandomLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pSeed = malloc(1024);
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GenerateRandom(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSeed,  // CK_BYTE_ARRAY
+        ulRandomLen  // CK_ULONG
+    );
 
     status = pack_C_GenerateRandom_Return(
         CursorOut,
-        retval,
-        pSeed
+        &retval,  // CK_RV
+        pSeed  // CK_BYTE_ARRAY
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1583,11 +1678,14 @@ server_C_GetAttributeValue(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
+
+
 
     CK_RV status = unpack_C_GetAttributeValue_Call(
         cursorIn,
@@ -1600,25 +1698,26 @@ server_C_GetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetAttributeValue(
-        &function_list, hSession,
-        hObject,
-        pTemplate,
-        ulCount
-        
-    );
+    
+    CK_RV retval;
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetAttributeValue(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+    );
 
     status = pack_C_GetAttributeValue_Return(
         CursorOut,
-        retval,
-        pTemplate
+        &retval,  // CK_RV
+        pTemplate  // CK_ATTRIBUTE_ARRAY
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1636,8 +1735,11 @@ server_C_GetFunctionStatus(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     
+
+
 
     CK_RV status = unpack_C_GetFunctionStatus_Call(
         cursorIn,
@@ -1647,21 +1749,21 @@ server_C_GetFunctionStatus(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetFunctionStatus(
-        &function_list, hSession
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetFunctionStatus(
+        &function_list,
+        hSession  // CK_SESSION_HANDLE
+    );
 
     status = pack_C_GetFunctionStatus_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1679,8 +1781,10 @@ server_C_GetInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_INFO_PTR pInfo = NULL;
     
+    
+
+
 
     CK_RV status = unpack_C_GetInfo_Call(
         cursorIn
@@ -1689,22 +1793,23 @@ server_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetInfo(
-        &function_list, pInfo
-        
-    );
+    
+    CK_RV retval;
+    CK_INFO pInfo;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetInfo(
+        &function_list,
+        &pInfo  // CK_INFO_PTR
+    );
 
     status = pack_C_GetInfo_Return(
         CursorOut,
-        retval,
-        pInfo
+        &retval,  // CK_RV
+        &pInfo  // CK_INFO
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1722,10 +1827,12 @@ server_C_GetMechanismInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
-    CK_MECHANISM_INFO_PTR pInfo = NULL;
     
+
+
 
     CK_RV status = unpack_C_GetMechanismInfo_Call(
         cursorIn,
@@ -1736,24 +1843,25 @@ server_C_GetMechanismInfo(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetMechanismInfo(
-        &function_list, slotID,
-        type,
-        pInfo
-        
-    );
+    
+    CK_RV retval;
+    CK_MECHANISM_INFO pInfo;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetMechanismInfo(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        type,  // CK_MECHANISM_TYPE
+        &pInfo  // CK_MECHANISM_INFO_PTR
+    );
 
     status = pack_C_GetMechanismInfo_Return(
         CursorOut,
-        retval,
-        pInfo
+        &retval,  // CK_RV
+        &pInfo  // CK_MECHANISM_INFO
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1771,39 +1879,43 @@ server_C_GetMechanismList(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SLOT_ID slotID = 0;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
-    CK_ULONG_PTR pulCount = NULL;
     
+    CK_SLOT_ID slotID = 0;
+    CK_ULONG pulCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetMechanismList_Call(
         cursorIn,
         &slotID,
-        pulCount
+        &pulCount
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetMechanismList(
-        &function_list, slotID,
-        pMechanismList,
-        pulCount
-        
-    );
+    
+    CK_RV retval;
+    CK_MECHANISM_TYPE_ARRAY pMechanismList = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetMechanismList(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        pMechanismList,  // CK_MECHANISM_TYPE_ARRAY
+        &pulCount  // CK_ULONG_PTR
+    );
 
     status = pack_C_GetMechanismList_Return(
         CursorOut,
-        retval,
-        pMechanismList,
-        pulCount
+        &retval,  // CK_RV
+        pMechanismList,  // CK_MECHANISM_TYPE_ARRAY
+        &pulCount  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1821,10 +1933,12 @@ server_C_GetObjectSize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ULONG_PTR pulSize = NULL;
     
+
+
 
     CK_RV status = unpack_C_GetObjectSize_Call(
         cursorIn,
@@ -1835,24 +1949,25 @@ server_C_GetObjectSize(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetObjectSize(
-        &function_list, hSession,
-        hObject,
-        pulSize
-        
-    );
+    
+    CK_RV retval;
+    CK_ULONG pulSize = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetObjectSize(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        &pulSize  // CK_ULONG_PTR
+    );
 
     status = pack_C_GetObjectSize_Return(
         CursorOut,
-        retval,
-        pulSize
+        &retval,  // CK_RV
+        &pulSize  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1870,39 +1985,43 @@ server_C_GetOperationState(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pOperationState = NULL;
-    CK_ULONG_PTR pulOperationStateLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG pulOperationStateLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetOperationState_Call(
         cursorIn,
         &hSession,
-        pulOperationStateLen
+        &pulOperationStateLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetOperationState(
-        &function_list, hSession,
-        pOperationState,
-        pulOperationStateLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pOperationState = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetOperationState(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pOperationState,  // CK_BYTE_ARRAY
+        &pulOperationStateLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_GetOperationState_Return(
         CursorOut,
-        retval,
-        pOperationState,
-        pulOperationStateLen
+        &retval,  // CK_RV
+        pOperationState,  // CK_BYTE_ARRAY
+        &pulOperationStateLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1920,9 +2039,11 @@ server_C_GetSessionInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_SESSION_INFO_PTR pInfo = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetSessionInfo_Call(
         cursorIn,
@@ -1932,23 +2053,24 @@ server_C_GetSessionInfo(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetSessionInfo(
-        &function_list, hSession,
-        pInfo
-        
-    );
+    
+    CK_RV retval;
+    CK_SESSION_INFO pInfo;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetSessionInfo(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        &pInfo  // CK_SESSION_INFO_PTR
+    );
 
     status = pack_C_GetSessionInfo_Return(
         CursorOut,
-        retval,
-        pInfo
+        &retval,  // CK_RV
+        &pInfo  // CK_SESSION_INFO
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -1966,9 +2088,11 @@ server_C_GetSlotInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SLOT_ID slotID = 0;
-    CK_SLOT_INFO_PTR pInfo = NULL;
     
+    CK_SLOT_ID slotID = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetSlotInfo_Call(
         cursorIn,
@@ -1978,23 +2102,24 @@ server_C_GetSlotInfo(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetSlotInfo(
-        &function_list, slotID,
-        pInfo
-        
-    );
+    
+    CK_RV retval;
+    CK_SLOT_INFO pInfo;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetSlotInfo(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        &pInfo  // CK_SLOT_INFO_PTR
+    );
 
     status = pack_C_GetSlotInfo_Return(
         CursorOut,
-        retval,
-        pInfo
+        &retval,  // CK_RV
+        &pInfo  // CK_SLOT_INFO
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2012,39 +2137,43 @@ server_C_GetSlotList(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_BBOOL tokenPresent = 0;
-    CK_SLOT_ID_ARRAY pSlotList = NULL;
-    CK_ULONG_PTR pulCount = NULL;
     
+    CK_BBOOL tokenPresent = 0;
+    CK_ULONG pulCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetSlotList_Call(
         cursorIn,
         &tokenPresent,
-        pulCount
+        &pulCount
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetSlotList(
-        &function_list, tokenPresent,
-        pSlotList,
-        pulCount
-        
-    );
+    
+    CK_RV retval;
+    CK_SLOT_ID_ARRAY pSlotList = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetSlotList(
+        &function_list,
+        tokenPresent,  // CK_BBOOL
+        pSlotList,  // CK_SLOT_ID_ARRAY
+        &pulCount  // CK_ULONG_PTR
+    );
 
     status = pack_C_GetSlotList_Return(
         CursorOut,
-        retval,
-        pSlotList,
-        pulCount
+        &retval,  // CK_RV
+        pSlotList,  // CK_SLOT_ID_ARRAY
+        &pulCount  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2062,9 +2191,11 @@ server_C_GetTokenInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SLOT_ID slotID = 0;
-    CK_TOKEN_INFO_PTR pInfo = NULL;
     
+    CK_SLOT_ID slotID = 0;
+    
+
+
 
     CK_RV status = unpack_C_GetTokenInfo_Call(
         cursorIn,
@@ -2074,23 +2205,24 @@ server_C_GetTokenInfo(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_GetTokenInfo(
-        &function_list, slotID,
-        pInfo
-        
-    );
+    
+    CK_RV retval;
+    CK_TOKEN_INFO pInfo;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_GetTokenInfo(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        &pInfo  // CK_TOKEN_INFO_PTR
+    );
 
     status = pack_C_GetTokenInfo_Return(
         CursorOut,
-        retval,
-        pInfo
+        &retval,  // CK_RV
+        &pInfo  // CK_TOKEN_INFO
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2108,10 +2240,13 @@ server_C_InitPIN(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pPin = NULL;
+    CK_UTF8CHAR_ARRAY pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
     
+
+
 
     CK_RV status = unpack_C_InitPIN_Call(
         cursorIn,
@@ -2123,23 +2258,23 @@ server_C_InitPIN(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_InitPIN(
-        &function_list, hSession,
-        pPin,
-        ulPinLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_InitPIN(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPin,  // CK_UTF8CHAR_ARRAY
+        ulPinLen  // CK_ULONG
+    );
 
     status = pack_C_InitPIN_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2157,11 +2292,14 @@ server_C_InitToken(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SLOT_ID slotID = 0;
-    UTF8String pPin = NULL;
-    CK_ULONG ulPinLen = 0;
-    UTF8String pLabel = NULL;
     
+    CK_SLOT_ID slotID = 0;
+    UTF8String pPin = malloc(1024);
+    CK_ULONG ulPinLen = 0;
+    UTF8String pLabel = malloc(1024);
+    
+
+
 
     CK_RV status = unpack_C_InitToken_Call(
         cursorIn,
@@ -2174,24 +2312,24 @@ server_C_InitToken(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_InitToken(
-        &function_list, slotID,
-        pPin,
-        ulPinLen,
-        pLabel
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_InitToken(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        pPin,  // UTF8String
+        ulPinLen,  // CK_ULONG
+        pLabel  // UTF8String
+    );
 
     status = pack_C_InitToken_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2209,8 +2347,11 @@ server_C_Initialize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_VOID_PTR pInitArgs = NULL;
     
+    CK_VOID_PTR pInitArgs = malloc(1024);
+    
+
+
 
     CK_RV status = unpack_C_Initialize_Call(
         cursorIn,
@@ -2220,22 +2361,23 @@ server_C_Initialize(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Initialize(
-        &function_list, pInitArgs
-        
-    );
+    
+    CK_RV retval;
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Initialize(
+        &function_list,
+        pInitArgs  // CK_VOID_PTR
+    );
 
     status = pack_C_Initialize_Return(
         CursorOut,
-        retval,
-        &pInitArgs
+        &retval,  // CK_RV
+        &pInitArgs  // ANY
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2253,11 +2395,14 @@ server_C_Login(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_USER_TYPE userType = 0;
-    CK_UTF8CHAR_ARRAY pPin = NULL;
+    CK_UTF8CHAR_ARRAY pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
     
+
+
 
     CK_RV status = unpack_C_Login_Call(
         cursorIn,
@@ -2270,24 +2415,24 @@ server_C_Login(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Login(
-        &function_list, hSession,
-        userType,
-        pPin,
-        ulPinLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Login(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        userType,  // CK_USER_TYPE
+        pPin,  // CK_UTF8CHAR_ARRAY
+        ulPinLen  // CK_ULONG
+    );
 
     status = pack_C_Login_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2305,8 +2450,11 @@ server_C_Logout(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     
+
+
 
     CK_RV status = unpack_C_Logout_Call(
         cursorIn,
@@ -2316,21 +2464,21 @@ server_C_Logout(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Logout(
-        &function_list, hSession
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Logout(
+        &function_list,
+        hSession  // CK_SESSION_HANDLE
+    );
 
     status = pack_C_Logout_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2348,12 +2496,14 @@ server_C_OpenSession(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SLOT_ID slotID = 0;
     CK_FLAGS flags = 0;
-    ANY pApplication = NULL;
-    CK_NOTIFY notify = NULL;
-    CK_SESSION_HANDLE_PTR phSession = NULL;
+    ANY pApplication;
+    CK_NOTIFY notify;
     
+
+
 
     CK_RV status = unpack_C_OpenSession_Call(
         cursorIn,
@@ -2366,26 +2516,27 @@ server_C_OpenSession(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_OpenSession(
-        &function_list, slotID,
-        flags,
-        pApplication,
-        notify,
-        phSession
-        
-    );
+    
+    CK_RV retval;
+    CK_SESSION_HANDLE phSession = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_OpenSession(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        flags,  // CK_FLAGS
+        pApplication,  // ANY
+        notify,  // CK_NOTIFY
+        &phSession  // CK_SESSION_HANDLE_PTR
+    );
 
     status = pack_C_OpenSession_Return(
         CursorOut,
-        retval,
-        phSession
+        &retval,  // CK_RV
+        &phSession  // CK_SESSION_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2403,10 +2554,13 @@ server_C_SeedRandom(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSeed = NULL;
+    CK_BYTE_ARRAY pSeed = malloc(1024);
     CK_ULONG ulSeedLen = 0;
     
+
+
 
     CK_RV status = unpack_C_SeedRandom_Call(
         cursorIn,
@@ -2418,23 +2572,23 @@ server_C_SeedRandom(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SeedRandom(
-        &function_list, hSession,
-        pSeed,
-        ulSeedLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SeedRandom(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSeed,  // CK_BYTE_ARRAY
+        ulSeedLen  // CK_ULONG
+    );
 
     status = pack_C_SeedRandom_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2452,11 +2606,14 @@ server_C_SetAttributeValue(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
+
+
 
     CK_RV status = unpack_C_SetAttributeValue_Call(
         cursorIn,
@@ -2469,24 +2626,24 @@ server_C_SetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SetAttributeValue(
-        &function_list, hSession,
-        hObject,
-        pTemplate,
-        ulCount
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SetAttributeValue(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+    );
 
     status = pack_C_SetAttributeValue_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2504,12 +2661,15 @@ server_C_SetOperationState(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pOperationState = NULL;
+    CK_BYTE_ARRAY pOperationState = malloc(1024);
     CK_ULONG ulOperationStateLen = 0;
     CK_OBJECT_HANDLE hEncryptionKey = 0;
     CK_OBJECT_HANDLE hAuthenticationKey = 0;
     
+
+
 
     CK_RV status = unpack_C_SetOperationState_Call(
         cursorIn,
@@ -2523,25 +2683,25 @@ server_C_SetOperationState(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SetOperationState(
-        &function_list, hSession,
-        pOperationState,
-        ulOperationStateLen,
-        hEncryptionKey,
-        hAuthenticationKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SetOperationState(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pOperationState,  // CK_BYTE_ARRAY
+        ulOperationStateLen,  // CK_ULONG
+        hEncryptionKey,  // CK_OBJECT_HANDLE
+        hAuthenticationKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_SetOperationState_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2559,12 +2719,15 @@ server_C_SetPIN(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pOldPin = NULL;
+    CK_UTF8CHAR_ARRAY pOldPin = malloc(1024);
     CK_ULONG ulOldLen = 0;
-    CK_UTF8CHAR_ARRAY pNewPin = NULL;
+    CK_UTF8CHAR_ARRAY pNewPin = malloc(1024);
     CK_ULONG ulNewPin = 0;
     
+
+
 
     CK_RV status = unpack_C_SetPIN_Call(
         cursorIn,
@@ -2578,25 +2741,25 @@ server_C_SetPIN(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SetPIN(
-        &function_list, hSession,
-        pOldPin,
-        ulOldLen,
-        pNewPin,
-        ulNewPin
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SetPIN(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pOldPin,  // CK_UTF8CHAR_ARRAY
+        ulOldLen,  // CK_ULONG
+        pNewPin,  // CK_UTF8CHAR_ARRAY
+        ulNewPin  // CK_ULONG
+    );
 
     status = pack_C_SetPIN_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2614,45 +2777,49 @@ server_C_Sign(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_ULONG ulDataLen = 0;
+    CK_ULONG pulSignatureLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_Sign_Call(
         cursorIn,
         &hSession,
         pData,
         &ulDataLen,
-        pulSignatureLen
+        &pulSignatureLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Sign(
-        &function_list, hSession,
-        pData,
-        ulDataLen,
-        pSignature,
-        pulSignatureLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Sign(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_Sign_Return(
         CursorOut,
-        retval,
-        pSignature,
-        pulSignatureLen
+        &retval,  // CK_RV
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2670,45 +2837,49 @@ server_C_SignEncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_ULONG ulPartLen = 0;
+    CK_ULONG pulEncryptedPartLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_SignEncryptUpdate_Call(
         cursorIn,
         &hSession,
         pPart,
         &ulPartLen,
-        pulEncryptedPartLen
+        &pulEncryptedPartLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignEncryptUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen,
-        pEncryptedPart,
-        pulEncryptedPartLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignEncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_SignEncryptUpdate_Return(
         CursorOut,
-        retval,
-        pEncryptedPart,
-        pulEncryptedPartLen
+        &retval,  // CK_RV
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2726,39 +2897,43 @@ server_C_SignFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_ULONG pulSignatureLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_SignFinal_Call(
         cursorIn,
         &hSession,
-        pulSignatureLen
+        &pulSignatureLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignFinal(
-        &function_list, hSession,
-        pSignature,
-        pulSignatureLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_SignFinal_Return(
         CursorOut,
-        retval,
-        pSignature,
-        pulSignatureLen
+        &retval,  // CK_RV
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2776,10 +2951,13 @@ server_C_SignInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_SignInit_Call(
         cursorIn,
@@ -2791,23 +2969,23 @@ server_C_SignInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignInit(
-        &function_list, hSession,
-        pMechanism,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_SignInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2825,45 +3003,49 @@ server_C_SignRecover(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_ULONG ulDataLen = 0;
+    CK_ULONG pulSignatureLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_SignRecover_Call(
         cursorIn,
         &hSession,
         pData,
         &ulDataLen,
-        pulSignatureLen
+        &pulSignatureLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignRecover(
-        &function_list, hSession,
-        pData,
-        ulDataLen,
-        pSignature,
-        pulSignatureLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignRecover(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_SignRecover_Return(
         CursorOut,
-        retval,
-        pSignature,
-        pulSignatureLen
+        &retval,  // CK_RV
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2881,10 +3063,13 @@ server_C_SignRecoverInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_SignRecoverInit_Call(
         cursorIn,
@@ -2896,23 +3081,23 @@ server_C_SignRecoverInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignRecoverInit(
-        &function_list, hSession,
-        pMechanism,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignRecoverInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_SignRecoverInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2930,10 +3115,13 @@ server_C_SignUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
+    CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
+
+
 
     CK_RV status = unpack_C_SignUpdate_Call(
         cursorIn,
@@ -2945,23 +3133,23 @@ server_C_SignUpdate(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_SignUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_SignUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+    );
 
     status = pack_C_SignUpdate_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -2979,15 +3167,17 @@ server_C_UnwrapKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hUnwrappingKey = 0;
-    CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG ulWrappedKeyLen = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_OBJECT_HANDLE hUnwrappingKey = 0;
+    CK_BYTE_ARRAY pWrappedKey = malloc(1024);
+    CK_ULONG ulWrappedKeyLen = 0;
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ULONG ulAttributeCount = 0;
+    
+
+
 
     CK_RV status = unpack_C_UnwrapKey_Call(
         cursorIn,
@@ -3003,29 +3193,30 @@ server_C_UnwrapKey(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_UnwrapKey(
-        &function_list, hSession,
-        pMechanism,
-        hUnwrappingKey,
-        pWrappedKey,
-        ulWrappedKeyLen,
-        pTemplate,
-        ulAttributeCount,
-        phKey
-        
-    );
+    
+    CK_RV retval;
+    CK_OBJECT_HANDLE phKey = 0;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_UnwrapKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hUnwrappingKey,  // CK_OBJECT_HANDLE
+        pWrappedKey,  // CK_BYTE_ARRAY
+        ulWrappedKeyLen,  // CK_ULONG
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulAttributeCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+    );
 
     status = pack_C_UnwrapKey_Return(
         CursorOut,
-        retval,
-        phKey
+        &retval,  // CK_RV
+        &phKey  // CK_OBJECT_HANDLE
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3043,12 +3234,15 @@ server_C_Verify(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
+    CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
     
+
+
 
     CK_RV status = unpack_C_Verify_Call(
         cursorIn,
@@ -3062,25 +3256,25 @@ server_C_Verify(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_Verify(
-        &function_list, hSession,
-        pData,
-        ulDataLen,
-        pSignature,
-        ulSignatureLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_Verify(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen  // CK_ULONG
+    );
 
     status = pack_C_Verify_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3098,10 +3292,13 @@ server_C_VerifyFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
     
+
+
 
     CK_RV status = unpack_C_VerifyFinal_Call(
         cursorIn,
@@ -3113,23 +3310,23 @@ server_C_VerifyFinal(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_VerifyFinal(
-        &function_list, hSession,
-        pSignature,
-        ulSignatureLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_VerifyFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen  // CK_ULONG
+    );
 
     status = pack_C_VerifyFinal_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3147,10 +3344,13 @@ server_C_VerifyInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
+
+
 
     CK_RV status = unpack_C_VerifyInit_Call(
         cursorIn,
@@ -3162,23 +3362,23 @@ server_C_VerifyInit(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_VerifyInit(
-        &function_list, hSession,
-        pMechanism,
-        hKey
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_VerifyInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
 
     status = pack_C_VerifyInit_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3196,45 +3396,49 @@ server_C_VerifyRecover(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG ulSignatureLen = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL;
     
+    CK_SESSION_HANDLE hSession = 0;
+    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_ULONG ulSignatureLen = 0;
+    CK_ULONG pulDataLen = 0;
+    
+
+
 
     CK_RV status = unpack_C_VerifyRecover_Call(
         cursorIn,
         &hSession,
         pSignature,
         &ulSignatureLen,
-        pulDataLen
+        &pulDataLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_VerifyRecover(
-        &function_list, hSession,
-        pSignature,
-        ulSignatureLen,
-        pData,
-        pulDataLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pData = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_VerifyRecover(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen,  // CK_ULONG
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_VerifyRecover_Return(
         CursorOut,
-        retval,
-        pData,
-        pulDataLen
+        &retval,  // CK_RV
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3252,10 +3456,13 @@ server_C_VerifyUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
+    CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
+
+
 
     CK_RV status = unpack_C_VerifyUpdate_Call(
         cursorIn,
@@ -3267,23 +3474,23 @@ server_C_VerifyUpdate(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_VerifyUpdate(
-        &function_list, hSession,
-        pPart,
-        ulPartLen
-        
-    );
+    
+    CK_RV retval;
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_VerifyUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+    );
 
     status = pack_C_VerifyUpdate_Return(
         CursorOut,
-        retval
+        &retval  // CK_RV
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3301,10 +3508,12 @@ server_C_WaitForSlotEvent(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    CK_FLAGS flags = 0;
-    CK_SLOT_ID_PTR pSlot = NULL;
-    CK_VOID_PTR pReserved = NULL;
     
+    CK_FLAGS flags = 0;
+    CK_VOID_PTR pReserved = malloc(1024);
+    
+
+
 
     CK_RV status = unpack_C_WaitForSlotEvent_Call(
         cursorIn,
@@ -3315,25 +3524,27 @@ server_C_WaitForSlotEvent(
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_WaitForSlotEvent(
-        &function_list, flags,
-        pSlot,
-        pReserved
-        
-    );
+    
+    CK_RV retval;
+    CK_SLOT_ID pSlot = 0;
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_WaitForSlotEvent(
+        &function_list,
+        flags,  // CK_FLAGS
+        &pSlot,  // CK_SLOT_ID_PTR
+        &pReserved  // CK_VOID_PTR
+    );
 
     status = pack_C_WaitForSlotEvent_Return(
         CursorOut,
-        retval,
-        pSlot,
-        pReserved
+        &retval,  // CK_RV
+        &pSlot,  // CK_SLOT_ID
+        pReserved  // CK_VOID_PTR
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;
@@ -3351,13 +3562,15 @@ server_C_WrapKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hWrappingKey = 0;
     CK_OBJECT_HANDLE hKey = 0;
-    CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG_PTR pulWrappedKeyLen = NULL;
+    CK_ULONG pulWrappedKeyLen = 0;
     
+
+
 
     CK_RV status = unpack_C_WrapKey_Call(
         cursorIn,
@@ -3365,34 +3578,36 @@ server_C_WrapKey(
         pMechanism,
         &hWrappingKey,
         &hKey,
-        pulWrappedKeyLen
+        &pulWrappedKeyLen
     );
 
     if (status != CKR_OK)
         return status;
 
-    CK_RV retval_pointed = call_C_WrapKey(
-        &function_list, hSession,
-        pMechanism,
-        hWrappingKey,
-        hKey,
-        pWrappedKey,
-        pulWrappedKeyLen
-        
-    );
+    
+    CK_RV retval;
+    CK_BYTE_ARRAY pWrappedKey = malloc(1024);
+    
+    
 
-    CK_RV_PTR retval = &retval_pointed;
+    retval = call_C_WrapKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hWrappingKey,  // CK_OBJECT_HANDLE
+        hKey,  // CK_OBJECT_HANDLE
+        pWrappedKey,  // CK_BYTE_ARRAY
+        &pulWrappedKeyLen  // CK_ULONG_PTR
+    );
 
     status = pack_C_WrapKey_Return(
         CursorOut,
-        retval,
-        pWrappedKey,
-        pulWrappedKeyLen
+        &retval,  // CK_RV
+        pWrappedKey,  // CK_BYTE_ARRAY
+        &pulWrappedKeyLen  // CK_ULONG
     );
 
-
     
-
 
     if (status != CKR_OK)
         return status;

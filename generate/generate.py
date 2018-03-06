@@ -11,7 +11,7 @@ from asn1ate.sema import dependency_sort
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 from filters import combined_args, under, extract_args, initialise, free, is_pointer, depointerize, initialise_test,\
-    is_notify, initialise_verify, len_mapper
+    is_notify, initialise_unpack_placeholders, len_mapper
 
 
 # not required in pkcs11 or not exposed
@@ -102,7 +102,7 @@ def main(pickle_file):
     env.globals['extract_args'] = extract_args
     env.globals['initialise'] = initialise
     env.globals['initialise_test'] = initialise_test
-    env.globals['initialise_verify'] = initialise_verify
+    env.globals['initialise_unpack_placeholders'] = initialise_unpack_placeholders
     env.globals['free'] = free
     env.globals['len_mapper'] = len_mapper
 
