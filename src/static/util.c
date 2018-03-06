@@ -1,4 +1,4 @@
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include <quick-der/api.h>
 #include <stdlib.h>
 #include <assert.h>

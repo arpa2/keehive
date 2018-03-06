@@ -1,7 +1,7 @@
 #ifndef KEEHIVE_DERGET_H
 #define KEEHIVE_DERGET_H
 
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "types.h"
 
 

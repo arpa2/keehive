@@ -1,7 +1,7 @@
 #ifndef KEEHIVE_DERPUT_H
 #define KEEHIVE_DERPUT_H
 
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "types.h"
 
 const dercursor der_empty;

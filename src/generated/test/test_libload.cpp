@@ -1,4 +1,4 @@
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include <dlfcn.h>
 #include "settings.h"
 #include <assert.h>

@@ -4,14 +4,13 @@ set(LIB_H
         generated/pack.h
         generated/unpack.h
         generated/call.h
-        #generated/api.h
         generated/server.h
         generated/packer.h
         static/RemotePKCS11.h
-        static/pkcs11/pkcs11unix.h
-        static/pkcs11/pkcs11.h
-        static/pkcs11/pkcs11t.h
-        static/pkcs11/pkcs11f.h
+        static/cryptoki.h
+        static/pkcs11.h
+        static/pkcs11t.h
+        static/pkcs11f.h
         static/convert.h
         static/util.h
         static/returncodes.h

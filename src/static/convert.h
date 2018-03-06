@@ -1,7 +1,7 @@
 #ifndef KEEHIVE_CONVERT_H
 #define KEEHIVE_CONVERT_H
 
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include <stdlib.h>
 #include <quick-der/api.h>
 #include "nedtrie.h"

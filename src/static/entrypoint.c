@@ -1,4 +1,4 @@
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 
 
 // PKCS #11 function list

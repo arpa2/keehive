@@ -33,7 +33,7 @@
 #ifndef SRC_LIB_TEST_TESTSNOPININITBASE_H_
 #define SRC_LIB_TEST_TESTSNOPININITBASE_H_
 
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include <cppunit/TestFixture.h>
 
 
