@@ -1,4 +1,4 @@
-from typing import Generator, Tuple, Optional, List
+from typing import Generator, Tuple, Optional
 from asn1ate.sema import TypeAssignment, ComponentType
 
 
@@ -6,7 +6,7 @@ def under(s: str) -> str:
     return s.replace('-', '_')
 
 
-def format_type(typedef: str, make_pointer: bool=False) -> Tuple[str, bool]:
+def format_type(typedef: str, make_pointer: bool = False) -> Tuple[str, bool]:
     """
     PKCS11ify the type decleration
 
@@ -21,7 +21,8 @@ def format_type(typedef: str, make_pointer: bool=False) -> Tuple[str, bool]:
 
     # if make_pointer, make point if not already pointer
     # UTF8String is a pointer
-    if make_pointer and not s.endswith("PTR")and not s.endswith("ARRAY") and s not in ("CK_OPAQUE", "ANY", "UTF8String"):
+    if make_pointer and not s.endswith("PTR") and not s.endswith("ARRAY") and \
+            s not in ("CK_OPAQUE", "ANY", "UTF8String"):
         s = s + "_PTR"
         pointerize = True
 
@@ -29,13 +30,13 @@ def format_type(typedef: str, make_pointer: bool=False) -> Tuple[str, bool]:
         s = "CK_VOID_PTR"
 
     # we always want to make these pointers
-    if s in ("CK_MECHANISM",):   # , "CK_C_INITIALIZE_ARGS"):  todo: disabled this one for now
+    if s in ("CK_MECHANISM",):  # , "CK_C_INITIALIZE_ARGS"):  todo: disabled this one for now
         s = s + "_PTR"
 
     return s, pointerize
 
 
-def combined_args(call_func: TypeAssignment, return_func: TypeAssignment):
+def combined_args(call_func: TypeAssignment, return_func: TypeAssignment, disable_pointerisation=False):
     """ Extracts, combines and orders the arguments for Return and Call """
     x = {}
     for f, return_flag in ((call_func, False), (return_func, True)):
@@ -49,7 +50,7 @@ def combined_args(call_func: TypeAssignment, return_func: TypeAssignment):
                 if f.type_name == 'C-Initialize-Return':
                     continue
                 else:
-                    x[c.type_decl.class_number] = parse_type(c, return_flag)
+                    x[c.type_decl.class_number] = parse_type(c, make_pointer=(return_flag and not disable_pointerisation))
     if not x:
         return []
 
@@ -75,7 +76,13 @@ def extract_args(fundef: TypeAssignment,
 
     """
 
-    others = [o.identifier for o in other.type_decl.components] if other else []
+    others = []
+    for o in other.type_decl.components:
+        if not o.optional:
+            others.append(o.identifier)
+
+    if fundef.type_name.startswith("C-GetMechanismList"):
+        x = "gijs"
 
     for c in fundef.type_decl.components:
         if c.type_decl.type_name == 'NULL':
@@ -110,7 +117,7 @@ def extract_args(fundef: TypeAssignment,
                 assert True
 
 
-def parse_type(c: ComponentType, make_pointer=False) -> Optional[Tuple[str, bool, str]]:
+def parse_type(c: ComponentType, make_pointer: bool = False) -> Optional[Tuple[str, bool, str]]:
     """ yields (type, identifier, pointer) (return indicating if type was made a pointer)"""
     if c.type_decl.type_name == 'NULL':
         return
@@ -132,14 +139,15 @@ def parse_type(c: ComponentType, make_pointer=False) -> Optional[Tuple[str, bool
             # hack for  Notify of C_OpenSession
             return "CK_NOTIFY", False, c.identifier
         elif element:
-            return format_type(element.type_decl.type_name, make_pointer) + (c.identifier, )
+            return format_type(element.type_decl.type_name, make_pointer) + (c.identifier,)
 
     else:
-        return format_type(c.type_decl.type_name, make_pointer) + (c.identifier, )
+        return format_type(c.type_decl.type_name, make_pointer) + (c.identifier,)
 
 
 def initialise(type_, identifier):
-    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE",
+                 "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
         return "{} {} = 0;".format(type_, identifier)
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL;".format(type_, identifier)
@@ -231,7 +239,6 @@ type_test_templates = {
     {type_} {identifier} = &{identifier}_pointed[0];""",
 }
 
-
 identifier_test_map = {
     "ulPublicKeyAttributeCount":
         "{type_} {identifier} = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);",
@@ -254,8 +261,9 @@ def initialise_test(type_, identifier, function_name=None):
     elif function_name == "C_GetSlotList_Return":
         if identifier == "pulCount":
             return "{type_} {identifier} = sizeof(pSlotList_pointed) / sizeof(CK_SLOT_ID);".format(type_=type_,
-                                                                                               identifier=identifier)
-    elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
+                                                                                                   identifier=identifier)
+    elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG",
+                   "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
         return "{} {} = 13;".format(type_, identifier)
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
@@ -263,12 +271,15 @@ def initialise_test(type_, identifier, function_name=None):
         return "{} {} = NULL;  /* todo: probably requires finetuning */".format(type_, identifier)
 
 
-def initialise_verify(type_, identifier):
+def initialise_unpack_placeholders(type_, identifier):
     """used to initialise the verification variables used in tests, typically set to something else than the test
     initialise variables :)"""
-    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG", "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
+    if type_ == "CK_MECHANISM_TYPE_ARRAY":
+        x = 10
+    if type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG",
+                 "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS", "CK_BBOOL"):
         return "{} {} = 0;".format(type_, identifier)
-    elif type_.endswith("_PTR") or type_.endswith("_ARRAY")or type_ == "UTF8String":
+    elif type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ == "UTF8String":
         return "{} {} = malloc(1024);".format(type_, identifier)
     else:
         return "{} {};".format(type_, identifier)
@@ -282,7 +293,7 @@ def free(type_, identifier):
 
 
 def is_pointer(type_):
-    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ in ("UTF8String")
+    return type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ in ("UTF8String",)
 
 
 def is_notify(type_):
@@ -313,18 +324,18 @@ def len_mapper(func, identifier, deref=False):
         "pDigest": "pulDigestLen"
     }
     ambiguous = {
-         ("C_DeriveKey_Call",  "pTemplate"): "ulAttributeCount",
-         ("C_FindObjectsInit_Return",  "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
-         ("C_GenerateKeyPair_Call",  "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
-         ("C_GenerateKeyPair_Call",  "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-         ("C_GetAttributeValue_Return",  "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
-         ("C_UnwrapKey_Call",  "pTemplate"): "ulAttributeCount",
-         ("C_CopyObject_Call", "pTemplate"): "ulCount",
-         ("C_CreateObject_Call", "pTemplate"): "ulCount",
-         ("C_FindObjectsInit_Call", "pTemplate"): "ulCount",
-         ("C_GenerateKey_Call", "pTemplate"): "ulCount",
-         ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
-         ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
+        ("C_DeriveKey_Call", "pTemplate"): "ulAttributeCount",
+        ("C_FindObjectsInit_Return", "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
+        ("C_GenerateKeyPair_Call", "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
+        ("C_GenerateKeyPair_Call", "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
+        ("C_GetAttributeValue_Return", "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
+        ("C_UnwrapKey_Call", "pTemplate"): "ulAttributeCount",
+        ("C_CopyObject_Call", "pTemplate"): "ulCount",
+        ("C_CreateObject_Call", "pTemplate"): "ulCount",
+        ("C_FindObjectsInit_Call", "pTemplate"): "ulCount",
+        ("C_GenerateKey_Call", "pTemplate"): "ulCount",
+        ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
+        ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
 
         ("C_SeedRandom_Call", "pSeed"): "ulSeedLen",
         ("C_GenerateRandom_Return", "pSeed"): "(sizeof(pSeed) / sizeof(CK_BYTE)) ",
@@ -377,8 +388,8 @@ def len_mapper(func, identifier, deref=False):
     }
 
     no_pointer = {
-        ("C_FindObjectsInit_Return",  "pTemplate"): True,
-        ("C_GetAttributeValue_Return",  "pTemplate"): True,
+        ("C_FindObjectsInit_Return", "pTemplate"): True,
+        ("C_GetAttributeValue_Return", "pTemplate"): True,
         ("C_GenerateRandom_Return", "pSeed"): True,
     }
 
