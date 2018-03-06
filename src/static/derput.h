@@ -4,11 +4,8 @@
 #include "pkcs11/pkcs11unix.h"
 #include "types.h"
 
-
-dercursor der_put_empty();
-
-
-dercursor der_put_null();
+const dercursor der_empty;
+const dercursor der_null;
 
 
 typedef uint8_t der_buf_long_t [4];

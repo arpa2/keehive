@@ -2731,7 +2731,7 @@ pack_C_Finalize_Return(
 
     // TODO: finish this in case not null (ANY pReserved)
 
-    C_Finalize_Return.pReserved = der_put_null();
+    C_Finalize_Return.pReserved = der_null;
 
 
 
@@ -3681,7 +3681,7 @@ pack_C_GetInfo_Call(
 
 
     // argument list is empty
-    C_GetInfo_Call.empty = der_put_null();
+    C_GetInfo_Call.empty = der_null;
 
     // END OF PACKING
 
@@ -3957,12 +3957,12 @@ pack_C_GetMechanismList_Return(
         return pMechanismList_status;
 
     if (pMechanismList == NULL_PTR) {
-        C_GetMechanismList_Return.pMechanismList.null = der_put_null();
-        C_GetMechanismList_Return.pMechanismList.data.wire = der_put_empty();
+        C_GetMechanismList_Return.pMechanismList.null = der_null;
+        C_GetMechanismList_Return.pMechanismList.data.wire = der_empty;
     } else {
         C_GetMechanismList_Return.pMechanismList.data.wire.derptr = pMechanismList_innerlist;
         C_GetMechanismList_Return.pMechanismList.data.wire.derlen = pMechanismList_length;
-        C_GetMechanismList_Return.pMechanismList.null = der_put_empty();
+        C_GetMechanismList_Return.pMechanismList.null = der_empty;
     }
 
 
@@ -4929,7 +4929,7 @@ pack_C_Initialize_Return(
 
     // TODO: finish this in case not null (ANY pInitArgs)
 
-    C_Initialize_Return.pInitArgs = der_put_null();
+    C_Initialize_Return.pInitArgs = der_null;
 
 
 
@@ -5169,7 +5169,7 @@ pack_C_OpenSession_Call(
 
     // TODO: finish this in case not null (ANY pApplication)
 
-    C_OpenSession_Call.pApplication.null = der_put_null();
+    C_OpenSession_Call.pApplication.null = der_null;
 
 
 
@@ -5179,10 +5179,10 @@ pack_C_OpenSession_Call(
     if (*notify != NULL) {
         der_buf_bool_t notify_present_buf = { 0 };
         C_OpenSession_Call.notify.present = der_put_bool(notify_present_buf, TRUE);
-        C_OpenSession_Call.notify.null = der_put_empty();
+        C_OpenSession_Call.notify.null = der_empty;
     } else {
-        C_OpenSession_Call.notify.null = der_put_null();
-        C_OpenSession_Call.notify.present = der_put_empty();
+        C_OpenSession_Call.notify.null = der_null;
+        C_OpenSession_Call.notify.present = der_empty;
     }
 
 

@@ -133,19 +133,19 @@ pack_{{ f.type_name|under }}(
 {% elif type == "ANY" %}
     // TODO: finish this in case not null ({{ type }} {{ var }})
 {% if f.type_name|under == "C_OpenSession_Call" %}
-    {{ f.type_name|under }}.{{ var }}.null = der_put_null();
+    {{ f.type_name|under }}.{{ var }}.null = der_null;
 {% else %}
-    {{ f.type_name|under }}.{{ var }} = der_put_null();
+    {{ f.type_name|under }}.{{ var }} = der_null;
 {% endif %}
 
 {% elif type == "CK_NOTIFY" %}
     if (*{{ var }} != NULL) {
         der_buf_bool_t {{ var }}_present_buf = { 0 };
         {{ f.type_name|under }}.{{ var }}.present = der_put_bool({{ var }}_present_buf, TRUE);
-        {{ f.type_name|under }}.{{ var }}.null = der_put_empty();
+        {{ f.type_name|under }}.{{ var }}.null = der_empty;
     } else {
-        {{ f.type_name|under }}.{{ var }}.null = der_put_null();
-        {{ f.type_name|under }}.{{ var }}.present = der_put_empty();
+        {{ f.type_name|under }}.{{ var }}.null = der_null;
+        {{ f.type_name|under }}.{{ var }}.present = der_empty;
     }
 
 {% elif type == "CK_INFO_PTR" %}
@@ -184,12 +184,12 @@ pack_{{ f.type_name|under }}(
         return {{ var }}_status;
 
     if ({{var}} == NULL_PTR) {
-        {{ f.type_name|under }}.{{ var }}.null = der_put_null();
-        {{ f.type_name|under }}.{{ var }}.data.wire = der_put_empty();
+        {{ f.type_name|under }}.{{ var }}.null = der_null;
+        {{ f.type_name|under }}.{{ var }}.data.wire = der_empty;
     } else {
         {{ f.type_name|under }}.{{ var }}.data.wire.derptr = {{ var }}_innerlist;
         {{ f.type_name|under }}.{{ var }}.data.wire.derlen = {{ var }}_length;
-        {{ f.type_name|under }}.{{ var }}.null = der_put_empty();
+        {{ f.type_name|under }}.{{ var }}.null = der_empty;
     }
 
 {% elif type == "CK_MECHANISM_INFO_PTR" %}
@@ -309,7 +309,7 @@ pack_{{ f.type_name|under }}(
 {% endif -%}
 {% else %}
     // argument list is empty
-    {{ f.type_name|under }}.empty = der_put_null();
+    {{ f.type_name|under }}.empty = der_null;
 {% endfor %}
     // END OF PACKING
 

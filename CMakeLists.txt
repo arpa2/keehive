@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.5)
-project(keehive VERSION 0.1 LANGUAGES C DESCRIPTION "Remote PKCS#11 Client Library and Hosting Daemon")
+project(keehive VERSION 0.1 LANGUAGES C CXX DESCRIPTION "Remote PKCS#11 Client Library and Hosting Daemon")
 
 set (keehive_VERSION_MAJOR 0)
 set (keehive_VERSION_MINOR 1)

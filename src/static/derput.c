@@ -5,28 +5,11 @@
 #include "packer.h"
 
 
-dercursor der_empty = {.derptr = NULL, .derlen = 0 };
-dercursor der_null = {.derptr = (uint8_t *)"", .derlen = 0 };
-
-
-/* use this to reset a der. Often used in combination with a CHOICE. Not to be confused with put_null */
-dercursor
-der_put_empty() {
-    dercursor retval;
-    retval.derptr = NULL;
-    retval.derlen = 0;
-    return retval;
-}
-
+/* use this to reset a der. */
+const dercursor der_empty = {.derptr = NULL, .derlen = 0 };
 
 /* use this one to set null in case a choice is NULL */
-dercursor
-der_put_null() {
-    dercursor retval;
-    retval.derptr = (uint8_t *) "";
-    retval.derlen = 0;
-    return retval;
-}
+const dercursor der_null = {.derptr = (uint8_t *)"", .derlen = 0 };
 
 
 dercursor der_put_long(u_int8_t* der_buf_long, long int value)
@@ -78,10 +61,10 @@ der_put_CK_FLAGS_PTR(
 dercursor
 der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
     if (pReserved == NULL) {
-        return der_put_null();
+        return der_null;
     } else {
         // TODO: implement
-        return der_put_null();
+        return der_null;
     }
 };
 
@@ -279,34 +262,34 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
 ) {
 
     if (pInitArgs == NULL_PTR) {
-        C_Initialize_Call->pInitArgs.null = der_put_null();
+        C_Initialize_Call->pInitArgs.null = der_null;
     } else {
 
         C_Initialize_Call->pInitArgs.data.flags = der_put_ulong(flags_buf, pInitArgs->flags);
         if (pInitArgs->CreateMutex == NULL_PTR) {
-            C_Initialize_Call->pInitArgs.data.createMutex.null = der_put_null();
+            C_Initialize_Call->pInitArgs.data.createMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.createMutex.present = der_put_bool(createMutex_bool_buf, TRUE);
         }
 
         if (pInitArgs->DestroyMutex == NULL_PTR) {
-            C_Initialize_Call->pInitArgs.data.destroyMutex.null = der_put_null();
+            C_Initialize_Call->pInitArgs.data.destroyMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.destroyMutex.present = der_put_bool(destroyMutex_bool_buf, TRUE);
         }
 
         if (pInitArgs->LockMutex == NULL_PTR) {
-            C_Initialize_Call->pInitArgs.data.lockMutex.null = der_put_null();
+            C_Initialize_Call->pInitArgs.data.lockMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.lockMutex.present = der_put_bool(lockMutex_bool_buf, TRUE);
         }
 
         if (pInitArgs->UnlockMutex == NULL_PTR) {
-            C_Initialize_Call->pInitArgs.data.unlockMutex.null = der_put_null();
+            C_Initialize_Call->pInitArgs.data.unlockMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.unlockMutex.present = der_put_bool(unlockMutex_bool_buf, TRUE);
         }
-        C_Initialize_Call->pInitArgs.data.pReserved = der_put_null();
+        C_Initialize_Call->pInitArgs.data.pReserved = der_null;
     }
 
     return CKR_OK;
@@ -324,7 +307,7 @@ der_put_CK_MECHANISM_PTR(
     Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
 
     if (pMechanism->pParameter == NULL) {
-        Ack_Mechanism->pParameter.null = der_put_null();
+        Ack_Mechanism->pParameter.null = der_null;
     } else {
         // TODO: implement
         return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
@@ -354,7 +337,7 @@ der_put_CK_UTF8CHAR_ARRAY(
         const CK_ULONG pinlen
 ) {
     if (pinlen == 0) {
-        *cursor = der_put_null();
+        *cursor = der_null;
     } else {
         cursor->derptr = (uint8_t *)pin;
         cursor->derlen = pinlen;
@@ -370,7 +353,7 @@ der_put_UTF8String(
         const CK_ULONG pinlen
 ) {
     if (pinlen == 0) {
-        *cursor = der_put_null();
+        *cursor = der_null;
     } else {
         cursor->derptr = (uint8_t *)pin;
         cursor->derlen = pinlen;
