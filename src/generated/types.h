@@ -2,7 +2,7 @@
 #define KEEHIVE_CONSTANTS_H
 
 #include "static/RemotePKCS11.h"
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 
 typedef CK_VOID_PTR_PTR CK_OPAQUE;
 typedef CK_UTF8CHAR_PTR UTF8String;

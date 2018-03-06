@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "types.h"
 
 

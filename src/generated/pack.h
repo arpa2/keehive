@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <quick-der/api.h>
 #include "types.h"
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "static/RemotePKCS11.h"
 
 

@@ -1,4 +1,4 @@
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "server.h"
 #include "pack.h"
 #include "unpack.h"

@@ -4,7 +4,7 @@
 #define KEEHIVE_SERVER_H
 
 #include "types.h"
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 
 CK_RV server_Begin();
 CK_RV server_End();

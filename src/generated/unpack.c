@@ -1,5 +1,5 @@
 #include "types.h"
-#include "pkcs11/pkcs11unix.h"
+#include "cryptoki.h"
 #include "unpack.h"
 #include "derget.h"
 #include "static/util.h"
