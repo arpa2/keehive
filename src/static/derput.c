@@ -261,30 +261,30 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
         der_buf_bool_t unlockMutex_bool_buf
 ) {
 
-    if (pInitArgs == NULL_PTR) {
+    if (pInitArgs == NULL) {
         C_Initialize_Call->pInitArgs.null = der_null;
     } else {
 
         C_Initialize_Call->pInitArgs.data.flags = der_put_ulong(flags_buf, pInitArgs->flags);
-        if (pInitArgs->CreateMutex == NULL_PTR) {
+        if (pInitArgs->CreateMutex == NULL) {
             C_Initialize_Call->pInitArgs.data.createMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.createMutex.present = der_put_bool(createMutex_bool_buf, TRUE);
         }
 
-        if (pInitArgs->DestroyMutex == NULL_PTR) {
+        if (pInitArgs->DestroyMutex == NULL) {
             C_Initialize_Call->pInitArgs.data.destroyMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.destroyMutex.present = der_put_bool(destroyMutex_bool_buf, TRUE);
         }
 
-        if (pInitArgs->LockMutex == NULL_PTR) {
+        if (pInitArgs->LockMutex == NULL) {
             C_Initialize_Call->pInitArgs.data.lockMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.lockMutex.present = der_put_bool(lockMutex_bool_buf, TRUE);
         }
 
-        if (pInitArgs->UnlockMutex == NULL_PTR) {
+        if (pInitArgs->UnlockMutex == NULL) {
             C_Initialize_Call->pInitArgs.data.unlockMutex.null = der_null;
         } else {
             C_Initialize_Call->pInitArgs.data.unlockMutex.present = der_put_bool(unlockMutex_bool_buf, TRUE);

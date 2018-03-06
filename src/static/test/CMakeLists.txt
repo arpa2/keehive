@@ -45,3 +45,7 @@ target_link_libraries(softhsm2.test ${CPPUNIT_LIBRARIES})
 
 
 target_link_libraries(softhsm2.test keehive)
+
+# used during test run
+file(COPY softhsm2.conf DESTINATION ${PROJECT_BINARY_DIR}/src/static/test/)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/src/static/test/tokens)

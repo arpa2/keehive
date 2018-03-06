@@ -155,7 +155,6 @@ der_get_CK_VOID_PTR(
  *  - 'struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved *'
  *  - 'struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved *'
 */
-    *(int*)pReserved = NULL_PTR;
     return 0;
 };
 
