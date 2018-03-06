@@ -35,15 +35,11 @@ set(LIB_SRC
 
 
 include_directories (
-        "${PROJECT_BINARY_DIR}"
         "generated"
         "."
         "static"
 )
 
-set(KEEHIVE_TEST_LINK_LIRARIES
-    ${LIBCMOCKA_LIBRARIES}
-)
 
 set(KEEHIVE_LINK_LIRARIES
     ${Quick-DER_LIBRARIES}

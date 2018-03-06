@@ -34,7 +34,7 @@
 #include <string.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include "InitTests.h"
-#include "cryptoki.h"
+#include "pkcs11/pkcs11unix.h"
 #include "osmutex.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(InitTests);

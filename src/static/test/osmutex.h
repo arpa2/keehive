@@ -36,7 +36,7 @@
 #define _SOFTHSM_V2_OSMUTEX_H
 
 #include "config.h"
-#include "cryptoki.h"
+#include "pkcs11/pkcs11unix.h"
 
 CK_RV OSCreateMutex(CK_VOID_PTR_PTR newMutex);
 CK_RV OSDestroyMutex(CK_VOID_PTR mutex);

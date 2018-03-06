@@ -21,6 +21,9 @@ configure_file (
 
 option(ENABLE_TESTING "build and run test suite" OFF)
 
+include_directories ("${PROJECT_BINARY_DIR}")
+include_directories ("${Quick-DER_INCLUDE_DIRS}")
+include_directories ("${PROJECT_BINARY_DIR}")
 
 if(${ENABLE_TESTING})
     find_package (cmocka REQUIRED)
@@ -31,11 +34,9 @@ if(${ENABLE_TESTING})
     add_subdirectory (src/generated/test)
     add_subdirectory (src/static/test)
 
-endif()
+    include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
 
-include_directories ("${PROJECT_BINARY_DIR}")
-include_directories ("${Quick-DER_INCLUDE_DIRS}")
-include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
+endif()
 
 add_subdirectory (src)
 

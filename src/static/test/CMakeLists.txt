@@ -15,6 +15,8 @@ set(TEST_C_FILES
     TokenTests.cpp
     UserTests.cpp
     p11test.cpp
+    osmutex.cpp
+        log.cpp
 )
 
 set(TEST_H_FILES
@@ -35,5 +37,11 @@ set(TEST_H_FILES
     UserTests.h
 )
 
+include_directories(${PROJECT_SOURCE_DIR}/src/static)
 
 add_executable(softhsm2.test ${TEST_C_FILES})
+
+target_link_libraries(softhsm2.test ${CPPUNIT_LIBRARIES})
+
+
+target_link_libraries(softhsm2.test keehive)
