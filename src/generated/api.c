@@ -36,7 +36,8 @@ C_CancelFunction(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -52,7 +53,8 @@ C_CancelFunction(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -99,7 +101,8 @@ C_CloseAllSessions(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -115,7 +118,8 @@ C_CloseAllSessions(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -162,7 +166,8 @@ C_CloseSession(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -178,7 +183,8 @@ C_CloseSession(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -232,7 +238,8 @@ C_CopyObject(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -249,7 +256,8 @@ C_CopyObject(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -301,7 +309,8 @@ C_CreateObject(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -318,7 +327,8 @@ C_CreateObject(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -372,7 +382,8 @@ C_Decrypt(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -390,7 +401,8 @@ C_Decrypt(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -444,7 +456,8 @@ C_DecryptDigestUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -462,7 +475,8 @@ C_DecryptDigestUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -512,7 +526,8 @@ C_DecryptFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -530,7 +545,8 @@ C_DecryptFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -581,7 +597,8 @@ C_DecryptInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -597,7 +614,8 @@ C_DecryptInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -651,7 +669,8 @@ C_DecryptUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -669,7 +688,8 @@ C_DecryptUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -723,7 +743,8 @@ C_DecryptVerifyUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -741,7 +762,8 @@ C_DecryptVerifyUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -797,7 +819,8 @@ C_DeriveKey(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -814,7 +837,8 @@ C_DeriveKey(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -863,7 +887,8 @@ C_DestroyObject(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -879,7 +904,8 @@ C_DestroyObject(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -933,7 +959,8 @@ C_Digest(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -951,7 +978,8 @@ C_Digest(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1005,7 +1033,8 @@ C_DigestEncryptUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1023,7 +1052,8 @@ C_DigestEncryptUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1073,7 +1103,8 @@ C_DigestFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1091,7 +1122,8 @@ C_DigestFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1140,7 +1172,8 @@ C_DigestInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1156,7 +1189,8 @@ C_DigestInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1205,7 +1239,8 @@ C_DigestKey(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1221,7 +1256,8 @@ C_DigestKey(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1272,7 +1308,8 @@ C_DigestUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1288,7 +1325,8 @@ C_DigestUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1342,7 +1380,8 @@ C_Encrypt(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1360,7 +1399,8 @@ C_Encrypt(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1410,7 +1450,8 @@ C_EncryptFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1428,7 +1469,8 @@ C_EncryptFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1479,7 +1521,8 @@ C_EncryptInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1495,7 +1538,8 @@ C_EncryptInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1549,7 +1593,8 @@ C_EncryptUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1567,7 +1612,8 @@ C_EncryptUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1614,7 +1660,8 @@ C_Finalize(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1631,7 +1678,8 @@ C_Finalize(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1682,7 +1730,8 @@ C_FindObjects(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1700,7 +1749,8 @@ C_FindObjects(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1747,7 +1797,8 @@ C_FindObjectsFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1763,7 +1814,8 @@ C_FindObjectsFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1814,7 +1866,8 @@ C_FindObjectsInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1831,7 +1884,8 @@ C_FindObjectsInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1885,7 +1939,8 @@ C_GenerateKey(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1902,7 +1957,8 @@ C_GenerateKey(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -1961,7 +2017,8 @@ C_GenerateKeyPair(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -1979,7 +2036,8 @@ C_GenerateKeyPair(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2029,7 +2087,8 @@ C_GenerateRandom(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2046,7 +2105,8 @@ C_GenerateRandom(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2099,7 +2159,8 @@ C_GetAttributeValue(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2116,7 +2177,8 @@ C_GetAttributeValue(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2163,7 +2225,8 @@ C_GetFunctionStatus(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2179,7 +2242,8 @@ C_GetFunctionStatus(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2225,7 +2289,8 @@ C_GetInfo(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2242,7 +2307,8 @@ C_GetInfo(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2292,7 +2358,8 @@ C_GetMechanismInfo(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2309,7 +2376,8 @@ C_GetMechanismInfo(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2359,7 +2427,8 @@ C_GetMechanismList(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2377,7 +2446,8 @@ C_GetMechanismList(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2427,7 +2497,8 @@ C_GetObjectSize(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2444,7 +2515,8 @@ C_GetObjectSize(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2494,7 +2566,8 @@ C_GetOperationState(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2512,7 +2585,8 @@ C_GetOperationState(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2560,7 +2634,8 @@ C_GetSessionInfo(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2577,7 +2652,8 @@ C_GetSessionInfo(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2625,7 +2701,8 @@ C_GetSlotInfo(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2642,7 +2719,8 @@ C_GetSlotInfo(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2692,7 +2770,8 @@ C_GetSlotList(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2710,7 +2789,8 @@ C_GetSlotList(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2758,7 +2838,8 @@ C_GetTokenInfo(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2775,7 +2856,8 @@ C_GetTokenInfo(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2826,7 +2908,8 @@ C_InitPIN(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2842,7 +2925,8 @@ C_InitPIN(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2895,7 +2979,8 @@ C_InitToken(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2911,7 +2996,8 @@ C_InitToken(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -2958,7 +3044,8 @@ C_Initialize(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -2975,7 +3062,8 @@ C_Initialize(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3028,7 +3116,8 @@ C_Login(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3044,7 +3133,8 @@ C_Login(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3091,7 +3181,8 @@ C_Logout(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3107,7 +3198,8 @@ C_Logout(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3161,7 +3253,8 @@ C_OpenSession(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3178,7 +3271,8 @@ C_OpenSession(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3229,7 +3323,8 @@ C_SeedRandom(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3245,7 +3340,8 @@ C_SeedRandom(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3298,7 +3394,8 @@ C_SetAttributeValue(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3314,7 +3411,8 @@ C_SetAttributeValue(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3369,7 +3467,8 @@ C_SetOperationState(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3385,7 +3484,8 @@ C_SetOperationState(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3440,7 +3540,8 @@ C_SetPIN(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3456,7 +3557,8 @@ C_SetPIN(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3510,7 +3612,8 @@ C_Sign(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3528,7 +3631,8 @@ C_Sign(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3582,7 +3686,8 @@ C_SignEncryptUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3600,7 +3705,8 @@ C_SignEncryptUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3650,7 +3756,8 @@ C_SignFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3668,7 +3775,8 @@ C_SignFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3719,7 +3827,8 @@ C_SignInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3735,7 +3844,8 @@ C_SignInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3789,7 +3899,8 @@ C_SignRecover(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3807,7 +3918,8 @@ C_SignRecover(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3858,7 +3970,8 @@ C_SignRecoverInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3874,7 +3987,8 @@ C_SignRecoverInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -3925,7 +4039,8 @@ C_SignUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -3941,7 +4056,8 @@ C_SignUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4001,7 +4117,8 @@ C_UnwrapKey(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4018,7 +4135,8 @@ C_UnwrapKey(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4073,7 +4191,8 @@ C_Verify(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4089,7 +4208,8 @@ C_Verify(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4140,7 +4260,8 @@ C_VerifyFinal(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4156,7 +4277,8 @@ C_VerifyFinal(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4207,7 +4329,8 @@ C_VerifyInit(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4223,7 +4346,8 @@ C_VerifyInit(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4277,7 +4401,8 @@ C_VerifyRecover(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4295,7 +4420,8 @@ C_VerifyRecover(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4346,7 +4472,8 @@ C_VerifyUpdate(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4362,7 +4489,8 @@ C_VerifyUpdate(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4412,7 +4540,8 @@ C_WaitForSlotEvent(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4430,7 +4559,8 @@ C_WaitForSlotEvent(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
@@ -4486,7 +4616,8 @@ C_WrapKey(
         return status;
     };
 
-    free(dercursorIn.derptr);
+    // todo: not allocated??
+    //free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -4504,7 +4635,8 @@ C_WrapKey(
         return status;
     };
 
-    free(dercursorOut.derptr);
+    // todo: not allocated??
+    //free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
