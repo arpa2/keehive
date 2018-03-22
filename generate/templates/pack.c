@@ -1,7 +1,7 @@
 #include "pack.h"
-#include "static/returncodes.h"
-#include "static/util.h"
-#include "static/derput.h"
+#include "returncodes.h"
+#include "util.h"
+#include "derput.h"
 #include "packer.h"
 
 CK_ULONG ulSeedLen = 0;
@@ -321,6 +321,8 @@ pack_{{ f.type_name|under }}(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack({{ f.type_name|under }}_packer,
              (const dercursor *) &{{ f.type_name|under }},

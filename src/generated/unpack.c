@@ -2,8 +2,8 @@
 #include "cryptoki.h"
 #include "unpack.h"
 #include "derget.h"
-#include "static/util.h"
-#include "static/returncodes.h"
+#include "util.h"
+#include "returncodes.h"
 #include "packer.h"
 
 

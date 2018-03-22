@@ -1,7 +1,7 @@
 #ifndef KEEHIVE_CONSTANTS_H
 #define KEEHIVE_CONSTANTS_H
 
-#include "static/RemotePKCS11.h"
+#include "RemotePKCS11.h"
 #include "cryptoki.h"
 
 typedef CK_VOID_PTR_PTR CK_OPAQUE;

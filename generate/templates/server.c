@@ -2,7 +2,7 @@
 #include "pack.h"
 #include "unpack.h"
 #include "call.h"
-#include "static/returncodes.h"
+#include "returncodes.h"
 #include "settings.h"
 #include "loader.h"
 

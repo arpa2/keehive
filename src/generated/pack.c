@@ -1,7 +1,7 @@
 #include "pack.h"
-#include "static/returncodes.h"
-#include "static/util.h"
-#include "static/derput.h"
+#include "returncodes.h"
+#include "util.h"
+#include "derput.h"
 #include "packer.h"
 
 CK_ULONG ulSeedLen = 0;
@@ -39,6 +39,8 @@ pack_C_CancelFunction_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CancelFunction_Call_packer,
              (const dercursor *) &C_CancelFunction_Call,
@@ -77,6 +79,8 @@ pack_C_CancelFunction_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CancelFunction_Return_packer,
              (const dercursor *) &C_CancelFunction_Return,
@@ -117,6 +121,8 @@ pack_C_CloseAllSessions_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CloseAllSessions_Call_packer,
              (const dercursor *) &C_CloseAllSessions_Call,
@@ -155,6 +161,8 @@ pack_C_CloseAllSessions_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CloseAllSessions_Return_packer,
              (const dercursor *) &C_CloseAllSessions_Return,
@@ -195,6 +203,8 @@ pack_C_CloseSession_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CloseSession_Call_packer,
              (const dercursor *) &C_CloseSession_Call,
@@ -233,6 +243,8 @@ pack_C_CloseSession_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CloseSession_Return_packer,
              (const dercursor *) &C_CloseSession_Return,
@@ -308,6 +320,8 @@ pack_C_CopyObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CopyObject_Call_packer,
              (const dercursor *) &C_CopyObject_Call,
@@ -354,6 +368,8 @@ pack_C_CopyObject_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CopyObject_Return_packer,
              (const dercursor *) &C_CopyObject_Return,
@@ -421,6 +437,8 @@ pack_C_CreateObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CreateObject_Call_packer,
              (const dercursor *) &C_CreateObject_Call,
@@ -467,6 +485,8 @@ pack_C_CreateObject_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_CreateObject_Return_packer,
              (const dercursor *) &C_CreateObject_Return,
@@ -544,6 +564,8 @@ pack_C_Decrypt_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Decrypt_Call_packer,
              (const dercursor *) &C_Decrypt_Call,
@@ -611,6 +633,8 @@ pack_C_Decrypt_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Decrypt_Return_packer,
              (const dercursor *) &C_Decrypt_Return,
@@ -688,6 +712,8 @@ pack_C_DecryptDigestUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptDigestUpdate_Call_packer,
              (const dercursor *) &C_DecryptDigestUpdate_Call,
@@ -755,6 +781,8 @@ pack_C_DecryptDigestUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptDigestUpdate_Return_packer,
              (const dercursor *) &C_DecryptDigestUpdate_Return,
@@ -803,6 +831,8 @@ pack_C_DecryptFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptFinal_Call_packer,
              (const dercursor *) &C_DecryptFinal_Call,
@@ -870,6 +900,8 @@ pack_C_DecryptFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptFinal_Return_packer,
              (const dercursor *) &C_DecryptFinal_Return,
@@ -929,6 +961,8 @@ pack_C_DecryptInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptInit_Call_packer,
              (const dercursor *) &C_DecryptInit_Call,
@@ -967,6 +1001,8 @@ pack_C_DecryptInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptInit_Return_packer,
              (const dercursor *) &C_DecryptInit_Return,
@@ -1044,6 +1080,8 @@ pack_C_DecryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptUpdate_Call_packer,
              (const dercursor *) &C_DecryptUpdate_Call,
@@ -1111,6 +1149,8 @@ pack_C_DecryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptUpdate_Return_packer,
              (const dercursor *) &C_DecryptUpdate_Return,
@@ -1188,6 +1228,8 @@ pack_C_DecryptVerifyUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptVerifyUpdate_Call_packer,
              (const dercursor *) &C_DecryptVerifyUpdate_Call,
@@ -1255,6 +1297,8 @@ pack_C_DecryptVerifyUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DecryptVerifyUpdate_Return_packer,
              (const dercursor *) &C_DecryptVerifyUpdate_Return,
@@ -1341,6 +1385,8 @@ pack_C_DeriveKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DeriveKey_Call_packer,
              (const dercursor *) &C_DeriveKey_Call,
@@ -1387,6 +1433,8 @@ pack_C_DeriveKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DeriveKey_Return_packer,
              (const dercursor *) &C_DeriveKey_Return,
@@ -1435,6 +1483,8 @@ pack_C_DestroyObject_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DestroyObject_Call_packer,
              (const dercursor *) &C_DestroyObject_Call,
@@ -1473,6 +1523,8 @@ pack_C_DestroyObject_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DestroyObject_Return_packer,
              (const dercursor *) &C_DestroyObject_Return,
@@ -1550,6 +1602,8 @@ pack_C_Digest_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Digest_Call_packer,
              (const dercursor *) &C_Digest_Call,
@@ -1617,6 +1671,8 @@ pack_C_Digest_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Digest_Return_packer,
              (const dercursor *) &C_Digest_Return,
@@ -1694,6 +1750,8 @@ pack_C_DigestEncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestEncryptUpdate_Call_packer,
              (const dercursor *) &C_DigestEncryptUpdate_Call,
@@ -1761,6 +1819,8 @@ pack_C_DigestEncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestEncryptUpdate_Return_packer,
              (const dercursor *) &C_DigestEncryptUpdate_Return,
@@ -1809,6 +1869,8 @@ pack_C_DigestFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestFinal_Call_packer,
              (const dercursor *) &C_DigestFinal_Call,
@@ -1876,6 +1938,8 @@ pack_C_DigestFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestFinal_Return_packer,
              (const dercursor *) &C_DigestFinal_Return,
@@ -1927,6 +1991,8 @@ pack_C_DigestInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestInit_Call_packer,
              (const dercursor *) &C_DigestInit_Call,
@@ -1965,6 +2031,8 @@ pack_C_DigestInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestInit_Return_packer,
              (const dercursor *) &C_DigestInit_Return,
@@ -2013,6 +2081,8 @@ pack_C_DigestKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestKey_Call_packer,
              (const dercursor *) &C_DigestKey_Call,
@@ -2051,6 +2121,8 @@ pack_C_DigestKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestKey_Return_packer,
              (const dercursor *) &C_DigestKey_Return,
@@ -2120,6 +2192,8 @@ pack_C_DigestUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestUpdate_Call_packer,
              (const dercursor *) &C_DigestUpdate_Call,
@@ -2158,6 +2232,8 @@ pack_C_DigestUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_DigestUpdate_Return_packer,
              (const dercursor *) &C_DigestUpdate_Return,
@@ -2235,6 +2311,8 @@ pack_C_Encrypt_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Encrypt_Call_packer,
              (const dercursor *) &C_Encrypt_Call,
@@ -2302,6 +2380,8 @@ pack_C_Encrypt_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Encrypt_Return_packer,
              (const dercursor *) &C_Encrypt_Return,
@@ -2350,6 +2430,8 @@ pack_C_EncryptFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptFinal_Call_packer,
              (const dercursor *) &C_EncryptFinal_Call,
@@ -2417,6 +2499,8 @@ pack_C_EncryptFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptFinal_Return_packer,
              (const dercursor *) &C_EncryptFinal_Return,
@@ -2476,6 +2560,8 @@ pack_C_EncryptInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptInit_Call_packer,
              (const dercursor *) &C_EncryptInit_Call,
@@ -2514,6 +2600,8 @@ pack_C_EncryptInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptInit_Return_packer,
              (const dercursor *) &C_EncryptInit_Return,
@@ -2591,6 +2679,8 @@ pack_C_EncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptUpdate_Call_packer,
              (const dercursor *) &C_EncryptUpdate_Call,
@@ -2658,6 +2748,8 @@ pack_C_EncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_EncryptUpdate_Return_packer,
              (const dercursor *) &C_EncryptUpdate_Return,
@@ -2697,6 +2789,8 @@ pack_C_Finalize_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Finalize_Call_packer,
              (const dercursor *) &C_Finalize_Call,
@@ -2745,6 +2839,8 @@ pack_C_Finalize_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Finalize_Return_packer,
              (const dercursor *) &C_Finalize_Return,
@@ -2793,6 +2889,8 @@ pack_C_FindObjects_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjects_Call_packer,
              (const dercursor *) &C_FindObjects_Call,
@@ -2856,6 +2954,8 @@ pack_C_FindObjects_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjects_Return_packer,
              (const dercursor *) &C_FindObjects_Return,
@@ -2896,6 +2996,8 @@ pack_C_FindObjectsFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjectsFinal_Call_packer,
              (const dercursor *) &C_FindObjectsFinal_Call,
@@ -2934,6 +3036,8 @@ pack_C_FindObjectsFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjectsFinal_Return_packer,
              (const dercursor *) &C_FindObjectsFinal_Return,
@@ -3001,6 +3105,8 @@ pack_C_FindObjectsInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjectsInit_Call_packer,
              (const dercursor *) &C_FindObjectsInit_Call,
@@ -3058,6 +3164,8 @@ pack_C_FindObjectsInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_FindObjectsInit_Return_packer,
              (const dercursor *) &C_FindObjectsInit_Return,
@@ -3136,6 +3244,8 @@ pack_C_GenerateKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateKey_Call_packer,
              (const dercursor *) &C_GenerateKey_Call,
@@ -3182,6 +3292,8 @@ pack_C_GenerateKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateKey_Return_packer,
              (const dercursor *) &C_GenerateKey_Return,
@@ -3287,6 +3399,8 @@ pack_C_GenerateKeyPair_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateKeyPair_Call_packer,
              (const dercursor *) &C_GenerateKeyPair_Call,
@@ -3341,6 +3455,8 @@ pack_C_GenerateKeyPair_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateKeyPair_Return_packer,
              (const dercursor *) &C_GenerateKeyPair_Return,
@@ -3389,6 +3505,8 @@ pack_C_GenerateRandom_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateRandom_Call_packer,
              (const dercursor *) &C_GenerateRandom_Call,
@@ -3448,6 +3566,8 @@ pack_C_GenerateRandom_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GenerateRandom_Return_packer,
              (const dercursor *) &C_GenerateRandom_Return,
@@ -3523,6 +3643,8 @@ pack_C_GetAttributeValue_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetAttributeValue_Call_packer,
              (const dercursor *) &C_GetAttributeValue_Call,
@@ -3580,6 +3702,8 @@ pack_C_GetAttributeValue_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetAttributeValue_Return_packer,
              (const dercursor *) &C_GetAttributeValue_Return,
@@ -3620,6 +3744,8 @@ pack_C_GetFunctionStatus_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetFunctionStatus_Call_packer,
              (const dercursor *) &C_GetFunctionStatus_Call,
@@ -3658,6 +3784,8 @@ pack_C_GetFunctionStatus_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetFunctionStatus_Return_packer,
              (const dercursor *) &C_GetFunctionStatus_Return,
@@ -3693,6 +3821,8 @@ pack_C_GetInfo_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetInfo_Call_packer,
              (const dercursor *) &C_GetInfo_Call,
@@ -3757,6 +3887,8 @@ pack_C_GetInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetInfo_Return_packer,
              (const dercursor *) &C_GetInfo_Return,
@@ -3805,6 +3937,8 @@ pack_C_GetMechanismInfo_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetMechanismInfo_Call_packer,
              (const dercursor *) &C_GetMechanismInfo_Call,
@@ -3863,6 +3997,8 @@ pack_C_GetMechanismInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetMechanismInfo_Return_packer,
              (const dercursor *) &C_GetMechanismInfo_Return,
@@ -3911,6 +4047,8 @@ pack_C_GetMechanismList_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetMechanismList_Call_packer,
              (const dercursor *) &C_GetMechanismList_Call,
@@ -3983,6 +4121,8 @@ pack_C_GetMechanismList_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetMechanismList_Return_packer,
              (const dercursor *) &C_GetMechanismList_Return,
@@ -4031,6 +4171,8 @@ pack_C_GetObjectSize_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetObjectSize_Call_packer,
              (const dercursor *) &C_GetObjectSize_Call,
@@ -4077,6 +4219,8 @@ pack_C_GetObjectSize_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetObjectSize_Return_packer,
              (const dercursor *) &C_GetObjectSize_Return,
@@ -4125,6 +4269,8 @@ pack_C_GetOperationState_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetOperationState_Call_packer,
              (const dercursor *) &C_GetOperationState_Call,
@@ -4192,6 +4338,8 @@ pack_C_GetOperationState_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetOperationState_Return_packer,
              (const dercursor *) &C_GetOperationState_Return,
@@ -4232,6 +4380,8 @@ pack_C_GetSessionInfo_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSessionInfo_Call_packer,
              (const dercursor *) &C_GetSessionInfo_Call,
@@ -4292,6 +4442,8 @@ pack_C_GetSessionInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSessionInfo_Return_packer,
              (const dercursor *) &C_GetSessionInfo_Return,
@@ -4332,6 +4484,8 @@ pack_C_GetSlotInfo_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSlotInfo_Call_packer,
              (const dercursor *) &C_GetSlotInfo_Call,
@@ -4399,6 +4553,8 @@ pack_C_GetSlotInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSlotInfo_Return_packer,
              (const dercursor *) &C_GetSlotInfo_Return,
@@ -4447,6 +4603,8 @@ pack_C_GetSlotList_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSlotList_Call_packer,
              (const dercursor *) &C_GetSlotList_Call,
@@ -4509,6 +4667,8 @@ pack_C_GetSlotList_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetSlotList_Return_packer,
              (const dercursor *) &C_GetSlotList_Return,
@@ -4549,6 +4709,8 @@ pack_C_GetTokenInfo_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetTokenInfo_Call_packer,
              (const dercursor *) &C_GetTokenInfo_Call,
@@ -4642,6 +4804,8 @@ pack_C_GetTokenInfo_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_GetTokenInfo_Return_packer,
              (const dercursor *) &C_GetTokenInfo_Return,
@@ -4699,6 +4863,8 @@ pack_C_InitPIN_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_InitPIN_Call_packer,
              (const dercursor *) &C_InitPIN_Call,
@@ -4737,6 +4903,8 @@ pack_C_InitPIN_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_InitPIN_Return_packer,
              (const dercursor *) &C_InitPIN_Return,
@@ -4803,6 +4971,8 @@ pack_C_InitToken_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_InitToken_Call_packer,
              (const dercursor *) &C_InitToken_Call,
@@ -4841,6 +5011,8 @@ pack_C_InitToken_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_InitToken_Return_packer,
              (const dercursor *) &C_InitToken_Return,
@@ -4895,6 +5067,8 @@ pack_C_Initialize_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Initialize_Call_packer,
              (const dercursor *) &C_Initialize_Call,
@@ -4943,6 +5117,8 @@ pack_C_Initialize_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Initialize_Return_packer,
              (const dercursor *) &C_Initialize_Return,
@@ -5008,6 +5184,8 @@ pack_C_Login_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Login_Call_packer,
              (const dercursor *) &C_Login_Call,
@@ -5046,6 +5224,8 @@ pack_C_Login_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Login_Return_packer,
              (const dercursor *) &C_Login_Return,
@@ -5086,6 +5266,8 @@ pack_C_Logout_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Logout_Call_packer,
              (const dercursor *) &C_Logout_Call,
@@ -5124,6 +5306,8 @@ pack_C_Logout_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Logout_Return_packer,
              (const dercursor *) &C_Logout_Return,
@@ -5196,6 +5380,8 @@ pack_C_OpenSession_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_OpenSession_Call_packer,
              (const dercursor *) &C_OpenSession_Call,
@@ -5242,6 +5428,8 @@ pack_C_OpenSession_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_OpenSession_Return_packer,
              (const dercursor *) &C_OpenSession_Return,
@@ -5311,6 +5499,8 @@ pack_C_SeedRandom_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SeedRandom_Call_packer,
              (const dercursor *) &C_SeedRandom_Call,
@@ -5349,6 +5539,8 @@ pack_C_SeedRandom_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SeedRandom_Return_packer,
              (const dercursor *) &C_SeedRandom_Return,
@@ -5424,6 +5616,8 @@ pack_C_SetAttributeValue_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetAttributeValue_Call_packer,
              (const dercursor *) &C_SetAttributeValue_Call,
@@ -5462,6 +5656,8 @@ pack_C_SetAttributeValue_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetAttributeValue_Return_packer,
              (const dercursor *) &C_SetAttributeValue_Return,
@@ -5547,6 +5743,8 @@ pack_C_SetOperationState_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetOperationState_Call_packer,
              (const dercursor *) &C_SetOperationState_Call,
@@ -5585,6 +5783,8 @@ pack_C_SetOperationState_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetOperationState_Return_packer,
              (const dercursor *) &C_SetOperationState_Return,
@@ -5659,6 +5859,8 @@ pack_C_SetPIN_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetPIN_Call_packer,
              (const dercursor *) &C_SetPIN_Call,
@@ -5697,6 +5899,8 @@ pack_C_SetPIN_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SetPIN_Return_packer,
              (const dercursor *) &C_SetPIN_Return,
@@ -5774,6 +5978,8 @@ pack_C_Sign_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Sign_Call_packer,
              (const dercursor *) &C_Sign_Call,
@@ -5841,6 +6047,8 @@ pack_C_Sign_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Sign_Return_packer,
              (const dercursor *) &C_Sign_Return,
@@ -5918,6 +6126,8 @@ pack_C_SignEncryptUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignEncryptUpdate_Call_packer,
              (const dercursor *) &C_SignEncryptUpdate_Call,
@@ -5985,6 +6195,8 @@ pack_C_SignEncryptUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignEncryptUpdate_Return_packer,
              (const dercursor *) &C_SignEncryptUpdate_Return,
@@ -6033,6 +6245,8 @@ pack_C_SignFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignFinal_Call_packer,
              (const dercursor *) &C_SignFinal_Call,
@@ -6100,6 +6314,8 @@ pack_C_SignFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignFinal_Return_packer,
              (const dercursor *) &C_SignFinal_Return,
@@ -6159,6 +6375,8 @@ pack_C_SignInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignInit_Call_packer,
              (const dercursor *) &C_SignInit_Call,
@@ -6197,6 +6415,8 @@ pack_C_SignInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignInit_Return_packer,
              (const dercursor *) &C_SignInit_Return,
@@ -6274,6 +6494,8 @@ pack_C_SignRecover_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignRecover_Call_packer,
              (const dercursor *) &C_SignRecover_Call,
@@ -6341,6 +6563,8 @@ pack_C_SignRecover_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignRecover_Return_packer,
              (const dercursor *) &C_SignRecover_Return,
@@ -6400,6 +6624,8 @@ pack_C_SignRecoverInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignRecoverInit_Call_packer,
              (const dercursor *) &C_SignRecoverInit_Call,
@@ -6438,6 +6664,8 @@ pack_C_SignRecoverInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignRecoverInit_Return_packer,
              (const dercursor *) &C_SignRecoverInit_Return,
@@ -6507,6 +6735,8 @@ pack_C_SignUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignUpdate_Call_packer,
              (const dercursor *) &C_SignUpdate_Call,
@@ -6545,6 +6775,8 @@ pack_C_SignUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_SignUpdate_Return_packer,
              (const dercursor *) &C_SignUpdate_Return,
@@ -6660,6 +6892,8 @@ pack_C_UnwrapKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_UnwrapKey_Call_packer,
              (const dercursor *) &C_UnwrapKey_Call,
@@ -6706,6 +6940,8 @@ pack_C_UnwrapKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_UnwrapKey_Return_packer,
              (const dercursor *) &C_UnwrapKey_Return,
@@ -6804,6 +7040,8 @@ pack_C_Verify_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Verify_Call_packer,
              (const dercursor *) &C_Verify_Call,
@@ -6842,6 +7080,8 @@ pack_C_Verify_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_Verify_Return_packer,
              (const dercursor *) &C_Verify_Return,
@@ -6911,6 +7151,8 @@ pack_C_VerifyFinal_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyFinal_Call_packer,
              (const dercursor *) &C_VerifyFinal_Call,
@@ -6949,6 +7191,8 @@ pack_C_VerifyFinal_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyFinal_Return_packer,
              (const dercursor *) &C_VerifyFinal_Return,
@@ -7008,6 +7252,8 @@ pack_C_VerifyInit_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyInit_Call_packer,
              (const dercursor *) &C_VerifyInit_Call,
@@ -7046,6 +7292,8 @@ pack_C_VerifyInit_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyInit_Return_packer,
              (const dercursor *) &C_VerifyInit_Return,
@@ -7123,6 +7371,8 @@ pack_C_VerifyRecover_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyRecover_Call_packer,
              (const dercursor *) &C_VerifyRecover_Call,
@@ -7190,6 +7440,8 @@ pack_C_VerifyRecover_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyRecover_Return_packer,
              (const dercursor *) &C_VerifyRecover_Return,
@@ -7259,6 +7511,8 @@ pack_C_VerifyUpdate_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyUpdate_Call_packer,
              (const dercursor *) &C_VerifyUpdate_Call,
@@ -7297,6 +7551,8 @@ pack_C_VerifyUpdate_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_VerifyUpdate_Return_packer,
              (const dercursor *) &C_VerifyUpdate_Return,
@@ -7344,6 +7600,8 @@ pack_C_WaitForSlotEvent_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_WaitForSlotEvent_Call_packer,
              (const dercursor *) &C_WaitForSlotEvent_Call,
@@ -7397,6 +7655,8 @@ pack_C_WaitForSlotEvent_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_WaitForSlotEvent_Return_packer,
              (const dercursor *) &C_WaitForSlotEvent_Return,
@@ -7472,6 +7732,8 @@ pack_C_WrapKey_Call(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_WrapKey_Call_packer,
              (const dercursor *) &C_WrapKey_Call,
@@ -7539,6 +7801,8 @@ pack_C_WrapKey_Return(
         return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
 
     pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
 
     der_pack(C_WrapKey_Return_packer,
              (const dercursor *) &C_WrapKey_Return,

@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include "types.h"
-#include "static/RemotePKCS11.h"
+#include "RemotePKCS11.h"
 #include "quick-der/api.h"
 
 

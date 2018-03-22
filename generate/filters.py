@@ -237,6 +237,8 @@ type_test_templates = {
     "CK_SLOT_ID_ARRAY":
         """CK_SLOT_ID {identifier}_pointed[] = {{ 1, 5, 19 }};
     {type_} {identifier} = &{identifier}_pointed[0];""",
+    "CK_FLAGS":
+        """{type_} {identifier} = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;"""
 }
 
 identifier_test_map = {

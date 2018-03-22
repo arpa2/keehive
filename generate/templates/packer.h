@@ -6,9 +6,9 @@
 #define KEEHIVE_PACKER_H
 
 #include "pack.h"
-#include "static/returncodes.h"
-#include "static/util.h"
-#include "static/derput.h"
+#include "returncodes.h"
+#include "util.h"
+#include "derput.h"
 
 // always use repeat = 1 for der_unpack, unless you need to iterate over a SEQUENCE OF. In this case set it to
 // the length of the SEQUENCE
