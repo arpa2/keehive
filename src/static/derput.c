@@ -3,6 +3,7 @@
 #include "returncodes.h"
 #include "convert.h"
 #include "packer.h"
+#include "quick-der/api.h"
 
 
 /* use this to reset a der. */
@@ -51,10 +52,21 @@ dercursor der_put_uchar(u_int8_t* der_buf_char, unsigned char value)
 
 dercursor
 der_put_CK_FLAGS_PTR(
-        u_int8_t* der_buf_ulong,
+        u_int8_t* der_buf_bitstring,
         const CK_FLAGS flags
 ) {
-    return der_put_uint32(der_buf_ulong, (u_int32_t)flags);
+    //return der_put_uint32(der_buf_ulong, (u_int32_t)flags);
+    dercursor cursor;
+    cursor.derptr = der_buf_bitstring;
+    cursor.derlen = 8;
+    size_t bytenr;
+    int status;
+    uint8_t tmp;
+    for (bytenr=0; bytenr < 7; bytenr++) {
+        tmp = (uint8_t)(flags >> (8 * bytenr));
+        status = der_put_bitstring_by_eight(cursor, bytenr, tmp);
+    }
+    return cursor;
 };
 
 

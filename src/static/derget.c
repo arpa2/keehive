@@ -86,8 +86,8 @@ der_get_CK_ATTRIBUTE_ARRAY(
 
 int
 der_get_CK_BYTE_ARRAY(
-        ACK_BYTE_ARRAY_t* Ack_Byte_Array,
-        CK_BYTE_ARRAY pEncryptedData
+        ACK_BYTE_ARRAY_t* cursor,
+        CK_BYTE_ARRAY byte_array
 ) {
     dercursor iterator;
     int status;
@@ -96,20 +96,20 @@ der_get_CK_BYTE_ARRAY(
     unsigned char value;
 
     ACK_BYTE_t der_byte;
-    if (pEncryptedData == NULL) {
+    if (byte_array == NULL) {
         return -1;
     }
 
-    if (der_iterate_first(Ack_Byte_Array, &iterator)) {
+    if (der_iterate_first(cursor, &iterator)) {
         do {
-            status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_byte, REPEAT);
+            status = der_unpack(&iterator, ByteArray_packer, (dercursor*)&der_byte, REPEAT);
             if (status == -1)
                 return -1;
 
             status = der_get_uchar(der_byte, &value);
             if (status == -1)
                 return -1;
-            (pEncryptedData)[i] = value;
+            (byte_array)[i] = value;
 
             i++;
         } while (der_iterate_next(&iterator));
@@ -195,7 +195,19 @@ der_get_CK_FLAGS_PTR(
         ACK_FLAGS_t* Ack_Flags,
         CK_FLAGS_PTR flags
 ) {
-    return der_get_ulong(*Ack_Flags, flags);
+    uint8_t tmp;
+    *flags = 0;
+    size_t bytenr;
+    int status;
+    // skip the last byte, otherwise out of range.
+    for (bytenr=0; bytenr<7; bytenr++) {
+        status = der_get_bitstring_by_eight(*Ack_Flags, bytenr, &tmp);
+        int tmp2 = tmp << (8*bytenr);
+        *flags = *flags | tmp2;
+        if (status)
+            return status;
+    }
+    return 0;
 };
 
 int
