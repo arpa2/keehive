@@ -39,9 +39,7 @@ void der_putget_CK_BYTE_ARRAY(void **state){
 void der_putget_CK_FLAGS_PTR(void **state) {
 
     CK_FLAGS flags = (CKF_OS_LOCKING_OK | CKF_CLOCK_ON_TOKEN);
-
-    //DER_BUF_BITSTRING(der_buf_bitstring, 8 * 8);
-    uint8_t der_buf_bitstring[1+(((64)+7)>>3)] = { (((~64) + 1) & 0x07) };
+    DER_BUF_BITSTRING(der_buf_bitstring, 8 * 8);
     dercursor cursor = der_put_CK_FLAGS_PTR(der_buf_bitstring, flags);
     CK_FLAGS flags_out;
     der_get_CK_FLAGS_PTR(&cursor, &flags_out);

@@ -491,7 +491,7 @@ void test_C_FindObjects(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE_ARRAY phObject = NULL;
+    CK_OBJECT_HANDLE_PTR phObject = NULL;
     CK_ULONG ulMaxObjectCount = 0;
     CK_ULONG_PTR pulObjectCount = NULL;
     

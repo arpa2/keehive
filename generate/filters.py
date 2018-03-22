@@ -231,7 +231,7 @@ type_test_templates = {
     "CK_BBOOL":
         "{type_} {identifier} = CK_TRUE;",
     "CK_MECHANISM_TYPE_ARRAY":
-        """CK_MECHANISM_TYPE {identifier}_pointed[] = {{ 13, 14 }};
+        """CK_MECHANISM_TYPE {identifier}_pointed[] = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }};
     {type_} {identifier} = &{identifier}_pointed[0];""",
 
     "CK_SLOT_ID_ARRAY":

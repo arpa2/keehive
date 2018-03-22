@@ -45,6 +45,7 @@ pack_{{ f.type_name|under }}(
 
 
 {% elif type == "CK_OBJECT_HANDLE_ARRAY" %}
+    // todo: probably not required anymore, CK_OBJECT_HANDLE_ARRAY was an error in the spec
 
     uint8_t *innerlist = NULL;
     size_t length = 0;
@@ -93,7 +94,7 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
 
 {% elif type == "CK_C_INITIALIZE_ARGS_PTR" %}
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_bool_t createMutex_bool_buf = { 0 };
     der_buf_bool_t destroyMutex_bool_buf = { 0 };
     der_buf_bool_t lockMutex_bool_buf = { 0 };
@@ -127,7 +128,7 @@ pack_{{ f.type_name|under }}(
         return {{ var }}_status;
 
 {% elif type == "CK_FLAGS_PTR" %}
-    der_buf_ulong_t {{ var }}_storage = { 0 };
+    DER_BUF_BITSTRING({{ var }}_storage, 8 * 8);
     {{ f.type_name|under }}.{{ var }} = der_put_{{ type }}({{ var }}_storage, *{{ var }});
 
 {% elif type == "ANY" %}
@@ -151,7 +152,7 @@ pack_{{ f.type_name|under }}(
 {% elif type == "CK_INFO_PTR" %}
     manufacturerID_t manufacturerID_buf = { 0 };
     libraryDescription_t libraryDescription_buf = { 0 };
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_char_t libraryVersion_minor_buf = { 0 };
     der_buf_char_t libraryVersion_major_buf = { 0 };
     der_buf_char_t cryptokiVersion_minor_buf = { 0 };
@@ -193,7 +194,7 @@ pack_{{ f.type_name|under }}(
     }
 
 {% elif type == "CK_MECHANISM_INFO_PTR" %}
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_ulong_t ulMaxKeySize_buf = { 0 };
     der_buf_ulong_t ulMinKeySize_buf = { 0 };
 
@@ -209,7 +210,7 @@ pack_{{ f.type_name|under }}(
         return {{ var }}_status;
 
 {% elif type == "CK_SESSION_INFO_PTR" %}
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_ulong_t slotID_buf = { 0 };
     der_buf_ulong_t state_buf = { 0 };
     der_buf_ulong_t ulDeviceError_buf = { 0 };
@@ -227,7 +228,7 @@ pack_{{ f.type_name|under }}(
         return {{ var }}_status;
 
 {% elif type == "CK_SLOT_INFO_PTR" %}
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     manufacturerID_t manufacturerID_buf = { 0 };
     slotDescription_t slotDescription_buf = { 0 };
     der_buf_ulong_t firmwareVersion_minor_buf = { 0 };
@@ -256,7 +257,7 @@ pack_{{ f.type_name|under }}(
     der_buf_ulong_t firmwareVersion_major_buf = { 0 };
     der_buf_ulong_t hardwareVersion_minor_buf = { 0 };
     der_buf_ulong_t hardwareVersion_major_buf = { 0 };
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     manufacturerID_t manufacturerID_buf = { 0 };
     label_t label_buf = { 0 };
     model_t model_buf = { 0 };

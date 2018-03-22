@@ -2006,7 +2006,7 @@ CK_RV
 unpack_C_FindObjects_Return(
         dercursor* packed,
         CK_RV_PTR retval,
-        CK_OBJECT_HANDLE_ARRAY phObject,
+        CK_OBJECT_HANDLE_PTR phObject,
         CK_ULONG_PTR pulObjectCount
 ) {
 
@@ -2030,9 +2030,10 @@ unpack_C_FindObjects_Return(
 
 
 
-    status = der_get_CK_OBJECT_HANDLE_ARRAY(&C_FindObjects_Return.phObject, phObject);
+    status = der_get_ulong(C_FindObjects_Return.phObject, phObject);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
+
 
 
     status = der_get_ulong(C_FindObjects_Return.pulObjectCount, pulObjectCount);

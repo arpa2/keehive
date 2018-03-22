@@ -427,7 +427,7 @@ CK_RV
 unpack_C_FindObjects_Return(
         dercursor* packed,
         CK_RV_PTR retval,
-        CK_OBJECT_HANDLE_ARRAY phObject,
+        CK_OBJECT_HANDLE_PTR phObject,
         CK_ULONG_PTR pulObjectCount
 );
 

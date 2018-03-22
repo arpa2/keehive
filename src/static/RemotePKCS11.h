@@ -184,10 +184,10 @@ typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_RV;
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_SESSION_HANDLE;
 
 
-typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_STATE;
-
-
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_SLOT_ID;
+
+
+typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_STATE;
 
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_SESSION_INFO {
@@ -592,7 +592,7 @@ typedef struct DER_OVLY_RemotePKCS11_C_FindObjects_Call {
 
 typedef struct DER_OVLY_RemotePKCS11_C_FindObjects_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
-	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY phObject; // [1] ACK-OBJECT-HANDLE-ARRAY
+	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE phObject; // [1] ACK-OBJECT-HANDLE
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulObjectCount; // [3] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_FindObjects_Return;
 
@@ -1561,16 +1561,16 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 #define DER_PACK_RemotePKCS11_ACK_SESSION_HANDLE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
 
-#define DER_PIMP_RemotePKCS11_ACK_STATE(implicit_tag) \
-	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
-
-#define DER_PACK_RemotePKCS11_ACK_STATE \
-	DER_PACK_RemotePKCS11_ACK_ULONG
-
 #define DER_PIMP_RemotePKCS11_ACK_SLOT_ID(implicit_tag) \
 	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
 
 #define DER_PACK_RemotePKCS11_ACK_SLOT_ID \
+	DER_PACK_RemotePKCS11_ACK_ULONG
+
+#define DER_PIMP_RemotePKCS11_ACK_STATE(implicit_tag) \
+	DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag)
+
+#define DER_PACK_RemotePKCS11_ACK_STATE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
 
 #define DER_PIMP_RemotePKCS11_ACK_SESSION_INFO(implicit_tag) \
@@ -2765,7 +2765,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_ENTER | implicit_tag, \
 	DER_PACK_RemotePKCS11_ACK_RV, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY, \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \
@@ -2776,7 +2776,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_ENTER | DER_TAG_SEQUENCE, \
 	DER_PACK_RemotePKCS11_ACK_RV, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY, \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \
@@ -4883,15 +4883,6 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 		  DER_ELEMSZ (remotepkcs11,ACK_ATTRIBUTE_ARRAY,0), \
 		  DER_PACK_remotepkcs11_ACK_ATTRIBUTE_ARRAY_0, \
 		  DER_PSUB_remotepkcs11_ACK_ATTRIBUTE_ARRAY_0 }, \
-		{ 0, 0, NULL, NULL } \
-	};
-
-#define DEFINE_DER_PSUB_RemotePKCS11_C_FindObjects_Return \
-	const struct der_subparser_action DER_PSUB_RemotePKCS11_C_FindObjects_Return [] = { \
-		{ DER_OFFSET (RemotePKCS11,C_FindObjects_Return,phObject), \
-		  DER_ELEMSZ (remotepkcs11,ACK_OBJECT_HANDLE_ARRAY,0), \
-		  DER_PACK_remotepkcs11_ACK_OBJECT_HANDLE_ARRAY_0, \
-		  DER_PSUB_remotepkcs11_ACK_OBJECT_HANDLE_ARRAY_0 }, \
 		{ 0, 0, NULL, NULL } \
 	};
 

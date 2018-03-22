@@ -1699,7 +1699,7 @@ C_Finalize(
 CK_RV
 C_FindObjects(
     CK_SESSION_HANDLE hSession,
-    CK_OBJECT_HANDLE_ARRAY phObject,
+    CK_OBJECT_HANDLE_PTR phObject,
     CK_ULONG ulMaxObjectCount,
     CK_ULONG_PTR pulObjectCount
 ) {

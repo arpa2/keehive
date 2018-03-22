@@ -1364,14 +1364,14 @@ server_C_FindObjects(
 
     
     CK_RV retval;
-    CK_OBJECT_HANDLE_ARRAY phObject = malloc(1024);
+    CK_OBJECT_HANDLE phObject = 0;
     CK_ULONG pulObjectCount = 0;
     
 
     retval = call_C_FindObjects(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
-        phObject,  // CK_OBJECT_HANDLE_ARRAY
+        &phObject,  // CK_OBJECT_HANDLE_PTR
         ulMaxObjectCount,  // CK_ULONG
         &pulObjectCount  // CK_ULONG_PTR
     );
@@ -1379,7 +1379,7 @@ server_C_FindObjects(
     status = pack_C_FindObjects_Return(
         CursorOut,
         &retval,  // CK_RV
-        phObject,  // CK_OBJECT_HANDLE_ARRAY
+        &phObject,  // CK_OBJECT_HANDLE
         &pulObjectCount  // CK_ULONG
     );
 

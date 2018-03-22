@@ -2921,20 +2921,11 @@ pack_C_FindObjects_Return(
     C_FindObjects_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
-    // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
+    // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
 
 
-
-    uint8_t *innerlist = NULL;
-    size_t length = 0;
-
-    CK_RV status = der_put_CK_OBJECT_HANDLE_ARRAY(phObject, pulObjectCount, &innerlist, &length, ObjectHandlerPacker_packer);
-    if (status != CKR_OK)
-        return status;
-
-    C_FindObjects_Return.phObject.wire.derptr = innerlist;
-    C_FindObjects_Return.phObject.wire.derlen = length;
-
+    der_buf_ulong_t phObject_storage = { 0 };
+    C_FindObjects_Return.phObject = der_put_ulong(phObject_storage, *phObject);
 
 
     // PACKING pulObjectCount (type CK_ULONG_PTR)
@@ -3857,7 +3848,7 @@ pack_C_GetInfo_Return(
 
     manufacturerID_t manufacturerID_buf = { 0 };
     libraryDescription_t libraryDescription_buf = { 0 };
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_char_t libraryVersion_minor_buf = { 0 };
     der_buf_char_t libraryVersion_major_buf = { 0 };
     der_buf_char_t cryptokiVersion_minor_buf = { 0 };
@@ -3971,7 +3962,7 @@ pack_C_GetMechanismInfo_Return(
     // PACKING pInfo (type CK_MECHANISM_INFO_PTR)
 
 
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_ulong_t ulMaxKeySize_buf = { 0 };
     der_buf_ulong_t ulMinKeySize_buf = { 0 };
 
@@ -4414,7 +4405,7 @@ pack_C_GetSessionInfo_Return(
     // PACKING pInfo (type CK_SESSION_INFO_PTR)
 
 
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_ulong_t slotID_buf = { 0 };
     der_buf_ulong_t state_buf = { 0 };
     der_buf_ulong_t ulDeviceError_buf = { 0 };
@@ -4518,7 +4509,7 @@ pack_C_GetSlotInfo_Return(
     // PACKING pInfo (type CK_SLOT_INFO_PTR)
 
 
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     manufacturerID_t manufacturerID_buf = { 0 };
     slotDescription_t slotDescription_buf = { 0 };
     der_buf_ulong_t firmwareVersion_minor_buf = { 0 };
@@ -4747,7 +4738,7 @@ pack_C_GetTokenInfo_Return(
     der_buf_ulong_t firmwareVersion_major_buf = { 0 };
     der_buf_ulong_t hardwareVersion_minor_buf = { 0 };
     der_buf_ulong_t hardwareVersion_major_buf = { 0 };
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     manufacturerID_t manufacturerID_buf = { 0 };
     label_t label_buf = { 0 };
     model_t model_buf = { 0 };
@@ -5039,7 +5030,7 @@ pack_C_Initialize_Call(
     // PACKING pInitArgs (type CK_C_INITIALIZE_ARGS_PTR)
 
 
-    der_buf_ulong_t flags_buf = { 0 };
+    DER_BUF_BITSTRING(flags_buf, 8 * 8);
     der_buf_bool_t createMutex_bool_buf = { 0 };
     der_buf_bool_t destroyMutex_bool_buf = { 0 };
     der_buf_bool_t lockMutex_bool_buf = { 0 };
@@ -5344,7 +5335,7 @@ pack_C_OpenSession_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
 
-    der_buf_ulong_t flags_storage = { 0 };
+    DER_BUF_BITSTRING(flags_storage, 8 * 8);
     C_OpenSession_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, *flags);
 
 
@@ -7580,7 +7571,7 @@ pack_C_WaitForSlotEvent_Call(
     // PACKING flags (type CK_FLAGS_PTR)
 
 
-    der_buf_ulong_t flags_storage = { 0 };
+    DER_BUF_BITSTRING(flags_storage, 8 * 8);
     C_WaitForSlotEvent_Call.flags = der_put_CK_FLAGS_PTR(flags_storage, *flags);
 
 

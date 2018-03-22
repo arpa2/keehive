@@ -2397,28 +2397,28 @@ void test_pack_C_FindObjects_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE_ARRAY phObject = (CK_OBJECT_HANDLE_ARRAY) "abcdefghijklm";
+    CK_OBJECT_HANDLE phObject = 13;
     CK_ULONG pulObjectCount = 13;
     
 
     CK_RV status = pack_C_FindObjects_Return(
         &dercursor,
         &retval,
-        phObject,
+        &phObject,
         &pulObjectCount
     );
 
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_OBJECT_HANDLE_ARRAY phObject_unpack = malloc(1024);
+    CK_OBJECT_HANDLE phObject_unpack = 0;
     CK_ULONG pulObjectCount_unpack = 0;
     
 
     status = unpack_C_FindObjects_Return(
         &dercursor,
         &retval_unpack,
-        phObject_unpack,
+        &phObject_unpack,
         &pulObjectCount_unpack
     );
 
@@ -3235,8 +3235,13 @@ void test_pack_C_GetInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pInfo (CK_INFO)
-    assert_false(true);
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.cryptokiVersion.major, pInfo_unpack.cryptokiVersion.major);
+    assert_int_equal(pInfo.cryptokiVersion.minor, pInfo_unpack.cryptokiVersion.minor);
+    assert_int_equal(pInfo.libraryVersion.major, pInfo_unpack.libraryVersion.major);
+    assert_int_equal(pInfo.libraryVersion.major, pInfo_unpack.libraryVersion.major);
+    assert_memory_equal(pInfo.libraryDescription, pInfo_unpack.libraryDescription, sizeof(char) * 32);
+    assert_memory_equal(pInfo.manufacturerID, pInfo.manufacturerID, sizeof(char) * 32);
 
 
 
@@ -3326,8 +3331,8 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pInfo (CK_MECHANISM_INFO)
-    assert_false(true);
+    assert_memory_equal(&pInfo, &pInfo_unpack, sizeof(CK_MECHANISM_INFO));
+
 
 
 
@@ -3385,7 +3390,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_MECHANISM_TYPE pMechanismList_pointed[] = { 13, 14 };
+    CK_MECHANISM_TYPE pMechanismList_pointed[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
     CK_MECHANISM_TYPE_ARRAY pMechanismList = &pMechanismList_pointed[0];
     CK_ULONG pulCount = 13;
     
@@ -3688,8 +3693,10 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pInfo (CK_SESSION_INFO)
-    assert_false(true);
+    assert_int_equal(pInfo.state, pInfo_unpack.state);
+    assert_int_equal(pInfo.ulDeviceError, pInfo_unpack.ulDeviceError);
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.slotID, pInfo_unpack.slotID);
 
 
 
@@ -4471,7 +4478,7 @@ void test_pack_C_OpenSession_Call(void **state) {
     // todo: finish pApplication (ANY)
 
 
-    assert_int_equal(notify, notify_unpack);
+    // todo: what should we check for here? (notify CK_NOTIFY)
 
 
 
@@ -6558,7 +6565,39 @@ int main(void) {
             cmocka_unit_test(test_pack_C_GetAttributeValue_Return),
             cmocka_unit_test(test_pack_C_GetFunctionStatus_Return),
             cmocka_unit_test(test_pack_C_GetInfo_Return),
-            cmocka_unit_test(test_pack_C_GetMechanismInfo_Return)
+            cmocka_unit_test(test_pack_C_GetMechanismInfo_Return),
+            cmocka_unit_test(test_pack_C_GetMechanismList_Return),
+            cmocka_unit_test(test_pack_C_GetObjectSize_Return),
+            cmocka_unit_test(test_pack_C_GetOperationState_Return),
+            cmocka_unit_test(test_pack_C_GetSessionInfo_Return),
+            cmocka_unit_test(test_pack_C_GetSlotInfo_Return),
+            cmocka_unit_test(test_pack_C_GetSlotList_Return),
+            cmocka_unit_test(test_pack_C_GetTokenInfo_Return),
+            cmocka_unit_test(test_pack_C_InitPIN_Return),
+            cmocka_unit_test(test_pack_C_InitToken_Return),
+            cmocka_unit_test(test_pack_C_Initialize_Return),
+            cmocka_unit_test(test_pack_C_Login_Return),
+            cmocka_unit_test(test_pack_C_Logout_Return),
+            cmocka_unit_test(test_pack_C_OpenSession_Return),
+            cmocka_unit_test(test_pack_C_SeedRandom_Return),
+            cmocka_unit_test(test_pack_C_SetAttributeValue_Return),
+            cmocka_unit_test(test_pack_C_SetOperationState_Return),
+            cmocka_unit_test(test_pack_C_SetPIN_Return),
+            cmocka_unit_test(test_pack_C_Sign_Return),
+            cmocka_unit_test(test_pack_C_SignEncryptUpdate_Return),
+            cmocka_unit_test(test_pack_C_SignFinal_Return),
+            cmocka_unit_test(test_pack_C_SignInit_Return),
+            cmocka_unit_test(test_pack_C_SignRecover_Return),
+            cmocka_unit_test(test_pack_C_SignRecoverInit_Return),
+            cmocka_unit_test(test_pack_C_SignUpdate_Return),
+            cmocka_unit_test(test_pack_C_UnwrapKey_Return),
+            cmocka_unit_test(test_pack_C_Verify_Return),
+            cmocka_unit_test(test_pack_C_VerifyFinal_Return),
+            cmocka_unit_test(test_pack_C_VerifyInit_Return),
+            cmocka_unit_test(test_pack_C_VerifyRecover_Return),
+            cmocka_unit_test(test_pack_C_VerifyUpdate_Return),
+            cmocka_unit_test(test_pack_C_WaitForSlotEvent_Return),
+            cmocka_unit_test(test_pack_C_WrapKey_Return)
 
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

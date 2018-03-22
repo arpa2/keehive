@@ -75,7 +75,23 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 //      // todo: assert_ptr_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue);
 //      assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
 //  }*/
-{% elif type_ in ("CK_INFO", "CK_MECHANISM_INFO", "CK_SESSION_INFO", "CK_SLOT_INFO", "CK_TOKEN_INFO") %}
+{% elif type_  == "CK_MECHANISM_INFO" %}
+    assert_memory_equal(&{{ identifier }}, &{{ identifier }}_unpack, sizeof({{ type_ }}));
+
+{% elif type_ == "CK_INFO" %}
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.cryptokiVersion.major, pInfo_unpack.cryptokiVersion.major);
+    assert_int_equal(pInfo.cryptokiVersion.minor, pInfo_unpack.cryptokiVersion.minor);
+    assert_int_equal(pInfo.libraryVersion.major, pInfo_unpack.libraryVersion.major);
+    assert_int_equal(pInfo.libraryVersion.major, pInfo_unpack.libraryVersion.major);
+    assert_memory_equal(pInfo.libraryDescription, pInfo_unpack.libraryDescription, sizeof(char) * 32);
+    assert_memory_equal(pInfo.manufacturerID, pInfo.manufacturerID, sizeof(char) * 32);
+{% elif type_ == "CK_SESSION_INFO" %}
+    assert_int_equal(pInfo.state, pInfo_unpack.state);
+    assert_int_equal(pInfo.ulDeviceError, pInfo_unpack.ulDeviceError);
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.slotID, pInfo_unpack.slotID);
+{% elif type_ in ("CK_SLOT_INFO", "CK_TOKEN_INFO") %}
     // todo: assert for {{ identifier }} ({{ type_ }})
     assert_false(true);
 {% elif type_ == "ANY" %}
@@ -87,6 +103,8 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
       assert_int_equal({{ identifier }}[{{ identifier }}_i], {{ identifier }}_unpack[{{ identifier }}_i]);
     };
+{% elif type_ == "CK_NOTIFY" %}
+    // todo: what should we check for here? ({{ identifier }} {{ type_ }})
 {% else %}
     assert_int_equal({{ identifier }}, {{ identifier }}_unpack);
 {% endif %}
@@ -99,7 +117,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 
 int main(void) {
     const struct CMUnitTest tests[] = {
-            {% for f in functions[:100] %}
+            {% for f in functions %}
             cmocka_unit_test(test_pack_{{ f.type_name|under }}){% if not loop.last %},{% endif -%}
             {% endfor %}
 

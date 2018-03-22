@@ -685,7 +685,7 @@ C-FindObjects-Call ::= SEQUENCE {
 
 C-FindObjects-Return ::= SEQUENCE {
         retval             ACK-RV,
-        phObject       [1] ACK-OBJECT-HANDLE-ARRAY,
+        phObject       [1] ACK-OBJECT-HANDLE,
         pulObjectCount [3] ACK-ULONG
 }
 

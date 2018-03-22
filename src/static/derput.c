@@ -277,7 +277,7 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
         C_Initialize_Call->pInitArgs.null = der_null;
     } else {
 
-        C_Initialize_Call->pInitArgs.data.flags = der_put_ulong(flags_buf, pInitArgs->flags);
+        C_Initialize_Call->pInitArgs.data.flags = der_put_CK_FLAGS_PTR(flags_buf, pInitArgs->flags);
         if (pInitArgs->CreateMutex == NULL) {
             C_Initialize_Call->pInitArgs.data.createMutex.null = der_null;
         } else {
@@ -387,7 +387,7 @@ der_put_CK_INFO_PTR(
         der_buf_char_t cryptokiVersion_major_buf
 
 ) {
-    Ack_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Info->flags = der_put_CK_FLAGS_PTR(flags_buf, pInfo->flags);
 
     dercursor manufacturerID;
     manufacturerID.derptr = manufacturerID_buf;
@@ -436,7 +436,7 @@ der_put_CK_MECHANISM_INFO_PTR(
         der_buf_ulong_t ulMaxKeySize_buf,
         der_buf_ulong_t ulMinKeySize_buf
 ) {
-    Ack_Mechanism_info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Mechanism_info->flags = der_put_CK_FLAGS_PTR(flags_buf, pInfo->flags);
     Ack_Mechanism_info->ulMaxKeySize = der_put_ulong(ulMaxKeySize_buf, pInfo->ulMaxKeySize);
     Ack_Mechanism_info->ulMinKeySize = der_put_ulong(ulMinKeySize_buf, pInfo->ulMinKeySize);
 
@@ -452,7 +452,7 @@ der_put_CK_SESSION_INFO_PTR(
         der_buf_ulong_t state_buf,
         der_buf_ulong_t ulDeviceError_buf
 ) {
-    Ack_Session_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Session_Info->flags = der_put_CK_FLAGS_PTR(flags_buf, pInfo->flags);
     Ack_Session_Info->slotID = der_put_ulong(slotID_buf, pInfo->slotID);
     Ack_Session_Info->state = der_put_ulong(state_buf, pInfo->state);
     Ack_Session_Info->ulDeviceError = der_put_ulong(ulDeviceError_buf, pInfo->ulDeviceError);
@@ -473,7 +473,7 @@ der_put_CK_SLOT_INFO_PTR(
         der_buf_ulong_t hardwareVersion_minor_buf,
         der_buf_ulong_t hardwareVersion_major_buf
 ) {
-    Ack_Slot_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Slot_Info->flags = der_put_CK_FLAGS_PTR(flags_buf, pInfo->flags);
 
     dercursor manufacturerID;
     manufacturerID.derptr = manufacturerID_buf;
@@ -536,7 +536,7 @@ der_put_CK_TOKEN_INFO_PTR(
     manufacturerID.derlen = 32;
     Ack_Token_Info->manufacturerID = manufacturerID;
 
-    Ack_Token_Info->flags = der_put_ulong(flags_buf, pInfo->flags);
+    Ack_Token_Info->flags = der_put_CK_FLAGS_PTR(flags_buf, pInfo->flags);
 
     dercursor label;
     label.derptr = label_buf;
