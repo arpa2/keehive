@@ -508,7 +508,7 @@ der_put_CK_TOKEN_INFO_PTR(
         der_buf_ulong_t ulTotalPublicMemory_buf,
         der_buf_ulong_t ulFreePublicMemory_buf,
         der_buf_ulong_t ulTotalPrivateMemory_buf,
-        der_buf_ulong_t ulFreePritvateMemory_buf,
+        der_buf_ulong_t ulFreePrivateMemory_buf,
         utcTime_t utcTime_buf
 
 ) {
@@ -559,7 +559,7 @@ der_put_CK_TOKEN_INFO_PTR(
     Ack_Token_Info->ulTotalPublicMemory = der_put_ulong(ulTotalPublicMemory_buf, pInfo->ulTotalPublicMemory);
     Ack_Token_Info->ulFreePublicMemory = der_put_ulong(ulFreePublicMemory_buf, pInfo->ulFreePublicMemory);
     Ack_Token_Info->ulTotalPrivateMemory = der_put_ulong(ulTotalPrivateMemory_buf, pInfo->ulTotalPrivateMemory);
-    Ack_Token_Info->ulFreePritvateMemory = der_put_ulong(ulFreePritvateMemory_buf, pInfo->ulFreePrivateMemory);
+    Ack_Token_Info->ulFreePrivateMemory = der_put_ulong(ulFreePrivateMemory_buf, pInfo->ulFreePrivateMemory);
 
     return CKR_OK;
 

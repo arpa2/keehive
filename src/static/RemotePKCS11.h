@@ -139,9 +139,9 @@ typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE
 typedef struct DER_OVLY_RemotePKCS11_ACK_MECHANISM {
 	DER_OVLY_RemotePKCS11_ACK_MECHANISM_TYPE mechanism; // ACK-MECHANISM-TYPE
 	struct DER_OVLY_RemotePKCS11_ACK_MECHANISM_pParameter {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
-	} pParameter; // CHOICE { null NULL, data ACK-OPAQUE }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_OPAQUE data; // ACK-OPAQUE
+} pParameter; // CHOICE { null NULL, data ACK-OPAQUE }
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulParameterLen; // ACK-ULONG
 } DER_OVLY_RemotePKCS11_ACK_MECHANISM;
 
@@ -227,7 +227,7 @@ typedef struct DER_OVLY_RemotePKCS11_ACK_TOKEN_INFO {
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulTotalPublicMemory; // ACK-ULONG
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulFreePublicMemory; // ACK-ULONG
 	DER_OVLY_RemotePKCS11_ACK_ULONG ulTotalPrivateMemory; // ACK-ULONG
-	DER_OVLY_RemotePKCS11_ACK_ULONG ulFreePritvateMemory; // ACK-ULONG
+	DER_OVLY_RemotePKCS11_ACK_ULONG ulFreePrivateMemory; // ACK-ULONG
 	DER_OVLY_RemotePKCS11_ACK_VERSION hardwareVersion; // ACK-VERSION
 	DER_OVLY_RemotePKCS11_ACK_VERSION firmwareVersion; // ACK-VERSION
 	dercursor utcTime; // IA5String SIZE(16)
@@ -571,9 +571,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_EncryptUpdate_Return {
 
 typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Call {
 	struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved {
-		dercursor null; // NULL
-		/* ...ASN.1 extensions... */
-	} pReserved; // [0] CHOICE { null NULL, ... }
+	dercursor null; // NULL
+	/* ...ASN.1 extensions... */
+} pReserved; // [0] CHOICE { null NULL, ... }
 } DER_OVLY_RemotePKCS11_C_Finalize_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved DER_OVLY_RemotePKCS11_C_Finalize_Call_pReserved;
@@ -802,9 +802,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Call_pSlotList DER_OVLY_Remot
 typedef struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
 	struct DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
-	} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_SLOT_ID_ARRAY data; // ACK-SLOT-ID-ARRAY
+} pSlotList; // [1] CHOICE { null NULL, data ACK-SLOT-ID-ARRAY }
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulCount; // [2] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_GetSlotList_Return;
 
@@ -848,10 +848,10 @@ typedef struct DER_OVLY_RemotePKCS11_C_InitToken_Return {
 
 typedef struct DER_OVLY_RemotePKCS11_C_Initialize_Call {
 	struct DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs {
-		dercursor null; // NULL
-		DER_OVLY_RemotePKCS11_ACK_C_INITIALIZE_ARGS data; // [0] ACK-C-INITIALIZE-ARGS
-		/* ...ASN.1 extensions... */
-	} pInitArgs; // [0] CHOICE { null NULL, data [0] ACK-C-INITIALIZE-ARGS, ... }
+	dercursor null; // NULL
+	DER_OVLY_RemotePKCS11_ACK_C_INITIALIZE_ARGS data; // [0] ACK-C-INITIALIZE-ARGS
+	/* ...ASN.1 extensions... */
+} pInitArgs; // [0] CHOICE { null NULL, data [0] ACK-C-INITIALIZE-ARGS, ... }
 } DER_OVLY_RemotePKCS11_C_Initialize_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs;
@@ -911,13 +911,13 @@ typedef struct DER_OVLY_RemotePKCS11_C_OpenSession_Call {
 	DER_OVLY_RemotePKCS11_ACK_SLOT_ID slotID; // [0] ACK-SLOT-ID
 	DER_OVLY_RemotePKCS11_ACK_FLAGS flags; // [1] ACK-FLAGS
 	struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication {
-		dercursor null; // NULL
-		dercursor opaque; // ANY
-	} pApplication; // [2] CHOICE { null NULL, opaque ANY }
+	dercursor null; // NULL
+	dercursor opaque; // ANY
+} pApplication; // [2] CHOICE { null NULL, opaque ANY }
 	struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_notify {
-		dercursor null; // NULL
-		dercursor present; // BOOLEAN (TRUE)
-	} notify; // [3] CHOICE { null NULL, present BOOLEAN (TRUE) }
+	dercursor null; // NULL
+	dercursor present; // BOOLEAN (TRUE)
+} notify; // [3] CHOICE { null NULL, present BOOLEAN (TRUE) }
 } DER_OVLY_RemotePKCS11_C_OpenSession_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication DER_OVLY_RemotePKCS11_C_OpenSession_Call_pApplication;
@@ -1171,9 +1171,9 @@ typedef struct DER_OVLY_RemotePKCS11_C_VerifyUpdate_Return {
 typedef struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call {
 	DER_OVLY_RemotePKCS11_ACK_FLAGS flags; // [0] ACK-FLAGS
 	struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved {
-		dercursor null; // NULL
-		/* ...ASN.1 extensions... */
-	} pReserved; // [2] CHOICE { null NULL, ... }
+	dercursor null; // NULL
+	/* ...ASN.1 extensions... */
+} pReserved; // [2] CHOICE { null NULL, ... }
 } DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call;
 
 typedef struct DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Call_pReserved;

@@ -242,7 +242,7 @@ der_put_CK_TOKEN_INFO_PTR(
         der_buf_ulong_t ulTotalPublicMemory_buf,
         der_buf_ulong_t ulFreePublicMemory_buf,
         der_buf_ulong_t ulTotalPrivateMemory_buf,
-        der_buf_ulong_t ulFreePritvateMemory_buf,
+        der_buf_ulong_t ulFreePrivateMemory_buf,
         utcTime_t utcTime_buf
 );
 
