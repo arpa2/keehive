@@ -31,7 +31,12 @@ if(${ENABLE_TESTING})
 
     enable_testing()
 
-    add_subdirectory (src/generated/test)
+    set(KEEHIVE_TEST_LINK_LIRARIES
+            ${LIBCMOCKA_LIBRARIES}
+            )
+
+    add_subdirectory (src/generated/test/)
+    add_subdirectory (src/static/test/softhsm2)
     add_subdirectory (src/static/test)
 
     include_directories ("${LIBCMOCKA_INCLUDE_DIRS}")
