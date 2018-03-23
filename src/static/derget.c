@@ -255,14 +255,20 @@ der_get_CK_NOTIFY(
 
 int
 der_get_CK_C_INITIALIZE_ARGS_PTR(
-        DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* bla,
-        CK_C_INITIALIZE_ARGS_PTR pInitArgs
+        DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* ack_initialize_args,
+        CK_C_INITIALIZE_ARGS_PTR ck_initialize_args
 ) {
-    dercursor null = bla->null;
+    int status = 0;
 
-    ACK_C_INITIALIZE_ARGS_t data = bla->data;
-    // todo: finalize.
-    return 0;
+    if (ack_initialize_args->data.flags.derptr == NULL)
+        status = status | der_get_CK_FLAGS_PTR(&ack_initialize_args->data.flags, &ck_initialize_args->flags);
+    // todo: set these to NULL for now
+    ck_initialize_args->UnlockMutex = NULL;
+    ck_initialize_args->pReserved = NULL;
+    ck_initialize_args->LockMutex = NULL;
+    ck_initialize_args->DestroyMutex = NULL;
+    ck_initialize_args->CreateMutex = NULL;
+    return status;
 };
 
 int der_get_CK_OBJECT_HANDLE_PTR(ACK_OBJECT_HANDLE_t* Ack_Object_Handle, CK_OBJECT_HANDLE_PTR phObject) {

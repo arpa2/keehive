@@ -268,6 +268,21 @@ def initialise_test(type_, identifier, function_name=None):
     elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG",
                    "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
         return "{} {} = 13;".format(type_, identifier)
+    elif type_ == "CK_VOID_PTR":
+        if identifier == "pInitArgs":
+            return """CK_C_INITIALIZE_ARGS {identifier}_pointed = {{ 
+        .CreateMutex = NULL,
+        .DestroyMutex = NULL,
+        .LockMutex = NULL,
+        .UnlockMutex = NULL,
+        .flags = CKF_OS_LOCKING_OK,
+        .pReserved = NULL
+    }};
+    CK_C_INITIALIZE_ARGS_PTR {identifier} = &{identifier}_pointed; // we do this a bit weird to simplify code generation
+    """.format(identifier=identifier)
+        else:
+            return "{} {} = NULL; // assuming reserved for future usage".format(type_, identifier)
+
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
     else:

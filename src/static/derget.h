@@ -59,7 +59,11 @@ int der_get_ANY(dercursor* cursor, ANY pApplication);
 
 int der_get_CK_NOTIFY(DER_OVLY_RemotePKCS11_C_OpenSession_Call_notify* bla, CK_NOTIFY notify);
 
-int der_get_CK_C_INITIALIZE_ARGS_PTR(DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* bla, CK_C_INITIALIZE_ARGS_PTR pInitArgs);
+int
+der_get_CK_C_INITIALIZE_ARGS_PTR(
+        DER_OVLY_RemotePKCS11_C_Initialize_Call_pInitArgs* ,
+        CK_C_INITIALIZE_ARGS_PTR
+);
 
 int der_get_CK_OBJECT_HANDLE_PTR(ACK_OBJECT_HANDLE_t* Ack_Object_Handle, CK_OBJECT_HANDLE_PTR phObject);
 

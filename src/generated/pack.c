@@ -3646,7 +3646,7 @@ pack_C_GetAttributeValue_Call(
 
 /* if you use this function, don't forget to free(pack_target->derptr) */
 CK_RV
-    pack_C_GetAttributeValue_Return(
+pack_C_GetAttributeValue_Return(
         dercursor* pack_target,
         const CK_RV* retval,
         const CK_ATTRIBUTE* pTemplate
@@ -3668,7 +3668,6 @@ CK_RV
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    size_t  x = (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE));
     uint8_t *pTemplate_innerlist = NULL;
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(

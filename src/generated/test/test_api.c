@@ -892,7 +892,16 @@ void test_C_Initialize(void **state){
 
     (void) state; /* unused */
 
-    CK_VOID_PTR pInitArgs = NULL;  /* todo: probably requires finetuning */
+    CK_C_INITIALIZE_ARGS pInitArgs_pointed = { 
+        .CreateMutex = NULL,
+        .DestroyMutex = NULL,
+        .LockMutex = NULL,
+        .UnlockMutex = NULL,
+        .flags = CKF_OS_LOCKING_OK,
+        .pReserved = NULL
+    };
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs = &pInitArgs_pointed; // we do this a bit weird to simplify code generation
+    
     
 
     CK_RV status = C_Initialize(
@@ -1340,7 +1349,7 @@ void test_C_WaitForSlotEvent(void **state){
 
     CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
     CK_SLOT_ID_PTR pSlot = NULL;  /* todo: probably requires finetuning */
-    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL; // assuming reserved for future usage
     
 
     CK_RV status = C_WaitForSlotEvent(

@@ -2207,7 +2207,7 @@ void test_pack_C_Finalize_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL; // assuming reserved for future usage
     
 
     CK_RV status = pack_C_Finalize_Call(
@@ -4111,7 +4111,16 @@ void test_pack_C_Initialize_Call(void **state) {
 
     dercursor dercursor;
 
-    CK_VOID_PTR pInitArgs = NULL;  /* todo: probably requires finetuning */
+    CK_C_INITIALIZE_ARGS pInitArgs_pointed = { 
+        .CreateMutex = NULL,
+        .DestroyMutex = NULL,
+        .LockMutex = NULL,
+        .UnlockMutex = NULL,
+        .flags = CKF_OS_LOCKING_OK,
+        .pReserved = NULL
+    };
+    CK_C_INITIALIZE_ARGS_PTR pInitArgs = &pInitArgs_pointed; // we do this a bit weird to simplify code generation
+    
     
 
     CK_RV status = pack_C_Initialize_Call(
@@ -6122,7 +6131,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
     dercursor dercursor;
 
     CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
-    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL; // assuming reserved for future usage
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Call(
@@ -6166,7 +6175,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
 
     CK_RV retval = CKR_OK;
     CK_SLOT_ID pSlot = 13;
-    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL; // assuming reserved for future usage
     
 
     CK_RV status = pack_C_WaitForSlotEvent_Return(
