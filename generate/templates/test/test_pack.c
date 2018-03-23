@@ -75,9 +75,8 @@ void test_pack_{{ f.type_name|under }}(void **state) {
 //      // todo: assert_ptr_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue);
 //      assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
 //  }*/
-{% elif type_  == "CK_MECHANISM_INFO" %}
-    assert_memory_equal(&{{ identifier }}, &{{ identifier }}_unpack, sizeof({{ type_ }}));
-
+{% elif type_  in ("CK_MECHANISM_INFO", "CK_MECHANISM_TYPE_ARRAY") %}
+    assert_memory_equal(&{{ identifier }}, &{{ identifier }}_unpack, sizeof({{ identifier }}));
 {% elif type_ == "CK_INFO" %}
     assert_int_equal(pInfo.flags, pInfo_unpack.flags);
     assert_int_equal(pInfo.cryptokiVersion.major, pInfo_unpack.cryptokiVersion.major);

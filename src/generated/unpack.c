@@ -2820,7 +2820,7 @@ unpack_C_GetMechanismList_Return(
 
 
 
-    status = der_get_CK_MECHANISM_TYPE_ARRAY(&C_GetMechanismList_Return.pMechanismList, pMechanismList);
+    status = der_get_CK_MECHANISM_TYPE_ARRAY(C_GetMechanismList_Return.pMechanismList.data, pMechanismList);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 

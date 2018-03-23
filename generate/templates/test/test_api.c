@@ -13,7 +13,7 @@ void test_{{ f }}(void **state){
     (void) state; /* unused */
 
     {% for type, pointerized, value in combined_args(call, return_) -%}
-    {{ initialise(type, value) }}
+    {{ initialise_test(type, value) }}
     {% endfor %}
 
     CK_RV status = {{ f }}(

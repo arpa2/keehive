@@ -3331,8 +3331,7 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_memory_equal(&pInfo, &pInfo_unpack, sizeof(CK_MECHANISM_INFO));
-
+    assert_memory_equal(&pInfo, &pInfo_unpack, sizeof(pInfo));
 
 
 
@@ -3390,8 +3389,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_MECHANISM_TYPE pMechanismList_pointed[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-    CK_MECHANISM_TYPE_ARRAY pMechanismList = &pMechanismList_pointed[0];
+    CK_MECHANISM_TYPE pMechanismList[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
     CK_ULONG pulCount = 13;
     
 
@@ -3425,7 +3423,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_int_equal(pMechanismList, pMechanismList_unpack);
+    assert_memory_equal(&pMechanismList, &pMechanismList_unpack, sizeof(pMechanismList));
 
 
     assert_int_equal(pulCount, pulCount_unpack);

@@ -350,28 +350,23 @@ int der_get_CK_OBJECT_HANDLE_ARRAY(ACK_OBJECT_HANDLE_ARRAY_t* Ack_Object_Handle_
 };
 
 int der_get_CK_MECHANISM_TYPE_ARRAY(
-        struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return_pMechanismList * ack_mechanism_type_array,
-        CK_MECHANISM_TYPE_ARRAY ck_mechanism_type_array) {
-
+        ACK_MECHANISM_TYPE_ARRAY_t ack_mechanism_type_array,
+        CK_MECHANISM_TYPE_ARRAY ck_mechanism_type_array
+) {
 
     dercursor iterator;
     int status;
     int i = 0;
-
-    unsigned char value;
-
+    CK_ULONG value;
     ACK_MECHANISM_TYPE_t der_slot;
 
-    // todo: we need to check if NULL
-
-    if (der_iterate_first(&ack_mechanism_type_array->data.wire, &iterator)) {
+    if (der_iterate_first(&ack_mechanism_type_array.wire, &iterator)) {
         do {
-            // todo: check if pSlotList_packer is right here
-            status = der_unpack(&iterator, pSlotList_packer, &der_slot, REPEAT);
+            status = der_unpack(&iterator, mechanism_type_array_packer, &der_slot, REPEAT);
             if (status == -1)
                 return -1;
 
-            status = der_get_uchar(der_slot, &value);
+            status = der_get_ulong(der_slot, &value);
             if (status == -1)
                 return -1;
             (ck_mechanism_type_array)[i] = value;

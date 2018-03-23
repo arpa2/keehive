@@ -33,8 +33,37 @@ void der_putget_CK_BYTE_ARRAY(void **state){
     assert_memory_equal(byte_array, byte_array2, byte_array_len * sizeof(CK_BYTE));
 
     free(byte_array2);
-
 };
+
+
+void der_putget_CK_MECHANISM_TYPE_ARRAY(void **state){
+
+    CK_MECHANISM_TYPE input[] = {1, 2, 3, 4, 6};
+
+    CK_MECHANISM_TYPE_ARRAY array = (CK_MECHANISM_TYPE_ARRAY) input;
+    CK_ULONG byte_array_len = sizeof(input)/ sizeof(CK_MECHANISM_TYPE);
+
+    dercursor cursor;
+    CK_RV status = der_put_CK_MECHANISM_TYPE_ARRAY(
+            array,
+            &byte_array_len,
+            &cursor.derptr,
+            &cursor.derlen,
+            mechanism_type_array_packer);
+    assert_int_equal(status, CKR_OK);
+
+    CK_MECHANISM_TYPE_ARRAY array2 = malloc(byte_array_len * sizeof(CK_MECHANISM_TYPE));
+
+    dernode node = {.wire=cursor};
+
+    int get_status = der_get_CK_MECHANISM_TYPE_ARRAY(node, array2);
+    assert_int_equal(get_status, 0);
+
+    assert_memory_equal(array, array2, byte_array_len * sizeof(CK_MECHANISM_TYPE));
+
+    free(array2);
+};
+
 
 void der_putget_CK_FLAGS_PTR(void **state) {
 
@@ -52,6 +81,7 @@ int main(void) {
 
             cmocka_unit_test(der_putget_CK_BYTE_ARRAY),
             cmocka_unit_test(der_putget_CK_FLAGS_PTR),
+            cmocka_unit_test(der_putget_CK_MECHANISM_TYPE_ARRAY),
 
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

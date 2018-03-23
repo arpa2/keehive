@@ -75,7 +75,11 @@ int der_get_CK_SLOT_ID_PTR(ACK_SLOT_ID_t* Ack_Slot_id, CK_SLOT_ID_PTR pSlotid);
 
 int der_get_CK_OBJECT_HANDLE_ARRAY(ACK_OBJECT_HANDLE_ARRAY_t* Ack_Object_Handle_Array, CK_OBJECT_HANDLE_ARRAY phObject);
 
-int der_get_CK_MECHANISM_TYPE_ARRAY(struct DER_OVLY_RemotePKCS11_C_GetMechanismList_Return_pMechanismList *, CK_MECHANISM_TYPE_ARRAY pMechanism);
+int
+der_get_CK_MECHANISM_TYPE_ARRAY(
+        ACK_MECHANISM_TYPE_ARRAY_t,
+        CK_MECHANISM_TYPE_ARRAY
+);
 
 int
 der_get_CK_SLOT_ID_ARRAY(

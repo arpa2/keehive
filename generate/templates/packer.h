@@ -22,6 +22,8 @@ extern const derwalk {{ f.type_name|under }}_packer[];
 
 extern const derwalk pSlotList_packer[];
 
+extern const derwalk mechanism_type_array_packer[];
+
 extern const derwalk ObjectHandlerPacker_packer[];
 
 extern const derwalk AttributeArray_packer[];

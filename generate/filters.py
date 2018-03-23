@@ -231,14 +231,16 @@ type_test_templates = {
     "CK_BBOOL":
         "{type_} {identifier} = CK_TRUE;",
     "CK_MECHANISM_TYPE_ARRAY":
-        """CK_MECHANISM_TYPE {identifier}_pointed[] = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }};
-    {type_} {identifier} = &{identifier}_pointed[0];""",
+        """CK_MECHANISM_TYPE {identifier}[] = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }};""",
 
     "CK_SLOT_ID_ARRAY":
         """CK_SLOT_ID {identifier}_pointed[] = {{ 1, 5, 19 }};
     {type_} {identifier} = &{identifier}_pointed[0];""",
     "CK_FLAGS":
-        """{type_} {identifier} = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;"""
+        """{type_} {identifier} = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;""",
+    "CK_OBJECT_HANDLE_PTR":
+        """CK_OBJECT_HANDLE {identifier}_pointed = 12;
+    CK_OBJECT_HANDLE_PTR {identifier} = &{identifier}_pointed;"""
 }
 
 identifier_test_map = {

@@ -668,6 +668,11 @@ const derwalk pSlotList_packer[] = {
         DER_PACK_END
 };
 
+const derwalk mechanism_type_array_packer[] = {
+        DER_PACK_STORE | DER_TAG_INTEGER,
+        DER_PACK_END
+};
+
 const derwalk ObjectHandlerPacker_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
@@ -679,6 +684,7 @@ const derwalk AttributeArray_packer[] = {
         DER_PACK_END
 };
 
+// TODO: is this right?
 const derwalk ByteArray_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END

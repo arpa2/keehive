@@ -12,7 +12,7 @@ void test_C_CancelFunction(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = C_CancelFunction(
@@ -27,7 +27,7 @@ void test_C_CloseAllSessions(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
+    CK_SLOT_ID slotID = 13;
     
 
     CK_RV status = C_CloseAllSessions(
@@ -42,7 +42,7 @@ void test_C_CloseSession(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = C_CloseSession(
@@ -57,11 +57,14 @@ void test_C_CopyObject(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phObject_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
     
 
     CK_RV status = C_CopyObject(
@@ -80,10 +83,13 @@ void test_C_CreateObject(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phObject_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
     
 
     CK_RV status = C_CreateObject(
@@ -101,11 +107,11 @@ void test_C_Decrypt(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG ulEncryptedDataLen = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulEncryptedDataLen = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulDataLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Decrypt(
@@ -124,11 +130,11 @@ void test_C_DecryptDigestUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DecryptDigestUpdate(
@@ -147,9 +153,9 @@ void test_C_DecryptFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pLastPart = NULL;
-    CK_ULONG_PTR pulLastPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pLastPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulLastPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DecryptFinal(
@@ -166,9 +172,10 @@ void test_C_DecryptInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_DecryptInit(
@@ -185,11 +192,11 @@ void test_C_DecryptUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DecryptUpdate(
@@ -208,11 +215,11 @@ void test_C_DecryptVerifyUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG ulEncryptedPartLen = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG_PTR pulPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulEncryptedPartLen = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DecryptVerifyUpdate(
@@ -231,12 +238,16 @@ void test_C_DeriveKey(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hBaseKey = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hBaseKey = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phKey_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
     
 
     CK_RV status = C_DeriveKey(
@@ -256,8 +267,8 @@ void test_C_DestroyObject(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
     
 
     CK_RV status = C_DestroyObject(
@@ -273,11 +284,11 @@ void test_C_Digest(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulDataLen = 13;
+    CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulDigestLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Digest(
@@ -296,11 +307,11 @@ void test_C_DigestEncryptUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DigestEncryptUpdate(
@@ -319,9 +330,9 @@ void test_C_DigestFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pDigest = NULL;
-    CK_ULONG_PTR pulDigestLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulDigestLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_DigestFinal(
@@ -338,8 +349,9 @@ void test_C_DigestInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
     
 
     CK_RV status = C_DigestInit(
@@ -355,8 +367,8 @@ void test_C_DigestKey(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_DigestKey(
@@ -372,9 +384,9 @@ void test_C_DigestUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = C_DigestUpdate(
@@ -391,11 +403,11 @@ void test_C_Encrypt(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulDataLen = 13;
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Encrypt(
@@ -414,9 +426,9 @@ void test_C_EncryptFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedData = NULL;
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulEncryptedDataLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_EncryptFinal(
@@ -433,9 +445,10 @@ void test_C_EncryptInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_EncryptInit(
@@ -452,11 +465,11 @@ void test_C_EncryptUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_EncryptUpdate(
@@ -475,7 +488,7 @@ void test_C_Finalize(void **state){
 
     (void) state; /* unused */
 
-    ANY pReserved = NULL;
+    ANY pReserved = NULL; /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Finalize(
@@ -490,10 +503,11 @@ void test_C_FindObjects(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE_PTR phObject = NULL;
-    CK_ULONG ulMaxObjectCount = 0;
-    CK_ULONG_PTR pulObjectCount = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE phObject_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
+    CK_ULONG ulMaxObjectCount = 13;
+    CK_ULONG_PTR pulObjectCount = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_FindObjects(
@@ -511,7 +525,7 @@ void test_C_FindObjectsFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = C_FindObjectsFinal(
@@ -526,9 +540,11 @@ void test_C_FindObjectsInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = C_FindObjectsInit(
@@ -545,11 +561,15 @@ void test_C_GenerateKey(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phKey_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
     
 
     CK_RV status = C_GenerateKey(
@@ -568,14 +588,21 @@ void test_C_GenerateKeyPair(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = NULL;
-    CK_ULONG ulPublicKeyAttributeCount = 0;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = NULL;
-    CK_ULONG ulPrivateKeyAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phPublicKey = NULL;
-    CK_OBJECT_HANDLE_PTR phPrivateKey = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pPublicKeyTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pPublicKeyTemplate_label, .ulValueLen=sizeof(pPublicKeyTemplate_label)-1} };
+    CK_ULONG ulPublicKeyAttributeCount = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pPrivateKeyTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pPrivateKeyTemplate_label, .ulValueLen=sizeof(pPrivateKeyTemplate_label)-1} };
+    CK_ULONG ulPrivateKeyAttributeCount = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phPublicKey_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phPublicKey = &phPublicKey_pointed;
+    CK_OBJECT_HANDLE phPrivateKey_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phPrivateKey = &phPrivateKey_pointed;
     
 
     CK_RV status = C_GenerateKeyPair(
@@ -597,9 +624,9 @@ void test_C_GenerateRandom(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSeed = NULL;
-    CK_ULONG ulRandomLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pSeed = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulRandomLen = 13;
     
 
     CK_RV status = C_GenerateRandom(
@@ -616,10 +643,12 @@ void test_C_GetAttributeValue(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = C_GetAttributeValue(
@@ -637,7 +666,7 @@ void test_C_GetFunctionStatus(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = C_GetFunctionStatus(
@@ -652,7 +681,7 @@ void test_C_GetInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_INFO_PTR pInfo = NULL;
+    CK_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetInfo(
@@ -667,9 +696,9 @@ void test_C_GetMechanismInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    CK_MECHANISM_TYPE type = 0;
-    CK_MECHANISM_INFO_PTR pInfo = NULL;
+    CK_SLOT_ID slotID = 13;
+    CK_MECHANISM_TYPE type = 13;
+    CK_MECHANISM_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetMechanismInfo(
@@ -686,9 +715,9 @@ void test_C_GetMechanismList(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
-    CK_ULONG_PTR pulCount = NULL;
+    CK_SLOT_ID slotID = 13;
+    CK_MECHANISM_TYPE pMechanismList[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+    CK_ULONG_PTR pulCount = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetMechanismList(
@@ -705,9 +734,9 @@ void test_C_GetObjectSize(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
-    CK_ULONG_PTR pulSize = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
+    CK_ULONG_PTR pulSize = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetObjectSize(
@@ -724,9 +753,9 @@ void test_C_GetOperationState(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pOperationState = NULL;
-    CK_ULONG_PTR pulOperationStateLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pOperationState = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulOperationStateLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetOperationState(
@@ -743,8 +772,8 @@ void test_C_GetSessionInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_SESSION_INFO_PTR pInfo = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_SESSION_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetSessionInfo(
@@ -760,8 +789,8 @@ void test_C_GetSlotInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    CK_SLOT_INFO_PTR pInfo = NULL;
+    CK_SLOT_ID slotID = 13;
+    CK_SLOT_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetSlotInfo(
@@ -777,9 +806,10 @@ void test_C_GetSlotList(void **state){
 
     (void) state; /* unused */
 
-    CK_BBOOL tokenPresent = 0;
-    CK_SLOT_ID_ARRAY pSlotList = NULL;
-    CK_ULONG_PTR pulCount = NULL;
+    CK_BBOOL tokenPresent = CK_TRUE;
+    CK_SLOT_ID pSlotList_pointed[] = { 1, 5, 19 };
+    CK_SLOT_ID_ARRAY pSlotList = &pSlotList_pointed[0];
+    CK_ULONG_PTR pulCount = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetSlotList(
@@ -796,8 +826,8 @@ void test_C_GetTokenInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    CK_TOKEN_INFO_PTR pInfo = NULL;
+    CK_SLOT_ID slotID = 13;
+    CK_TOKEN_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_GetTokenInfo(
@@ -813,9 +843,9 @@ void test_C_InitPIN(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pPin = NULL;
-    CK_ULONG ulPinLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_UTF8CHAR_ARRAY pPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPinLen = 13;
     
 
     CK_RV status = C_InitPIN(
@@ -832,10 +862,10 @@ void test_C_InitToken(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    UTF8String pPin = NULL;
-    CK_ULONG ulPinLen = 0;
-    UTF8String pLabel = NULL;
+    CK_SLOT_ID slotID = 13;
+    UTF8String pPin = (UTF8String) "abcdefghijklm";
+    CK_ULONG ulPinLen = 13;
+    UTF8String pLabel = (UTF8String) "abcdefghijklm";
     
 
     CK_RV status = C_InitToken(
@@ -853,7 +883,7 @@ void test_C_Initialize(void **state){
 
     (void) state; /* unused */
 
-    CK_VOID_PTR pInitArgs = NULL;
+    CK_VOID_PTR pInitArgs = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Initialize(
@@ -868,10 +898,10 @@ void test_C_Login(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_USER_TYPE userType = 0;
-    CK_UTF8CHAR_ARRAY pPin = NULL;
-    CK_ULONG ulPinLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_USER_TYPE userType = 13;
+    CK_UTF8CHAR_ARRAY pPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPinLen = 13;
     
 
     CK_RV status = C_Login(
@@ -889,7 +919,7 @@ void test_C_Logout(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
+    CK_SESSION_HANDLE hSession = 13;
     
 
     CK_RV status = C_Logout(
@@ -904,11 +934,11 @@ void test_C_OpenSession(void **state){
 
     (void) state; /* unused */
 
-    CK_SLOT_ID slotID = 0;
-    CK_FLAGS flags = 0;
-    ANY pApplication = NULL;
-    CK_NOTIFY notify = NULL;
-    CK_SESSION_HANDLE_PTR phSession = NULL;
+    CK_SLOT_ID slotID = 13;
+    CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
+    ANY pApplication = NULL; /* todo: probably requires finetuning */
+    CK_NOTIFY notify = NULL; // todo: set to notify_callback;
+    CK_SESSION_HANDLE_PTR phSession = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_OpenSession(
@@ -927,9 +957,9 @@ void test_C_SeedRandom(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSeed = NULL;
-    CK_ULONG ulSeedLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pSeed = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulSeedLen = 13;
     
 
     CK_RV status = C_SeedRandom(
@@ -946,10 +976,12 @@ void test_C_SetAttributeValue(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulCount = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_OBJECT_HANDLE hObject = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
     CK_RV status = C_SetAttributeValue(
@@ -967,11 +999,11 @@ void test_C_SetOperationState(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pOperationState = NULL;
-    CK_ULONG ulOperationStateLen = 0;
-    CK_OBJECT_HANDLE hEncryptionKey = 0;
-    CK_OBJECT_HANDLE hAuthenticationKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pOperationState = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulOperationStateLen = 13;
+    CK_OBJECT_HANDLE hEncryptionKey = 13;
+    CK_OBJECT_HANDLE hAuthenticationKey = 13;
     
 
     CK_RV status = C_SetOperationState(
@@ -990,11 +1022,11 @@ void test_C_SetPIN(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pOldPin = NULL;
-    CK_ULONG ulOldLen = 0;
-    CK_UTF8CHAR_ARRAY pNewPin = NULL;
-    CK_ULONG ulNewPin = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_UTF8CHAR_ARRAY pOldPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
+    CK_ULONG ulOldLen = 13;
+    CK_UTF8CHAR_ARRAY pNewPin = (CK_UTF8CHAR_ARRAY) "abcdefghijklm";
+    CK_ULONG ulNewPin = 13;
     
 
     CK_RV status = C_SetPIN(
@@ -1013,11 +1045,11 @@ void test_C_Sign(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulDataLen = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_Sign(
@@ -1036,11 +1068,11 @@ void test_C_SignEncryptUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
-    CK_BYTE_ARRAY pEncryptedPart = NULL;
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
+    CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_SignEncryptUpdate(
@@ -1059,9 +1091,9 @@ void test_C_SignFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_SignFinal(
@@ -1078,9 +1110,10 @@ void test_C_SignInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_SignInit(
@@ -1097,11 +1130,11 @@ void test_C_SignRecover(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG_PTR pulSignatureLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulDataLen = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_SignRecover(
@@ -1120,9 +1153,10 @@ void test_C_SignRecoverInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_SignRecoverInit(
@@ -1139,9 +1173,9 @@ void test_C_SignUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = C_SignUpdate(
@@ -1158,14 +1192,18 @@ void test_C_UnwrapKey(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hUnwrappingKey = 0;
-    CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG ulWrappedKeyLen = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = NULL;
-    CK_ULONG ulAttributeCount = 0;
-    CK_OBJECT_HANDLE_PTR phKey = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hUnwrappingKey = 13;
+    CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulWrappedKeyLen = 13;
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_ATTRIBUTE pTemplate[] = {
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+    CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
+    CK_OBJECT_HANDLE phKey_pointed = 12;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
     
 
     CK_RV status = C_UnwrapKey(
@@ -1187,11 +1225,11 @@ void test_C_Verify(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG ulSignatureLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulDataLen = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulSignatureLen = 13;
     
 
     CK_RV status = C_Verify(
@@ -1210,9 +1248,9 @@ void test_C_VerifyFinal(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG ulSignatureLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulSignatureLen = 13;
     
 
     CK_RV status = C_VerifyFinal(
@@ -1229,9 +1267,10 @@ void test_C_VerifyInit(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hKey = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hKey = 13;
     
 
     CK_RV status = C_VerifyInit(
@@ -1248,11 +1287,11 @@ void test_C_VerifyRecover(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = NULL;
-    CK_ULONG ulSignatureLen = 0;
-    CK_BYTE_ARRAY pData = NULL;
-    CK_ULONG_PTR pulDataLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulSignatureLen = 13;
+    CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulDataLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_VerifyRecover(
@@ -1271,9 +1310,9 @@ void test_C_VerifyUpdate(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = NULL;
-    CK_ULONG ulPartLen = 0;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG ulPartLen = 13;
     
 
     CK_RV status = C_VerifyUpdate(
@@ -1290,9 +1329,9 @@ void test_C_WaitForSlotEvent(void **state){
 
     (void) state; /* unused */
 
-    CK_FLAGS flags = 0;
-    CK_SLOT_ID_PTR pSlot = NULL;
-    CK_VOID_PTR pReserved = NULL;
+    CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
+    CK_SLOT_ID_PTR pSlot = NULL;  /* todo: probably requires finetuning */
+    CK_VOID_PTR pReserved = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_WaitForSlotEvent(
@@ -1309,12 +1348,13 @@ void test_C_WrapKey(void **state){
 
     (void) state; /* unused */
 
-    CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = NULL;
-    CK_OBJECT_HANDLE hWrappingKey = 0;
-    CK_OBJECT_HANDLE hKey = 0;
-    CK_BYTE_ARRAY pWrappedKey = NULL;
-    CK_ULONG_PTR pulWrappedKeyLen = NULL;
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_OBJECT_HANDLE hWrappingKey = 13;
+    CK_OBJECT_HANDLE hKey = 13;
+    CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
+    CK_ULONG_PTR pulWrappedKeyLen = NULL;  /* todo: probably requires finetuning */
     
 
     CK_RV status = C_WrapKey(
