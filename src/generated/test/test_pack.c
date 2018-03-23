@@ -41,8 +41,7 @@ void test_pack_C_CancelFunction_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -77,8 +76,7 @@ void test_pack_C_CancelFunction_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -115,8 +113,7 @@ void test_pack_C_CloseAllSessions_Call(void **state) {
         &slotID_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -151,8 +148,7 @@ void test_pack_C_CloseAllSessions_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -189,8 +185,7 @@ void test_pack_C_CloseSession_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -225,8 +220,7 @@ void test_pack_C_CloseSession_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -277,8 +271,7 @@ void test_pack_C_CopyObject_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -332,8 +325,7 @@ void test_pack_C_CopyObject_Return(void **state) {
         &phObject_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -383,8 +375,7 @@ void test_pack_C_CreateObject_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -435,8 +426,7 @@ void test_pack_C_CreateObject_Return(void **state) {
         &phObject_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -488,8 +478,7 @@ void test_pack_C_Decrypt_Call(void **state) {
         &pulDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -542,8 +531,7 @@ void test_pack_C_Decrypt_Return(void **state) {
         &pulDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -599,8 +587,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -653,8 +640,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -702,8 +688,7 @@ void test_pack_C_DecryptFinal_Call(void **state) {
         &pulLastPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -749,8 +734,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
         &pulLastPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -803,8 +787,7 @@ void test_pack_C_DecryptInit_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -847,8 +830,7 @@ void test_pack_C_DecryptInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -897,8 +879,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -951,8 +932,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1008,8 +988,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1062,8 +1041,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
         &pulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1126,8 +1104,7 @@ void test_pack_C_DeriveKey_Call(void **state) {
         &ulAttributeCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1186,8 +1163,7 @@ void test_pack_C_DeriveKey_Return(void **state) {
         &phKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1231,8 +1207,7 @@ void test_pack_C_DestroyObject_Call(void **state) {
         &hObject_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1270,8 +1245,7 @@ void test_pack_C_DestroyObject_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1320,8 +1294,7 @@ void test_pack_C_Digest_Call(void **state) {
         &pulDigestLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1374,8 +1347,7 @@ void test_pack_C_Digest_Return(void **state) {
         &pulDigestLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1431,8 +1403,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1485,8 +1456,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1534,8 +1504,7 @@ void test_pack_C_DigestFinal_Call(void **state) {
         &pulDigestLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1581,8 +1550,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
         &pulDigestLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1631,8 +1599,7 @@ void test_pack_C_DigestInit_Call(void **state) {
         pMechanism_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1672,8 +1639,7 @@ void test_pack_C_DigestInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1714,8 +1680,7 @@ void test_pack_C_DigestKey_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1753,8 +1718,7 @@ void test_pack_C_DigestKey_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1799,8 +1763,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
         &ulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1842,8 +1805,7 @@ void test_pack_C_DigestUpdate_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1892,8 +1854,7 @@ void test_pack_C_Encrypt_Call(void **state) {
         &pulEncryptedDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1946,8 +1907,7 @@ void test_pack_C_Encrypt_Return(void **state) {
         &pulEncryptedDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -1995,8 +1955,7 @@ void test_pack_C_EncryptFinal_Call(void **state) {
         &pulEncryptedDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2042,8 +2001,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
         &pulEncryptedDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2096,8 +2054,7 @@ void test_pack_C_EncryptInit_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2140,8 +2097,7 @@ void test_pack_C_EncryptInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2190,8 +2146,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2244,8 +2199,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2289,8 +2243,7 @@ void test_pack_C_Finalize_Call(void **state) {
         pReserved_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2330,8 +2283,7 @@ void test_pack_C_Finalize_Return(void **state) {
         &pReserved_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2375,8 +2327,7 @@ void test_pack_C_FindObjects_Call(void **state) {
         &ulMaxObjectCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2422,8 +2373,7 @@ void test_pack_C_FindObjects_Return(void **state) {
         &pulObjectCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2466,8 +2416,7 @@ void test_pack_C_FindObjectsFinal_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2502,8 +2451,7 @@ void test_pack_C_FindObjectsFinal_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2550,8 +2498,7 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2604,8 +2551,7 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
         pTemplate_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2666,8 +2612,7 @@ void test_pack_C_GenerateKey_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2723,8 +2668,7 @@ void test_pack_C_GenerateKey_Return(void **state) {
         &phKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2789,8 +2733,7 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
         &ulPrivateKeyAttributeCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2862,8 +2805,7 @@ void test_pack_C_GenerateKeyPair_Return(void **state) {
         &phPrivateKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2910,8 +2852,7 @@ void test_pack_C_GenerateRandom_Call(void **state) {
         &ulRandomLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -2953,8 +2894,7 @@ void test_pack_C_GenerateRandom_Return(void **state) {
         pSeed_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3009,8 +2949,7 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3066,8 +3005,7 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
         pTemplate_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3113,8 +3051,7 @@ void test_pack_C_GetFunctionStatus_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3149,8 +3086,7 @@ void test_pack_C_GetFunctionStatus_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3183,8 +3119,7 @@ void test_pack_C_GetInfo_Call(void **state) {
         &dercursor
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3226,8 +3161,7 @@ void test_pack_C_GetInfo_Return(void **state) {
         &pInfo_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3277,8 +3211,7 @@ void test_pack_C_GetMechanismInfo_Call(void **state) {
         &type_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3322,8 +3255,7 @@ void test_pack_C_GetMechanismInfo_Return(void **state) {
         &pInfo_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3367,8 +3299,7 @@ void test_pack_C_GetMechanismList_Call(void **state) {
         &pulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3414,8 +3345,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
         &pulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3462,8 +3392,7 @@ void test_pack_C_GetObjectSize_Call(void **state) {
         &hObject_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3505,8 +3434,7 @@ void test_pack_C_GetObjectSize_Return(void **state) {
         &pulSize_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3550,8 +3478,7 @@ void test_pack_C_GetOperationState_Call(void **state) {
         &pulOperationStateLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3597,8 +3524,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
         &pulOperationStateLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3642,8 +3568,7 @@ void test_pack_C_GetSessionInfo_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3682,8 +3607,7 @@ void test_pack_C_GetSessionInfo_Return(void **state) {
         &pInfo_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3726,8 +3650,7 @@ void test_pack_C_GetSlotInfo_Call(void **state) {
         &slotID_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3772,8 +3695,7 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
         &pInfo_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3781,8 +3703,13 @@ void test_pack_C_GetSlotInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pInfo (CK_SLOT_INFO)
-    assert_false(true);
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.firmwareVersion.major, pInfo_unpack.firmwareVersion.major);
+    assert_int_equal(pInfo.firmwareVersion.minor, pInfo_unpack.firmwareVersion.minor);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_memory_equal(pInfo.manufacturerID, pInfo_unpack.manufacturerID, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.slotDescription, pInfo.slotDescription, sizeof(CK_UTF8CHAR) * 64);
 
 
 
@@ -3818,8 +3745,7 @@ void test_pack_C_GetSlotList_Call(void **state) {
         &pulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3866,8 +3792,7 @@ void test_pack_C_GetSlotList_Return(void **state) {
         &pulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3913,8 +3838,7 @@ void test_pack_C_GetTokenInfo_Call(void **state) {
         &slotID_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3973,8 +3897,7 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
         &pInfo_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -3982,8 +3905,26 @@ void test_pack_C_GetTokenInfo_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: assert for pInfo (CK_TOKEN_INFO)
-    assert_false(true);
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.firmwareVersion.major, pInfo_unpack.firmwareVersion.major);
+    assert_int_equal(pInfo.firmwareVersion.minor, pInfo_unpack.firmwareVersion.minor);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_memory_equal(pInfo.manufacturerID, pInfo_unpack.manufacturerID, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.label, pInfo.label, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.model, pInfo.model, sizeof(CK_UTF8CHAR) * 16);
+    assert_memory_equal(pInfo.utcTime, pInfo.utcTime, sizeof(CK_UTF8CHAR) * 16);
+    assert_memory_equal(pInfo.serialNumber, pInfo.serialNumber, sizeof(CK_UTF8CHAR) * 16);
+    assert_int_equal(pInfo.ulMaxSessionCount, pInfo_unpack.ulMaxSessionCount);
+    assert_int_equal(pInfo.ulSessionCount, pInfo_unpack.ulSessionCount);
+    assert_int_equal(pInfo.ulMaxRwSessionCount, pInfo_unpack.ulMaxRwSessionCount);
+    assert_int_equal(pInfo.ulRwSessionCount, pInfo_unpack.ulRwSessionCount);
+    assert_int_equal(pInfo.ulMaxPinLen, pInfo_unpack.ulMaxPinLen);
+    assert_int_equal(pInfo.ulMinPinLen, pInfo_unpack.ulMinPinLen);
+    assert_int_equal(pInfo.ulTotalPublicMemory, pInfo_unpack.ulTotalPublicMemory);
+    assert_int_equal(pInfo.ulFreePublicMemory, pInfo_unpack.ulFreePublicMemory);
+    assert_int_equal(pInfo.ulTotalPrivateMemory, pInfo_unpack.ulTotalPrivateMemory);
+    assert_int_equal(pInfo.ulFreePrivateMemory, pInfo_unpack.ulFreePrivateMemory);
 
 
 
@@ -4023,8 +3964,7 @@ void test_pack_C_InitPIN_Call(void **state) {
         &ulPinLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4065,8 +4005,7 @@ void test_pack_C_InitPIN_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4115,8 +4054,7 @@ void test_pack_C_InitToken_Call(void **state) {
         pLabel_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4160,8 +4098,7 @@ void test_pack_C_InitToken_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4198,8 +4135,7 @@ void test_pack_C_Initialize_Call(void **state) {
         pInitArgs_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4239,8 +4175,7 @@ void test_pack_C_Initialize_Return(void **state) {
         &pInitArgs_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4292,8 +4227,7 @@ void test_pack_C_Login_Call(void **state) {
         &ulPinLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4337,8 +4271,7 @@ void test_pack_C_Login_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4375,8 +4308,7 @@ void test_pack_C_Logout_Call(void **state) {
         &hSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4411,8 +4343,7 @@ void test_pack_C_Logout_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4461,8 +4392,7 @@ void test_pack_C_OpenSession_Call(void **state) {
         notify_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4510,8 +4440,7 @@ void test_pack_C_OpenSession_Return(void **state) {
         &phSession_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4559,8 +4488,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
         &ulSeedLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4602,8 +4530,7 @@ void test_pack_C_SeedRandom_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4654,8 +4581,7 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
         &ulCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4705,8 +4631,7 @@ void test_pack_C_SetAttributeValue_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4759,8 +4684,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
         &hAuthenticationKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4808,8 +4732,7 @@ void test_pack_C_SetOperationState_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4862,8 +4785,7 @@ void test_pack_C_SetPIN_Call(void **state) {
         &ulNewPin_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4910,8 +4832,7 @@ void test_pack_C_SetPIN_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -4960,8 +4881,7 @@ void test_pack_C_Sign_Call(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5014,8 +4934,7 @@ void test_pack_C_Sign_Return(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5071,8 +4990,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5125,8 +5043,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
         &pulEncryptedPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5174,8 +5091,7 @@ void test_pack_C_SignFinal_Call(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5221,8 +5137,7 @@ void test_pack_C_SignFinal_Return(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5275,8 +5190,7 @@ void test_pack_C_SignInit_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5319,8 +5233,7 @@ void test_pack_C_SignInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5369,8 +5282,7 @@ void test_pack_C_SignRecover_Call(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5423,8 +5335,7 @@ void test_pack_C_SignRecover_Return(void **state) {
         &pulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5477,8 +5388,7 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5521,8 +5431,7 @@ void test_pack_C_SignRecoverInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5567,8 +5476,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
         &ulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5610,8 +5518,7 @@ void test_pack_C_SignUpdate_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5675,8 +5582,7 @@ void test_pack_C_UnwrapKey_Call(void **state) {
         &ulAttributeCount_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5742,8 +5648,7 @@ void test_pack_C_UnwrapKey_Return(void **state) {
         &phKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5799,8 +5704,7 @@ void test_pack_C_Verify_Call(void **state) {
         &ulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5849,8 +5753,7 @@ void test_pack_C_Verify_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5895,8 +5798,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
         &ulSignatureLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5938,8 +5840,7 @@ void test_pack_C_VerifyFinal_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -5985,8 +5886,7 @@ void test_pack_C_VerifyInit_Call(void **state) {
         &hKey_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6029,8 +5929,7 @@ void test_pack_C_VerifyInit_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6079,8 +5978,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
         &pulDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6133,8 +6031,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
         &pulDataLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6186,8 +6083,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
         &ulPartLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6229,8 +6125,7 @@ void test_pack_C_VerifyUpdate_Return(void **state) {
         &retval_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6271,8 +6166,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
         pReserved_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6319,8 +6213,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
         pReserved_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6381,8 +6274,7 @@ void test_pack_C_WrapKey_Call(void **state) {
         &pulWrappedKeyLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -6439,8 +6331,7 @@ void test_pack_C_WrapKey_Return(void **state) {
         &pulWrappedKeyLen_unpack
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 

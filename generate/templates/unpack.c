@@ -22,7 +22,8 @@ unpack_{{ f.type_name|under }}(
 
     memset(&{{ f.type_name|under }}, 0, sizeof({{ f.type_name|under }}));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             {{ f.type_name|under }}_packer,
                             (dercursor *) &{{ f.type_name|under }},
                             REPEAT);

@@ -18,7 +18,8 @@ unpack_C_CancelFunction_Call(
 
     memset(&C_CancelFunction_Call, 0, sizeof(C_CancelFunction_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CancelFunction_Call_packer,
                             (dercursor *) &C_CancelFunction_Call,
                             REPEAT);
@@ -48,7 +49,8 @@ unpack_C_CancelFunction_Return(
 
     memset(&C_CancelFunction_Return, 0, sizeof(C_CancelFunction_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CancelFunction_Return_packer,
                             (dercursor *) &C_CancelFunction_Return,
                             REPEAT);
@@ -80,7 +82,8 @@ unpack_C_CloseAllSessions_Call(
 
     memset(&C_CloseAllSessions_Call, 0, sizeof(C_CloseAllSessions_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CloseAllSessions_Call_packer,
                             (dercursor *) &C_CloseAllSessions_Call,
                             REPEAT);
@@ -110,7 +113,8 @@ unpack_C_CloseAllSessions_Return(
 
     memset(&C_CloseAllSessions_Return, 0, sizeof(C_CloseAllSessions_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CloseAllSessions_Return_packer,
                             (dercursor *) &C_CloseAllSessions_Return,
                             REPEAT);
@@ -142,7 +146,8 @@ unpack_C_CloseSession_Call(
 
     memset(&C_CloseSession_Call, 0, sizeof(C_CloseSession_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CloseSession_Call_packer,
                             (dercursor *) &C_CloseSession_Call,
                             REPEAT);
@@ -172,7 +177,8 @@ unpack_C_CloseSession_Return(
 
     memset(&C_CloseSession_Return, 0, sizeof(C_CloseSession_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CloseSession_Return_packer,
                             (dercursor *) &C_CloseSession_Return,
                             REPEAT);
@@ -207,7 +213,8 @@ unpack_C_CopyObject_Call(
 
     memset(&C_CopyObject_Call, 0, sizeof(C_CopyObject_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CopyObject_Call_packer,
                             (dercursor *) &C_CopyObject_Call,
                             REPEAT);
@@ -256,7 +263,8 @@ unpack_C_CopyObject_Return(
 
     memset(&C_CopyObject_Return, 0, sizeof(C_CopyObject_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CopyObject_Return_packer,
                             (dercursor *) &C_CopyObject_Return,
                             REPEAT);
@@ -296,7 +304,8 @@ unpack_C_CreateObject_Call(
 
     memset(&C_CreateObject_Call, 0, sizeof(C_CreateObject_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CreateObject_Call_packer,
                             (dercursor *) &C_CreateObject_Call,
                             REPEAT);
@@ -339,7 +348,8 @@ unpack_C_CreateObject_Return(
 
     memset(&C_CreateObject_Return, 0, sizeof(C_CreateObject_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_CreateObject_Return_packer,
                             (dercursor *) &C_CreateObject_Return,
                             REPEAT);
@@ -380,7 +390,8 @@ unpack_C_Decrypt_Call(
 
     memset(&C_Decrypt_Call, 0, sizeof(C_Decrypt_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Decrypt_Call_packer,
                             (dercursor *) &C_Decrypt_Call,
                             REPEAT);
@@ -429,7 +440,8 @@ unpack_C_Decrypt_Return(
 
     memset(&C_Decrypt_Return, 0, sizeof(C_Decrypt_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Decrypt_Return_packer,
                             (dercursor *) &C_Decrypt_Return,
                             REPEAT);
@@ -475,7 +487,8 @@ unpack_C_DecryptDigestUpdate_Call(
 
     memset(&C_DecryptDigestUpdate_Call, 0, sizeof(C_DecryptDigestUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptDigestUpdate_Call_packer,
                             (dercursor *) &C_DecryptDigestUpdate_Call,
                             REPEAT);
@@ -524,7 +537,8 @@ unpack_C_DecryptDigestUpdate_Return(
 
     memset(&C_DecryptDigestUpdate_Return, 0, sizeof(C_DecryptDigestUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptDigestUpdate_Return_packer,
                             (dercursor *) &C_DecryptDigestUpdate_Return,
                             REPEAT);
@@ -568,7 +582,8 @@ unpack_C_DecryptFinal_Call(
 
     memset(&C_DecryptFinal_Call, 0, sizeof(C_DecryptFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptFinal_Call_packer,
                             (dercursor *) &C_DecryptFinal_Call,
                             REPEAT);
@@ -606,7 +621,8 @@ unpack_C_DecryptFinal_Return(
 
     memset(&C_DecryptFinal_Return, 0, sizeof(C_DecryptFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptFinal_Return_packer,
                             (dercursor *) &C_DecryptFinal_Return,
                             REPEAT);
@@ -651,7 +667,8 @@ unpack_C_DecryptInit_Call(
 
     memset(&C_DecryptInit_Call, 0, sizeof(C_DecryptInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptInit_Call_packer,
                             (dercursor *) &C_DecryptInit_Call,
                             REPEAT);
@@ -692,7 +709,8 @@ unpack_C_DecryptInit_Return(
 
     memset(&C_DecryptInit_Return, 0, sizeof(C_DecryptInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptInit_Return_packer,
                             (dercursor *) &C_DecryptInit_Return,
                             REPEAT);
@@ -727,7 +745,8 @@ unpack_C_DecryptUpdate_Call(
 
     memset(&C_DecryptUpdate_Call, 0, sizeof(C_DecryptUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptUpdate_Call_packer,
                             (dercursor *) &C_DecryptUpdate_Call,
                             REPEAT);
@@ -776,7 +795,8 @@ unpack_C_DecryptUpdate_Return(
 
     memset(&C_DecryptUpdate_Return, 0, sizeof(C_DecryptUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptUpdate_Return_packer,
                             (dercursor *) &C_DecryptUpdate_Return,
                             REPEAT);
@@ -822,7 +842,8 @@ unpack_C_DecryptVerifyUpdate_Call(
 
     memset(&C_DecryptVerifyUpdate_Call, 0, sizeof(C_DecryptVerifyUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptVerifyUpdate_Call_packer,
                             (dercursor *) &C_DecryptVerifyUpdate_Call,
                             REPEAT);
@@ -871,7 +892,8 @@ unpack_C_DecryptVerifyUpdate_Return(
 
     memset(&C_DecryptVerifyUpdate_Return, 0, sizeof(C_DecryptVerifyUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DecryptVerifyUpdate_Return_packer,
                             (dercursor *) &C_DecryptVerifyUpdate_Return,
                             REPEAT);
@@ -918,7 +940,8 @@ unpack_C_DeriveKey_Call(
 
     memset(&C_DeriveKey_Call, 0, sizeof(C_DeriveKey_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DeriveKey_Call_packer,
                             (dercursor *) &C_DeriveKey_Call,
                             REPEAT);
@@ -972,7 +995,8 @@ unpack_C_DeriveKey_Return(
 
     memset(&C_DeriveKey_Return, 0, sizeof(C_DeriveKey_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DeriveKey_Return_packer,
                             (dercursor *) &C_DeriveKey_Return,
                             REPEAT);
@@ -1011,7 +1035,8 @@ unpack_C_DestroyObject_Call(
 
     memset(&C_DestroyObject_Call, 0, sizeof(C_DestroyObject_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DestroyObject_Call_packer,
                             (dercursor *) &C_DestroyObject_Call,
                             REPEAT);
@@ -1047,7 +1072,8 @@ unpack_C_DestroyObject_Return(
 
     memset(&C_DestroyObject_Return, 0, sizeof(C_DestroyObject_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DestroyObject_Return_packer,
                             (dercursor *) &C_DestroyObject_Return,
                             REPEAT);
@@ -1082,7 +1108,8 @@ unpack_C_Digest_Call(
 
     memset(&C_Digest_Call, 0, sizeof(C_Digest_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Digest_Call_packer,
                             (dercursor *) &C_Digest_Call,
                             REPEAT);
@@ -1131,7 +1158,8 @@ unpack_C_Digest_Return(
 
     memset(&C_Digest_Return, 0, sizeof(C_Digest_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Digest_Return_packer,
                             (dercursor *) &C_Digest_Return,
                             REPEAT);
@@ -1177,7 +1205,8 @@ unpack_C_DigestEncryptUpdate_Call(
 
     memset(&C_DigestEncryptUpdate_Call, 0, sizeof(C_DigestEncryptUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestEncryptUpdate_Call_packer,
                             (dercursor *) &C_DigestEncryptUpdate_Call,
                             REPEAT);
@@ -1226,7 +1255,8 @@ unpack_C_DigestEncryptUpdate_Return(
 
     memset(&C_DigestEncryptUpdate_Return, 0, sizeof(C_DigestEncryptUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestEncryptUpdate_Return_packer,
                             (dercursor *) &C_DigestEncryptUpdate_Return,
                             REPEAT);
@@ -1270,7 +1300,8 @@ unpack_C_DigestFinal_Call(
 
     memset(&C_DigestFinal_Call, 0, sizeof(C_DigestFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestFinal_Call_packer,
                             (dercursor *) &C_DigestFinal_Call,
                             REPEAT);
@@ -1308,7 +1339,8 @@ unpack_C_DigestFinal_Return(
 
     memset(&C_DigestFinal_Return, 0, sizeof(C_DigestFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestFinal_Return_packer,
                             (dercursor *) &C_DigestFinal_Return,
                             REPEAT);
@@ -1352,7 +1384,8 @@ unpack_C_DigestInit_Call(
 
     memset(&C_DigestInit_Call, 0, sizeof(C_DigestInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestInit_Call_packer,
                             (dercursor *) &C_DigestInit_Call,
                             REPEAT);
@@ -1387,7 +1420,8 @@ unpack_C_DigestInit_Return(
 
     memset(&C_DigestInit_Return, 0, sizeof(C_DigestInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestInit_Return_packer,
                             (dercursor *) &C_DigestInit_Return,
                             REPEAT);
@@ -1420,7 +1454,8 @@ unpack_C_DigestKey_Call(
 
     memset(&C_DigestKey_Call, 0, sizeof(C_DigestKey_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestKey_Call_packer,
                             (dercursor *) &C_DigestKey_Call,
                             REPEAT);
@@ -1456,7 +1491,8 @@ unpack_C_DigestKey_Return(
 
     memset(&C_DigestKey_Return, 0, sizeof(C_DigestKey_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestKey_Return_packer,
                             (dercursor *) &C_DigestKey_Return,
                             REPEAT);
@@ -1490,7 +1526,8 @@ unpack_C_DigestUpdate_Call(
 
     memset(&C_DigestUpdate_Call, 0, sizeof(C_DigestUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestUpdate_Call_packer,
                             (dercursor *) &C_DigestUpdate_Call,
                             REPEAT);
@@ -1531,7 +1568,8 @@ unpack_C_DigestUpdate_Return(
 
     memset(&C_DigestUpdate_Return, 0, sizeof(C_DigestUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_DigestUpdate_Return_packer,
                             (dercursor *) &C_DigestUpdate_Return,
                             REPEAT);
@@ -1566,7 +1604,8 @@ unpack_C_Encrypt_Call(
 
     memset(&C_Encrypt_Call, 0, sizeof(C_Encrypt_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Encrypt_Call_packer,
                             (dercursor *) &C_Encrypt_Call,
                             REPEAT);
@@ -1615,7 +1654,8 @@ unpack_C_Encrypt_Return(
 
     memset(&C_Encrypt_Return, 0, sizeof(C_Encrypt_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Encrypt_Return_packer,
                             (dercursor *) &C_Encrypt_Return,
                             REPEAT);
@@ -1659,7 +1699,8 @@ unpack_C_EncryptFinal_Call(
 
     memset(&C_EncryptFinal_Call, 0, sizeof(C_EncryptFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptFinal_Call_packer,
                             (dercursor *) &C_EncryptFinal_Call,
                             REPEAT);
@@ -1697,7 +1738,8 @@ unpack_C_EncryptFinal_Return(
 
     memset(&C_EncryptFinal_Return, 0, sizeof(C_EncryptFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptFinal_Return_packer,
                             (dercursor *) &C_EncryptFinal_Return,
                             REPEAT);
@@ -1742,7 +1784,8 @@ unpack_C_EncryptInit_Call(
 
     memset(&C_EncryptInit_Call, 0, sizeof(C_EncryptInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptInit_Call_packer,
                             (dercursor *) &C_EncryptInit_Call,
                             REPEAT);
@@ -1783,7 +1826,8 @@ unpack_C_EncryptInit_Return(
 
     memset(&C_EncryptInit_Return, 0, sizeof(C_EncryptInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptInit_Return_packer,
                             (dercursor *) &C_EncryptInit_Return,
                             REPEAT);
@@ -1818,7 +1862,8 @@ unpack_C_EncryptUpdate_Call(
 
     memset(&C_EncryptUpdate_Call, 0, sizeof(C_EncryptUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptUpdate_Call_packer,
                             (dercursor *) &C_EncryptUpdate_Call,
                             REPEAT);
@@ -1867,7 +1912,8 @@ unpack_C_EncryptUpdate_Return(
 
     memset(&C_EncryptUpdate_Return, 0, sizeof(C_EncryptUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_EncryptUpdate_Return_packer,
                             (dercursor *) &C_EncryptUpdate_Return,
                             REPEAT);
@@ -1910,7 +1956,8 @@ unpack_C_Finalize_Call(
 
     memset(&C_Finalize_Call, 0, sizeof(C_Finalize_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Finalize_Call_packer,
                             (dercursor *) &C_Finalize_Call,
                             REPEAT);
@@ -1940,7 +1987,8 @@ unpack_C_Finalize_Return(
 
     memset(&C_Finalize_Return, 0, sizeof(C_Finalize_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Finalize_Return_packer,
                             (dercursor *) &C_Finalize_Return,
                             REPEAT);
@@ -1976,7 +2024,8 @@ unpack_C_FindObjects_Call(
 
     memset(&C_FindObjects_Call, 0, sizeof(C_FindObjects_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjects_Call_packer,
                             (dercursor *) &C_FindObjects_Call,
                             REPEAT);
@@ -2014,7 +2063,8 @@ unpack_C_FindObjects_Return(
 
     memset(&C_FindObjects_Return, 0, sizeof(C_FindObjects_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjects_Return_packer,
                             (dercursor *) &C_FindObjects_Return,
                             REPEAT);
@@ -2058,7 +2108,8 @@ unpack_C_FindObjectsFinal_Call(
 
     memset(&C_FindObjectsFinal_Call, 0, sizeof(C_FindObjectsFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjectsFinal_Call_packer,
                             (dercursor *) &C_FindObjectsFinal_Call,
                             REPEAT);
@@ -2088,7 +2139,8 @@ unpack_C_FindObjectsFinal_Return(
 
     memset(&C_FindObjectsFinal_Return, 0, sizeof(C_FindObjectsFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjectsFinal_Return_packer,
                             (dercursor *) &C_FindObjectsFinal_Return,
                             REPEAT);
@@ -2122,7 +2174,8 @@ unpack_C_FindObjectsInit_Call(
 
     memset(&C_FindObjectsInit_Call, 0, sizeof(C_FindObjectsInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjectsInit_Call_packer,
                             (dercursor *) &C_FindObjectsInit_Call,
                             REPEAT);
@@ -2165,7 +2218,8 @@ unpack_C_FindObjectsInit_Return(
 
     memset(&C_FindObjectsInit_Return, 0, sizeof(C_FindObjectsInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_FindObjectsInit_Return_packer,
                             (dercursor *) &C_FindObjectsInit_Return,
                             REPEAT);
@@ -2206,7 +2260,8 @@ unpack_C_GenerateKey_Call(
 
     memset(&C_GenerateKey_Call, 0, sizeof(C_GenerateKey_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateKey_Call_packer,
                             (dercursor *) &C_GenerateKey_Call,
                             REPEAT);
@@ -2254,7 +2309,8 @@ unpack_C_GenerateKey_Return(
 
     memset(&C_GenerateKey_Return, 0, sizeof(C_GenerateKey_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateKey_Return_packer,
                             (dercursor *) &C_GenerateKey_Return,
                             REPEAT);
@@ -2297,7 +2353,8 @@ unpack_C_GenerateKeyPair_Call(
 
     memset(&C_GenerateKeyPair_Call, 0, sizeof(C_GenerateKeyPair_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateKeyPair_Call_packer,
                             (dercursor *) &C_GenerateKeyPair_Call,
                             REPEAT);
@@ -2358,7 +2415,8 @@ unpack_C_GenerateKeyPair_Return(
 
     memset(&C_GenerateKeyPair_Return, 0, sizeof(C_GenerateKeyPair_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateKeyPair_Return_packer,
                             (dercursor *) &C_GenerateKeyPair_Return,
                             REPEAT);
@@ -2403,7 +2461,8 @@ unpack_C_GenerateRandom_Call(
 
     memset(&C_GenerateRandom_Call, 0, sizeof(C_GenerateRandom_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateRandom_Call_packer,
                             (dercursor *) &C_GenerateRandom_Call,
                             REPEAT);
@@ -2440,7 +2499,8 @@ unpack_C_GenerateRandom_Return(
 
     memset(&C_GenerateRandom_Return, 0, sizeof(C_GenerateRandom_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GenerateRandom_Return_packer,
                             (dercursor *) &C_GenerateRandom_Return,
                             REPEAT);
@@ -2480,7 +2540,8 @@ unpack_C_GetAttributeValue_Call(
 
     memset(&C_GetAttributeValue_Call, 0, sizeof(C_GetAttributeValue_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetAttributeValue_Call_packer,
                             (dercursor *) &C_GetAttributeValue_Call,
                             REPEAT);
@@ -2529,7 +2590,8 @@ unpack_C_GetAttributeValue_Return(
 
     memset(&C_GetAttributeValue_Return, 0, sizeof(C_GetAttributeValue_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetAttributeValue_Return_packer,
                             (dercursor *) &C_GetAttributeValue_Return,
                             REPEAT);
@@ -2567,7 +2629,8 @@ unpack_C_GetFunctionStatus_Call(
 
     memset(&C_GetFunctionStatus_Call, 0, sizeof(C_GetFunctionStatus_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetFunctionStatus_Call_packer,
                             (dercursor *) &C_GetFunctionStatus_Call,
                             REPEAT);
@@ -2597,7 +2660,8 @@ unpack_C_GetFunctionStatus_Return(
 
     memset(&C_GetFunctionStatus_Return, 0, sizeof(C_GetFunctionStatus_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetFunctionStatus_Return_packer,
                             (dercursor *) &C_GetFunctionStatus_Return,
                             REPEAT);
@@ -2628,7 +2692,8 @@ unpack_C_GetInfo_Call(
 
     memset(&C_GetInfo_Call, 0, sizeof(C_GetInfo_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetInfo_Call_packer,
                             (dercursor *) &C_GetInfo_Call,
                             REPEAT);
@@ -2653,7 +2718,8 @@ unpack_C_GetInfo_Return(
 
     memset(&C_GetInfo_Return, 0, sizeof(C_GetInfo_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetInfo_Return_packer,
                             (dercursor *) &C_GetInfo_Return,
                             REPEAT);
@@ -2691,7 +2757,8 @@ unpack_C_GetMechanismInfo_Call(
 
     memset(&C_GetMechanismInfo_Call, 0, sizeof(C_GetMechanismInfo_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetMechanismInfo_Call_packer,
                             (dercursor *) &C_GetMechanismInfo_Call,
                             REPEAT);
@@ -2728,7 +2795,8 @@ unpack_C_GetMechanismInfo_Return(
 
     memset(&C_GetMechanismInfo_Return, 0, sizeof(C_GetMechanismInfo_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetMechanismInfo_Return_packer,
                             (dercursor *) &C_GetMechanismInfo_Return,
                             REPEAT);
@@ -2766,7 +2834,8 @@ unpack_C_GetMechanismList_Call(
 
     memset(&C_GetMechanismList_Call, 0, sizeof(C_GetMechanismList_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetMechanismList_Call_packer,
                             (dercursor *) &C_GetMechanismList_Call,
                             REPEAT);
@@ -2804,7 +2873,8 @@ unpack_C_GetMechanismList_Return(
 
     memset(&C_GetMechanismList_Return, 0, sizeof(C_GetMechanismList_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetMechanismList_Return_packer,
                             (dercursor *) &C_GetMechanismList_Return,
                             REPEAT);
@@ -2848,7 +2918,8 @@ unpack_C_GetObjectSize_Call(
 
     memset(&C_GetObjectSize_Call, 0, sizeof(C_GetObjectSize_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetObjectSize_Call_packer,
                             (dercursor *) &C_GetObjectSize_Call,
                             REPEAT);
@@ -2885,7 +2956,8 @@ unpack_C_GetObjectSize_Return(
 
     memset(&C_GetObjectSize_Return, 0, sizeof(C_GetObjectSize_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetObjectSize_Return_packer,
                             (dercursor *) &C_GetObjectSize_Return,
                             REPEAT);
@@ -2924,7 +2996,8 @@ unpack_C_GetOperationState_Call(
 
     memset(&C_GetOperationState_Call, 0, sizeof(C_GetOperationState_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetOperationState_Call_packer,
                             (dercursor *) &C_GetOperationState_Call,
                             REPEAT);
@@ -2962,7 +3035,8 @@ unpack_C_GetOperationState_Return(
 
     memset(&C_GetOperationState_Return, 0, sizeof(C_GetOperationState_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetOperationState_Return_packer,
                             (dercursor *) &C_GetOperationState_Return,
                             REPEAT);
@@ -3005,7 +3079,8 @@ unpack_C_GetSessionInfo_Call(
 
     memset(&C_GetSessionInfo_Call, 0, sizeof(C_GetSessionInfo_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSessionInfo_Call_packer,
                             (dercursor *) &C_GetSessionInfo_Call,
                             REPEAT);
@@ -3036,7 +3111,8 @@ unpack_C_GetSessionInfo_Return(
 
     memset(&C_GetSessionInfo_Return, 0, sizeof(C_GetSessionInfo_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSessionInfo_Return_packer,
                             (dercursor *) &C_GetSessionInfo_Return,
                             REPEAT);
@@ -3073,7 +3149,8 @@ unpack_C_GetSlotInfo_Call(
 
     memset(&C_GetSlotInfo_Call, 0, sizeof(C_GetSlotInfo_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSlotInfo_Call_packer,
                             (dercursor *) &C_GetSlotInfo_Call,
                             REPEAT);
@@ -3104,7 +3181,8 @@ unpack_C_GetSlotInfo_Return(
 
     memset(&C_GetSlotInfo_Return, 0, sizeof(C_GetSlotInfo_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSlotInfo_Return_packer,
                             (dercursor *) &C_GetSlotInfo_Return,
                             REPEAT);
@@ -3142,7 +3220,8 @@ unpack_C_GetSlotList_Call(
 
     memset(&C_GetSlotList_Call, 0, sizeof(C_GetSlotList_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSlotList_Call_packer,
                             (dercursor *) &C_GetSlotList_Call,
                             REPEAT);
@@ -3179,7 +3258,8 @@ unpack_C_GetSlotList_Return(
 
     memset(&C_GetSlotList_Return, 0, sizeof(C_GetSlotList_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetSlotList_Return_packer,
                             (dercursor *) &C_GetSlotList_Return,
                             REPEAT);
@@ -3222,7 +3302,8 @@ unpack_C_GetTokenInfo_Call(
 
     memset(&C_GetTokenInfo_Call, 0, sizeof(C_GetTokenInfo_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetTokenInfo_Call_packer,
                             (dercursor *) &C_GetTokenInfo_Call,
                             REPEAT);
@@ -3253,7 +3334,8 @@ unpack_C_GetTokenInfo_Return(
 
     memset(&C_GetTokenInfo_Return, 0, sizeof(C_GetTokenInfo_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_GetTokenInfo_Return_packer,
                             (dercursor *) &C_GetTokenInfo_Return,
                             REPEAT);
@@ -3292,7 +3374,8 @@ unpack_C_InitPIN_Call(
 
     memset(&C_InitPIN_Call, 0, sizeof(C_InitPIN_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_InitPIN_Call_packer,
                             (dercursor *) &C_InitPIN_Call,
                             REPEAT);
@@ -3333,7 +3416,8 @@ unpack_C_InitPIN_Return(
 
     memset(&C_InitPIN_Return, 0, sizeof(C_InitPIN_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_InitPIN_Return_packer,
                             (dercursor *) &C_InitPIN_Return,
                             REPEAT);
@@ -3368,7 +3452,8 @@ unpack_C_InitToken_Call(
 
     memset(&C_InitToken_Call, 0, sizeof(C_InitToken_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_InitToken_Call_packer,
                             (dercursor *) &C_InitToken_Call,
                             REPEAT);
@@ -3414,7 +3499,8 @@ unpack_C_InitToken_Return(
 
     memset(&C_InitToken_Return, 0, sizeof(C_InitToken_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_InitToken_Return_packer,
                             (dercursor *) &C_InitToken_Return,
                             REPEAT);
@@ -3446,7 +3532,8 @@ unpack_C_Initialize_Call(
 
     memset(&C_Initialize_Call, 0, sizeof(C_Initialize_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Initialize_Call_packer,
                             (dercursor *) &C_Initialize_Call,
                             REPEAT);
@@ -3476,7 +3563,8 @@ unpack_C_Initialize_Return(
 
     memset(&C_Initialize_Return, 0, sizeof(C_Initialize_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Initialize_Return_packer,
                             (dercursor *) &C_Initialize_Return,
                             REPEAT);
@@ -3514,7 +3602,8 @@ unpack_C_Login_Call(
 
     memset(&C_Login_Call, 0, sizeof(C_Login_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Login_Call_packer,
                             (dercursor *) &C_Login_Call,
                             REPEAT);
@@ -3561,7 +3650,8 @@ unpack_C_Login_Return(
 
     memset(&C_Login_Return, 0, sizeof(C_Login_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Login_Return_packer,
                             (dercursor *) &C_Login_Return,
                             REPEAT);
@@ -3593,7 +3683,8 @@ unpack_C_Logout_Call(
 
     memset(&C_Logout_Call, 0, sizeof(C_Logout_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Logout_Call_packer,
                             (dercursor *) &C_Logout_Call,
                             REPEAT);
@@ -3623,7 +3714,8 @@ unpack_C_Logout_Return(
 
     memset(&C_Logout_Return, 0, sizeof(C_Logout_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Logout_Return_packer,
                             (dercursor *) &C_Logout_Return,
                             REPEAT);
@@ -3658,7 +3750,8 @@ unpack_C_OpenSession_Call(
 
     memset(&C_OpenSession_Call, 0, sizeof(C_OpenSession_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_OpenSession_Call_packer,
                             (dercursor *) &C_OpenSession_Call,
                             REPEAT);
@@ -3702,7 +3795,8 @@ unpack_C_OpenSession_Return(
 
     memset(&C_OpenSession_Return, 0, sizeof(C_OpenSession_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_OpenSession_Return_packer,
                             (dercursor *) &C_OpenSession_Return,
                             REPEAT);
@@ -3742,7 +3836,8 @@ unpack_C_SeedRandom_Call(
 
     memset(&C_SeedRandom_Call, 0, sizeof(C_SeedRandom_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SeedRandom_Call_packer,
                             (dercursor *) &C_SeedRandom_Call,
                             REPEAT);
@@ -3783,7 +3878,8 @@ unpack_C_SeedRandom_Return(
 
     memset(&C_SeedRandom_Return, 0, sizeof(C_SeedRandom_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SeedRandom_Return_packer,
                             (dercursor *) &C_SeedRandom_Return,
                             REPEAT);
@@ -3818,7 +3914,8 @@ unpack_C_SetAttributeValue_Call(
 
     memset(&C_SetAttributeValue_Call, 0, sizeof(C_SetAttributeValue_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetAttributeValue_Call_packer,
                             (dercursor *) &C_SetAttributeValue_Call,
                             REPEAT);
@@ -3866,7 +3963,8 @@ unpack_C_SetAttributeValue_Return(
 
     memset(&C_SetAttributeValue_Return, 0, sizeof(C_SetAttributeValue_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetAttributeValue_Return_packer,
                             (dercursor *) &C_SetAttributeValue_Return,
                             REPEAT);
@@ -3902,7 +4000,8 @@ unpack_C_SetOperationState_Call(
 
     memset(&C_SetOperationState_Call, 0, sizeof(C_SetOperationState_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetOperationState_Call_packer,
                             (dercursor *) &C_SetOperationState_Call,
                             REPEAT);
@@ -3955,7 +4054,8 @@ unpack_C_SetOperationState_Return(
 
     memset(&C_SetOperationState_Return, 0, sizeof(C_SetOperationState_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetOperationState_Return_packer,
                             (dercursor *) &C_SetOperationState_Return,
                             REPEAT);
@@ -3991,7 +4091,8 @@ unpack_C_SetPIN_Call(
 
     memset(&C_SetPIN_Call, 0, sizeof(C_SetPIN_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetPIN_Call_packer,
                             (dercursor *) &C_SetPIN_Call,
                             REPEAT);
@@ -4043,7 +4144,8 @@ unpack_C_SetPIN_Return(
 
     memset(&C_SetPIN_Return, 0, sizeof(C_SetPIN_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SetPIN_Return_packer,
                             (dercursor *) &C_SetPIN_Return,
                             REPEAT);
@@ -4078,7 +4180,8 @@ unpack_C_Sign_Call(
 
     memset(&C_Sign_Call, 0, sizeof(C_Sign_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Sign_Call_packer,
                             (dercursor *) &C_Sign_Call,
                             REPEAT);
@@ -4127,7 +4230,8 @@ unpack_C_Sign_Return(
 
     memset(&C_Sign_Return, 0, sizeof(C_Sign_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Sign_Return_packer,
                             (dercursor *) &C_Sign_Return,
                             REPEAT);
@@ -4173,7 +4277,8 @@ unpack_C_SignEncryptUpdate_Call(
 
     memset(&C_SignEncryptUpdate_Call, 0, sizeof(C_SignEncryptUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignEncryptUpdate_Call_packer,
                             (dercursor *) &C_SignEncryptUpdate_Call,
                             REPEAT);
@@ -4222,7 +4327,8 @@ unpack_C_SignEncryptUpdate_Return(
 
     memset(&C_SignEncryptUpdate_Return, 0, sizeof(C_SignEncryptUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignEncryptUpdate_Return_packer,
                             (dercursor *) &C_SignEncryptUpdate_Return,
                             REPEAT);
@@ -4266,7 +4372,8 @@ unpack_C_SignFinal_Call(
 
     memset(&C_SignFinal_Call, 0, sizeof(C_SignFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignFinal_Call_packer,
                             (dercursor *) &C_SignFinal_Call,
                             REPEAT);
@@ -4304,7 +4411,8 @@ unpack_C_SignFinal_Return(
 
     memset(&C_SignFinal_Return, 0, sizeof(C_SignFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignFinal_Return_packer,
                             (dercursor *) &C_SignFinal_Return,
                             REPEAT);
@@ -4349,7 +4457,8 @@ unpack_C_SignInit_Call(
 
     memset(&C_SignInit_Call, 0, sizeof(C_SignInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignInit_Call_packer,
                             (dercursor *) &C_SignInit_Call,
                             REPEAT);
@@ -4390,7 +4499,8 @@ unpack_C_SignInit_Return(
 
     memset(&C_SignInit_Return, 0, sizeof(C_SignInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignInit_Return_packer,
                             (dercursor *) &C_SignInit_Return,
                             REPEAT);
@@ -4425,7 +4535,8 @@ unpack_C_SignRecover_Call(
 
     memset(&C_SignRecover_Call, 0, sizeof(C_SignRecover_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignRecover_Call_packer,
                             (dercursor *) &C_SignRecover_Call,
                             REPEAT);
@@ -4474,7 +4585,8 @@ unpack_C_SignRecover_Return(
 
     memset(&C_SignRecover_Return, 0, sizeof(C_SignRecover_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignRecover_Return_packer,
                             (dercursor *) &C_SignRecover_Return,
                             REPEAT);
@@ -4519,7 +4631,8 @@ unpack_C_SignRecoverInit_Call(
 
     memset(&C_SignRecoverInit_Call, 0, sizeof(C_SignRecoverInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignRecoverInit_Call_packer,
                             (dercursor *) &C_SignRecoverInit_Call,
                             REPEAT);
@@ -4560,7 +4673,8 @@ unpack_C_SignRecoverInit_Return(
 
     memset(&C_SignRecoverInit_Return, 0, sizeof(C_SignRecoverInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignRecoverInit_Return_packer,
                             (dercursor *) &C_SignRecoverInit_Return,
                             REPEAT);
@@ -4594,7 +4708,8 @@ unpack_C_SignUpdate_Call(
 
     memset(&C_SignUpdate_Call, 0, sizeof(C_SignUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignUpdate_Call_packer,
                             (dercursor *) &C_SignUpdate_Call,
                             REPEAT);
@@ -4635,7 +4750,8 @@ unpack_C_SignUpdate_Return(
 
     memset(&C_SignUpdate_Return, 0, sizeof(C_SignUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_SignUpdate_Return_packer,
                             (dercursor *) &C_SignUpdate_Return,
                             REPEAT);
@@ -4673,7 +4789,8 @@ unpack_C_UnwrapKey_Call(
 
     memset(&C_UnwrapKey_Call, 0, sizeof(C_UnwrapKey_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_UnwrapKey_Call_packer,
                             (dercursor *) &C_UnwrapKey_Call,
                             REPEAT);
@@ -4738,7 +4855,8 @@ unpack_C_UnwrapKey_Return(
 
     memset(&C_UnwrapKey_Return, 0, sizeof(C_UnwrapKey_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_UnwrapKey_Return_packer,
                             (dercursor *) &C_UnwrapKey_Return,
                             REPEAT);
@@ -4780,7 +4898,8 @@ unpack_C_Verify_Call(
 
     memset(&C_Verify_Call, 0, sizeof(C_Verify_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Verify_Call_packer,
                             (dercursor *) &C_Verify_Call,
                             REPEAT);
@@ -4832,7 +4951,8 @@ unpack_C_Verify_Return(
 
     memset(&C_Verify_Return, 0, sizeof(C_Verify_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_Verify_Return_packer,
                             (dercursor *) &C_Verify_Return,
                             REPEAT);
@@ -4866,7 +4986,8 @@ unpack_C_VerifyFinal_Call(
 
     memset(&C_VerifyFinal_Call, 0, sizeof(C_VerifyFinal_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyFinal_Call_packer,
                             (dercursor *) &C_VerifyFinal_Call,
                             REPEAT);
@@ -4907,7 +5028,8 @@ unpack_C_VerifyFinal_Return(
 
     memset(&C_VerifyFinal_Return, 0, sizeof(C_VerifyFinal_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyFinal_Return_packer,
                             (dercursor *) &C_VerifyFinal_Return,
                             REPEAT);
@@ -4941,7 +5063,8 @@ unpack_C_VerifyInit_Call(
 
     memset(&C_VerifyInit_Call, 0, sizeof(C_VerifyInit_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyInit_Call_packer,
                             (dercursor *) &C_VerifyInit_Call,
                             REPEAT);
@@ -4982,7 +5105,8 @@ unpack_C_VerifyInit_Return(
 
     memset(&C_VerifyInit_Return, 0, sizeof(C_VerifyInit_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyInit_Return_packer,
                             (dercursor *) &C_VerifyInit_Return,
                             REPEAT);
@@ -5017,7 +5141,8 @@ unpack_C_VerifyRecover_Call(
 
     memset(&C_VerifyRecover_Call, 0, sizeof(C_VerifyRecover_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyRecover_Call_packer,
                             (dercursor *) &C_VerifyRecover_Call,
                             REPEAT);
@@ -5066,7 +5191,8 @@ unpack_C_VerifyRecover_Return(
 
     memset(&C_VerifyRecover_Return, 0, sizeof(C_VerifyRecover_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyRecover_Return_packer,
                             (dercursor *) &C_VerifyRecover_Return,
                             REPEAT);
@@ -5111,7 +5237,8 @@ unpack_C_VerifyUpdate_Call(
 
     memset(&C_VerifyUpdate_Call, 0, sizeof(C_VerifyUpdate_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyUpdate_Call_packer,
                             (dercursor *) &C_VerifyUpdate_Call,
                             REPEAT);
@@ -5152,7 +5279,8 @@ unpack_C_VerifyUpdate_Return(
 
     memset(&C_VerifyUpdate_Return, 0, sizeof(C_VerifyUpdate_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_VerifyUpdate_Return_packer,
                             (dercursor *) &C_VerifyUpdate_Return,
                             REPEAT);
@@ -5185,7 +5313,8 @@ unpack_C_WaitForSlotEvent_Call(
 
     memset(&C_WaitForSlotEvent_Call, 0, sizeof(C_WaitForSlotEvent_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_WaitForSlotEvent_Call_packer,
                             (dercursor *) &C_WaitForSlotEvent_Call,
                             REPEAT);
@@ -5221,7 +5350,8 @@ unpack_C_WaitForSlotEvent_Return(
 
     memset(&C_WaitForSlotEvent_Return, 0, sizeof(C_WaitForSlotEvent_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_WaitForSlotEvent_Return_packer,
                             (dercursor *) &C_WaitForSlotEvent_Return,
                             REPEAT);
@@ -5268,7 +5398,8 @@ unpack_C_WrapKey_Call(
 
     memset(&C_WrapKey_Call, 0, sizeof(C_WrapKey_Call));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_WrapKey_Call_packer,
                             (dercursor *) &C_WrapKey_Call,
                             REPEAT);
@@ -5323,7 +5454,8 @@ unpack_C_WrapKey_Return(
 
     memset(&C_WrapKey_Return, 0, sizeof(C_WrapKey_Return));
 
-    int status = der_unpack(packed,
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
                             C_WrapKey_Return_packer,
                             (dercursor *) &C_WrapKey_Return,
                             REPEAT);
