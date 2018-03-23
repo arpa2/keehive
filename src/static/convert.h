@@ -13,7 +13,8 @@ dercursor rfc2279_string(const CK_ATTRIBUTE* pTemplate);
 struct func_s {
     NEDTRIE_ENTRY(func_s) link;
     size_t key;
-    dercursor (*func)(const CK_ATTRIBUTE*);
+    int (*put)(const CK_ATTRIBUTE*, dercursor*);
+    int (*get)(dercursor*, CK_ATTRIBUTE*);
 };
 
 typedef struct func_s func_t;

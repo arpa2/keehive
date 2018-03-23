@@ -159,7 +159,9 @@ der_put_CK_ATTRIBUTE_ARRAY(
         if (attribute.pValue == NULL) {
             ack_attribute.pValue.null = der_null;
         } else {
-            ack_attribute.pValue.data = (*func->func)((void *)&attribute);
+            // todo: free this
+            ack_attribute.pValue.data.derptr = malloc(attribute.ulValueLen);
+            (*func->put)((void *)&attribute, &ack_attribute.pValue.data);
         }
 
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, NULL);
@@ -186,7 +188,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
         if (attribute.pValue == NULL) {
             ack_attribute.pValue.null = der_null;
         } else {
-            ack_attribute.pValue.data = (*func->func)((void *)&attribute);
+            (*func->put)((void *)&attribute, &ack_attribute.pValue.data);
         }
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);
         if (tmp == 0)

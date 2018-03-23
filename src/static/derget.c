@@ -2,7 +2,7 @@
 #include "unpack.h"
 #include "returncodes.h"
 #include "packer.h"
-
+#include "convert.h"
 
 
 int der_get_char(
@@ -54,31 +54,44 @@ der_get_CK_ATTRIBUTE_ARRAY(
     dercursor iterator;
     int status;
     int i = 0;
+    func_t* func;
 
     unsigned long type;
     unsigned long ulValueLen;
 
+
     ACK_ATTRIBUTE_t der_attribute;
+
+    CK_VOID_PTR pValue;
 
     if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
         do {
             status = der_unpack(&iterator, attribute_array_packer, (dercursor*)&der_attribute, REPEAT);
-            if (status == -1)
-                return -1;
+            if (status)
+                return status;
 
             status = der_get_ulong(der_attribute.type, &type);
-            if (status == -1)
-                return -1;
+            if (status)
+                return status;
             (pTemplate)[i].type = type;
 
             status = der_get_ulong(der_attribute.ulValueLen, &ulValueLen);
-            if (status == -1)
-                return -1;
+            if (status)
+                return status;
             (pTemplate)[i].ulValueLen = ulValueLen;
 
-            // TODO: convert the eventual value (also)
+            func = find_func(type);
+
+            // todo: free this, also make sure ulValueLen is based on type size
+            pValue = malloc(ulValueLen);
+
+            status = (*func->get)((void *)&der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&pValue);
+            if (status)
+                return status;
+            (pTemplate)[i].pValue = pValue;
 
             i++;
+
         } while (der_iterate_next(&iterator));
     }
     return CKR_OK;
