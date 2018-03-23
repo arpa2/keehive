@@ -62,7 +62,7 @@ der_get_CK_ATTRIBUTE_ARRAY(
 
     if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, AttributeArray_packer, (dercursor*)&der_attribute, REPEAT);
+            status = der_unpack(&iterator, attribute_array_packer, (dercursor*)&der_attribute, REPEAT);
             if (status == -1)
                 return -1;
 

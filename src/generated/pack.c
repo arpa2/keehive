@@ -4080,7 +4080,7 @@ pack_C_GetMechanismList_Return(
         pulCount,
         &pMechanismList_innerlist,
         &pMechanismList_length,
-        AttributeArray_packer);
+        mechanism_type_array_packer);
 
     if (pMechanismList_status != CKR_OK)
         return pMechanismList_status;

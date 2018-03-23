@@ -67,13 +67,12 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     // todo: finish
     // assert_int_equal({{ identifier }}, {{ identifier }}_unpack);
 {% elif type_ == "CK_ATTRIBUTE_ARRAY" %}
-    // todo: finish
-//  int {{ identifier }}_i;
-//  for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
-//      assert_int_equal({{ identifier }}[{{ identifier }}_i].type, {{ identifier }}_unpack[{{ identifier }}_i].type);
-//      // todo: assert_ptr_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue);
-//      assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
-//  }*/
+    int {{ identifier }}_i;
+    for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
+        assert_int_equal({{ identifier }}[{{ identifier }}_i].type, {{ identifier }}_unpack[{{ identifier }}_i].type);
+        assert_memory_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue, sizeof({{ identifier }}_label));
+        assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
+    }
 {% elif type_  in ("CK_MECHANISM_INFO", "CK_MECHANISM_TYPE_ARRAY") %}
     assert_memory_equal(&{{ identifier }}, &{{ identifier }}_unpack, sizeof({{ identifier }}));
 {% elif type_ == "CK_INFO" %}

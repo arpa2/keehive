@@ -179,7 +179,7 @@ pack_{{ f.type_name|under }}(
         pulCount,
         &{{ var }}_innerlist,
         &{{ var }}_length,
-        AttributeArray_packer);
+        mechanism_type_array_packer);
 
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;

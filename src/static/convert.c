@@ -6,7 +6,9 @@
 dercursor rfc2279_string(const CK_ATTRIBUTE* pTemplate)
 {
     dercursor cursor;
-    cursor.derptr = pTemplate->pValue;
+    // todo: free this malloc
+    cursor.derptr = malloc(pTemplate->ulValueLen);
+    memcpy(cursor.derptr, pTemplate->pValue, pTemplate->ulValueLen);
     cursor.derlen = pTemplate->ulValueLen;
     return cursor;
 }

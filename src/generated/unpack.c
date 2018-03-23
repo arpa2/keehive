@@ -236,10 +236,9 @@ unpack_C_CopyObject_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_CopyObject_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CopyObject_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_CopyObject_Call.ulCount, ulCount);
@@ -321,10 +320,9 @@ unpack_C_CreateObject_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_CreateObject_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CreateObject_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_CreateObject_Call.ulCount, ulCount);
@@ -968,10 +966,9 @@ unpack_C_DeriveKey_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_DeriveKey_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_DeriveKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_DeriveKey_Call.ulAttributeCount, ulAttributeCount);
@@ -2191,10 +2188,9 @@ unpack_C_FindObjectsInit_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_FindObjectsInit_Call.ulCount, ulCount);
@@ -2235,10 +2231,9 @@ unpack_C_FindObjectsInit_Return(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Return.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Return.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -2282,10 +2277,9 @@ unpack_C_GenerateKey_Call(
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKey_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_GenerateKey_Call.ulCount, ulCount);
@@ -2375,10 +2369,9 @@ unpack_C_GenerateKeyPair_Call(
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPublicKeyAttributeCount, ulPublicKeyAttributeCount);
@@ -2387,10 +2380,9 @@ unpack_C_GenerateKeyPair_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_GenerateKeyPair_Call.ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount);
@@ -2563,10 +2555,9 @@ unpack_C_GetAttributeValue_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_GetAttributeValue_Call.ulCount, ulCount);
@@ -2607,10 +2598,9 @@ unpack_C_GetAttributeValue_Return(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Return.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Return.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
 
@@ -3937,10 +3927,9 @@ unpack_C_SetAttributeValue_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_SetAttributeValue_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_SetAttributeValue_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_SetAttributeValue_Call.ulCount, ulCount);
@@ -4828,10 +4817,9 @@ unpack_C_UnwrapKey_Call(
 
 
 
-    // todo: finish
-    //status = der_get_CK_ATTRIBUTE_ARRAY(&C_UnwrapKey_Call.pTemplate, pTemplate);
-    //if (status == -1)
-    //    return CKR_KEEHIVE_DER_RANGE_ERROR;
+    status = der_get_CK_ATTRIBUTE_ARRAY(&C_UnwrapKey_Call.pTemplate, pTemplate);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
     status = der_get_ulong(C_UnwrapKey_Call.ulAttributeCount, ulAttributeCount);

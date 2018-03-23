@@ -141,14 +141,28 @@ der_put_CK_ATTRIBUTE_ARRAY(
     size_t tmp = 0;
     func_t* func;
 
+    der_buf_ulong_t type_buf[count];
+    der_buf_ulong_t len_buf[count];
+
+    ACK_ATTRIBUTE_t ack_attribute;
+
     for (i = 0; i < count; i++) {
         attribute = pTemplate[i];
+
+        ack_attribute.type = der_put_ulong(type_buf[i], attribute.type);
+        ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
+
         func = find_func(attribute.type);
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-        crs = (*func->func)(&attribute);
 
-        tmp = der_pack(AttributeArray_packer, &crs, NULL);
+        if (attribute.pValue == NULL) {
+            ack_attribute.pValue.null = der_null;
+        } else {
+            ack_attribute.pValue.data = (*func->func)((void *)&attribute);
+        }
+
+        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen += tmp;
@@ -161,11 +175,20 @@ der_put_CK_ATTRIBUTE_ARRAY(
     while (i-- > 0) {
         assert(innerlen >= 0);
         attribute = pTemplate[i];
+
+        ack_attribute.type = der_put_ulong(type_buf[i], attribute.type);
+        ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
+
         func = find_func(attribute.type);
         if (func == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-        crs = (*func->func)(&attribute);
-        tmp = der_pack(AttributeArray_packer, &crs, *pInnerlist + innerlen);
+
+        if (attribute.pValue == NULL) {
+            ack_attribute.pValue.null = der_null;
+        } else {
+            ack_attribute.pValue.data = (*func->func)((void *)&attribute);
+        }
+        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen -= tmp;

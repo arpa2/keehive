@@ -243,7 +243,7 @@ void test_pack_C_CopyObject_Call(void **state) {
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pTemplate[] = {
-        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)-1} };
+        {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)/ sizeof(CK_UTF8CHAR  )} };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
 
@@ -282,13 +282,12 @@ void test_pack_C_CopyObject_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -383,13 +382,12 @@ void test_pack_C_CreateObject_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -1120,13 +1118,12 @@ void test_pack_C_DeriveKey_Call(void **state) {
     assert_int_equal(hBaseKey, hBaseKey_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
@@ -2506,13 +2503,12 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2559,13 +2555,12 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)); pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)); pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
 
@@ -2625,13 +2620,12 @@ void test_pack_C_GenerateKey_Call(void **state) {
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -2746,25 +2740,23 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 
 
-    // todo: finish
-//  int pPublicKeyTemplate_i;
-//  for (pPublicKeyTemplate_i = 0; pPublicKeyTemplate_i < ulPublicKeyAttributeCount; pPublicKeyTemplate_i++) {
-//      assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].type, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].type);
-//      // todo: assert_ptr_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].pValue, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].pValue);
-//      assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].ulValueLen, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].ulValueLen);
-//  }*/
+    int pPublicKeyTemplate_i;
+    for (pPublicKeyTemplate_i = 0; pPublicKeyTemplate_i < ulPublicKeyAttributeCount; pPublicKeyTemplate_i++) {
+        assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].type, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].type);
+        assert_memory_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].pValue, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].pValue, sizeof(pPublicKeyTemplate_label));
+        assert_int_equal(pPublicKeyTemplate[pPublicKeyTemplate_i].ulValueLen, pPublicKeyTemplate_unpack[pPublicKeyTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulPublicKeyAttributeCount, ulPublicKeyAttributeCount_unpack);
 
 
-    // todo: finish
-//  int pPrivateKeyTemplate_i;
-//  for (pPrivateKeyTemplate_i = 0; pPrivateKeyTemplate_i < ulPrivateKeyAttributeCount; pPrivateKeyTemplate_i++) {
-//      assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].type, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].type);
-//      // todo: assert_ptr_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].pValue, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].pValue);
-//      assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].ulValueLen, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].ulValueLen);
-//  }*/
+    int pPrivateKeyTemplate_i;
+    for (pPrivateKeyTemplate_i = 0; pPrivateKeyTemplate_i < ulPrivateKeyAttributeCount; pPrivateKeyTemplate_i++) {
+        assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].type, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].type);
+        assert_memory_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].pValue, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].pValue, sizeof(pPrivateKeyTemplate_label));
+        assert_int_equal(pPrivateKeyTemplate[pPrivateKeyTemplate_i].ulValueLen, pPrivateKeyTemplate_unpack[pPrivateKeyTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulPrivateKeyAttributeCount, ulPrivateKeyAttributeCount_unpack);
@@ -2960,13 +2952,12 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -3013,13 +3004,12 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)); pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)); pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
 
@@ -4592,13 +4582,12 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
     assert_int_equal(hObject, hObject_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulCount, ulCount_unpack);
@@ -5605,13 +5594,12 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(ulWrappedKeyLen, ulWrappedKeyLen_unpack);
 
 
-    // todo: finish
-//  int pTemplate_i;
-//  for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
-//      assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
-//      // todo: assert_ptr_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue);
-//      assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
-//  }*/
+    int pTemplate_i;
+    for (pTemplate_i = 0; pTemplate_i < ulAttributeCount; pTemplate_i++) {
+        assert_int_equal(pTemplate[pTemplate_i].type, pTemplate_unpack[pTemplate_i].type);
+        assert_memory_equal(pTemplate[pTemplate_i].pValue, pTemplate_unpack[pTemplate_i].pValue, sizeof(pTemplate_label));
+        assert_int_equal(pTemplate[pTemplate_i].ulValueLen, pTemplate_unpack[pTemplate_i].ulValueLen);
+    }
 
 
     assert_int_equal(ulAttributeCount, ulAttributeCount_unpack);
