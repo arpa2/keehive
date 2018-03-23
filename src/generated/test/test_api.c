@@ -823,8 +823,7 @@ void test_C_GetSlotList(void **state){
     (void) state; /* unused */
 
     CK_BBOOL tokenPresent = CK_TRUE;
-    CK_SLOT_ID pSlotList_pointed[] = { 1, 5, 19 };
-    CK_SLOT_ID_ARRAY pSlotList = &pSlotList_pointed[0];
+    CK_SLOT_ID pSlotList[] = { 1, 5, 19 };
     CK_ULONG_PTR pulCount = NULL;  /* todo: probably requires finetuning */
     
 

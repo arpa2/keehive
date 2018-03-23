@@ -162,6 +162,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
             // todo: free this
             void* buffer = malloc(attribute.ulValueLen);
             ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
+            ack_attribute.pValue.null = der_empty;
         }
 
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, NULL);
@@ -191,6 +192,7 @@ der_put_CK_ATTRIBUTE_ARRAY(
             // todo: free this
             void* buffer = malloc(attribute.ulValueLen);
             ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
+            ack_attribute.pValue.null = der_empty;
         }
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);
         if (tmp == 0)

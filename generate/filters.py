@@ -236,8 +236,7 @@ type_test_templates = {
         """CK_MECHANISM_TYPE {identifier}[] = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }};""",
 
     "CK_SLOT_ID_ARRAY":
-        """CK_SLOT_ID {identifier}_pointed[] = {{ 1, 5, 19 }};
-    {type_} {identifier} = &{identifier}_pointed[0];""",
+        """CK_SLOT_ID {identifier}[] = {{ 1, 5, 19 }};""",
     "CK_FLAGS":
         """{type_} {identifier} = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;""",
     "CK_OBJECT_HANDLE_PTR":
@@ -266,7 +265,7 @@ def initialise_test(type_, identifier, function_name=None):
         return "{type_} {identifier} = ({type_}) \"abcdefghijklm\";".format(type_=type_, identifier=identifier)
     elif function_name == "C_GetSlotList_Return":
         if identifier == "pulCount":
-            return "{type_} {identifier} = sizeof(pSlotList_pointed) / sizeof(CK_SLOT_ID);".format(type_=type_,
+            return "{type_} {identifier} = sizeof(pSlotList) / sizeof(CK_SLOT_ID);".format(type_=type_,
                                                                                                    identifier=identifier)
     elif type_ in ("CK_SESSION_HANDLE", "CK_SLOT_ID", "CK_OBJECT_HANDLE", "CK_ULONG",
                    "CK_MECHANISM_TYPE", "CK_USER_TYPE", "CK_FLAGS"):
@@ -390,6 +389,8 @@ def len_mapper(func, identifier, deref=False):
         ('C_EncryptFinal_Return', 'pEncryptedData'): "pulEncryptedDataLen",
 
         ('C_GetSlotList_Return', 'pSlotList'): "pulCount",
+
+        ('C_GetMechanismList_Return', 'pMechanismList'): "pulCount",
 
     }
 

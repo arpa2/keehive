@@ -490,8 +490,7 @@ void test_pack_C_Decrypt_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedData, pEncryptedData_unpack, ulEncryptedDataLen);
+    assert_memory_equal(pEncryptedData, pEncryptedData_unpack, ulEncryptedDataLen);
 
 
     assert_int_equal(ulEncryptedDataLen, ulEncryptedDataLen_unpack);
@@ -543,8 +542,7 @@ void test_pack_C_Decrypt_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, pulDataLen);
+    assert_memory_equal(pData, pData_unpack, pulDataLen);
 
 
     assert_int_equal(pulDataLen, pulDataLen_unpack);
@@ -599,8 +597,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
 
 
     assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
@@ -652,8 +649,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, pulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, pulPartLen);
 
 
     assert_int_equal(pulPartLen, pulPartLen_unpack);
@@ -746,8 +742,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pLastPart, pLastPart_unpack, pulLastPartLen);
+    assert_memory_equal(pLastPart, pLastPart_unpack, pulLastPartLen);
 
 
     assert_int_equal(pulLastPartLen, pulLastPartLen_unpack);
@@ -891,8 +886,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
 
 
     assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
@@ -944,8 +938,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, pulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, pulPartLen);
 
 
     assert_int_equal(pulPartLen, pulPartLen_unpack);
@@ -1000,8 +993,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, ulEncryptedPartLen);
 
 
     assert_int_equal(ulEncryptedPartLen, ulEncryptedPartLen_unpack);
@@ -1053,8 +1045,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, pulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, pulPartLen);
 
 
     assert_int_equal(pulPartLen, pulPartLen_unpack);
@@ -1308,8 +1299,7 @@ void test_pack_C_Digest_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, ulDataLen);
+    assert_memory_equal(pData, pData_unpack, ulDataLen);
 
 
     assert_int_equal(ulDataLen, ulDataLen_unpack);
@@ -1361,8 +1351,7 @@ void test_pack_C_Digest_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pDigest, pDigest_unpack, pulDigestLen);
+    assert_memory_equal(pDigest, pDigest_unpack, pulDigestLen);
 
 
     assert_int_equal(pulDigestLen, pulDigestLen_unpack);
@@ -1417,8 +1406,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -1470,8 +1458,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
 
 
     assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
@@ -1564,8 +1551,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pDigest, pDigest_unpack, pulDigestLen);
+    assert_memory_equal(pDigest, pDigest_unpack, pulDigestLen);
 
 
     assert_int_equal(pulDigestLen, pulDigestLen_unpack);
@@ -1777,8 +1763,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -1868,8 +1853,7 @@ void test_pack_C_Encrypt_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, ulDataLen);
+    assert_memory_equal(pData, pData_unpack, ulDataLen);
 
 
     assert_int_equal(ulDataLen, ulDataLen_unpack);
@@ -1921,8 +1905,7 @@ void test_pack_C_Encrypt_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedData, pEncryptedData_unpack, pulEncryptedDataLen);
+    assert_memory_equal(pEncryptedData, pEncryptedData_unpack, pulEncryptedDataLen);
 
 
     assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
@@ -2015,8 +1998,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedData, pEncryptedData_unpack, pulEncryptedDataLen);
+    assert_memory_equal(pEncryptedData, pEncryptedData_unpack, pulEncryptedDataLen);
 
 
     assert_int_equal(pulEncryptedDataLen, pulEncryptedDataLen_unpack);
@@ -2160,8 +2142,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -2213,8 +2194,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
 
 
     assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
@@ -2917,9 +2897,9 @@ void test_pack_C_GenerateRandom_Return(void **state) {
 
     assert_int_equal(retval, retval_unpack);
 
+    int x = (sizeof(pSeed) / sizeof(CK_BYTE));
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSeed, pSeed_unpack, (sizeof(pSeed) / sizeof(CK_BYTE)) );
+    assert_memory_equal(pSeed, pSeed_unpack, (sizeof(pSeed) / sizeof(CK_BYTE)) );
 
 
 
@@ -3373,7 +3353,10 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_memory_equal(&pMechanismList, &pMechanismList_unpack, sizeof(pMechanismList));
+    int pMechanismList_i;
+    for (pMechanismList_i = 0; pMechanismList_i < pulCount; pMechanismList_i++) {
+      assert_int_equal(pMechanismList[pMechanismList_i], pMechanismList_unpack[pMechanismList_i]);
+    };
 
 
     assert_int_equal(pulCount, pulCount_unpack);
@@ -3552,8 +3535,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pOperationState, pOperationState_unpack, pulOperationStateLen);
+    assert_memory_equal(pOperationState, pOperationState_unpack, pulOperationStateLen);
 
 
     assert_int_equal(pulOperationStateLen, pulOperationStateLen_unpack);
@@ -3786,9 +3768,8 @@ void test_pack_C_GetSlotList_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_SLOT_ID pSlotList_pointed[] = { 1, 5, 19 };
-    CK_SLOT_ID_ARRAY pSlotList = &pSlotList_pointed[0];
-    CK_ULONG pulCount = sizeof(pSlotList_pointed) / sizeof(CK_SLOT_ID);
+    CK_SLOT_ID pSlotList[] = { 1, 5, 19 };
+    CK_ULONG pulCount = sizeof(pSlotList) / sizeof(CK_SLOT_ID);
     
 
     CK_RV status = pack_C_GetSlotList_Return(
@@ -4516,8 +4497,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSeed, pSeed_unpack, ulSeedLen);
+    assert_memory_equal(pSeed, pSeed_unpack, ulSeedLen);
 
 
     assert_int_equal(ulSeedLen, ulSeedLen_unpack);
@@ -4714,8 +4694,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pOperationState, pOperationState_unpack, ulOperationStateLen);
+    assert_memory_equal(pOperationState, pOperationState_unpack, ulOperationStateLen);
 
 
     assert_int_equal(ulOperationStateLen, ulOperationStateLen_unpack);
@@ -4911,8 +4890,7 @@ void test_pack_C_Sign_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, ulDataLen);
+    assert_memory_equal(pData, pData_unpack, ulDataLen);
 
 
     assert_int_equal(ulDataLen, ulDataLen_unpack);
@@ -4964,8 +4942,7 @@ void test_pack_C_Sign_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
 
 
     assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
@@ -5020,8 +4997,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -5073,8 +5049,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
+    assert_memory_equal(pEncryptedPart, pEncryptedPart_unpack, pulEncryptedPartLen);
 
 
     assert_int_equal(pulEncryptedPartLen, pulEncryptedPartLen_unpack);
@@ -5167,8 +5142,7 @@ void test_pack_C_SignFinal_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
 
 
     assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
@@ -5312,8 +5286,7 @@ void test_pack_C_SignRecover_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, ulDataLen);
+    assert_memory_equal(pData, pData_unpack, ulDataLen);
 
 
     assert_int_equal(ulDataLen, ulDataLen_unpack);
@@ -5365,8 +5338,7 @@ void test_pack_C_SignRecover_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, pulSignatureLen);
 
 
     assert_int_equal(pulSignatureLen, pulSignatureLen_unpack);
@@ -5506,8 +5478,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -5622,8 +5593,7 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(hUnwrappingKey, hUnwrappingKey_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pWrappedKey, pWrappedKey_unpack, ulWrappedKeyLen);
+    assert_memory_equal(pWrappedKey, pWrappedKey_unpack, ulWrappedKeyLen);
 
 
     assert_int_equal(ulWrappedKeyLen, ulWrappedKeyLen_unpack);
@@ -5736,15 +5706,13 @@ void test_pack_C_Verify_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, ulDataLen);
+    assert_memory_equal(pData, pData_unpack, ulDataLen);
 
 
     assert_int_equal(ulDataLen, ulDataLen_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
 
 
     assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
@@ -5830,8 +5798,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
 
 
     assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
@@ -6010,8 +5977,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
+    assert_memory_equal(pSignature, pSignature_unpack, ulSignatureLen);
 
 
     assert_int_equal(ulSignatureLen, ulSignatureLen_unpack);
@@ -6063,8 +6029,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pData, pData_unpack, pulDataLen);
+    assert_memory_equal(pData, pData_unpack, pulDataLen);
 
 
     assert_int_equal(pulDataLen, pulDataLen_unpack);
@@ -6115,8 +6080,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
     assert_int_equal(hSession, hSession_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pPart, pPart_unpack, ulPartLen);
+    assert_memory_equal(pPart, pPart_unpack, ulPartLen);
 
 
     assert_int_equal(ulPartLen, ulPartLen_unpack);
@@ -6363,8 +6327,7 @@ void test_pack_C_WrapKey_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal(pWrappedKey, pWrappedKey_unpack, pulWrappedKeyLen);
+    assert_memory_equal(pWrappedKey, pWrappedKey_unpack, pulWrappedKeyLen);
 
 
     assert_int_equal(pulWrappedKeyLen, pulWrappedKeyLen_unpack);

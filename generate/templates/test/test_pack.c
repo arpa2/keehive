@@ -59,8 +59,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
     assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
 {% elif type_ == "CK_BYTE_ARRAY" %}
-   // todo: disabled for now, fix test_derputget error first (skipping chars)
-   // assert_memory_equal({{ identifier }}, {{ identifier }}_unpack, {{ len_mapper(f.type_name|under, identifier) }});
+    assert_memory_equal({{ identifier }}, {{ identifier }}_unpack, {{ len_mapper(f.type_name|under, identifier) }});
 {% elif type_ in ("CK_UTF8CHAR_ARRAY", "UTF8String") %}
     assert_memory_equal({{ identifier }}, {{ identifier }}_unpack, {{ len_mapper(f.type_name|under, identifier) }});
 {% elif type_ == "CK_VOID_PTR" %}
@@ -74,7 +73,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
         //assert_memory_equal({{ identifier }}[{{ identifier }}_i].pValue, {{ identifier }}_unpack[{{ identifier }}_i].pValue, {{ identifier }}[{{ identifier }}_i].ulValueLen);
         assert_int_equal({{ identifier }}[{{ identifier }}_i].ulValueLen, {{ identifier }}_unpack[{{ identifier }}_i].ulValueLen);
     }
-{% elif type_  in ("CK_MECHANISM_INFO", "CK_MECHANISM_TYPE_ARRAY") %}
+{% elif type_  == "CK_MECHANISM_INFO" %}
     assert_memory_equal(&{{ identifier }}, &{{ identifier }}_unpack, sizeof({{ identifier }}));
 {% elif type_ == "CK_INFO" %}
     assert_int_equal(pInfo.flags, pInfo_unpack.flags);
@@ -122,7 +121,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     // todo: finish {{ identifier }} ({{ type_ }})
 {% elif type_ == "CK_C_INITIALIZE_ARGS_PTR" %}
     // todo: should we check for ANY?
-{% elif type_ == "CK_SLOT_ID_ARRAY" %}
+{% elif type_ in ("CK_SLOT_ID_ARRAY", "CK_MECHANISM_TYPE_ARRAY") %}
     int {{ identifier }}_i;
     for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
       assert_int_equal({{ identifier }}[{{ identifier }}_i], {{ identifier }}_unpack[{{ identifier }}_i]);

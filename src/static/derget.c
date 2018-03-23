@@ -421,7 +421,8 @@ der_get_CK_SLOT_ID_ARRAY(
 
     if (der_iterate_first(&ack_slot_id_array->data.wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, pSlotList_packer, &der_slot, REPEAT);
+            dercursor iterator_copy = iterator;
+            status = der_unpack(&iterator_copy, pSlotList_packer, &der_slot, REPEAT);
             if (status == -1)
                 return -1;
 
