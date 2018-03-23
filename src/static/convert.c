@@ -1,19 +1,42 @@
 #include "derput.h"
 #include "convert.h"
+#include "derget.h"
 
 
+dercursor
+der_put_rfc2279_string(
+        const CK_ATTRIBUTE* attribute,
+        void* buffer
+) {
+    dercursor cursor = {.derptr=buffer, .derlen=attribute->ulValueLen};
+    memcpy(cursor.derptr, attribute->pValue, attribute->ulValueLen);
+    return cursor;
+}
 
-int der_put_rfc2279_string(const CK_ATTRIBUTE* pTemplate, dercursor* cursor)
-{
-    memcpy(cursor->derptr, pTemplate->pValue, pTemplate->ulValueLen);
-    cursor->derlen = pTemplate->ulValueLen;
+int
+der_get_rfc2279_string(
+        dercursor* cursor,
+        CK_ATTRIBUTE* attribute
+) {
+    memcpy(attribute->pValue, cursor->derptr, cursor->derlen);
     return 0;
 }
 
-int der_get_rfc2279_string(dercursor* cursor, CK_ATTRIBUTE* array)
-{
-    memcpy(array, cursor->derptr, cursor->derlen);
-    return 0;
+dercursor
+der_put_attribute_bool(
+        const CK_ATTRIBUTE* attribute,
+        void* buffer
+) {
+    bool boolvalue = (CK_BBOOL)attribute->pValue == CK_TRUE;
+    return der_put_bool (buffer, boolvalue);
+}
+
+int
+der_get_attribute_bool(
+        dercursor* cursor,
+        CK_ATTRIBUTE* attribute
+) {
+    return der_get_CK_BBOOL_PTR(cursor, attribute->pValue);
 }
 
 
@@ -21,9 +44,9 @@ func_tree_t functree;
 
 
 func_t func_array[] = {
-        {.key=CKA_TOKEN, .put=NULL},
+        {.key=CKA_TOKEN, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_CLASS, .put=NULL},
-        {.key=CKA_PRIVATE, .put=NULL},
+        {.key=CKA_PRIVATE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_LABEL, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
         {.key=CKA_APPLICATION, .put=NULL},
         {.key=CKA_VALUE, .put=NULL},
@@ -80,9 +103,9 @@ func_t func_array[] = {
         {.key=CKA_NEVER_EXTRACTABLE, .put=NULL},
         {.key=CKA_ALWAYS_SENSITIVE, .put=NULL},
         {.key=CKA_KEY_GEN_MECHANISM, .put=NULL},
-        {.key=CKA_MODIFIABLE, .put=NULL},
-        {.key=CKA_COPYABLE, .put=NULL},
-        {.key=CKA_DESTROYABLE, .put=NULL},
+        {.key=CKA_MODIFIABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_COPYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_DESTROYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_ECDSA_PARAMS, .put=NULL},
         {.key=CKA_EC_PARAMS, .put=NULL},
         {.key=CKA_EC_POINT, .put=NULL},
@@ -118,7 +141,7 @@ func_t func_array[] = {
         {.key=CKA_RESOLUTION, .put=NULL},
         {.key=CKA_CHAR_ROWS, .put=NULL},
         {.key=CKA_CHAR_COLUMNS, .put=NULL},
-        {.key=CKA_COLOR, .put=NULL},
+        {.key=CKA_COLOR, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_BITS_PER_PIXEL, .put=NULL},
         {.key=CKA_CHAR_SETS, .put=NULL},
         {.key=CKA_ENCODING_METHODS, .put=NULL},

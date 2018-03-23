@@ -156,6 +156,7 @@ typedef DER_OVLY_RemotePKCS11_C_WaitForSlotEvent_Return C_WaitForSlotEvent_Retur
 typedef DER_OVLY_RemotePKCS11_C_WrapKey_Return C_WrapKey_Return_t;
 
 
+
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG ACK_ULONG_t;
 typedef DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE ACK_ATTRIBUTE_TYPE_t;
 typedef DER_OVLY_RemotePKCS11_ACK_OPAQUE ACK_OPAQUE_t;

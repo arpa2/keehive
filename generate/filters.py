@@ -206,7 +206,9 @@ type_test_templates = {
     "CK_ATTRIBUTE_ARRAY":
         """CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE {identifier}[] = {{
-        {{.type=CKA_LABEL, .pValue={identifier}_label, .ulValueLen=sizeof({identifier}_label)-1}} }};""",
+        {{.type=CKA_LABEL, .pValue={identifier}_label, .ulValueLen=sizeof({identifier}_label)}},
+        {{.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)}},
+    }};""",
     "CK_MECHANISM_PTR":
         """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL, 0}};
     CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """,

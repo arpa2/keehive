@@ -62,11 +62,10 @@ der_get_CK_ATTRIBUTE_ARRAY(
 
     ACK_ATTRIBUTE_t der_attribute;
 
-    CK_VOID_PTR pValue;
-
     if (der_iterate_first(&Ack_Attribute_Array->wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, attribute_array_packer, (dercursor*)&der_attribute, REPEAT);
+            dercursor iterator_copy = iterator;  // copy since der_unpack modifies cursor
+            status = der_unpack(&iterator_copy, attribute_array_packer, (dercursor*)&der_attribute, REPEAT);
             if (status)
                 return status;
 
@@ -82,13 +81,15 @@ der_get_CK_ATTRIBUTE_ARRAY(
 
             func = find_func(type);
 
-            // todo: free this, also make sure ulValueLen is based on type size
-            pValue = malloc(ulValueLen);
+            if (func->get == NULL)
+                return -1;
 
-            status = (*func->get)((void *)&der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&pValue);
+            // todo: free this, also make sure ulValueLen is based on type size
+            (pTemplate)[i].pValue = malloc(ulValueLen);
+
+            status = (*func->get)((void *)&der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&(pTemplate)[i]);
             if (status)
                 return status;
-            (pTemplate)[i].pValue = pValue;
 
             i++;
 
@@ -115,7 +116,8 @@ der_get_CK_BYTE_ARRAY(
 
     if (der_iterate_first(cursor, &iterator)) {
         do {
-            status = der_unpack(&iterator, ByteArray_packer, (dercursor*)&der_byte, REPEAT);
+            dercursor iterator_copy = iterator; // copy since der_unpack modifies dercursor
+            status = der_unpack(&iterator_copy, ByteArray_packer, (dercursor*)&der_byte, REPEAT);
             if (status == -1)
                 return -1;
 
@@ -375,7 +377,8 @@ int der_get_CK_MECHANISM_TYPE_ARRAY(
 
     if (der_iterate_first(&ack_mechanism_type_array.wire, &iterator)) {
         do {
-            status = der_unpack(&iterator, mechanism_type_array_packer, &der_slot, REPEAT);
+            dercursor iterator_copy = iterator; // copy since der_unpack modifies cursor
+            status = der_unpack(&iterator_copy, mechanism_type_array_packer, &der_slot, REPEAT);
             if (status == -1)
                 return -1;
 

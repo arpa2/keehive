@@ -153,15 +153,15 @@ der_put_CK_ATTRIBUTE_ARRAY(
         ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
 
         func = find_func(attribute.type);
-        if (func == NULL)
+        if (func->put == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
 
         if (attribute.pValue == NULL) {
             ack_attribute.pValue.null = der_null;
         } else {
             // todo: free this
-            ack_attribute.pValue.data.derptr = malloc(attribute.ulValueLen);
-            (*func->put)((void *)&attribute, &ack_attribute.pValue.data);
+            void* buffer = malloc(attribute.ulValueLen);
+            ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
         }
 
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, NULL);
@@ -182,13 +182,15 @@ der_put_CK_ATTRIBUTE_ARRAY(
         ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
 
         func = find_func(attribute.type);
-        if (func == NULL)
+        if (func->put == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
 
         if (attribute.pValue == NULL) {
             ack_attribute.pValue.null = der_null;
         } else {
-            (*func->put)((void *)&attribute, &ack_attribute.pValue.data);
+            // todo: free this
+            void* buffer = malloc(attribute.ulValueLen);
+            ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
         }
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);
         if (tmp == 0)
