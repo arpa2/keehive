@@ -49,8 +49,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
         {%- endfor %}
     );
 
-    // todo: not allocated?
-    //free(dercursor.derptr);
+    free(dercursor.derptr);
 
     assert_int_equal(status, CKR_OK);
 
@@ -90,9 +89,35 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     assert_int_equal(pInfo.ulDeviceError, pInfo_unpack.ulDeviceError);
     assert_int_equal(pInfo.flags, pInfo_unpack.flags);
     assert_int_equal(pInfo.slotID, pInfo_unpack.slotID);
-{% elif type_ in ("CK_SLOT_INFO", "CK_TOKEN_INFO") %}
-    // todo: assert for {{ identifier }} ({{ type_ }})
-    assert_false(true);
+{% elif type_ == "CK_SLOT_INFO" %}
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.firmwareVersion.major, pInfo_unpack.firmwareVersion.major);
+    assert_int_equal(pInfo.firmwareVersion.minor, pInfo_unpack.firmwareVersion.minor);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_memory_equal(pInfo.manufacturerID, pInfo_unpack.manufacturerID, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.slotDescription, pInfo.slotDescription, sizeof(CK_UTF8CHAR) * 64);
+{% elif type_ == "CK_TOKEN_INFO" %}
+    assert_int_equal(pInfo.flags, pInfo_unpack.flags);
+    assert_int_equal(pInfo.firmwareVersion.major, pInfo_unpack.firmwareVersion.major);
+    assert_int_equal(pInfo.firmwareVersion.minor, pInfo_unpack.firmwareVersion.minor);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_int_equal(pInfo.hardwareVersion.major, pInfo_unpack.hardwareVersion.major);
+    assert_memory_equal(pInfo.manufacturerID, pInfo_unpack.manufacturerID, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.label, pInfo.label, sizeof(CK_UTF8CHAR) * 32);
+    assert_memory_equal(pInfo.model, pInfo.model, sizeof(CK_UTF8CHAR) * 16);
+    assert_memory_equal(pInfo.utcTime, pInfo.utcTime, sizeof(CK_UTF8CHAR) * 16);
+    assert_memory_equal(pInfo.serialNumber, pInfo.serialNumber, sizeof(CK_UTF8CHAR) * 16);
+    assert_int_equal(pInfo.ulMaxSessionCount, pInfo_unpack.ulMaxSessionCount);
+    assert_int_equal(pInfo.ulSessionCount, pInfo_unpack.ulSessionCount);
+    assert_int_equal(pInfo.ulMaxRwSessionCount, pInfo_unpack.ulMaxRwSessionCount);
+    assert_int_equal(pInfo.ulRwSessionCount, pInfo_unpack.ulRwSessionCount);
+    assert_int_equal(pInfo.ulMaxPinLen, pInfo_unpack.ulMaxPinLen);
+    assert_int_equal(pInfo.ulMinPinLen, pInfo_unpack.ulMinPinLen);
+    assert_int_equal(pInfo.ulTotalPublicMemory, pInfo_unpack.ulTotalPublicMemory);
+    assert_int_equal(pInfo.ulFreePublicMemory, pInfo_unpack.ulFreePublicMemory);
+    assert_int_equal(pInfo.ulTotalPrivateMemory, pInfo_unpack.ulTotalPrivateMemory);
+    assert_int_equal(pInfo.ulFreePrivateMemory, pInfo_unpack.ulFreePrivateMemory);
 {% elif type_ == "ANY" %}
     // todo: finish {{ identifier }} ({{ type_ }})
 {% elif type_ == "CK_C_INITIALIZE_ARGS_PTR" %}
