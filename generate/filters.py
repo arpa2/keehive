@@ -210,22 +210,20 @@ type_test_templates = {
         {{.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)}},
     }};""",
     "CK_MECHANISM_PTR":
-        """CK_MECHANISM {identifier}_pointed = {{CKM_MD5, NULL, 0}};
-    CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; """,
+        """CK_MECHANISM {identifier}[] = {{CKM_MD5, NULL, 0}};""",
     "CK_BYTE_ARRAY":
         """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
     "CK_OBJECT_HANDLE_ARRAY":
         """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
     "CK_C_INITIALIZE_ARGS_PTR":
-        """CK_C_INITIALIZE_ARGS {identifier}_pointed = {{
+        """CK_C_INITIALIZE_ARGS {identifier}[] = {{
         .CreateMutex = NULL,
         .DestroyMutex = NULL,
         .LockMutex = NULL,
         .UnlockMutex = NULL,
         .flags = CKF_OS_LOCKING_OK,
         .pReserved = NULL
-    }};
-    {type_} {identifier} = &{identifier}_pointed;
+    }};;
     {identifier} = NULL; // todo: disabled for now, only works with null pointer. fix this.
     """,
     "CK_NOTIFY":

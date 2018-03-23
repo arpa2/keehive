@@ -177,8 +177,7 @@ void test_C_DecryptInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hKey = 13;
     
 
@@ -243,8 +242,7 @@ void test_C_DeriveKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hBaseKey = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pTemplate[] = {
@@ -356,8 +354,7 @@ void test_C_DigestInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     
 
     CK_RV status = C_DigestInit(
@@ -452,8 +449,7 @@ void test_C_EncryptInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hKey = 13;
     
 
@@ -570,8 +566,7 @@ void test_C_GenerateKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
@@ -599,8 +594,7 @@ void test_C_GenerateKeyPair(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
     CK_ATTRIBUTE pPublicKeyTemplate[] = {
         {.type=CKA_LABEL, .pValue=pPublicKeyTemplate_label, .ulValueLen=sizeof(pPublicKeyTemplate_label)},
@@ -1128,8 +1122,7 @@ void test_C_SignInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hKey = 13;
     
 
@@ -1171,8 +1164,7 @@ void test_C_SignRecoverInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hKey = 13;
     
 
@@ -1210,8 +1202,7 @@ void test_C_UnwrapKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hUnwrappingKey = 13;
     CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulWrappedKeyLen = 13;
@@ -1287,8 +1278,7 @@ void test_C_VerifyInit(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hKey = 13;
     
 
@@ -1368,8 +1358,7 @@ void test_C_WrapKey(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_MECHANISM pMechanism_pointed = {CKM_MD5, NULL, 0};
-    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; 
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hWrappingKey = 13;
     CK_OBJECT_HANDLE hKey = 13;
     CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";

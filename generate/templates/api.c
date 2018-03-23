@@ -45,8 +45,7 @@ CK_RV
         return status;
     };
 
-    // todo: not allocated??
-    //free(dercursorIn.derptr);
+    free(dercursorIn.derptr);
 
     CK_RV retval_pointed;
     CK_RV_PTR retval = &retval_pointed;
@@ -65,8 +64,7 @@ CK_RV
         return status;
     };
 
-    // todo: not allocated??
-    //free(dercursorOut.derptr);
+    free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
         server_End();
