@@ -4,6 +4,7 @@
 #include "convert.h"
 #include "packer.h"
 #include "quick-der/api.h"
+#include "convert.h"
 
 
 /* use this to reset a der. */
@@ -155,10 +156,11 @@ der_put_CK_ATTRIBUTE_ARRAY(
             ack_attribute.pValue.null = der_null;
         } else {
             // todo: free this
-            void* buffer = malloc(attribute.ulValueLen);
+            uint8_t* buffer = malloc(attribute.ulValueLen);
             if (buffer == NULL)
                 return CKR_KEEHIVE_MEMORY_ERROR;
-            ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
+            ack_attribute.pValue.data = (*func->put)(attribute, buffer);
+            //ack_attribute.pValue.data = der_put_rfc2279_string(&attribute, &buffer);
             ack_attribute.pValue.null = der_empty;
         }
 
@@ -187,8 +189,8 @@ der_put_CK_ATTRIBUTE_ARRAY(
             ack_attribute.pValue.null = der_null;
         } else {
             // todo: free this
-            void* buffer = malloc(attribute.ulValueLen);
-            ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
+            uint8_t* buffer = malloc(attribute.ulValueLen);
+            ack_attribute.pValue.data = (*func->put)(attribute, buffer);
             ack_attribute.pValue.null = der_empty;
         }
         tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);

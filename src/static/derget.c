@@ -70,7 +70,7 @@ der_get_CK_ATTRIBUTE_ARRAY(
             // todo: free this, also make sure ulValueLen is based on type size
             (pTemplate)[i].pValue = malloc(ulValueLen);
 
-            status = (*func->get)((void *)&der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&(pTemplate)[i]);
+            status = (*func->get)(der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&(pTemplate)[i]);
             if (status)
                 return status;
 

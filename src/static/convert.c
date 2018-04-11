@@ -5,38 +5,38 @@
 
 dercursor
 der_put_rfc2279_string(
-        const CK_ATTRIBUTE* attribute,
-        void* buffer
+        const CK_ATTRIBUTE attribute,
+        uint8_t* buffer
 ) {
-    dercursor cursor = {.derptr=buffer, .derlen=attribute->ulValueLen};
-    memcpy(cursor.derptr, attribute->pValue, attribute->ulValueLen);
+    dercursor cursor = {.derptr=buffer, .derlen=attribute.ulValueLen};
+    memcpy(cursor.derptr, attribute.pValue, attribute.ulValueLen);
     return cursor;
 }
 
 int
 der_get_rfc2279_string(
-        dercursor* cursor,
+        dercursor cursor,
         CK_ATTRIBUTE* attribute
 ) {
-    memcpy(attribute->pValue, cursor->derptr, cursor->derlen);
+    memcpy(attribute->pValue, cursor.derptr, cursor.derlen);
     return 0;
 }
 
 dercursor
 der_put_attribute_bool(
-        const CK_ATTRIBUTE* attribute,
-        void* buffer
+        const CK_ATTRIBUTE attribute,
+        uint8_t* buffer
 ) {
-    bool boolvalue = *(CK_BBOOL*)attribute->pValue == CK_TRUE;
+    bool boolvalue = (CK_BBOOL)attribute.pValue == CK_TRUE;
     return der_put_bool (buffer, boolvalue);
 }
 
 int
 der_get_attribute_bool(
-        dercursor* cursor,
+        dercursor cursor,
         CK_ATTRIBUTE* attribute
 ) {
-    return der_get_CK_BBOOL_PTR(*cursor, attribute->pValue);
+    return der_get_CK_BBOOL_PTR(cursor, attribute->pValue);
 }
 
 
