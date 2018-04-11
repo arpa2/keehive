@@ -371,8 +371,8 @@ der_get_CK_SLOT_ID_ARRAY(
 
     ACK_SLOT_ID_t der_slot;
     if (ck_slot_id_array == NULL) {
-        // no memory allocated
-        return -1;
+        // upstream only wants to know the size
+        return 0;
     }
 
     if (der_iterate_first(&ack_slot_id_array.data.wire, &iterator)) {
