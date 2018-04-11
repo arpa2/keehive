@@ -45,5 +45,6 @@ int der_get_CK_MECHANISM_TYPE_ARRAY(ACK_MECHANISM_TYPE_ARRAY_t, CK_MECHANISM_TYP
 
 int der_get_CK_SLOT_ID_ARRAY( DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList, CK_SLOT_ID_ARRAY);
 
+int der_get_CK_ULONG_ARRAY(dernode, CK_ULONG_PTR);
 
 #endif //KEEHIVE_DERGET_H

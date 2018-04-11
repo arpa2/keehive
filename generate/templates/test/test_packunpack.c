@@ -121,7 +121,7 @@ void test_pack_{{ f.type_name|under }}(void **state) {
     // todo: finish {{ identifier }} ({{ type_ }})
 {% elif type_ == "CK_C_INITIALIZE_ARGS_PTR" %}
     // todo: should we check for ANY?
-{% elif type_ in ("CK_SLOT_ID_ARRAY", "CK_MECHANISM_TYPE_ARRAY") %}
+{% elif type_ in ("CK_SLOT_ID_ARRAY", "CK_MECHANISM_TYPE_ARRAY", "CK_OBJECT_HANDLE_ARRAY") %}
     int {{ identifier }}_i;
     for ({{ identifier }}_i = 0; {{ identifier }}_i < {{ len_mapper(f.type_name|under, identifier) }}; {{ identifier }}_i++) {
       assert_int_equal({{ identifier }}[{{ identifier }}_i], {{ identifier }}_unpack[{{ identifier }}_i]);

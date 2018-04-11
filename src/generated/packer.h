@@ -431,4 +431,6 @@ extern const derwalk ByteArray_packer[];
 
 extern const derwalk attribute_array_packer[];
 
+extern const derwalk ulong_array_packer[];
+
 #endif //KEEHIVE_PACKER_H

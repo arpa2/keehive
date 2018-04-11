@@ -365,20 +365,13 @@ der_get_CK_SLOT_ID_ARRAY(
     dercursor iterator;
     int status;
     int i = 0;
-
     unsigned char value;
 
     ACK_SLOT_ID_t der_slot;
     if (ck_slot_id_array == NULL) {
-        // need to allocate some memory for this
+        // no memory allocated
         return -1;
     }
-
-    /* todo: we need to check if NULL
-    if (Ack_Slot_Id_Array->null.derlen == 0) {
-        *pSlot = (CK_SLOT_ID) NULL;
-        return -1;
-    } */
 
     if (der_iterate_first(&ack_slot_id_array.data.wire, &iterator)) {
         do {
@@ -401,9 +394,42 @@ der_get_CK_SLOT_ID_ARRAY(
 
 int
 der_get_CK_OBJECT_HANDLE_ARRAY(
-        ACK_OBJECT_HANDLE_ARRAY_t Ack_Object_Handle_Array,
-        CK_OBJECT_HANDLE_ARRAY phObject
+        ACK_OBJECT_HANDLE_ARRAY_t ack_object_handle_array,
+        CK_OBJECT_HANDLE_ARRAY ck_object_handle_array
 ) {
-    // todo: implement
-    return -1;
+    return der_get_CK_ULONG_ARRAY(ack_object_handle_array, ck_object_handle_array);
+};
+
+int
+der_get_CK_ULONG_ARRAY(
+        dernode ack_ulong_array,
+        CK_ULONG_PTR ck_ulong_array
+) {
+    dercursor iterator;
+    int status;
+    int i = 0;
+    unsigned char value;
+
+    ACK_ULONG_t der_object_handle;
+    if (ck_ulong_array == NULL) {
+        // no memory allocated
+        return -1;
+    }
+
+    if (der_iterate_first(&ack_ulong_array.wire, &iterator)) {
+        do {
+            dercursor iterator_copy = iterator;
+            status = der_unpack(&iterator_copy, pSlotList_packer, &der_object_handle, REPEAT);
+            if (status == -1)
+                return -1;
+
+            status = der_get_uchar(der_object_handle, &value);
+            if (status == -1)
+                return -1;
+            (ck_ulong_array)[i] = value;
+
+            i++;
+        } while (der_iterate_next(&iterator));
+    }
+    return 0;
 };

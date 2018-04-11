@@ -2333,7 +2333,7 @@ void test_pack_C_FindObjects_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE_ARRAY phObject = (CK_OBJECT_HANDLE_ARRAY) "abcdefghijklm";
+    CK_OBJECT_HANDLE phObject[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
     CK_ULONG pulObjectCount = 13;
     
 
@@ -2366,7 +2366,10 @@ void test_pack_C_FindObjects_Return(void **state) {
     assert_int_equal(retval, retval_unpack);
 
 
-    assert_int_equal(phObject, phObject_unpack);
+    int phObject_i;
+    for (phObject_i = 0; phObject_i < pulObjectCount; phObject_i++) {
+      assert_int_equal(phObject[phObject_i], phObject_unpack[phObject_i]);
+    };
 
 
     assert_int_equal(pulObjectCount, pulObjectCount_unpack);

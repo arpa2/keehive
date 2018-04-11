@@ -215,7 +215,7 @@ type_test_templates = {
     "CK_BYTE_ARRAY":
         """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
     "CK_OBJECT_HANDLE_ARRAY":
-        """{type_} {identifier} = ({type_}) "abcdefghijklm";""",
+        """CK_OBJECT_HANDLE {identifier}[] = {{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }};""",
     "CK_C_INITIALIZE_ARGS_PTR":
         """CK_C_INITIALIZE_ARGS {identifier}[] = {{
         .CreateMutex = NULL,
@@ -415,6 +415,8 @@ def len_mapper(func, identifier, deref=False):
         ('C_GetSlotList_Return', 'pSlotList'): "pulCount",
 
         ('C_GetMechanismList_Return', 'pMechanismList'): "pulCount",
+
+        ('C_FindObjects_Return', 'phObject'): "pulObjectCount",
 
     }
 

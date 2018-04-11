@@ -545,7 +545,7 @@ void test_C_FindObjects(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_OBJECT_HANDLE_ARRAY phObject = (CK_OBJECT_HANDLE_ARRAY) "abcdefghijklm";
+    CK_OBJECT_HANDLE phObject[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
     CK_ULONG ulMaxObjectCount = 13;
     CK_ULONG pulObjectCount_pointed = 0;
     CK_ULONG_PTR pulObjectCount = &pulObjectCount_pointed; /* we do this a bit weird to simplify code generation */
