@@ -1,0 +1,8 @@
+language: cpp
+sudo: required
+services:
+    - docker
+install:
+    - docker build . -t keehive
+script:
+    - true
