@@ -1651,7 +1651,7 @@ C_Finalize(
 CK_RV
 C_FindObjects(
     CK_SESSION_HANDLE hSession,
-    CK_OBJECT_HANDLE_PTR phObject,
+    CK_OBJECT_HANDLE_ARRAY phObject,
     CK_ULONG ulMaxObjectCount,
     CK_ULONG_PTR pulObjectCount
 ) {
@@ -4288,6 +4288,73 @@ C_VerifyRecover(
         retval,
         pData,
         pulDataLen
+    );
+
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    free(dercursorOut.derptr);
+
+    if (retval_pointed != CKR_OK) {
+        server_End();
+        return retval_pointed;
+    };
+
+    status = server_End();
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    return CKR_OK;
+}
+
+
+CK_RV
+C_VerifyRecoverInit(
+    CK_SESSION_HANDLE hSession,
+    CK_MECHANISM_PTR pMechanism,
+    CK_OBJECT_HANDLE hKey
+) {
+    CK_RV status;
+    dercursor dercursorIn;
+    dercursor dercursorOut;
+
+    status = server_Begin();
+    if (status != CKR_OK)
+        return status;
+
+    
+
+    status = pack_C_VerifyRecoverInit_Call(
+        &dercursorIn,
+        &hSession,
+        pMechanism,
+        &hKey
+    );
+
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    status = server_C_VerifyRecoverInit(&dercursorIn, &dercursorOut);
+    if (status != CKR_OK) {
+        server_End();
+        return status;
+    };
+
+    free(dercursorIn.derptr);
+
+    CK_RV retval_pointed;
+    CK_RV_PTR retval = &retval_pointed;
+
+    
+    status = unpack_C_VerifyRecoverInit_Return(
+        &dercursorOut,
+        retval
     );
 
     if (status != CKR_OK) {

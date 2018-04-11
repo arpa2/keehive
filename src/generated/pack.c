@@ -2921,11 +2921,19 @@ pack_C_FindObjects_Return(
     C_FindObjects_Return.retval = der_put_ulong(retval_storage, *retval);
 
 
-    // PACKING phObject (type CK_OBJECT_HANDLE_PTR)
+    // PACKING phObject (type CK_OBJECT_HANDLE_ARRAY)
 
 
-    der_buf_ulong_t phObject_storage = { 0 };
-    C_FindObjects_Return.phObject = der_put_ulong(phObject_storage, *phObject);
+    uint8_t *innerlist = NULL;
+    size_t length = 0;
+
+    CK_RV status = der_put_CK_OBJECT_HANDLE_ARRAY(phObject, pulObjectCount, &innerlist, &length, ObjectHandlerPacker_packer);
+    if (status != CKR_OK)
+        return status;
+
+    C_FindObjects_Return.phObject.wire.derptr = innerlist;
+    C_FindObjects_Return.phObject.wire.derlen = length;
+
 
 
     // PACKING pulObjectCount (type CK_ULONG_PTR)
@@ -7436,6 +7444,107 @@ pack_C_VerifyRecover_Return(
 
     der_pack(C_VerifyRecover_Return_packer,
              (const dercursor *) &C_VerifyRecover_Return,
+             pack_target->derptr + pack_target->derlen);
+
+    return CKR_OK;
+};
+
+
+
+/* if you use this function, don't forget to free(pack_target->derptr) */
+CK_RV
+pack_C_VerifyRecoverInit_Call(
+        dercursor* pack_target,
+        const CK_SESSION_HANDLE* hSession,
+        const CK_MECHANISM* pMechanism,
+        const CK_OBJECT_HANDLE* hKey
+) {
+    C_VerifyRecoverInit_Call_t C_VerifyRecoverInit_Call;
+
+    memset (&C_VerifyRecoverInit_Call, 0, sizeof(C_VerifyRecoverInit_Call));
+
+    // BEGIN OF PACKING
+
+
+    // PACKING hSession (type CK_SESSION_HANDLE_PTR)
+
+
+    der_buf_ulong_t hSession_storage = { 0 };
+    C_VerifyRecoverInit_Call.hSession = der_put_ulong(hSession_storage, *hSession);
+
+
+    // PACKING pMechanism (type CK_MECHANISM_PTR)
+
+
+    der_buf_ulong_t mechanism_buf = { 0 };
+    der_buf_ulong_t ulParameterLen_buf = { 0 };
+    CK_RV pMechanism_status = der_put_CK_MECHANISM_PTR(&C_VerifyRecoverInit_Call.pMechanism, pMechanism, mechanism_buf, ulParameterLen_buf);
+    if (pMechanism_status != CKR_OK)
+        return pMechanism_status;
+
+
+    // PACKING hKey (type CK_OBJECT_HANDLE_PTR)
+
+
+    der_buf_ulong_t hKey_storage = { 0 };
+    C_VerifyRecoverInit_Call.hKey = der_put_ulong(hKey_storage, *hKey);
+
+
+    // END OF PACKING
+
+    pack_target->derlen = der_pack(C_VerifyRecoverInit_Call_packer,
+                                  (const dercursor *) &C_VerifyRecoverInit_Call,
+                                  NULL);
+
+    if (pack_target->derlen == 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
+
+    der_pack(C_VerifyRecoverInit_Call_packer,
+             (const dercursor *) &C_VerifyRecoverInit_Call,
+             pack_target->derptr + pack_target->derlen);
+
+    return CKR_OK;
+};
+
+/* if you use this function, don't forget to free(pack_target->derptr) */
+CK_RV
+pack_C_VerifyRecoverInit_Return(
+        dercursor* pack_target,
+        const CK_RV* retval
+) {
+    C_VerifyRecoverInit_Return_t C_VerifyRecoverInit_Return;
+
+    memset (&C_VerifyRecoverInit_Return, 0, sizeof(C_VerifyRecoverInit_Return));
+
+    // BEGIN OF PACKING
+
+
+    // PACKING retval (type CK_RV_PTR)
+
+
+    der_buf_ulong_t retval_storage = { 0 };
+    C_VerifyRecoverInit_Return.retval = der_put_ulong(retval_storage, *retval);
+
+
+    // END OF PACKING
+
+    pack_target->derlen = der_pack(C_VerifyRecoverInit_Return_packer,
+                                  (const dercursor *) &C_VerifyRecoverInit_Return,
+                                  NULL);
+
+    if (pack_target->derlen == 0)
+        return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
+
+    pack_target->derptr = malloc(pack_target->derlen);
+    if (pack_target->derptr == NULL)
+        return CKR_KEEHIVE_MEMORY_ERROR;
+
+    der_pack(C_VerifyRecoverInit_Return_packer,
+             (const dercursor *) &C_VerifyRecoverInit_Return,
              pack_target->derptr + pack_target->derlen);
 
     return CKR_OK;

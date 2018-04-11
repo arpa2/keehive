@@ -156,6 +156,8 @@ der_put_CK_ATTRIBUTE_ARRAY(
         } else {
             // todo: free this
             void* buffer = malloc(attribute.ulValueLen);
+            if (buffer == NULL)
+                return CKR_KEEHIVE_MEMORY_ERROR;
             ack_attribute.pValue.data = (*func->put)((void *)&attribute, &buffer);
             ack_attribute.pValue.null = der_empty;
         }

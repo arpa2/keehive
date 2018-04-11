@@ -1073,6 +1073,22 @@ pack_C_VerifyRecover_Return(
 
 
 CK_RV
+pack_C_VerifyRecoverInit_Call(
+        dercursor * packtarget,
+        const CK_SESSION_HANDLE* hSession,
+        const CK_MECHANISM* pMechanism,
+        const CK_OBJECT_HANDLE* hKey
+);
+
+CK_RV
+pack_C_VerifyRecoverInit_Return(
+        dercursor * packtarget,
+        const CK_RV* retval
+);
+
+
+
+CK_RV
 pack_C_VerifyUpdate_Call(
         dercursor * packtarget,
         const CK_SESSION_HANDLE* hSession,

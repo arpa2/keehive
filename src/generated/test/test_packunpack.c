@@ -2333,28 +2333,28 @@ void test_pack_C_FindObjects_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE phObject = 13;
+    CK_OBJECT_HANDLE_ARRAY phObject = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
     CK_ULONG pulObjectCount = 13;
     
 
     CK_RV status = pack_C_FindObjects_Return(
         &dercursor,
         &retval,
-        &phObject,
+        phObject,
         &pulObjectCount
     );
 
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_OBJECT_HANDLE phObject_unpack = 0;
+    CK_OBJECT_HANDLE_ARRAY phObject_unpack = malloc(1024);
     CK_ULONG pulObjectCount_unpack = 0;
     
 
     status = unpack_C_FindObjects_Return(
         &dercursor,
         &retval_unpack,
-        &phObject_unpack,
+        phObject_unpack,
         &pulObjectCount_unpack
     );
 
@@ -6050,6 +6050,94 @@ void test_pack_C_VerifyRecover_Return(void **state) {
 
 
 
+void test_pack_C_VerifyRecoverInit_Call(void **state) {
+
+    (void) state; /* unused */
+
+    dercursor dercursor;
+
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
+    CK_OBJECT_HANDLE hKey = 13;
+    
+
+    CK_RV status = pack_C_VerifyRecoverInit_Call(
+        &dercursor,
+        &hSession,
+        pMechanism,
+        &hKey
+    );
+
+    assert_int_equal(status, CKR_OK);
+
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_OBJECT_HANDLE hKey_unpack = 0;
+    
+
+    status = unpack_C_VerifyRecoverInit_Call(
+        &dercursor,
+        &hSession_unpack,
+        pMechanism_unpack,
+        &hKey_unpack
+    );
+
+    free(dercursor.derptr);
+
+    assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(hSession, hSession_unpack);
+
+
+    assert_int_equal(pMechanism->pParameter, pMechanism_unpack->pParameter);
+    assert_int_equal(pMechanism->ulParameterLen, pMechanism_unpack->ulParameterLen);
+    assert_int_equal(pMechanism->mechanism, pMechanism_unpack->mechanism);
+
+
+    assert_int_equal(hKey, hKey_unpack);
+
+
+
+};
+
+void test_pack_C_VerifyRecoverInit_Return(void **state) {
+
+    (void) state; /* unused */
+
+    dercursor dercursor;
+
+    CK_RV retval = CKR_OK;
+    
+
+    CK_RV status = pack_C_VerifyRecoverInit_Return(
+        &dercursor,
+        &retval
+    );
+
+    assert_int_equal(status, CKR_OK);
+
+    CK_RV retval_unpack;
+    
+
+    status = unpack_C_VerifyRecoverInit_Return(
+        &dercursor,
+        &retval_unpack
+    );
+
+    free(dercursor.derptr);
+
+    assert_int_equal(status, CKR_OK);
+
+
+    assert_int_equal(retval, retval_unpack);
+
+
+
+};
+
+
+
 void test_pack_C_VerifyUpdate_Call(void **state) {
 
     (void) state; /* unused */
@@ -6414,6 +6502,7 @@ int main(void) {
             cmocka_unit_test(test_pack_C_VerifyFinal_Call),
             cmocka_unit_test(test_pack_C_VerifyInit_Call),
             cmocka_unit_test(test_pack_C_VerifyRecover_Call),
+            cmocka_unit_test(test_pack_C_VerifyRecoverInit_Call),
             cmocka_unit_test(test_pack_C_VerifyUpdate_Call),
             cmocka_unit_test(test_pack_C_WaitForSlotEvent_Call),
             cmocka_unit_test(test_pack_C_WrapKey_Call),
@@ -6480,6 +6569,7 @@ int main(void) {
             cmocka_unit_test(test_pack_C_VerifyFinal_Return),
             cmocka_unit_test(test_pack_C_VerifyInit_Return),
             cmocka_unit_test(test_pack_C_VerifyRecover_Return),
+            cmocka_unit_test(test_pack_C_VerifyRecoverInit_Return),
             cmocka_unit_test(test_pack_C_VerifyUpdate_Return),
             cmocka_unit_test(test_pack_C_WaitForSlotEvent_Return),
             cmocka_unit_test(test_pack_C_WrapKey_Return)

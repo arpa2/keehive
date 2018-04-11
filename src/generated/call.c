@@ -413,7 +413,7 @@ CK_RV
 call_C_FindObjects(
     CK_FUNCTION_LIST_PTR_PTR function_list,
     CK_SESSION_HANDLE hSession,
-    CK_OBJECT_HANDLE_PTR phObject,
+    CK_OBJECT_HANDLE_ARRAY phObject,
     CK_ULONG ulMaxObjectCount,
     CK_ULONG_PTR pulObjectCount
 ) {
@@ -1068,6 +1068,22 @@ call_C_VerifyRecover(
         ulSignatureLen,
         pData,
         pulDataLen
+    );
+
+};
+
+
+CK_RV
+call_C_VerifyRecoverInit(
+    CK_FUNCTION_LIST_PTR_PTR function_list,
+    CK_SESSION_HANDLE hSession,
+    CK_MECHANISM_PTR pMechanism,
+    CK_OBJECT_HANDLE hKey
+) {
+    return ((*function_list)->C_VerifyRecoverInit)(
+        hSession,
+        pMechanism,
+        hKey
     );
 
 };

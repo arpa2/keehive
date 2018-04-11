@@ -88,13 +88,3 @@ C_GetFunctionList(
     return CKR_OK;
 
 }
-
-CK_RV
-C_VerifyRecoverInit(
-    CK_SESSION_HANDLE hSession,
-    CK_MECHANISM_PTR pMechanism,
-    CK_OBJECT_HANDLE hKey
-) {
-    // todo: implement, missing in ASN1 spec
-    return CKR_OK;
-}

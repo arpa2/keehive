@@ -17,13 +17,13 @@
 
 /* Overlay structures with ASN.1 derived nesting and labelling */
 
+typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
+
+
 typedef dercursor DER_OVLY_RemotePKCS11_ACK_ULONG;
 
 
 typedef DER_OVLY_RemotePKCS11_ACK_ULONG DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE_TYPE;
-
-
-typedef dercursor DER_OVLY_RemotePKCS11_ACK_OPAQUE;
 
 
 typedef struct DER_OVLY_RemotePKCS11_ACK_ATTRIBUTE {
@@ -592,7 +592,7 @@ typedef struct DER_OVLY_RemotePKCS11_C_FindObjects_Call {
 
 typedef struct DER_OVLY_RemotePKCS11_C_FindObjects_Return {
 	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
-	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE phObject; // [1] ACK-OBJECT-HANDLE
+	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY phObject; // [1] ACK-OBJECT-HANDLE-ARRAY
 	DER_OVLY_RemotePKCS11_ACK_ULONG pulObjectCount; // [3] ACK-ULONG
 } DER_OVLY_RemotePKCS11_C_FindObjects_Return;
 
@@ -1156,6 +1156,18 @@ typedef struct DER_OVLY_RemotePKCS11_C_VerifyRecover_Return {
 } DER_OVLY_RemotePKCS11_C_VerifyRecover_Return;
 
 
+typedef struct DER_OVLY_RemotePKCS11_C_VerifyRecoverInit_Call {
+	DER_OVLY_RemotePKCS11_ACK_SESSION_HANDLE hSession; // [0] ACK-SESSION-HANDLE
+	DER_OVLY_RemotePKCS11_ACK_MECHANISM pMechanism; // [1] ACK-MECHANISM
+	DER_OVLY_RemotePKCS11_ACK_OBJECT_HANDLE hKey; // [2] ACK-OBJECT-HANDLE
+} DER_OVLY_RemotePKCS11_C_VerifyRecoverInit_Call;
+
+
+typedef struct DER_OVLY_RemotePKCS11_C_VerifyRecoverInit_Return {
+	DER_OVLY_RemotePKCS11_ACK_RV retval; // ACK-RV
+} DER_OVLY_RemotePKCS11_C_VerifyRecoverInit_Return;
+
+
 typedef struct DER_OVLY_RemotePKCS11_C_VerifyUpdate_Call {
 	DER_OVLY_RemotePKCS11_ACK_SESSION_HANDLE hSession; // [0] ACK-SESSION-HANDLE
 	DER_OVLY_RemotePKCS11_ACK_BYTE_ARRAY pPart; // [1] ACK-BYTE-ARRAY
@@ -1255,6 +1267,12 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 /* Parser definitions in terms of ASN.1 derived bytecode instructions */
 
+#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
+	DER_PACK_STORE | implicit_tag
+
+#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
+	DER_PACK_STORE | DER_TAG_OCTETSTRING
+
 #define DER_PIMP_RemotePKCS11_ACK_ULONG(implicit_tag) \
 	DER_PACK_STORE | implicit_tag
 
@@ -1266,12 +1284,6 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 
 #define DER_PACK_RemotePKCS11_ACK_ATTRIBUTE_TYPE \
 	DER_PACK_RemotePKCS11_ACK_ULONG
-
-#define DER_PIMP_RemotePKCS11_ACK_OPAQUE(implicit_tag) \
-	DER_PACK_STORE | implicit_tag
-
-#define DER_PACK_RemotePKCS11_ACK_OPAQUE \
-	DER_PACK_STORE | DER_TAG_OCTETSTRING
 
 #define DER_PIMP_RemotePKCS11_ACK_ATTRIBUTE(implicit_tag) \
 	DER_PACK_ENTER | implicit_tag, \
@@ -2765,7 +2777,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_ENTER | implicit_tag, \
 	DER_PACK_RemotePKCS11_ACK_RV, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \
@@ -2776,7 +2788,7 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_ENTER | DER_TAG_SEQUENCE, \
 	DER_PACK_RemotePKCS11_ACK_RV, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
-	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE_ARRAY, \
 	DER_PACK_LEAVE, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(3), \
 	DER_PACK_RemotePKCS11_ACK_ULONG, \
@@ -4509,6 +4521,42 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 	DER_PACK_LEAVE, \
 	DER_PACK_LEAVE
 
+#define DER_PIMP_RemotePKCS11_C_VerifyRecoverInit_Call(implicit_tag) \
+	DER_PACK_ENTER | implicit_tag, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(0), \
+	DER_PACK_RemotePKCS11_ACK_SESSION_HANDLE, \
+	DER_PACK_LEAVE, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
+	DER_PACK_RemotePKCS11_ACK_MECHANISM, \
+	DER_PACK_LEAVE, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(2), \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_LEAVE, \
+	DER_PACK_LEAVE
+
+#define DER_PACK_RemotePKCS11_C_VerifyRecoverInit_Call \
+	DER_PACK_ENTER | DER_TAG_SEQUENCE, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(0), \
+	DER_PACK_RemotePKCS11_ACK_SESSION_HANDLE, \
+	DER_PACK_LEAVE, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(1), \
+	DER_PACK_RemotePKCS11_ACK_MECHANISM, \
+	DER_PACK_LEAVE, \
+	DER_PACK_ENTER | DER_TAG_CONTEXT(2), \
+	DER_PACK_RemotePKCS11_ACK_OBJECT_HANDLE, \
+	DER_PACK_LEAVE, \
+	DER_PACK_LEAVE
+
+#define DER_PIMP_RemotePKCS11_C_VerifyRecoverInit_Return(implicit_tag) \
+	DER_PACK_ENTER | implicit_tag, \
+	DER_PACK_RemotePKCS11_ACK_RV, \
+	DER_PACK_LEAVE
+
+#define DER_PACK_RemotePKCS11_C_VerifyRecoverInit_Return \
+	DER_PACK_ENTER | DER_TAG_SEQUENCE, \
+	DER_PACK_RemotePKCS11_ACK_RV, \
+	DER_PACK_LEAVE
+
 #define DER_PIMP_RemotePKCS11_C_VerifyUpdate_Call(implicit_tag) \
 	DER_PACK_ENTER | implicit_tag, \
 	DER_PACK_ENTER | DER_TAG_CONTEXT(0), \
@@ -4883,6 +4931,15 @@ typedef struct DER_OVLY_RemotePKCS11_TransportMessage_payload DER_OVLY_RemotePKC
 		  DER_ELEMSZ (remotepkcs11,ACK_ATTRIBUTE_ARRAY,0), \
 		  DER_PACK_remotepkcs11_ACK_ATTRIBUTE_ARRAY_0, \
 		  DER_PSUB_remotepkcs11_ACK_ATTRIBUTE_ARRAY_0 }, \
+		{ 0, 0, NULL, NULL } \
+	};
+
+#define DEFINE_DER_PSUB_RemotePKCS11_C_FindObjects_Return \
+	const struct der_subparser_action DER_PSUB_RemotePKCS11_C_FindObjects_Return [] = { \
+		{ DER_OFFSET (RemotePKCS11,C_FindObjects_Return,phObject), \
+		  DER_ELEMSZ (remotepkcs11,ACK_OBJECT_HANDLE_ARRAY,0), \
+		  DER_PACK_remotepkcs11_ACK_OBJECT_HANDLE_ARRAY_0, \
+		  DER_PSUB_remotepkcs11_ACK_OBJECT_HANDLE_ARRAY_0 }, \
 		{ 0, 0, NULL, NULL } \
 	};
 

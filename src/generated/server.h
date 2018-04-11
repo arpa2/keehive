@@ -390,6 +390,12 @@ server_C_VerifyRecover(
 );
 
 CK_RV
+server_C_VerifyRecoverInit(
+        dercursor *cursorIn,
+        dercursor *CursorOut
+);
+
+CK_RV
 server_C_VerifyUpdate(
         dercursor *cursorIn,
         dercursor *CursorOut
