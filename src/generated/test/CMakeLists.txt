@@ -17,9 +17,3 @@ add_executable(packunpack.test test_packunpack.c)
 add_dependencies(packunpack.test packunpack.test)
 target_link_libraries(packunpack.test keehive ${KEEHIVE_TEST_LINK_LIRARIES})
 add_test(packunpack.test packunpack.test)
-
-
-add_executable(libload.test test_libload.cpp)
-add_dependencies(libload.test keehive)
-target_link_libraries(libload.test -ldl)
-add_test(libload.test libload.test)

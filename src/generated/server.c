@@ -1455,7 +1455,7 @@ server_C_Finalize(
     }
 
     // Create unpack variable placeholders
-    CK_VOID_PTR pReserved = malloc(1024);
+    CK_VOID_PTR pReserved = NULL;
     
 
     // unpack the dercursor into the placeholders
@@ -2625,15 +2625,13 @@ server_C_Initialize(
     }
 
     // Create unpack variable placeholders
-    CK_C_INITIALIZE_ARGS pInitArgs;
+    CK_VOID_PTR pInitArgs = malloc(1024);
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Initialize_Call(
         cursorIn,
-        &pInitArgs
+        pInitArgs
     );
 
     if (status != CKR_OK)
@@ -2646,7 +2644,7 @@ server_C_Initialize(
 
     retval = call_C_Initialize(
         &function_list,
-        &pInitArgs  // CK_VOID_PTR
+        pInitArgs  // CK_VOID_PTR
     );
 
     status = pack_C_Initialize_Return(
@@ -4009,7 +4007,7 @@ server_C_WaitForSlotEvent(
 
     // Create unpack variable placeholders
     CK_FLAGS flags = 0;
-    CK_VOID_PTR pReserved = malloc(1024);
+    CK_VOID_PTR pReserved = NULL;
     
 
     // unpack the dercursor into the placeholders

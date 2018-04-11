@@ -48,5 +48,5 @@ target_link_libraries(softhsm2.test keehive)
 add_test(softhsm2.test softhsm2.test)
 
 # used during test run
-file(COPY softhsm2.conf DESTINATION ${PROJECT_BINARY_DIR}/src/static/test/)
-file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/src/static/test/tokens)
+file(COPY softhsm2.conf DESTINATION ${PROJECT_BINARY_DIR}/src/static/test/softhsm2/)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/src/static/test/softhsm2/tokens/)

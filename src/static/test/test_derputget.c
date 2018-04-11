@@ -90,7 +90,12 @@ void der_putget_CK_ATTRIBUTE_ARRAY(void **state) {
     int get_status = der_get_CK_ATTRIBUTE_ARRAY(node, array2);
     assert_int_equal(get_status, 0);
 
-    assert_memory_equal(array, array2, count * sizeof(CK_MECHANISM_TYPE));
+
+    for (int i = 0; i < count; i++) {
+        assert_int_equal(array[i].ulValueLen, array2[i].ulValueLen);
+        assert_int_equal(array[i].type, array2[i].type);
+        assert_memory_equal(array[i].pValue, array2[i].pValue, array[i].ulValueLen);
+    };
 
 };
 

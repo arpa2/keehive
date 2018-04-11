@@ -39,7 +39,7 @@ unpack_{{ f.type_name|under }}(
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 {% elif type  in ("ANY", "CK_VOID_PTR") %}
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert {{ type }}?
 {% elif type  == "CK_ATTRIBUTE_ARRAY" %}
     status = der_get_{{ type }}({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)

@@ -1964,7 +1964,7 @@ unpack_C_Finalize_Call(
     // STARTING UNPACKING
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert CK_VOID_PTR?
 
 
 
@@ -1999,7 +1999,7 @@ unpack_C_Finalize_Return(
 
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert ANY?
 
 
 
@@ -3567,7 +3567,7 @@ unpack_C_Initialize_Return(
 
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert ANY?
 
 
 
@@ -3759,7 +3759,7 @@ unpack_C_OpenSession_Call(
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert ANY?
 
 
     status = der_get_CK_NOTIFY(C_OpenSession_Call.notify, notify);
@@ -5391,7 +5391,7 @@ unpack_C_WaitForSlotEvent_Call(
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert CK_VOID_PTR?
 
 
 
@@ -5433,7 +5433,7 @@ unpack_C_WaitForSlotEvent_Return(
 
 
 
-    // todo: do we need to convert {type}?
+    // todo: do we need to convert CK_VOID_PTR?
 
 
 

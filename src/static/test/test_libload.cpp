@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstdio>
 #include <cstdlib>
+#include "loader.h"
 
 
 int main() {
@@ -16,9 +17,4 @@ int main() {
         fprintf(stderr, "%s\n", dlerror());
         exit(EXIT_FAILURE);
     }
-
-
-
-
-
 }
