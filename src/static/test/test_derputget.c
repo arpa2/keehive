@@ -27,7 +27,7 @@ void der_putget_CK_BYTE_ARRAY(void **state){
 
     CK_BYTE_ARRAY byte_array2 = malloc(byte_array_len * sizeof(CK_BYTE));
 
-    int get_status = der_get_CK_BYTE_ARRAY(&cursor, byte_array2);
+    int get_status = der_get_CK_BYTE_ARRAY(cursor, byte_array2);
     assert_int_equal(get_status, 0);
 
     assert_memory_equal(byte_array, byte_array2, byte_array_len * sizeof(CK_BYTE));
@@ -56,7 +56,7 @@ void der_putget_CK_MECHANISM_TYPE_ARRAY(void **state){
 
     dernode node = {.wire=cursor};
 
-    int get_status = der_get_CK_MECHANISM_TYPE_ARRAY(&node, array2);
+    int get_status = der_get_CK_MECHANISM_TYPE_ARRAY(node, array2);
     assert_int_equal(get_status, 0);
 
     assert_memory_equal(array, array2, byte_array_len * sizeof(CK_MECHANISM_TYPE));
@@ -87,7 +87,7 @@ void der_putget_CK_ATTRIBUTE_ARRAY(void **state) {
     CK_ATTRIBUTE_ARRAY array2 = malloc(count * sizeof(CK_ATTRIBUTE));
 
     dernode node = {.wire=cursor};
-    int get_status = der_get_CK_ATTRIBUTE_ARRAY(&node, array2);
+    int get_status = der_get_CK_ATTRIBUTE_ARRAY(node, array2);
     assert_int_equal(get_status, 0);
 
     assert_memory_equal(array, array2, count * sizeof(CK_MECHANISM_TYPE));
@@ -101,7 +101,7 @@ void der_putget_CK_FLAGS_PTR(void **state) {
     DER_BUF_BITSTRING(der_buf_bitstring, 8 * 8);
     dercursor cursor = der_put_CK_FLAGS_PTR(der_buf_bitstring, flags);
     CK_FLAGS flags_out;
-    der_get_CK_FLAGS_PTR(&cursor, &flags_out);
+    der_get_CK_FLAGS_PTR(cursor, &flags_out);
     assert_int_equal(flags, flags_out);
 
 };

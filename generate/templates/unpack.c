@@ -38,10 +38,10 @@ unpack_{{ f.type_name|under }}(
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
-{% elif type  == "ANY" %}
-    // todo: do we need to convert ANY?
+{% elif type  in ("ANY", "CK_VOID_PTR") %}
+    // todo: do we need to convert {type}?
 {% elif type  == "CK_ATTRIBUTE_ARRAY" %}
-    status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
+    status = der_get_{{ type }}({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 {% elif type == "CK_MECHANISM_TYPE_ARRAY" %}
@@ -49,7 +49,7 @@ unpack_{{ f.type_name|under }}(
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 {% else %}
-    status = der_get_{{ type }}(&{{ f.type_name|under }}.{{ var }}, {{ var }});
+    status = der_get_{{ type }}({{ f.type_name|under }}.{{ var }}, {{ var }});
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 {% endif %}

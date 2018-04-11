@@ -36,7 +36,7 @@ der_get_attribute_bool(
         dercursor* cursor,
         CK_ATTRIBUTE* attribute
 ) {
-    return der_get_CK_BBOOL_PTR(cursor, attribute->pValue);
+    return der_get_CK_BBOOL_PTR(*cursor, attribute->pValue);
 }
 
 

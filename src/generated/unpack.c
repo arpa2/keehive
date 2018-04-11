@@ -236,7 +236,7 @@ unpack_C_CopyObject_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CopyObject_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_CopyObject_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -320,7 +320,7 @@ unpack_C_CreateObject_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_CreateObject_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_CreateObject_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -405,7 +405,7 @@ unpack_C_Decrypt_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Call.pEncryptedData, pEncryptedData);
+    status = der_get_CK_BYTE_ARRAY(C_Decrypt_Call.pEncryptedData, pEncryptedData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -455,7 +455,7 @@ unpack_C_Decrypt_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Decrypt_Return.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_Decrypt_Return.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -502,7 +502,7 @@ unpack_C_DecryptDigestUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Call.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptDigestUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -552,7 +552,7 @@ unpack_C_DecryptDigestUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptDigestUpdate_Return.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptDigestUpdate_Return.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -636,7 +636,7 @@ unpack_C_DecryptFinal_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptFinal_Return.pLastPart, pLastPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptFinal_Return.pLastPart, pLastPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -682,7 +682,7 @@ unpack_C_DecryptInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_DecryptInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_DecryptInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -760,7 +760,7 @@ unpack_C_DecryptUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Call.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -810,7 +810,7 @@ unpack_C_DecryptUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptUpdate_Return.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptUpdate_Return.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -857,7 +857,7 @@ unpack_C_DecryptVerifyUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Call.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptVerifyUpdate_Call.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -907,7 +907,7 @@ unpack_C_DecryptVerifyUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DecryptVerifyUpdate_Return.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_DecryptVerifyUpdate_Return.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -955,7 +955,7 @@ unpack_C_DeriveKey_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_DeriveKey_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_DeriveKey_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -966,7 +966,7 @@ unpack_C_DeriveKey_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_DeriveKey_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_DeriveKey_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1122,7 +1122,7 @@ unpack_C_Digest_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Digest_Call.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_Digest_Call.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1172,7 +1172,7 @@ unpack_C_Digest_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Digest_Return.pDigest, pDigest);
+    status = der_get_CK_BYTE_ARRAY(C_Digest_Return.pDigest, pDigest);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1219,7 +1219,7 @@ unpack_C_DigestEncryptUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_DigestEncryptUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1269,7 +1269,7 @@ unpack_C_DigestEncryptUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DigestEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_DigestEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1353,7 +1353,7 @@ unpack_C_DigestFinal_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DigestFinal_Return.pDigest, pDigest);
+    status = der_get_CK_BYTE_ARRAY(C_DigestFinal_Return.pDigest, pDigest);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1398,7 +1398,7 @@ unpack_C_DigestInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_DigestInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_DigestInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1540,7 +1540,7 @@ unpack_C_DigestUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_DigestUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_DigestUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1618,7 +1618,7 @@ unpack_C_Encrypt_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Call.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_Encrypt_Call.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1668,7 +1668,7 @@ unpack_C_Encrypt_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Encrypt_Return.pEncryptedData, pEncryptedData);
+    status = der_get_CK_BYTE_ARRAY(C_Encrypt_Return.pEncryptedData, pEncryptedData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1752,7 +1752,7 @@ unpack_C_EncryptFinal_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_EncryptFinal_Return.pEncryptedData, pEncryptedData);
+    status = der_get_CK_BYTE_ARRAY(C_EncryptFinal_Return.pEncryptedData, pEncryptedData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1798,7 +1798,7 @@ unpack_C_EncryptInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_EncryptInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_EncryptInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1876,7 +1876,7 @@ unpack_C_EncryptUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_EncryptUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1926,7 +1926,7 @@ unpack_C_EncryptUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_EncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_EncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -1964,9 +1964,7 @@ unpack_C_Finalize_Call(
     // STARTING UNPACKING
 
 
-    status = der_get_CK_VOID_PTR(&C_Finalize_Call.pReserved, pReserved);
-    if (status == -1)
-        return CKR_KEEHIVE_DER_RANGE_ERROR;
+    // todo: do we need to convert {type}?
 
 
 
@@ -2001,7 +1999,7 @@ unpack_C_Finalize_Return(
 
 
 
-    // todo: do we need to convert ANY?
+    // todo: do we need to convert {type}?
 
 
 
@@ -2077,7 +2075,7 @@ unpack_C_FindObjects_Return(
 
 
 
-    status = der_get_CK_OBJECT_HANDLE_ARRAY(&C_FindObjects_Return.phObject, phObject);
+    status = der_get_CK_OBJECT_HANDLE_ARRAY(C_FindObjects_Return.phObject, phObject);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2187,7 +2185,7 @@ unpack_C_FindObjectsInit_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_FindObjectsInit_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2230,7 +2228,7 @@ unpack_C_FindObjectsInit_Return(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_FindObjectsInit_Return.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_FindObjectsInit_Return.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2271,12 +2269,12 @@ unpack_C_GenerateKey_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_GenerateKey_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_GenerateKey_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKey_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_GenerateKey_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2363,12 +2361,12 @@ unpack_C_GenerateKeyPair_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_GenerateKeyPair_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_GenerateKeyPair_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_GenerateKeyPair_Call.pPublicKeyTemplate, pPublicKeyTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2379,7 +2377,7 @@ unpack_C_GenerateKeyPair_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_GenerateKeyPair_Call.pPrivateKeyTemplate, pPrivateKeyTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2507,7 +2505,7 @@ unpack_C_GenerateRandom_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_GenerateRandom_Return.pSeed, pSeed);
+    status = der_get_CK_BYTE_ARRAY(C_GenerateRandom_Return.pSeed, pSeed);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2554,7 +2552,7 @@ unpack_C_GetAttributeValue_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_GetAttributeValue_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2597,7 +2595,7 @@ unpack_C_GetAttributeValue_Return(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_GetAttributeValue_Return.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_GetAttributeValue_Return.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2724,7 +2722,7 @@ unpack_C_GetInfo_Return(
 
 
 
-    status = der_get_CK_INFO_PTR(&C_GetInfo_Return.pInfo, pInfo);
+    status = der_get_CK_INFO_PTR(C_GetInfo_Return.pInfo, pInfo);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -2801,7 +2799,7 @@ unpack_C_GetMechanismInfo_Return(
 
 
 
-    status = der_get_CK_MECHANISM_INFO_PTR(&C_GetMechanismInfo_Return.pInfo, pInfo);
+    status = der_get_CK_MECHANISM_INFO_PTR(C_GetMechanismInfo_Return.pInfo, pInfo);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3041,7 +3039,7 @@ unpack_C_GetOperationState_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_GetOperationState_Return.pOperationState, pOperationState);
+    status = der_get_CK_BYTE_ARRAY(C_GetOperationState_Return.pOperationState, pOperationState);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3117,7 +3115,7 @@ unpack_C_GetSessionInfo_Return(
 
 
 
-    status = der_get_CK_SESSION_INFO_PTR(&C_GetSessionInfo_Return.pInfo, pInfo);
+    status = der_get_CK_SESSION_INFO_PTR(C_GetSessionInfo_Return.pInfo, pInfo);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3187,7 +3185,7 @@ unpack_C_GetSlotInfo_Return(
 
 
 
-    status = der_get_CK_SLOT_INFO_PTR(&C_GetSlotInfo_Return.pInfo, pInfo);
+    status = der_get_CK_SLOT_INFO_PTR(C_GetSlotInfo_Return.pInfo, pInfo);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3220,7 +3218,7 @@ unpack_C_GetSlotList_Call(
     // STARTING UNPACKING
 
 
-    status = der_get_CK_BBOOL_PTR(&C_GetSlotList_Call.tokenPresent, tokenPresent);
+    status = der_get_CK_BBOOL_PTR(C_GetSlotList_Call.tokenPresent, tokenPresent);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3264,7 +3262,7 @@ unpack_C_GetSlotList_Return(
 
 
 
-    status = der_get_CK_SLOT_ID_ARRAY(&C_GetSlotList_Return.pSlotList, pSlotList);
+    status = der_get_CK_SLOT_ID_ARRAY(C_GetSlotList_Return.pSlotList, pSlotList);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3340,7 +3338,7 @@ unpack_C_GetTokenInfo_Return(
 
 
 
-    status = der_get_CK_TOKEN_INFO_PTR(&C_GetTokenInfo_Return.pInfo, pInfo);
+    status = der_get_CK_TOKEN_INFO_PTR(C_GetTokenInfo_Return.pInfo, pInfo);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3380,7 +3378,7 @@ unpack_C_InitPIN_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_InitPIN_Call.pPin, pPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(C_InitPIN_Call.pPin, pPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3458,7 +3456,7 @@ unpack_C_InitToken_Call(
 
 
 
-    status = der_get_UTF8String(&C_InitToken_Call.pPin, pPin);
+    status = der_get_UTF8String(C_InitToken_Call.pPin, pPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3469,7 +3467,7 @@ unpack_C_InitToken_Call(
 
 
 
-    status = der_get_UTF8String(&C_InitToken_Call.pLabel, pLabel);
+    status = der_get_UTF8String(C_InitToken_Call.pLabel, pLabel);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3532,7 +3530,7 @@ unpack_C_Initialize_Call(
     // STARTING UNPACKING
 
 
-    status = der_get_CK_C_INITIALIZE_ARGS_PTR(&C_Initialize_Call.pInitArgs, pInitArgs);
+    status = der_get_CK_C_INITIALIZE_ARGS_PTR(C_Initialize_Call.pInitArgs, pInitArgs);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3569,7 +3567,7 @@ unpack_C_Initialize_Return(
 
 
 
-    // todo: do we need to convert ANY?
+    // todo: do we need to convert {type}?
 
 
 
@@ -3614,7 +3612,7 @@ unpack_C_Login_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_Login_Call.pPin, pPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(C_Login_Call.pPin, pPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3756,15 +3754,15 @@ unpack_C_OpenSession_Call(
 
 
 
-    status = der_get_CK_FLAGS_PTR(&C_OpenSession_Call.flags, flags);
+    status = der_get_CK_FLAGS_PTR(C_OpenSession_Call.flags, flags);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    // todo: do we need to convert ANY?
+    // todo: do we need to convert {type}?
 
 
-    status = der_get_CK_NOTIFY(&C_OpenSession_Call.notify, notify);
+    status = der_get_CK_NOTIFY(C_OpenSession_Call.notify, notify);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3842,7 +3840,7 @@ unpack_C_SeedRandom_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SeedRandom_Call.pSeed, pSeed);
+    status = der_get_CK_BYTE_ARRAY(C_SeedRandom_Call.pSeed, pSeed);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -3926,7 +3924,7 @@ unpack_C_SetAttributeValue_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_SetAttributeValue_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_SetAttributeValue_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4005,7 +4003,7 @@ unpack_C_SetOperationState_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SetOperationState_Call.pOperationState, pOperationState);
+    status = der_get_CK_BYTE_ARRAY(C_SetOperationState_Call.pOperationState, pOperationState);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4096,7 +4094,7 @@ unpack_C_SetPIN_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pOldPin, pOldPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(C_SetPIN_Call.pOldPin, pOldPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4107,7 +4105,7 @@ unpack_C_SetPIN_Call(
 
 
 
-    status = der_get_CK_UTF8CHAR_ARRAY(&C_SetPIN_Call.pNewPin, pNewPin);
+    status = der_get_CK_UTF8CHAR_ARRAY(C_SetPIN_Call.pNewPin, pNewPin);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4185,7 +4183,7 @@ unpack_C_Sign_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Sign_Call.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_Sign_Call.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4235,7 +4233,7 @@ unpack_C_Sign_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Sign_Return.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_Sign_Return.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4282,7 +4280,7 @@ unpack_C_SignEncryptUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_SignEncryptUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4332,7 +4330,7 @@ unpack_C_SignEncryptUpdate_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
+    status = der_get_CK_BYTE_ARRAY(C_SignEncryptUpdate_Return.pEncryptedPart, pEncryptedPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4416,7 +4414,7 @@ unpack_C_SignFinal_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignFinal_Return.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_SignFinal_Return.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4462,7 +4460,7 @@ unpack_C_SignInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_SignInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_SignInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4540,7 +4538,7 @@ unpack_C_SignRecover_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Call.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_SignRecover_Call.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4590,7 +4588,7 @@ unpack_C_SignRecover_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignRecover_Return.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_SignRecover_Return.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4636,7 +4634,7 @@ unpack_C_SignRecoverInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_SignRecoverInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_SignRecoverInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4713,7 +4711,7 @@ unpack_C_SignUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_SignUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_SignUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4794,7 +4792,7 @@ unpack_C_UnwrapKey_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_UnwrapKey_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_UnwrapKey_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4805,7 +4803,7 @@ unpack_C_UnwrapKey_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_UnwrapKey_Call.pWrappedKey, pWrappedKey);
+    status = der_get_CK_BYTE_ARRAY(C_UnwrapKey_Call.pWrappedKey, pWrappedKey);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4816,7 +4814,7 @@ unpack_C_UnwrapKey_Call(
 
 
 
-    status = der_get_CK_ATTRIBUTE_ARRAY(&C_UnwrapKey_Call.pTemplate, pTemplate);
+    status = der_get_CK_ATTRIBUTE_ARRAY(C_UnwrapKey_Call.pTemplate, pTemplate);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4902,7 +4900,7 @@ unpack_C_Verify_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_Verify_Call.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4913,7 +4911,7 @@ unpack_C_Verify_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_Verify_Call.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_Verify_Call.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -4990,7 +4988,7 @@ unpack_C_VerifyFinal_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_VerifyFinal_Call.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_VerifyFinal_Call.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5067,7 +5065,7 @@ unpack_C_VerifyInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_VerifyInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_VerifyInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5145,7 +5143,7 @@ unpack_C_VerifyRecover_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Call.pSignature, pSignature);
+    status = der_get_CK_BYTE_ARRAY(C_VerifyRecover_Call.pSignature, pSignature);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5195,7 +5193,7 @@ unpack_C_VerifyRecover_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_VerifyRecover_Return.pData, pData);
+    status = der_get_CK_BYTE_ARRAY(C_VerifyRecover_Return.pData, pData);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5241,7 +5239,7 @@ unpack_C_VerifyRecoverInit_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_VerifyRecoverInit_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_VerifyRecoverInit_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5318,7 +5316,7 @@ unpack_C_VerifyUpdate_Call(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_VerifyUpdate_Call.pPart, pPart);
+    status = der_get_CK_BYTE_ARRAY(C_VerifyUpdate_Call.pPart, pPart);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5388,14 +5386,12 @@ unpack_C_WaitForSlotEvent_Call(
     // STARTING UNPACKING
 
 
-    status = der_get_CK_FLAGS_PTR(&C_WaitForSlotEvent_Call.flags, flags);
+    status = der_get_CK_FLAGS_PTR(C_WaitForSlotEvent_Call.flags, flags);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
 
-    status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Call.pReserved, pReserved);
-    if (status == -1)
-        return CKR_KEEHIVE_DER_RANGE_ERROR;
+    // todo: do we need to convert {type}?
 
 
 
@@ -5437,9 +5433,7 @@ unpack_C_WaitForSlotEvent_Return(
 
 
 
-    status = der_get_CK_VOID_PTR(&C_WaitForSlotEvent_Return.pReserved, pReserved);
-    if (status == -1)
-        return CKR_KEEHIVE_DER_RANGE_ERROR;
+    // todo: do we need to convert {type}?
 
 
 
@@ -5479,7 +5473,7 @@ unpack_C_WrapKey_Call(
 
 
 
-    status = der_get_CK_MECHANISM_PTR(&C_WrapKey_Call.pMechanism, pMechanism);
+    status = der_get_CK_MECHANISM_PTR(C_WrapKey_Call.pMechanism, pMechanism);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
@@ -5535,7 +5529,7 @@ unpack_C_WrapKey_Return(
 
 
 
-    status = der_get_CK_BYTE_ARRAY(&C_WrapKey_Return.pWrappedKey, pWrappedKey);
+    status = der_get_CK_BYTE_ARRAY(C_WrapKey_Return.pWrappedKey, pWrappedKey);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 

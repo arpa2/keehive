@@ -2333,7 +2333,7 @@ void test_pack_C_FindObjects_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    CK_OBJECT_HANDLE_ARRAY phObject = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+    CK_OBJECT_HANDLE_ARRAY phObject = (CK_OBJECT_HANDLE_ARRAY) "abcdefghijklm";
     CK_ULONG pulObjectCount = 13;
     
 
