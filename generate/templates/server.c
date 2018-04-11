@@ -41,14 +41,14 @@ server_{{ f }}(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    {# Create unpack variable placeholders #}
+    // Create unpack variable placeholders
     {% for type_, pointerized, identifier, other in extract_args(call, return_) -%}
     {{ initialise_unpack_placeholders(type_, identifier) }}
     {% endfor %}
 
 
 
-    {# unpack the dercursor into the placeholders -#}
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_{{ call.type_name|under }}(
         cursorIn
         {%- for type_, pointerized, identifier, other in extract_args(call, return_) -%}
@@ -60,7 +60,7 @@ server_{{ f }}(
     if (status != CKR_OK)
         return status;
 
-    {# Create server response variable placeholders #}
+    // Cserver response variable placeholders
     {% for type_, pointerized, identifier, other in extract_args(return_, call) -%}
     {% if not other %}{{ initialise_unpack_placeholders(type_, identifier) }}{% endif %}
     {% endfor %}
@@ -81,10 +81,10 @@ server_{{ f }}(
         {%- endfor %}
     );
 
-    {# Free the malloced things #}
-    {%- for type, pointerized, value in combined_args(call, return_) -%}
-    {{- free(type, value) -}}
-    {%- endfor %}
+    // free malloced stuff below (if any)
+    {% for type_, pointerized, value in combined_args(call, return_) -%}
+    {{ free(type_, value) }}
+    {% endfor %}
 
     if (status != CKR_OK)
         return status;

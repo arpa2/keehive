@@ -72,12 +72,7 @@ der_put_CK_FLAGS_PTR(
 
 dercursor
 der_put_CK_VOID_PTR(const CK_VOID_PTR* pReserved) {
-    if (pReserved == NULL) {
-        return der_null;
-    } else {
-        // TODO: implement
-        return der_null;
-    }
+    return der_null;
 };
 
 CK_RV

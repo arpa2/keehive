@@ -41,12 +41,13 @@ server_C_CancelFunction(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CancelFunction_Call(
         cursorIn,
         &hSession
@@ -55,7 +56,7 @@ server_C_CancelFunction(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -69,6 +70,8 @@ server_C_CancelFunction(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -87,12 +90,13 @@ server_C_CloseAllSessions(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CloseAllSessions_Call(
         cursorIn,
         &slotID
@@ -101,7 +105,7 @@ server_C_CloseAllSessions(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -115,6 +119,8 @@ server_C_CloseAllSessions(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -133,12 +139,13 @@ server_C_CloseSession(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CloseSession_Call(
         cursorIn,
         &hSession
@@ -147,7 +154,7 @@ server_C_CloseSession(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -161,6 +168,8 @@ server_C_CloseSession(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -179,7 +188,7 @@ server_C_CopyObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
@@ -188,6 +197,7 @@ server_C_CopyObject(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CopyObject_Call(
         cursorIn,
         &hSession,
@@ -199,7 +209,7 @@ server_C_CopyObject(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phObject = 0;
     
@@ -219,6 +229,12 @@ server_C_CopyObject(
         &phObject  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -237,7 +253,7 @@ server_C_CreateObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
@@ -245,6 +261,7 @@ server_C_CreateObject(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CreateObject_Call(
         cursorIn,
         &hSession,
@@ -255,7 +272,7 @@ server_C_CreateObject(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phObject = 0;
     
@@ -274,6 +291,11 @@ server_C_CreateObject(
         &phObject  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -292,7 +314,7 @@ server_C_Decrypt(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedData = malloc(1024);
     CK_ULONG ulEncryptedDataLen = 0;
@@ -301,6 +323,7 @@ server_C_Decrypt(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Decrypt_Call(
         cursorIn,
         &hSession,
@@ -312,7 +335,7 @@ server_C_Decrypt(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pData = malloc(1024);
     
@@ -334,6 +357,14 @@ server_C_Decrypt(
         &pulDataLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pEncryptedData);
+
+    
+    free(pData);
+
+    
     
 
     if (status != CKR_OK)
@@ -352,7 +383,7 @@ server_C_DecryptDigestUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     CK_ULONG ulEncryptedPartLen = 0;
@@ -361,6 +392,7 @@ server_C_DecryptDigestUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptDigestUpdate_Call(
         cursorIn,
         &hSession,
@@ -372,7 +404,7 @@ server_C_DecryptDigestUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pPart = malloc(1024);
     
@@ -394,6 +426,14 @@ server_C_DecryptDigestUpdate(
         &pulPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pEncryptedPart);
+
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -412,13 +452,14 @@ server_C_DecryptFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulLastPartLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptFinal_Call(
         cursorIn,
         &hSession,
@@ -428,7 +469,7 @@ server_C_DecryptFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pLastPart = malloc(1024);
     
@@ -448,6 +489,11 @@ server_C_DecryptFinal(
         &pulLastPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pLastPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -466,7 +512,7 @@ server_C_DecryptInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
@@ -474,6 +520,7 @@ server_C_DecryptInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptInit_Call(
         cursorIn,
         &hSession,
@@ -484,7 +531,7 @@ server_C_DecryptInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -500,6 +547,10 @@ server_C_DecryptInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -518,7 +569,7 @@ server_C_DecryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     CK_ULONG ulEncryptedPartLen = 0;
@@ -527,6 +578,7 @@ server_C_DecryptUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptUpdate_Call(
         cursorIn,
         &hSession,
@@ -538,7 +590,7 @@ server_C_DecryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pPart = malloc(1024);
     
@@ -560,6 +612,14 @@ server_C_DecryptUpdate(
         &pulPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pEncryptedPart);
+
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -578,7 +638,7 @@ server_C_DecryptVerifyUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     CK_ULONG ulEncryptedPartLen = 0;
@@ -587,6 +647,7 @@ server_C_DecryptVerifyUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptVerifyUpdate_Call(
         cursorIn,
         &hSession,
@@ -598,7 +659,7 @@ server_C_DecryptVerifyUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pPart = malloc(1024);
     
@@ -620,6 +681,14 @@ server_C_DecryptVerifyUpdate(
         &pulPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pEncryptedPart);
+
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -638,7 +707,7 @@ server_C_DeriveKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hBaseKey = 0;
@@ -648,6 +717,7 @@ server_C_DeriveKey(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DeriveKey_Call(
         cursorIn,
         &hSession,
@@ -660,7 +730,7 @@ server_C_DeriveKey(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
@@ -681,6 +751,13 @@ server_C_DeriveKey(
         &phKey  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -699,13 +776,14 @@ server_C_DestroyObject(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DestroyObject_Call(
         cursorIn,
         &hSession,
@@ -715,7 +793,7 @@ server_C_DestroyObject(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -730,6 +808,9 @@ server_C_DestroyObject(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -748,7 +829,7 @@ server_C_Digest(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
@@ -757,6 +838,7 @@ server_C_Digest(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Digest_Call(
         cursorIn,
         &hSession,
@@ -768,7 +850,7 @@ server_C_Digest(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pDigest = malloc(1024);
     
@@ -790,6 +872,14 @@ server_C_Digest(
         &pulDigestLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pData);
+
+    
+    free(pDigest);
+
+    
     
 
     if (status != CKR_OK)
@@ -808,7 +898,7 @@ server_C_DigestEncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -817,6 +907,7 @@ server_C_DigestEncryptUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestEncryptUpdate_Call(
         cursorIn,
         &hSession,
@@ -828,7 +919,7 @@ server_C_DigestEncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     
@@ -850,6 +941,14 @@ server_C_DigestEncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
+    free(pEncryptedPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -868,13 +967,14 @@ server_C_DigestFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulDigestLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestFinal_Call(
         cursorIn,
         &hSession,
@@ -884,7 +984,7 @@ server_C_DigestFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pDigest = malloc(1024);
     
@@ -904,6 +1004,11 @@ server_C_DigestFinal(
         &pulDigestLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pDigest);
+
+    
     
 
     if (status != CKR_OK)
@@ -922,13 +1027,14 @@ server_C_DigestInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestInit_Call(
         cursorIn,
         &hSession,
@@ -938,7 +1044,7 @@ server_C_DigestInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -953,6 +1059,9 @@ server_C_DigestInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -971,13 +1080,14 @@ server_C_DigestKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hKey = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestKey_Call(
         cursorIn,
         &hSession,
@@ -987,7 +1097,7 @@ server_C_DigestKey(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -1002,6 +1112,9 @@ server_C_DigestKey(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -1020,7 +1133,7 @@ server_C_DigestUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -1028,6 +1141,7 @@ server_C_DigestUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestUpdate_Call(
         cursorIn,
         &hSession,
@@ -1038,7 +1152,7 @@ server_C_DigestUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -1054,6 +1168,11 @@ server_C_DigestUpdate(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -1072,7 +1191,7 @@ server_C_Encrypt(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
@@ -1081,6 +1200,7 @@ server_C_Encrypt(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Encrypt_Call(
         cursorIn,
         &hSession,
@@ -1092,7 +1212,7 @@ server_C_Encrypt(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pEncryptedData = malloc(1024);
     
@@ -1114,6 +1234,14 @@ server_C_Encrypt(
         &pulEncryptedDataLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pData);
+
+    
+    free(pEncryptedData);
+
+    
     
 
     if (status != CKR_OK)
@@ -1132,13 +1260,14 @@ server_C_EncryptFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulEncryptedDataLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptFinal_Call(
         cursorIn,
         &hSession,
@@ -1148,7 +1277,7 @@ server_C_EncryptFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pEncryptedData = malloc(1024);
     
@@ -1168,6 +1297,11 @@ server_C_EncryptFinal(
         &pulEncryptedDataLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pEncryptedData);
+
+    
     
 
     if (status != CKR_OK)
@@ -1186,7 +1320,7 @@ server_C_EncryptInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
@@ -1194,6 +1328,7 @@ server_C_EncryptInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptInit_Call(
         cursorIn,
         &hSession,
@@ -1204,7 +1339,7 @@ server_C_EncryptInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -1220,6 +1355,10 @@ server_C_EncryptInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1238,7 +1377,7 @@ server_C_EncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -1247,6 +1386,7 @@ server_C_EncryptUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptUpdate_Call(
         cursorIn,
         &hSession,
@@ -1258,7 +1398,7 @@ server_C_EncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     
@@ -1280,6 +1420,14 @@ server_C_EncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
+    free(pEncryptedPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -1298,12 +1446,13 @@ server_C_Finalize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_VOID_PTR pReserved = malloc(1024);
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Finalize_Call(
         cursorIn,
         pReserved
@@ -1312,7 +1461,7 @@ server_C_Finalize(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
     
@@ -1328,6 +1477,8 @@ server_C_Finalize(
         &pReserved  // ANY
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -1346,13 +1497,14 @@ server_C_FindObjects(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG ulMaxObjectCount = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjects_Call(
         cursorIn,
         &hSession,
@@ -1362,7 +1514,7 @@ server_C_FindObjects(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phObject = 0;
     CK_ULONG pulObjectCount = 0;
@@ -1383,6 +1535,11 @@ server_C_FindObjects(
         &pulObjectCount  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1401,12 +1558,13 @@ server_C_FindObjectsFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjectsFinal_Call(
         cursorIn,
         &hSession
@@ -1415,7 +1573,7 @@ server_C_FindObjectsFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -1429,6 +1587,8 @@ server_C_FindObjectsFinal(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -1447,7 +1607,7 @@ server_C_FindObjectsInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
@@ -1455,6 +1615,7 @@ server_C_FindObjectsInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjectsInit_Call(
         cursorIn,
         &hSession,
@@ -1465,7 +1626,7 @@ server_C_FindObjectsInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
     
@@ -1483,6 +1644,10 @@ server_C_FindObjectsInit(
         pTemplate  // CK_ATTRIBUTE_ARRAY
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1501,7 +1666,7 @@ server_C_GenerateKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
@@ -1510,6 +1675,7 @@ server_C_GenerateKey(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateKey_Call(
         cursorIn,
         &hSession,
@@ -1521,7 +1687,7 @@ server_C_GenerateKey(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
@@ -1541,6 +1707,12 @@ server_C_GenerateKey(
         &phKey  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1559,7 +1731,7 @@ server_C_GenerateKeyPair(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = malloc(1024);
@@ -1570,6 +1742,7 @@ server_C_GenerateKeyPair(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateKeyPair_Call(
         cursorIn,
         &hSession,
@@ -1583,7 +1756,7 @@ server_C_GenerateKeyPair(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phPublicKey = 0;
     CK_OBJECT_HANDLE phPrivateKey = 0;
@@ -1608,6 +1781,15 @@ server_C_GenerateKeyPair(
         &phPrivateKey  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1626,13 +1808,14 @@ server_C_GenerateRandom(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG ulRandomLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateRandom_Call(
         cursorIn,
         &hSession,
@@ -1642,7 +1825,7 @@ server_C_GenerateRandom(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pSeed = malloc(1024);
     
@@ -1660,6 +1843,11 @@ server_C_GenerateRandom(
         pSeed  // CK_BYTE_ARRAY
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pSeed);
+
+    
     
 
     if (status != CKR_OK)
@@ -1678,7 +1866,7 @@ server_C_GetAttributeValue(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
@@ -1687,6 +1875,7 @@ server_C_GetAttributeValue(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetAttributeValue_Call(
         cursorIn,
         &hSession,
@@ -1698,7 +1887,7 @@ server_C_GetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
     
@@ -1717,6 +1906,11 @@ server_C_GetAttributeValue(
         pTemplate  // CK_ATTRIBUTE_ARRAY
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1735,12 +1929,13 @@ server_C_GetFunctionStatus(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetFunctionStatus_Call(
         cursorIn,
         &hSession
@@ -1749,7 +1944,7 @@ server_C_GetFunctionStatus(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -1763,6 +1958,8 @@ server_C_GetFunctionStatus(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -1781,11 +1978,12 @@ server_C_GetInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
+    // Create unpack variable placeholders
     
-    
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetInfo_Call(
         cursorIn
     );
@@ -1793,7 +1991,7 @@ server_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_INFO pInfo;
     
@@ -1809,6 +2007,8 @@ server_C_GetInfo(
         &pInfo  // CK_INFO
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -1827,13 +2027,14 @@ server_C_GetMechanismInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetMechanismInfo_Call(
         cursorIn,
         &slotID,
@@ -1843,7 +2044,7 @@ server_C_GetMechanismInfo(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_MECHANISM_INFO pInfo;
     
@@ -1861,6 +2062,10 @@ server_C_GetMechanismInfo(
         &pInfo  // CK_MECHANISM_INFO
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1879,13 +2084,14 @@ server_C_GetMechanismList(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     CK_ULONG pulCount = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetMechanismList_Call(
         cursorIn,
         &slotID,
@@ -1895,7 +2101,7 @@ server_C_GetMechanismList(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_MECHANISM_TYPE_ARRAY pMechanismList = malloc(1024);
     
@@ -1915,6 +2121,10 @@ server_C_GetMechanismList(
         &pulCount  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1933,13 +2143,14 @@ server_C_GetObjectSize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetObjectSize_Call(
         cursorIn,
         &hSession,
@@ -1949,7 +2160,7 @@ server_C_GetObjectSize(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_ULONG pulSize = 0;
     
@@ -1967,6 +2178,10 @@ server_C_GetObjectSize(
         &pulSize  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -1985,13 +2200,14 @@ server_C_GetOperationState(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulOperationStateLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetOperationState_Call(
         cursorIn,
         &hSession,
@@ -2001,7 +2217,7 @@ server_C_GetOperationState(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pOperationState = malloc(1024);
     
@@ -2021,6 +2237,11 @@ server_C_GetOperationState(
         &pulOperationStateLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pOperationState);
+
+    
     
 
     if (status != CKR_OK)
@@ -2039,12 +2260,13 @@ server_C_GetSessionInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSessionInfo_Call(
         cursorIn,
         &hSession
@@ -2053,7 +2275,7 @@ server_C_GetSessionInfo(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_SESSION_INFO pInfo;
     
@@ -2070,6 +2292,9 @@ server_C_GetSessionInfo(
         &pInfo  // CK_SESSION_INFO
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -2088,12 +2313,13 @@ server_C_GetSlotInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSlotInfo_Call(
         cursorIn,
         &slotID
@@ -2102,7 +2328,7 @@ server_C_GetSlotInfo(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_SLOT_INFO pInfo;
     
@@ -2119,6 +2345,9 @@ server_C_GetSlotInfo(
         &pInfo  // CK_SLOT_INFO
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -2137,13 +2366,14 @@ server_C_GetSlotList(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_BBOOL tokenPresent = 0;
     CK_ULONG pulCount = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSlotList_Call(
         cursorIn,
         &tokenPresent,
@@ -2153,7 +2383,7 @@ server_C_GetSlotList(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_SLOT_ID_ARRAY pSlotList = malloc(1024);
     
@@ -2173,6 +2403,10 @@ server_C_GetSlotList(
         &pulCount  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2191,12 +2425,13 @@ server_C_GetTokenInfo(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetTokenInfo_Call(
         cursorIn,
         &slotID
@@ -2205,7 +2440,7 @@ server_C_GetTokenInfo(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_TOKEN_INFO pInfo;
     
@@ -2222,6 +2457,9 @@ server_C_GetTokenInfo(
         &pInfo  // CK_TOKEN_INFO
     );
 
+    // free malloced stuff below (if any)
+    
+    
     
 
     if (status != CKR_OK)
@@ -2240,7 +2478,7 @@ server_C_InitPIN(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_UTF8CHAR_ARRAY pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
@@ -2248,6 +2486,7 @@ server_C_InitPIN(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_InitPIN_Call(
         cursorIn,
         &hSession,
@@ -2258,7 +2497,7 @@ server_C_InitPIN(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2274,6 +2513,10 @@ server_C_InitPIN(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2292,7 +2535,7 @@ server_C_InitToken(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     UTF8String pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
@@ -2301,6 +2544,7 @@ server_C_InitToken(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_InitToken_Call(
         cursorIn,
         &slotID,
@@ -2312,7 +2556,7 @@ server_C_InitToken(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2329,6 +2573,11 @@ server_C_InitToken(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2347,12 +2596,13 @@ server_C_Initialize(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_VOID_PTR pInitArgs = malloc(1024);
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Initialize_Call(
         cursorIn,
         pInitArgs
@@ -2361,7 +2611,7 @@ server_C_Initialize(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
     
@@ -2377,6 +2627,8 @@ server_C_Initialize(
         &pInitArgs  // ANY
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -2395,7 +2647,7 @@ server_C_Login(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_USER_TYPE userType = 0;
     CK_UTF8CHAR_ARRAY pPin = malloc(1024);
@@ -2404,6 +2656,7 @@ server_C_Login(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Login_Call(
         cursorIn,
         &hSession,
@@ -2415,7 +2668,7 @@ server_C_Login(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2432,6 +2685,11 @@ server_C_Login(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2450,12 +2708,13 @@ server_C_Logout(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Logout_Call(
         cursorIn,
         &hSession
@@ -2464,7 +2723,7 @@ server_C_Logout(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2478,6 +2737,8 @@ server_C_Logout(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
     
 
     if (status != CKR_OK)
@@ -2496,7 +2757,7 @@ server_C_OpenSession(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     CK_FLAGS flags = 0;
     ANY pApplication;
@@ -2505,6 +2766,7 @@ server_C_OpenSession(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_OpenSession_Call(
         cursorIn,
         &slotID,
@@ -2516,7 +2778,7 @@ server_C_OpenSession(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_SESSION_HANDLE phSession = 0;
     
@@ -2536,6 +2798,12 @@ server_C_OpenSession(
         &phSession  // CK_SESSION_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2554,7 +2822,7 @@ server_C_SeedRandom(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSeed = malloc(1024);
     CK_ULONG ulSeedLen = 0;
@@ -2562,6 +2830,7 @@ server_C_SeedRandom(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SeedRandom_Call(
         cursorIn,
         &hSession,
@@ -2572,7 +2841,7 @@ server_C_SeedRandom(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2588,6 +2857,11 @@ server_C_SeedRandom(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pSeed);
+
+    
     
 
     if (status != CKR_OK)
@@ -2606,7 +2880,7 @@ server_C_SetAttributeValue(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
@@ -2615,6 +2889,7 @@ server_C_SetAttributeValue(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetAttributeValue_Call(
         cursorIn,
         &hSession,
@@ -2626,7 +2901,7 @@ server_C_SetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2643,6 +2918,11 @@ server_C_SetAttributeValue(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2661,7 +2941,7 @@ server_C_SetOperationState(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pOperationState = malloc(1024);
     CK_ULONG ulOperationStateLen = 0;
@@ -2671,6 +2951,7 @@ server_C_SetOperationState(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetOperationState_Call(
         cursorIn,
         &hSession,
@@ -2683,7 +2964,7 @@ server_C_SetOperationState(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2701,6 +2982,13 @@ server_C_SetOperationState(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pOperationState);
+
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2719,7 +3007,7 @@ server_C_SetPIN(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_UTF8CHAR_ARRAY pOldPin = malloc(1024);
     CK_ULONG ulOldLen = 0;
@@ -2729,6 +3017,7 @@ server_C_SetPIN(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetPIN_Call(
         cursorIn,
         &hSession,
@@ -2741,7 +3030,7 @@ server_C_SetPIN(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2759,6 +3048,12 @@ server_C_SetPIN(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -2777,7 +3072,7 @@ server_C_Sign(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
@@ -2786,6 +3081,7 @@ server_C_Sign(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Sign_Call(
         cursorIn,
         &hSession,
@@ -2797,7 +3093,7 @@ server_C_Sign(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     
@@ -2819,6 +3115,14 @@ server_C_Sign(
         &pulSignatureLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pData);
+
+    
+    free(pSignature);
+
+    
     
 
     if (status != CKR_OK)
@@ -2837,7 +3141,7 @@ server_C_SignEncryptUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -2846,6 +3150,7 @@ server_C_SignEncryptUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignEncryptUpdate_Call(
         cursorIn,
         &hSession,
@@ -2857,7 +3162,7 @@ server_C_SignEncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
     
@@ -2879,6 +3184,14 @@ server_C_SignEncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
+    free(pEncryptedPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -2897,13 +3210,14 @@ server_C_SignFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulSignatureLen = 0;
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignFinal_Call(
         cursorIn,
         &hSession,
@@ -2913,7 +3227,7 @@ server_C_SignFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     
@@ -2933,6 +3247,11 @@ server_C_SignFinal(
         &pulSignatureLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pSignature);
+
+    
     
 
     if (status != CKR_OK)
@@ -2951,7 +3270,7 @@ server_C_SignInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
@@ -2959,6 +3278,7 @@ server_C_SignInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignInit_Call(
         cursorIn,
         &hSession,
@@ -2969,7 +3289,7 @@ server_C_SignInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -2985,6 +3305,10 @@ server_C_SignInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -3003,7 +3327,7 @@ server_C_SignRecover(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
@@ -3012,6 +3336,7 @@ server_C_SignRecover(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignRecover_Call(
         cursorIn,
         &hSession,
@@ -3023,7 +3348,7 @@ server_C_SignRecover(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     
@@ -3045,6 +3370,14 @@ server_C_SignRecover(
         &pulSignatureLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pData);
+
+    
+    free(pSignature);
+
+    
     
 
     if (status != CKR_OK)
@@ -3063,7 +3396,7 @@ server_C_SignRecoverInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
@@ -3071,6 +3404,7 @@ server_C_SignRecoverInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignRecoverInit_Call(
         cursorIn,
         &hSession,
@@ -3081,7 +3415,7 @@ server_C_SignRecoverInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3097,6 +3431,10 @@ server_C_SignRecoverInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -3115,7 +3453,7 @@ server_C_SignUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -3123,6 +3461,7 @@ server_C_SignUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignUpdate_Call(
         cursorIn,
         &hSession,
@@ -3133,7 +3472,7 @@ server_C_SignUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3149,6 +3488,11 @@ server_C_SignUpdate(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -3167,7 +3511,7 @@ server_C_UnwrapKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
@@ -3179,6 +3523,7 @@ server_C_UnwrapKey(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_UnwrapKey_Call(
         cursorIn,
         &hSession,
@@ -3193,7 +3538,7 @@ server_C_UnwrapKey(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
@@ -3216,6 +3561,16 @@ server_C_UnwrapKey(
         &phKey  // CK_OBJECT_HANDLE
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    free(pWrappedKey);
+
+    
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -3234,7 +3589,7 @@ server_C_Verify(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pData = malloc(1024);
     CK_ULONG ulDataLen = 0;
@@ -3244,6 +3599,7 @@ server_C_Verify(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Verify_Call(
         cursorIn,
         &hSession,
@@ -3256,7 +3612,7 @@ server_C_Verify(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3274,6 +3630,14 @@ server_C_Verify(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pData);
+
+    
+    free(pSignature);
+
+    
     
 
     if (status != CKR_OK)
@@ -3292,7 +3656,7 @@ server_C_VerifyFinal(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
@@ -3300,6 +3664,7 @@ server_C_VerifyFinal(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyFinal_Call(
         cursorIn,
         &hSession,
@@ -3310,7 +3675,7 @@ server_C_VerifyFinal(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3326,6 +3691,11 @@ server_C_VerifyFinal(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pSignature);
+
+    
     
 
     if (status != CKR_OK)
@@ -3344,7 +3714,7 @@ server_C_VerifyInit(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
@@ -3352,6 +3722,7 @@ server_C_VerifyInit(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyInit_Call(
         cursorIn,
         &hSession,
@@ -3362,7 +3733,7 @@ server_C_VerifyInit(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3378,6 +3749,10 @@ server_C_VerifyInit(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -3396,7 +3771,7 @@ server_C_VerifyRecover(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
@@ -3405,6 +3780,7 @@ server_C_VerifyRecover(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyRecover_Call(
         cursorIn,
         &hSession,
@@ -3416,7 +3792,7 @@ server_C_VerifyRecover(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pData = malloc(1024);
     
@@ -3438,6 +3814,14 @@ server_C_VerifyRecover(
         &pulDataLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pSignature);
+
+    
+    free(pData);
+
+    
     
 
     if (status != CKR_OK)
@@ -3456,7 +3840,7 @@ server_C_VerifyUpdate(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
@@ -3464,6 +3848,7 @@ server_C_VerifyUpdate(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyUpdate_Call(
         cursorIn,
         &hSession,
@@ -3474,7 +3859,7 @@ server_C_VerifyUpdate(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     
 
@@ -3490,6 +3875,11 @@ server_C_VerifyUpdate(
         &retval  // CK_RV
     );
 
+    // free malloced stuff below (if any)
+    
+    free(pPart);
+
+    
     
 
     if (status != CKR_OK)
@@ -3508,13 +3898,14 @@ server_C_WaitForSlotEvent(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_FLAGS flags = 0;
     CK_VOID_PTR pReserved = malloc(1024);
     
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_WaitForSlotEvent_Call(
         cursorIn,
         &flags,
@@ -3524,7 +3915,7 @@ server_C_WaitForSlotEvent(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_SLOT_ID pSlot = 0;
     
@@ -3544,6 +3935,10 @@ server_C_WaitForSlotEvent(
         pReserved  // CK_VOID_PTR
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
     
 
     if (status != CKR_OK)
@@ -3562,7 +3957,7 @@ server_C_WrapKey(
     if (function_list == NULL_PTR)
         return CKR_KEEHIVE_SO_INIT_ERROR;
 
-    
+    // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hWrappingKey = 0;
@@ -3572,6 +3967,7 @@ server_C_WrapKey(
 
 
 
+    // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_WrapKey_Call(
         cursorIn,
         &hSession,
@@ -3584,7 +3980,7 @@ server_C_WrapKey(
     if (status != CKR_OK)
         return status;
 
-    
+    // Cserver response variable placeholders
     CK_RV retval;
     CK_BYTE_ARRAY pWrappedKey = malloc(1024);
     
@@ -3607,6 +4003,14 @@ server_C_WrapKey(
         &pulWrappedKeyLen  // CK_ULONG
     );
 
+    // free malloced stuff below (if any)
+    
+    
+    
+    
+    free(pWrappedKey);
+
+    
     
 
     if (status != CKR_OK)

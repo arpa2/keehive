@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
+#include <stdlib.h>
 #include "cryptoki.h"
 #include "types.h"
 
@@ -23,6 +24,7 @@ void test_{{ f }}(void **state){
         {% endif -%}
         {% endfor %}
     );
+
     assert_int_equal(status, CKR_OK);
 
 };

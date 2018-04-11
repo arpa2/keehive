@@ -240,7 +240,15 @@ type_test_templates = {
         """{type_} {identifier} = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;""",
     "CK_OBJECT_HANDLE_PTR":
         """CK_OBJECT_HANDLE {identifier}_pointed = 12;
-    CK_OBJECT_HANDLE_PTR {identifier} = &{identifier}_pointed;"""
+    CK_OBJECT_HANDLE_PTR {identifier} = &{identifier}_pointed; /* we do this funny to simplify code generation */""",
+    "CK_SESSION_HANDLE_PTR":
+        """CK_SESSION_HANDLE {identifier}_pointed = 0;
+    CK_OBJECT_HANDLE_PTR {identifier} = &{identifier}_pointed; /* we do this funny to simplify code generation */""",
+    "CK_ULONG_PTR":
+        """CK_ULONG {identifier}_pointed = 0;
+    {type_} {identifier} = &{identifier}_pointed; /* we do this a bit weird to simplify code generation */""",
+    "ANY":
+        "{type_} {identifier} = NULL;",
 }
 
 identifier_test_map = {
@@ -283,6 +291,8 @@ def initialise_test(type_, identifier, function_name=None):
     """.format(identifier=identifier)
         else:
             return "{} {} = NULL; // assuming reserved for future usage".format(type_, identifier)
+    elif type_ in ("CK_SLOT_ID_PTR", "CK_INFO_PTR", "CK_MECHANISM_INFO_PTR", "CK_SESSION_INFO_PTR", "CK_SLOT_INFO_PTR", "CK_TOKEN_INFO_PTR"):
+        return "{} {} = malloc(1024);".format(type_, identifier)
 
     elif not type_.endswith("_PTR"):
         return "{} {} = NULL; /* todo: probably requires finetuning */".format(type_, identifier)
@@ -305,7 +315,7 @@ def initialise_unpack_placeholders(type_, identifier):
 
 
 def free(type_, identifier):
-    if type_ == "CK_ATTRIBUTE_PTR":
+    if type_ in ("CK_ATTRIBUTE_PTR", "CK_BYTE_ARRAY"):
         return "free({});\n".format(identifier)
     else:
         return ""

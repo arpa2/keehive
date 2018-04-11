@@ -45,8 +45,6 @@ pack_{{ f.type_name|under }}(
 
 
 {% elif type == "CK_OBJECT_HANDLE_ARRAY" %}
-    // todo: probably not required anymore, CK_OBJECT_HANDLE_ARRAY was an error in the spec
-
     uint8_t *innerlist = NULL;
     size_t length = 0;
 

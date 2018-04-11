@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <setjmp.h>
 #include <cmocka.h>
+#include <stdlib.h>
 #include "cryptoki.h"
 #include "types.h"
 
@@ -18,6 +19,7 @@ void test_C_CancelFunction(void **state){
     CK_RV status = C_CancelFunction(
         hSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -33,6 +35,7 @@ void test_C_CloseAllSessions(void **state){
     CK_RV status = C_CloseAllSessions(
         slotID
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -48,6 +51,7 @@ void test_C_CloseSession(void **state){
     CK_RV status = C_CloseSession(
         hSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -67,7 +71,7 @@ void test_C_CopyObject(void **state){
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phObject_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_CopyObject(
@@ -77,6 +81,7 @@ void test_C_CopyObject(void **state){
         ulCount,
         phObject
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -95,7 +100,7 @@ void test_C_CreateObject(void **state){
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phObject_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_CreateObject(
@@ -104,6 +109,7 @@ void test_C_CreateObject(void **state){
         ulCount,
         phObject
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -117,7 +123,8 @@ void test_C_Decrypt(void **state){
     CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedDataLen = 13;
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulDataLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulDataLen_pointed = 0;
+    CK_ULONG_PTR pulDataLen = &pulDataLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_Decrypt(
@@ -127,6 +134,7 @@ void test_C_Decrypt(void **state){
         pData,
         pulDataLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -140,7 +148,8 @@ void test_C_DecryptDigestUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_pointed = 0;
+    CK_ULONG_PTR pulPartLen = &pulPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DecryptDigestUpdate(
@@ -150,6 +159,7 @@ void test_C_DecryptDigestUpdate(void **state){
         pPart,
         pulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -161,7 +171,8 @@ void test_C_DecryptFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pLastPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulLastPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulLastPartLen_pointed = 0;
+    CK_ULONG_PTR pulLastPartLen = &pulLastPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DecryptFinal(
@@ -169,6 +180,7 @@ void test_C_DecryptFinal(void **state){
         pLastPart,
         pulLastPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -188,6 +200,7 @@ void test_C_DecryptInit(void **state){
         pMechanism,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -201,7 +214,8 @@ void test_C_DecryptUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_pointed = 0;
+    CK_ULONG_PTR pulPartLen = &pulPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DecryptUpdate(
@@ -211,6 +225,7 @@ void test_C_DecryptUpdate(void **state){
         pPart,
         pulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -224,7 +239,8 @@ void test_C_DecryptVerifyUpdate(void **state){
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulEncryptedPartLen = 13;
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulPartLen_pointed = 0;
+    CK_ULONG_PTR pulPartLen = &pulPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DecryptVerifyUpdate(
@@ -234,6 +250,7 @@ void test_C_DecryptVerifyUpdate(void **state){
         pPart,
         pulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -254,7 +271,7 @@ void test_C_DeriveKey(void **state){
     };
     CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_DeriveKey(
@@ -265,6 +282,7 @@ void test_C_DeriveKey(void **state){
         ulAttributeCount,
         phKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -282,6 +300,7 @@ void test_C_DestroyObject(void **state){
         hSession,
         hObject
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -295,7 +314,8 @@ void test_C_Digest(void **state){
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulDigestLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulDigestLen_pointed = 0;
+    CK_ULONG_PTR pulDigestLen = &pulDigestLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_Digest(
@@ -305,6 +325,7 @@ void test_C_Digest(void **state){
         pDigest,
         pulDigestLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -318,7 +339,8 @@ void test_C_DigestEncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_pointed = 0;
+    CK_ULONG_PTR pulEncryptedPartLen = &pulEncryptedPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DigestEncryptUpdate(
@@ -328,6 +350,7 @@ void test_C_DigestEncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -339,7 +362,8 @@ void test_C_DigestFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pDigest = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulDigestLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulDigestLen_pointed = 0;
+    CK_ULONG_PTR pulDigestLen = &pulDigestLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_DigestFinal(
@@ -347,6 +371,7 @@ void test_C_DigestFinal(void **state){
         pDigest,
         pulDigestLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -364,6 +389,7 @@ void test_C_DigestInit(void **state){
         hSession,
         pMechanism
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -381,6 +407,7 @@ void test_C_DigestKey(void **state){
         hSession,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -400,6 +427,7 @@ void test_C_DigestUpdate(void **state){
         pPart,
         ulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -413,7 +441,8 @@ void test_C_Encrypt(void **state){
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedDataLen_pointed = 0;
+    CK_ULONG_PTR pulEncryptedDataLen = &pulEncryptedDataLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_Encrypt(
@@ -423,6 +452,7 @@ void test_C_Encrypt(void **state){
         pEncryptedData,
         pulEncryptedDataLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -434,7 +464,8 @@ void test_C_EncryptFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pEncryptedData = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulEncryptedDataLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedDataLen_pointed = 0;
+    CK_ULONG_PTR pulEncryptedDataLen = &pulEncryptedDataLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_EncryptFinal(
@@ -442,6 +473,7 @@ void test_C_EncryptFinal(void **state){
         pEncryptedData,
         pulEncryptedDataLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -461,6 +493,7 @@ void test_C_EncryptInit(void **state){
         pMechanism,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -474,7 +507,8 @@ void test_C_EncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_pointed = 0;
+    CK_ULONG_PTR pulEncryptedPartLen = &pulEncryptedPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_EncryptUpdate(
@@ -484,6 +518,7 @@ void test_C_EncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -493,12 +528,13 @@ void test_C_Finalize(void **state){
 
     (void) state; /* unused */
 
-    ANY pReserved = NULL; /* todo: probably requires finetuning */
+    ANY pReserved = NULL;
     
 
     CK_RV status = C_Finalize(
         pReserved
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -510,9 +546,10 @@ void test_C_FindObjects(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE phObject_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed;
+    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed; /* we do this funny to simplify code generation */
     CK_ULONG ulMaxObjectCount = 13;
-    CK_ULONG_PTR pulObjectCount = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulObjectCount_pointed = 0;
+    CK_ULONG_PTR pulObjectCount = &pulObjectCount_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_FindObjects(
@@ -521,6 +558,7 @@ void test_C_FindObjects(void **state){
         ulMaxObjectCount,
         pulObjectCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -536,6 +574,7 @@ void test_C_FindObjectsFinal(void **state){
     CK_RV status = C_FindObjectsFinal(
         hSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -560,6 +599,7 @@ void test_C_FindObjectsInit(void **state){
         pTemplate,
         ulCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -579,7 +619,7 @@ void test_C_GenerateKey(void **state){
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_GenerateKey(
@@ -589,6 +629,7 @@ void test_C_GenerateKey(void **state){
         ulCount,
         phKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -615,9 +656,9 @@ void test_C_GenerateKeyPair(void **state){
     };
     CK_ULONG ulPrivateKeyAttributeCount = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phPublicKey_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phPublicKey = &phPublicKey_pointed;
+    CK_OBJECT_HANDLE_PTR phPublicKey = &phPublicKey_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE phPrivateKey_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phPrivateKey = &phPrivateKey_pointed;
+    CK_OBJECT_HANDLE_PTR phPrivateKey = &phPrivateKey_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_GenerateKeyPair(
@@ -630,6 +671,7 @@ void test_C_GenerateKeyPair(void **state){
         phPublicKey,
         phPrivateKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -649,6 +691,7 @@ void test_C_GenerateRandom(void **state){
         pSeed,
         ulRandomLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -675,6 +718,7 @@ void test_C_GetAttributeValue(void **state){
         pTemplate,
         ulCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -690,6 +734,7 @@ void test_C_GetFunctionStatus(void **state){
     CK_RV status = C_GetFunctionStatus(
         hSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -699,12 +744,13 @@ void test_C_GetInfo(void **state){
 
     (void) state; /* unused */
 
-    CK_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
+    CK_INFO_PTR pInfo = malloc(1024);
     
 
     CK_RV status = C_GetInfo(
         pInfo
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -716,7 +762,7 @@ void test_C_GetMechanismInfo(void **state){
 
     CK_SLOT_ID slotID = 13;
     CK_MECHANISM_TYPE type = 13;
-    CK_MECHANISM_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
+    CK_MECHANISM_INFO_PTR pInfo = malloc(1024);
     
 
     CK_RV status = C_GetMechanismInfo(
@@ -724,6 +770,7 @@ void test_C_GetMechanismInfo(void **state){
         type,
         pInfo
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -735,7 +782,8 @@ void test_C_GetMechanismList(void **state){
 
     CK_SLOT_ID slotID = 13;
     CK_MECHANISM_TYPE pMechanismList[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-    CK_ULONG_PTR pulCount = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulCount_pointed = 0;
+    CK_ULONG_PTR pulCount = &pulCount_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_GetMechanismList(
@@ -743,6 +791,7 @@ void test_C_GetMechanismList(void **state){
         pMechanismList,
         pulCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -754,7 +803,8 @@ void test_C_GetObjectSize(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
-    CK_ULONG_PTR pulSize = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulSize_pointed = 0;
+    CK_ULONG_PTR pulSize = &pulSize_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_GetObjectSize(
@@ -762,6 +812,7 @@ void test_C_GetObjectSize(void **state){
         hObject,
         pulSize
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -773,7 +824,8 @@ void test_C_GetOperationState(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pOperationState = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulOperationStateLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulOperationStateLen_pointed = 0;
+    CK_ULONG_PTR pulOperationStateLen = &pulOperationStateLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_GetOperationState(
@@ -781,6 +833,7 @@ void test_C_GetOperationState(void **state){
         pOperationState,
         pulOperationStateLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -791,13 +844,14 @@ void test_C_GetSessionInfo(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_SESSION_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
+    CK_SESSION_INFO_PTR pInfo = malloc(1024);
     
 
     CK_RV status = C_GetSessionInfo(
         hSession,
         pInfo
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -808,13 +862,14 @@ void test_C_GetSlotInfo(void **state){
     (void) state; /* unused */
 
     CK_SLOT_ID slotID = 13;
-    CK_SLOT_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
+    CK_SLOT_INFO_PTR pInfo = malloc(1024);
     
 
     CK_RV status = C_GetSlotInfo(
         slotID,
         pInfo
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -826,7 +881,8 @@ void test_C_GetSlotList(void **state){
 
     CK_BBOOL tokenPresent = CK_TRUE;
     CK_SLOT_ID pSlotList[] = { 1, 5, 19 };
-    CK_ULONG_PTR pulCount = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulCount_pointed = 0;
+    CK_ULONG_PTR pulCount = &pulCount_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_GetSlotList(
@@ -834,6 +890,7 @@ void test_C_GetSlotList(void **state){
         pSlotList,
         pulCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -844,13 +901,14 @@ void test_C_GetTokenInfo(void **state){
     (void) state; /* unused */
 
     CK_SLOT_ID slotID = 13;
-    CK_TOKEN_INFO_PTR pInfo = NULL;  /* todo: probably requires finetuning */
+    CK_TOKEN_INFO_PTR pInfo = malloc(1024);
     
 
     CK_RV status = C_GetTokenInfo(
         slotID,
         pInfo
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -870,6 +928,7 @@ void test_C_InitPIN(void **state){
         pPin,
         ulPinLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -891,6 +950,7 @@ void test_C_InitToken(void **state){
         ulPinLen,
         pLabel
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -915,6 +975,7 @@ void test_C_Initialize(void **state){
     CK_RV status = C_Initialize(
         pInitArgs
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -936,6 +997,7 @@ void test_C_Login(void **state){
         pPin,
         ulPinLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -951,6 +1013,7 @@ void test_C_Logout(void **state){
     CK_RV status = C_Logout(
         hSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -962,9 +1025,10 @@ void test_C_OpenSession(void **state){
 
     CK_SLOT_ID slotID = 13;
     CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
-    ANY pApplication = NULL; /* todo: probably requires finetuning */
+    ANY pApplication = NULL;
     CK_NOTIFY notify = NULL; // todo: set to notify_callback;
-    CK_SESSION_HANDLE_PTR phSession = NULL;  /* todo: probably requires finetuning */
+    CK_SESSION_HANDLE phSession_pointed = 0;
+    CK_OBJECT_HANDLE_PTR phSession = &phSession_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_OpenSession(
@@ -974,6 +1038,7 @@ void test_C_OpenSession(void **state){
         notify,
         phSession
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -993,6 +1058,7 @@ void test_C_SeedRandom(void **state){
         pSeed,
         ulSeedLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1019,6 +1085,7 @@ void test_C_SetAttributeValue(void **state){
         pTemplate,
         ulCount
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1042,6 +1109,7 @@ void test_C_SetOperationState(void **state){
         hEncryptionKey,
         hAuthenticationKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1065,6 +1133,7 @@ void test_C_SetPIN(void **state){
         pNewPin,
         ulNewPin
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1078,7 +1147,8 @@ void test_C_Sign(void **state){
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_pointed = 0;
+    CK_ULONG_PTR pulSignatureLen = &pulSignatureLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_Sign(
@@ -1088,6 +1158,7 @@ void test_C_Sign(void **state){
         pSignature,
         pulSignatureLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1101,7 +1172,8 @@ void test_C_SignEncryptUpdate(void **state){
     CK_BYTE_ARRAY pPart = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulPartLen = 13;
     CK_BYTE_ARRAY pEncryptedPart = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulEncryptedPartLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulEncryptedPartLen_pointed = 0;
+    CK_ULONG_PTR pulEncryptedPartLen = &pulEncryptedPartLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_SignEncryptUpdate(
@@ -1111,6 +1183,7 @@ void test_C_SignEncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1122,7 +1195,8 @@ void test_C_SignFinal(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_pointed = 0;
+    CK_ULONG_PTR pulSignatureLen = &pulSignatureLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_SignFinal(
@@ -1130,6 +1204,7 @@ void test_C_SignFinal(void **state){
         pSignature,
         pulSignatureLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1149,6 +1224,7 @@ void test_C_SignInit(void **state){
         pMechanism,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1162,7 +1238,8 @@ void test_C_SignRecover(void **state){
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulDataLen = 13;
     CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulSignatureLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulSignatureLen_pointed = 0;
+    CK_ULONG_PTR pulSignatureLen = &pulSignatureLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_SignRecover(
@@ -1172,6 +1249,7 @@ void test_C_SignRecover(void **state){
         pSignature,
         pulSignatureLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1191,6 +1269,7 @@ void test_C_SignRecoverInit(void **state){
         pMechanism,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1210,6 +1289,7 @@ void test_C_SignUpdate(void **state){
         pPart,
         ulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1232,7 +1312,7 @@ void test_C_UnwrapKey(void **state){
     };
     CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed;
+    CK_OBJECT_HANDLE_PTR phKey = &phKey_pointed; /* we do this funny to simplify code generation */
     
 
     CK_RV status = C_UnwrapKey(
@@ -1245,6 +1325,7 @@ void test_C_UnwrapKey(void **state){
         ulAttributeCount,
         phKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1268,6 +1349,7 @@ void test_C_Verify(void **state){
         pSignature,
         ulSignatureLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1287,6 +1369,7 @@ void test_C_VerifyFinal(void **state){
         pSignature,
         ulSignatureLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1306,6 +1389,7 @@ void test_C_VerifyInit(void **state){
         pMechanism,
         hKey
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1319,7 +1403,8 @@ void test_C_VerifyRecover(void **state){
     CK_BYTE_ARRAY pSignature = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulSignatureLen = 13;
     CK_BYTE_ARRAY pData = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulDataLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulDataLen_pointed = 0;
+    CK_ULONG_PTR pulDataLen = &pulDataLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_VerifyRecover(
@@ -1329,6 +1414,7 @@ void test_C_VerifyRecover(void **state){
         pData,
         pulDataLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1348,6 +1434,7 @@ void test_C_VerifyUpdate(void **state){
         pPart,
         ulPartLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1358,7 +1445,7 @@ void test_C_WaitForSlotEvent(void **state){
     (void) state; /* unused */
 
     CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
-    CK_SLOT_ID_PTR pSlot = NULL;  /* todo: probably requires finetuning */
+    CK_SLOT_ID_PTR pSlot = malloc(1024);
     CK_VOID_PTR pReserved = NULL; // assuming reserved for future usage
     
 
@@ -1367,6 +1454,7 @@ void test_C_WaitForSlotEvent(void **state){
         pSlot,
         pReserved
     );
+
     assert_int_equal(status, CKR_OK);
 
 };
@@ -1381,7 +1469,8 @@ void test_C_WrapKey(void **state){
     CK_OBJECT_HANDLE hWrappingKey = 13;
     CK_OBJECT_HANDLE hKey = 13;
     CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
-    CK_ULONG_PTR pulWrappedKeyLen = NULL;  /* todo: probably requires finetuning */
+    CK_ULONG pulWrappedKeyLen_pointed = 0;
+    CK_ULONG_PTR pulWrappedKeyLen = &pulWrappedKeyLen_pointed; /* we do this a bit weird to simplify code generation */
     
 
     CK_RV status = C_WrapKey(
@@ -1392,6 +1481,7 @@ void test_C_WrapKey(void **state){
         pWrappedKey,
         pulWrappedKeyLen
     );
+
     assert_int_equal(status, CKR_OK);
 
 };

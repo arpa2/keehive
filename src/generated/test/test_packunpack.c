@@ -2247,7 +2247,7 @@ void test_pack_C_Finalize_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    ANY pReserved = NULL; /* todo: probably requires finetuning */
+    ANY pReserved = NULL;
     
 
     CK_RV status = pack_C_Finalize_Return(
@@ -4167,7 +4167,7 @@ void test_pack_C_Initialize_Return(void **state) {
     dercursor dercursor;
 
     CK_RV retval = CKR_OK;
-    ANY pInitArgs = NULL; /* todo: probably requires finetuning */
+    ANY pInitArgs = NULL;
     
 
     CK_RV status = pack_C_Initialize_Return(
@@ -4377,7 +4377,7 @@ void test_pack_C_OpenSession_Call(void **state) {
 
     CK_SLOT_ID slotID = 13;
     CK_FLAGS flags = CKF_CLOCK_ON_TOKEN | CKF_DIGEST;
-    ANY pApplication = NULL; /* todo: probably requires finetuning */
+    ANY pApplication = NULL;
     CK_NOTIFY notify = NULL; // todo: set to notify_callback;
     
 
