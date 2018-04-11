@@ -317,6 +317,11 @@ DER_PACK_RemotePKCS11_C_VerifyRecover_Call,
 DER_PACK_END
 };
 
+const derwalk C_VerifyRecoverInit_Call_packer[] = {
+DER_PACK_RemotePKCS11_C_VerifyRecoverInit_Call,
+DER_PACK_END
+};
+
 const derwalk C_VerifyUpdate_Call_packer[] = {
 DER_PACK_RemotePKCS11_C_VerifyUpdate_Call,
 DER_PACK_END
@@ -644,6 +649,11 @@ DER_PACK_END
 
 const derwalk C_VerifyRecover_Return_packer[] = {
 DER_PACK_RemotePKCS11_C_VerifyRecover_Return,
+DER_PACK_END
+};
+
+const derwalk C_VerifyRecoverInit_Return_packer[] = {
+DER_PACK_RemotePKCS11_C_VerifyRecoverInit_Return,
 DER_PACK_END
 };
 

@@ -545,8 +545,7 @@ void test_C_FindObjects(void **state){
     (void) state; /* unused */
 
     CK_SESSION_HANDLE hSession = 13;
-    CK_OBJECT_HANDLE phObject_pointed = 12;
-    CK_OBJECT_HANDLE_PTR phObject = &phObject_pointed; /* we do this funny to simplify code generation */
+    CK_OBJECT_HANDLE_ARRAY phObject = (CK_OBJECT_HANDLE_ARRAY) "abcdefghijklm";
     CK_ULONG ulMaxObjectCount = 13;
     CK_ULONG pulObjectCount_pointed = 0;
     CK_ULONG_PTR pulObjectCount = &pulObjectCount_pointed; /* we do this a bit weird to simplify code generation */
@@ -1420,6 +1419,26 @@ void test_C_VerifyRecover(void **state){
 };
 
 
+void test_C_VerifyRecoverInit(void **state){
+
+    (void) state; /* unused */
+
+    CK_SESSION_HANDLE hSession = 13;
+    CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
+    CK_OBJECT_HANDLE hKey = 13;
+    
+
+    CK_RV status = C_VerifyRecoverInit(
+        hSession,
+        pMechanism,
+        hKey
+    );
+
+    assert_int_equal(status, CKR_OK);
+
+};
+
+
 void test_C_VerifyUpdate(void **state){
 
     (void) state; /* unused */
@@ -1555,6 +1574,7 @@ int main(void) {
             cmocka_unit_test(test_C_VerifyFinal),
             cmocka_unit_test(test_C_VerifyInit),
             cmocka_unit_test(test_C_VerifyRecover),
+            cmocka_unit_test(test_C_VerifyRecoverInit),
             cmocka_unit_test(test_C_VerifyUpdate),
             cmocka_unit_test(test_C_WaitForSlotEvent),
             cmocka_unit_test(test_C_WrapKey)

@@ -205,6 +205,9 @@ extern const derwalk C_VerifyInit_Call_packer[];
 extern const derwalk C_VerifyRecover_Call_packer[];
 
 
+extern const derwalk C_VerifyRecoverInit_Call_packer[];
+
+
 extern const derwalk C_VerifyUpdate_Call_packer[];
 
 
@@ -401,6 +404,9 @@ extern const derwalk C_VerifyInit_Return_packer[];
 
 
 extern const derwalk C_VerifyRecover_Return_packer[];
+
+
+extern const derwalk C_VerifyRecoverInit_Return_packer[];
 
 
 extern const derwalk C_VerifyUpdate_Return_packer[];

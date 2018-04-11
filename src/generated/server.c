@@ -1516,14 +1516,14 @@ server_C_FindObjects(
 
     // Cserver response variable placeholders
     CK_RV retval;
-    CK_OBJECT_HANDLE phObject = 0;
+    CK_OBJECT_HANDLE_ARRAY phObject = malloc(1024);
     CK_ULONG pulObjectCount = 0;
     
 
     retval = call_C_FindObjects(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
-        &phObject,  // CK_OBJECT_HANDLE_PTR
+        phObject,  // CK_OBJECT_HANDLE_ARRAY
         ulMaxObjectCount,  // CK_ULONG
         &pulObjectCount  // CK_ULONG_PTR
     );
@@ -1531,7 +1531,7 @@ server_C_FindObjects(
     status = pack_C_FindObjects_Return(
         CursorOut,
         &retval,  // CK_RV
-        &phObject,  // CK_OBJECT_HANDLE
+        phObject,  // CK_OBJECT_HANDLE_ARRAY
         &pulObjectCount  // CK_ULONG
     );
 
@@ -3821,6 +3821,63 @@ server_C_VerifyRecover(
     
     free(pData);
 
+    
+    
+
+    if (status != CKR_OK)
+        return status;
+
+    return CKR_OK;
+}
+
+
+CK_RV
+server_C_VerifyRecoverInit(
+        dercursor *cursorIn,
+        dercursor *CursorOut
+){
+
+    if (function_list == NULL_PTR)
+        return CKR_KEEHIVE_SO_INIT_ERROR;
+
+    // Create unpack variable placeholders
+    CK_SESSION_HANDLE hSession = 0;
+    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_OBJECT_HANDLE hKey = 0;
+    
+
+
+
+    // unpack the dercursor into the placeholders
+    CK_RV status = unpack_C_VerifyRecoverInit_Call(
+        cursorIn,
+        &hSession,
+        pMechanism,
+        &hKey
+    );
+
+    if (status != CKR_OK)
+        return status;
+
+    // Cserver response variable placeholders
+    CK_RV retval;
+    
+
+    retval = call_C_VerifyRecoverInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hKey  // CK_OBJECT_HANDLE
+    );
+
+    status = pack_C_VerifyRecoverInit_Return(
+        CursorOut,
+        &retval  // CK_RV
+    );
+
+    // free malloced stuff below (if any)
+    
+    
     
     
 

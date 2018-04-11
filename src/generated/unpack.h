@@ -427,7 +427,7 @@ CK_RV
 unpack_C_FindObjects_Return(
         dercursor* packed,
         CK_RV_PTR retval,
-        CK_OBJECT_HANDLE_PTR phObject,
+        CK_OBJECT_HANDLE_ARRAY phObject,
         CK_ULONG_PTR pulObjectCount
 );
 
@@ -1067,6 +1067,22 @@ unpack_C_VerifyRecover_Return(
         CK_RV_PTR retval,
         CK_BYTE_ARRAY pData,
         CK_ULONG_PTR pulDataLen
+);
+
+
+
+CK_RV
+unpack_C_VerifyRecoverInit_Call(
+        dercursor* packed,
+        CK_SESSION_HANDLE_PTR hSession,
+        CK_MECHANISM_PTR pMechanism,
+        CK_OBJECT_HANDLE_PTR hKey
+);
+
+CK_RV
+unpack_C_VerifyRecoverInit_Return(
+        dercursor* packed,
+        CK_RV_PTR retval
 );
 
 

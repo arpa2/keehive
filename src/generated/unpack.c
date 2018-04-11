@@ -2052,7 +2052,7 @@ CK_RV
 unpack_C_FindObjects_Return(
         dercursor* packed,
         CK_RV_PTR retval,
-        CK_OBJECT_HANDLE_PTR phObject,
+        CK_OBJECT_HANDLE_ARRAY phObject,
         CK_ULONG_PTR pulObjectCount
 ) {
 
@@ -2077,10 +2077,9 @@ unpack_C_FindObjects_Return(
 
 
 
-    status = der_get_ulong(C_FindObjects_Return.phObject, phObject);
+    status = der_get_CK_OBJECT_HANDLE_ARRAY(&C_FindObjects_Return.phObject, phObject);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
-
 
 
     status = der_get_ulong(C_FindObjects_Return.pulObjectCount, pulObjectCount);
@@ -5202,6 +5201,83 @@ unpack_C_VerifyRecover_Return(
 
 
     status = der_get_ulong(C_VerifyRecover_Return.pulDataLen, pulDataLen);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
+
+
+
+
+    return CKR_OK;
+};
+
+
+
+CK_RV
+unpack_C_VerifyRecoverInit_Call(
+        dercursor* packed,
+        CK_SESSION_HANDLE_PTR hSession,
+        CK_MECHANISM_PTR pMechanism,
+        CK_OBJECT_HANDLE_PTR hKey
+) {
+
+    C_VerifyRecoverInit_Call_t C_VerifyRecoverInit_Call;
+
+    memset(&C_VerifyRecoverInit_Call, 0, sizeof(C_VerifyRecoverInit_Call));
+
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
+                            C_VerifyRecoverInit_Call_packer,
+                            (dercursor *) &C_VerifyRecoverInit_Call,
+                            REPEAT);
+    if (status != 0)
+        return der_error_helper(errno);
+
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_VerifyRecoverInit_Call.hSession, hSession);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
+
+
+
+    status = der_get_CK_MECHANISM_PTR(&C_VerifyRecoverInit_Call.pMechanism, pMechanism);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
+
+
+    status = der_get_ulong(C_VerifyRecoverInit_Call.hKey, hKey);
+    if (status == -1)
+        return CKR_KEEHIVE_DER_RANGE_ERROR;
+
+
+
+
+    return CKR_OK;
+};
+
+CK_RV
+unpack_C_VerifyRecoverInit_Return(
+        dercursor* packed,
+        CK_RV_PTR retval
+) {
+
+    C_VerifyRecoverInit_Return_t C_VerifyRecoverInit_Return;
+
+    memset(&C_VerifyRecoverInit_Return, 0, sizeof(C_VerifyRecoverInit_Return));
+
+    dercursor cursor_copy = *packed; // der_unpack modifies cursor
+    int status = der_unpack(&cursor_copy,
+                            C_VerifyRecoverInit_Return_packer,
+                            (dercursor *) &C_VerifyRecoverInit_Return,
+                            REPEAT);
+    if (status != 0)
+        return der_error_helper(errno);
+
+    // STARTING UNPACKING
+
+
+    status = der_get_ulong(C_VerifyRecoverInit_Return.retval, retval);
     if (status == -1)
         return CKR_KEEHIVE_DER_RANGE_ERROR;
 
