@@ -205,9 +205,10 @@ type_test_templates = {
 
     "CK_ATTRIBUTE_ARRAY":
         """CK_UTF8CHAR {identifier}_label[] = "Just a simple attribute array";
+    CK_BBOOL {identifier}_copyable = CK_TRUE;
     CK_ATTRIBUTE {identifier}[] = {{
         {{.type=CKA_LABEL, .pValue={identifier}_label, .ulValueLen=sizeof({identifier}_label)}},
-        {{.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)}},
+        {{.type=CKA_COPYABLE, .pValue=&{identifier}_copyable, .ulValueLen=sizeof(CK_BBOOL)}},
     }};""",
     "CK_MECHANISM_PTR":
         """CK_MECHANISM {identifier}[] = {{CKM_MD5, NULL, 0}};""",
@@ -343,10 +344,10 @@ def len_mapper(func, identifier, deref=False):
     }
     ambiguous = {
         ("C_DeriveKey_Call", "pTemplate"): "ulAttributeCount",
-        ("C_FindObjectsInit_Return", "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
+        ("C_FindObjectsInit_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */",
         ("C_GenerateKeyPair_Call", "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
         ("C_GenerateKeyPair_Call", "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-        ("C_GetAttributeValue_Return", "pTemplate"): "(sizeof(pTemplate) / sizeof(CK_ATTRIBUTE))",
+        ("C_GetAttributeValue_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */ ",
         ("C_UnwrapKey_Call", "pTemplate"): "ulAttributeCount",
         ("C_CopyObject_Call", "pTemplate"): "ulCount",
         ("C_CreateObject_Call", "pTemplate"): "ulCount",
@@ -356,7 +357,7 @@ def len_mapper(func, identifier, deref=False):
         ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
 
         ("C_SeedRandom_Call", "pSeed"): "ulSeedLen",
-        ("C_GenerateRandom_Return", "pSeed"): "(sizeof(pSeed) / sizeof(CK_BYTE)) ",
+        ("C_GenerateRandom_Return", "pSeed"): "0 /* todo: this is wrong, issue #6 */ ",
 
         ("C_Digest_Call", "pData"): "ulDataLen",
         ("C_Encrypt_Call", "pData"): "ulDataLen",
