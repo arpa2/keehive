@@ -14,17 +14,38 @@ I suggest you come back in a little while :)
 
 * Cmake
 * https://github.com/vanrein/quick-der
+* https://github.com/arpa2/arpa2cm
+
+For testing:
+
 * https://cmocka.org/
 * https://github.com/opendnssec/SoftHSMv2
+* cpp unit
+
+On Debian/Ubuntu these are available as packages:
+```
+$ sudo apt install libsofthsm2-dev libcmocka-dev libcppunit-dev
+```
 
 
 # Build
+```
+ $ mkdir build
+ $ cd build
+ $ cmake ..
+ $ make
+ $ make install
+```
 
-* $ mkdir build
-* $ pushd build
-* $ cmake ..
-* $ make
+# Testing
 
+```
+ $ mkdir build
+ $ cd build
+ $ cmake .. -DENABLE_TESTING=ON
+ $ make
+ $ make test
+```
 
 # Development
 
