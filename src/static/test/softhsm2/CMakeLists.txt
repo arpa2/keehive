@@ -45,6 +45,7 @@ target_link_libraries(softhsm2.test ${CPPUNIT_LIBRARIES})
 
 
 target_link_libraries(softhsm2.test keehive)
+add_test(softhsm2.test softhsm2.test)
 
 # used during test run
 file(COPY softhsm2.conf DESTINATION ${PROJECT_BINARY_DIR}/src/static/test/)
