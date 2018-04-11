@@ -27,7 +27,7 @@ der_put_attribute_bool(
         const CK_ATTRIBUTE* attribute,
         void* buffer
 ) {
-    bool boolvalue = (CK_BBOOL)attribute->pValue == CK_TRUE;
+    bool boolvalue = *(CK_BBOOL*)attribute->pValue == CK_TRUE;
     return der_put_bool (buffer, boolvalue);
 }
 

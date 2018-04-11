@@ -42,6 +42,7 @@ include_directories (
 
 set(KEEHIVE_LINK_LIRARIES
     ${Quick-DER_LIBRARIES}
+    ${CMAKE_DL_LIBS}
 )
 
 add_library(keehive

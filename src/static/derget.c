@@ -260,7 +260,7 @@ der_get_CK_C_INITIALIZE_ARGS_PTR(
 ) {
     int status = 0;
 
-    if (*ack_initialize_args->null.derptr != NULL && *ack_initialize_args->null.derptr == '\0')
+    if (ack_initialize_args->null.derptr != NULL && *ack_initialize_args->null.derptr == '\0')
         return status;
 
     if (ack_initialize_args->data.flags.derptr != NULL)

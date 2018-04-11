@@ -20,5 +20,6 @@ add_test(pack.test pack.test)
 
 
 add_executable(libload.test test_libload.cpp)
-add_dependencies(libload.test libload.test keehive)
+add_dependencies(libload.test keehive)
+target_link_libraries(libload.test -ldl)
 add_test(libload.test libload.test)

@@ -139,7 +139,7 @@ der_put_CK_C_INITIALIZE_ARGS_PTR(
 
 dercursor
 der_put_CK_FLAGS_PTR(
-        u_int8_t* der_buf_ulong,
+        uint8_t* der_buf_ulong,
         const CK_FLAGS flags
 );
 

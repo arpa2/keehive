@@ -1,13 +1,14 @@
 #include "cryptoki.h"
 #include <dlfcn.h>
 #include "settings.h"
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
+#include <cstdlib>
 
 
 int main() {
 
-    const CK_C_GetFunctionList handle( (CK_C_GetFunctionList)dlsym(
+    const auto handle( (CK_C_GetFunctionList)dlsym(
             dlopen(KEEHIVE_TEST_LIBRARY, RTLD_LAZY),
             "C_GetFunctionList"
     ) );
