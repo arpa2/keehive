@@ -60,9 +60,10 @@ void test_C_CopyObject(void **state){
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phObject_pointed = 12;
@@ -87,9 +88,10 @@ void test_C_CreateObject(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phObject_pointed = 12;
@@ -245,9 +247,10 @@ void test_C_DeriveKey(void **state){
     CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_OBJECT_HANDLE hBaseKey = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;
@@ -544,9 +547,10 @@ void test_C_FindObjectsInit(void **state){
 
     CK_SESSION_HANDLE hSession = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
@@ -568,9 +572,10 @@ void test_C_GenerateKey(void **state){
     CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;
@@ -596,15 +601,17 @@ void test_C_GenerateKeyPair(void **state){
     CK_SESSION_HANDLE hSession = 13;
     CK_MECHANISM pMechanism[] = {CKM_MD5, NULL, 0};
     CK_UTF8CHAR pPublicKeyTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pPublicKeyTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pPublicKeyTemplate[] = {
         {.type=CKA_LABEL, .pValue=pPublicKeyTemplate_label, .ulValueLen=sizeof(pPublicKeyTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pPublicKeyTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulPublicKeyAttributeCount = sizeof(pPublicKeyTemplate) / sizeof(CK_ATTRIBUTE);
     CK_UTF8CHAR pPrivateKeyTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pPrivateKeyTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pPrivateKeyTemplate[] = {
         {.type=CKA_LABEL, .pValue=pPrivateKeyTemplate_label, .ulValueLen=sizeof(pPrivateKeyTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pPrivateKeyTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulPrivateKeyAttributeCount = sizeof(pPrivateKeyTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phPublicKey_pointed = 12;
@@ -654,9 +661,10 @@ void test_C_GetAttributeValue(void **state){
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
@@ -997,9 +1005,10 @@ void test_C_SetAttributeValue(void **state){
     CK_SESSION_HANDLE hSession = 13;
     CK_OBJECT_HANDLE hObject = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     
@@ -1216,9 +1225,10 @@ void test_C_UnwrapKey(void **state){
     CK_BYTE_ARRAY pWrappedKey = (CK_BYTE_ARRAY) "abcdefghijklm";
     CK_ULONG ulWrappedKeyLen = 13;
     CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
     CK_ATTRIBUTE pTemplate[] = {
         {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
-        {.type=CKA_COPYABLE, .pValue=(void *)CK_TRUE, .ulValueLen=sizeof(CK_BBOOL)},
+        {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
     };
     CK_ULONG ulAttributeCount = sizeof(pTemplate) / sizeof(CK_ATTRIBUTE);
     CK_OBJECT_HANDLE phKey_pointed = 12;

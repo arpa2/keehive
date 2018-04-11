@@ -3134,7 +3134,7 @@ pack_C_FindObjectsInit_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)),
+            0 /* todo: this is wrong, issue #6 */,
             &pTemplate_innerlist,
             &pTemplate_length);
 
@@ -3672,7 +3672,7 @@ pack_C_GetAttributeValue_Return(
     size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
-            (sizeof(pTemplate) / sizeof(CK_ATTRIBUTE)),
+            0 /* todo: this is wrong, issue #6 */ ,
             &pTemplate_innerlist,
             &pTemplate_length);
 
