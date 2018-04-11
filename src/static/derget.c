@@ -127,7 +127,7 @@ der_get_CK_MECHANISM_PTR(
         return -1;
 
     // todo: implement properly
-    pMechanism->pParameter = NULL_PTR;
+    pMechanism->pParameter = NULL;
 
     status = der_get_ulong(Ack_Mechanism.ulParameterLen, &pMechanism->ulParameterLen);
     if (status != 0)
@@ -227,17 +227,19 @@ der_get_CK_C_INITIALIZE_ARGS_PTR(
 ) {
     int status = 0;
 
-    if (ack_initialize_args.null.derptr != NULL && *ack_initialize_args.null.derptr == '\0')
-        return status;
 
-    if (ack_initialize_args.data.flags.derptr != NULL)
-        status = status | der_get_CK_FLAGS_PTR(ack_initialize_args.data.flags, &ck_initialize_args->flags);
-    // todo: set these to NULL for now
+    ck_initialize_args->pReserved = NULL;
     ck_initialize_args->UnlockMutex = NULL;
     ck_initialize_args->pReserved = NULL;
     ck_initialize_args->LockMutex = NULL;
     ck_initialize_args->DestroyMutex = NULL;
     ck_initialize_args->CreateMutex = NULL;
+
+    if (ack_initialize_args.null.derptr != NULL && *ack_initialize_args.null.derptr == '\0')
+        ck_initialize_args->flags = 0;
+    else
+        status = status | der_get_CK_FLAGS_PTR(ack_initialize_args.data.flags, &ck_initialize_args->flags);
+
     return status;
 };
 
