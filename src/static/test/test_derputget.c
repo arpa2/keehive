@@ -56,12 +56,45 @@ void der_putget_CK_MECHANISM_TYPE_ARRAY(void **state){
 
     dernode node = {.wire=cursor};
 
-    int get_status = der_get_CK_MECHANISM_TYPE_ARRAY(node, array2);
+    int get_status = der_get_CK_MECHANISM_TYPE_ARRAY(&node, array2);
     assert_int_equal(get_status, 0);
 
     assert_memory_equal(array, array2, byte_array_len * sizeof(CK_MECHANISM_TYPE));
 
     free(array2);
+};
+
+
+void der_putget_CK_ATTRIBUTE_ARRAY(void **state) {
+    CK_UTF8CHAR pTemplate_label[] = "Just a simple attribute array";
+    CK_BBOOL pTemplate_copyable = CK_TRUE;
+    CK_ATTRIBUTE array[] = {
+            {.type=CKA_LABEL, .pValue=pTemplate_label, .ulValueLen=sizeof(pTemplate_label)},
+            {.type=CKA_COPYABLE, .pValue=&pTemplate_copyable, .ulValueLen=sizeof(CK_BBOOL)},
+    };
+    CK_ULONG count = sizeof(array) / sizeof(CK_ATTRIBUTE);
+
+    dercursor cursor;
+    CK_RV status = der_put_CK_ATTRIBUTE_ARRAY(
+            array,
+            count,
+            &cursor.derptr,
+            &cursor.derlen
+    );
+
+    assert_int_equal(status, CKR_OK);
+
+    CK_SESSION_HANDLE hSession_unpack = 0;
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ULONG ulCount_unpack = 0;
+
+    CK_ATTRIBUTE_ARRAY array2 = malloc(count * sizeof(CK_ATTRIBUTE));
+
+    dernode node = {.wire=cursor};
+    int get_status = der_get_CK_ATTRIBUTE_ARRAY(&node, array2);
+
+    assert_memory_equal(array, array2, count * sizeof(CK_MECHANISM_TYPE));
+
 };
 
 
@@ -82,6 +115,7 @@ int main(void) {
             cmocka_unit_test(der_putget_CK_BYTE_ARRAY),
             cmocka_unit_test(der_putget_CK_FLAGS_PTR),
             cmocka_unit_test(der_putget_CK_MECHANISM_TYPE_ARRAY),
+            cmocka_unit_test(der_putget_CK_ATTRIBUTE_ARRAY),
 
     };
     return cmocka_run_group_tests(tests, NULL, NULL);

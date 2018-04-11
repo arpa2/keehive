@@ -374,7 +374,7 @@ int der_get_CK_OBJECT_HANDLE_ARRAY(ACK_OBJECT_HANDLE_ARRAY_t* Ack_Object_Handle_
 };
 
 int der_get_CK_MECHANISM_TYPE_ARRAY(
-        ACK_MECHANISM_TYPE_ARRAY_t ack_mechanism_type_array,
+        ACK_MECHANISM_TYPE_ARRAY_t* ack_mechanism_type_array,
         CK_MECHANISM_TYPE_ARRAY ck_mechanism_type_array
 ) {
 
@@ -384,7 +384,7 @@ int der_get_CK_MECHANISM_TYPE_ARRAY(
     CK_ULONG value;
     ACK_MECHANISM_TYPE_t der_slot;
 
-    if (der_iterate_first(&ack_mechanism_type_array.wire, &iterator)) {
+    if (der_iterate_first(&ack_mechanism_type_array->wire, &iterator)) {
         do {
             dercursor iterator_copy = iterator; // copy since der_unpack modifies cursor
             status = der_unpack(&iterator_copy, mechanism_type_array_packer, &der_slot, REPEAT);
