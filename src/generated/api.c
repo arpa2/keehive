@@ -14,10 +14,6 @@ C_CancelFunction(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_CancelFunction_Call(
@@ -26,13 +22,11 @@ C_CancelFunction(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_CancelFunction(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -48,21 +42,13 @@ C_CancelFunction(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -77,10 +63,6 @@ C_CloseAllSessions(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_CloseAllSessions_Call(
@@ -89,13 +71,11 @@ C_CloseAllSessions(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_CloseAllSessions(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -111,21 +91,13 @@ C_CloseAllSessions(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -140,10 +112,6 @@ C_CloseSession(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_CloseSession_Call(
@@ -152,13 +120,11 @@ C_CloseSession(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_CloseSession(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -174,21 +140,13 @@ C_CloseSession(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -207,10 +165,6 @@ C_CopyObject(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_CopyObject_Call(
@@ -222,13 +176,11 @@ C_CopyObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_CopyObject(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -245,21 +197,13 @@ C_CopyObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -277,10 +221,6 @@ C_CreateObject(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_CreateObject_Call(
@@ -291,13 +231,11 @@ C_CreateObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_CreateObject(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -314,21 +252,13 @@ C_CreateObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -347,10 +277,6 @@ C_Decrypt(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Decrypt_Call(
@@ -362,13 +288,11 @@ C_Decrypt(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Decrypt(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -386,21 +310,13 @@ C_Decrypt(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -419,10 +335,6 @@ C_DecryptDigestUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DecryptDigestUpdate_Call(
@@ -434,13 +346,11 @@ C_DecryptDigestUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DecryptDigestUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -458,21 +368,13 @@ C_DecryptDigestUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -489,10 +391,6 @@ C_DecryptFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DecryptFinal_Call(
@@ -502,13 +400,11 @@ C_DecryptFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DecryptFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -526,21 +422,13 @@ C_DecryptFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -557,10 +445,6 @@ C_DecryptInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DecryptInit_Call(
@@ -571,13 +455,11 @@ C_DecryptInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DecryptInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -593,21 +475,13 @@ C_DecryptInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -626,10 +500,6 @@ C_DecryptUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DecryptUpdate_Call(
@@ -641,13 +511,11 @@ C_DecryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DecryptUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -665,21 +533,13 @@ C_DecryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -698,10 +558,6 @@ C_DecryptVerifyUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DecryptVerifyUpdate_Call(
@@ -713,13 +569,11 @@ C_DecryptVerifyUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DecryptVerifyUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -737,21 +591,13 @@ C_DecryptVerifyUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -771,10 +617,6 @@ C_DeriveKey(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DeriveKey_Call(
@@ -787,13 +629,11 @@ C_DeriveKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DeriveKey(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -810,21 +650,13 @@ C_DeriveKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -840,10 +672,6 @@ C_DestroyObject(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DestroyObject_Call(
@@ -853,13 +681,11 @@ C_DestroyObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DestroyObject(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -875,21 +701,13 @@ C_DestroyObject(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -908,10 +726,6 @@ C_Digest(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Digest_Call(
@@ -923,13 +737,11 @@ C_Digest(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Digest(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -947,21 +759,13 @@ C_Digest(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -980,10 +784,6 @@ C_DigestEncryptUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DigestEncryptUpdate_Call(
@@ -995,13 +795,11 @@ C_DigestEncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DigestEncryptUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1019,21 +817,13 @@ C_DigestEncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1050,10 +840,6 @@ C_DigestFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DigestFinal_Call(
@@ -1063,13 +849,11 @@ C_DigestFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DigestFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1087,21 +871,13 @@ C_DigestFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1117,10 +893,6 @@ C_DigestInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DigestInit_Call(
@@ -1130,13 +902,11 @@ C_DigestInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DigestInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1152,21 +922,13 @@ C_DigestInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1182,10 +944,6 @@ C_DigestKey(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DigestKey_Call(
@@ -1195,13 +953,11 @@ C_DigestKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DigestKey(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1217,21 +973,13 @@ C_DigestKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1248,10 +996,6 @@ C_DigestUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_DigestUpdate_Call(
@@ -1262,13 +1006,11 @@ C_DigestUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_DigestUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1284,21 +1026,13 @@ C_DigestUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1317,10 +1051,6 @@ C_Encrypt(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Encrypt_Call(
@@ -1332,13 +1062,11 @@ C_Encrypt(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Encrypt(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1356,21 +1084,13 @@ C_Encrypt(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1387,10 +1107,6 @@ C_EncryptFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_EncryptFinal_Call(
@@ -1400,13 +1116,11 @@ C_EncryptFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_EncryptFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1424,21 +1138,13 @@ C_EncryptFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1455,10 +1161,6 @@ C_EncryptInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_EncryptInit_Call(
@@ -1469,13 +1171,11 @@ C_EncryptInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_EncryptInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1491,21 +1191,13 @@ C_EncryptInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1524,10 +1216,6 @@ C_EncryptUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_EncryptUpdate_Call(
@@ -1539,13 +1227,11 @@ C_EncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_EncryptUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1563,21 +1249,13 @@ C_EncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1592,10 +1270,6 @@ C_Finalize(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Finalize_Call(
@@ -1604,13 +1278,11 @@ C_Finalize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Finalize(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1627,21 +1299,13 @@ C_Finalize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1659,10 +1323,6 @@ C_FindObjects(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_FindObjects_Call(
@@ -1672,13 +1332,11 @@ C_FindObjects(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_FindObjects(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1696,21 +1354,13 @@ C_FindObjects(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1725,10 +1375,6 @@ C_FindObjectsFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_FindObjectsFinal_Call(
@@ -1737,13 +1383,11 @@ C_FindObjectsFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_FindObjectsFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1759,21 +1403,13 @@ C_FindObjectsFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1790,10 +1426,6 @@ C_FindObjectsInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_FindObjectsInit_Call(
@@ -1804,13 +1436,11 @@ C_FindObjectsInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_FindObjectsInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1827,21 +1457,13 @@ C_FindObjectsInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1860,10 +1482,6 @@ C_GenerateKey(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GenerateKey_Call(
@@ -1875,13 +1493,11 @@ C_GenerateKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GenerateKey(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1898,21 +1514,13 @@ C_GenerateKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -1934,10 +1542,6 @@ C_GenerateKeyPair(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GenerateKeyPair_Call(
@@ -1951,13 +1555,11 @@ C_GenerateKeyPair(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GenerateKeyPair(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -1975,21 +1577,13 @@ C_GenerateKeyPair(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2006,10 +1600,6 @@ C_GenerateRandom(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GenerateRandom_Call(
@@ -2019,13 +1609,11 @@ C_GenerateRandom(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GenerateRandom(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2042,21 +1630,13 @@ C_GenerateRandom(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2074,10 +1654,6 @@ C_GetAttributeValue(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetAttributeValue_Call(
@@ -2089,13 +1665,11 @@ C_GetAttributeValue(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetAttributeValue(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2112,21 +1686,13 @@ C_GetAttributeValue(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2141,10 +1707,6 @@ C_GetFunctionStatus(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetFunctionStatus_Call(
@@ -2153,13 +1715,11 @@ C_GetFunctionStatus(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetFunctionStatus(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2175,21 +1735,13 @@ C_GetFunctionStatus(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2204,10 +1756,6 @@ C_GetInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetInfo_Call(
@@ -2215,13 +1763,11 @@ C_GetInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2238,21 +1784,13 @@ C_GetInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2269,10 +1807,6 @@ C_GetMechanismInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetMechanismInfo_Call(
@@ -2282,13 +1816,11 @@ C_GetMechanismInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetMechanismInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2305,21 +1837,13 @@ C_GetMechanismInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2336,10 +1860,6 @@ C_GetMechanismList(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetMechanismList_Call(
@@ -2349,13 +1869,11 @@ C_GetMechanismList(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetMechanismList(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2373,21 +1891,13 @@ C_GetMechanismList(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2404,10 +1914,6 @@ C_GetObjectSize(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetObjectSize_Call(
@@ -2417,13 +1923,11 @@ C_GetObjectSize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetObjectSize(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2440,21 +1944,13 @@ C_GetObjectSize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2471,10 +1967,6 @@ C_GetOperationState(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetOperationState_Call(
@@ -2484,13 +1976,11 @@ C_GetOperationState(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetOperationState(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2508,21 +1998,13 @@ C_GetOperationState(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2538,10 +2020,6 @@ C_GetSessionInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetSessionInfo_Call(
@@ -2550,13 +2028,11 @@ C_GetSessionInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetSessionInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2573,21 +2049,13 @@ C_GetSessionInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2603,10 +2071,6 @@ C_GetSlotInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetSlotInfo_Call(
@@ -2615,13 +2079,11 @@ C_GetSlotInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetSlotInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2638,21 +2100,13 @@ C_GetSlotInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2669,10 +2123,6 @@ C_GetSlotList(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetSlotList_Call(
@@ -2682,13 +2132,11 @@ C_GetSlotList(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetSlotList(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2706,21 +2154,13 @@ C_GetSlotList(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2736,10 +2176,6 @@ C_GetTokenInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_GetTokenInfo_Call(
@@ -2748,13 +2184,11 @@ C_GetTokenInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_GetTokenInfo(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2771,21 +2205,13 @@ C_GetTokenInfo(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2802,10 +2228,6 @@ C_InitPIN(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_InitPIN_Call(
@@ -2816,13 +2238,11 @@ C_InitPIN(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_InitPIN(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2838,21 +2258,13 @@ C_InitPIN(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2870,10 +2282,6 @@ C_InitToken(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_InitToken_Call(
@@ -2885,13 +2293,11 @@ C_InitToken(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_InitToken(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2907,21 +2313,13 @@ C_InitToken(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -2936,10 +2334,6 @@ C_Initialize(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Initialize_Call(
@@ -2948,13 +2342,11 @@ C_Initialize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Initialize(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -2971,21 +2363,13 @@ C_Initialize(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3003,10 +2387,6 @@ C_Login(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Login_Call(
@@ -3018,13 +2398,11 @@ C_Login(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Login(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3040,21 +2418,13 @@ C_Login(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3069,10 +2439,6 @@ C_Logout(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Logout_Call(
@@ -3081,13 +2447,11 @@ C_Logout(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Logout(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3103,21 +2467,13 @@ C_Logout(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3136,10 +2492,6 @@ C_OpenSession(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_OpenSession_Call(
@@ -3151,13 +2503,11 @@ C_OpenSession(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_OpenSession(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3174,21 +2524,13 @@ C_OpenSession(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3205,10 +2547,6 @@ C_SeedRandom(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SeedRandom_Call(
@@ -3219,13 +2557,11 @@ C_SeedRandom(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SeedRandom(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3241,21 +2577,13 @@ C_SeedRandom(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3273,10 +2601,6 @@ C_SetAttributeValue(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SetAttributeValue_Call(
@@ -3288,13 +2612,11 @@ C_SetAttributeValue(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SetAttributeValue(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3310,21 +2632,13 @@ C_SetAttributeValue(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3343,10 +2657,6 @@ C_SetOperationState(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SetOperationState_Call(
@@ -3359,13 +2669,11 @@ C_SetOperationState(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SetOperationState(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3381,21 +2689,13 @@ C_SetOperationState(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3414,10 +2714,6 @@ C_SetPIN(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SetPIN_Call(
@@ -3430,13 +2726,11 @@ C_SetPIN(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SetPIN(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3452,21 +2746,13 @@ C_SetPIN(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3485,10 +2771,6 @@ C_Sign(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Sign_Call(
@@ -3500,13 +2782,11 @@ C_Sign(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Sign(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3524,21 +2804,13 @@ C_Sign(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3557,10 +2829,6 @@ C_SignEncryptUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignEncryptUpdate_Call(
@@ -3572,13 +2840,11 @@ C_SignEncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignEncryptUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3596,21 +2862,13 @@ C_SignEncryptUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3627,10 +2885,6 @@ C_SignFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignFinal_Call(
@@ -3640,13 +2894,11 @@ C_SignFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3664,21 +2916,13 @@ C_SignFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3695,10 +2939,6 @@ C_SignInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignInit_Call(
@@ -3709,13 +2949,11 @@ C_SignInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3731,21 +2969,13 @@ C_SignInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3764,10 +2994,6 @@ C_SignRecover(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignRecover_Call(
@@ -3779,13 +3005,11 @@ C_SignRecover(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignRecover(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3803,21 +3027,13 @@ C_SignRecover(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3834,10 +3050,6 @@ C_SignRecoverInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignRecoverInit_Call(
@@ -3848,13 +3060,11 @@ C_SignRecoverInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignRecoverInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3870,21 +3080,13 @@ C_SignRecoverInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3901,10 +3103,6 @@ C_SignUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_SignUpdate_Call(
@@ -3915,13 +3113,11 @@ C_SignUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_SignUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -3937,21 +3133,13 @@ C_SignUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -3973,10 +3161,6 @@ C_UnwrapKey(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_UnwrapKey_Call(
@@ -3991,13 +3175,11 @@ C_UnwrapKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_UnwrapKey(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4014,21 +3196,13 @@ C_UnwrapKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4047,10 +3221,6 @@ C_Verify(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_Verify_Call(
@@ -4063,13 +3233,11 @@ C_Verify(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_Verify(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4085,21 +3253,13 @@ C_Verify(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4116,10 +3276,6 @@ C_VerifyFinal(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_VerifyFinal_Call(
@@ -4130,13 +3286,11 @@ C_VerifyFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_VerifyFinal(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4152,21 +3306,13 @@ C_VerifyFinal(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4183,10 +3329,6 @@ C_VerifyInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_VerifyInit_Call(
@@ -4197,13 +3339,11 @@ C_VerifyInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_VerifyInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4219,21 +3359,13 @@ C_VerifyInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4252,10 +3384,6 @@ C_VerifyRecover(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_VerifyRecover_Call(
@@ -4267,13 +3395,11 @@ C_VerifyRecover(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_VerifyRecover(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4291,21 +3417,13 @@ C_VerifyRecover(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4322,10 +3440,6 @@ C_VerifyRecoverInit(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_VerifyRecoverInit_Call(
@@ -4336,13 +3450,11 @@ C_VerifyRecoverInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_VerifyRecoverInit(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4358,21 +3470,13 @@ C_VerifyRecoverInit(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4389,10 +3493,6 @@ C_VerifyUpdate(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_VerifyUpdate_Call(
@@ -4403,13 +3503,11 @@ C_VerifyUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_VerifyUpdate(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4425,21 +3523,13 @@ C_VerifyUpdate(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4456,10 +3546,6 @@ C_WaitForSlotEvent(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_WaitForSlotEvent_Call(
@@ -4469,13 +3555,11 @@ C_WaitForSlotEvent(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_WaitForSlotEvent(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4493,21 +3577,13 @@ C_WaitForSlotEvent(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;
@@ -4527,10 +3603,6 @@ C_WrapKey(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     
 
     status = pack_C_WrapKey_Call(
@@ -4543,13 +3615,11 @@ C_WrapKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_C_WrapKey(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -4567,21 +3637,13 @@ C_WrapKey(
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;

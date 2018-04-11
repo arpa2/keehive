@@ -16,10 +16,6 @@ CK_RV
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    status = server_Begin();
-    if (status != CKR_OK)
-        return status;
-
     {# // disable this for now since we probable don't need it
     {% for type, var in call|extractargs %}
     memset (&{{ var }}, 0, sizeof ({{ var }}));
@@ -35,13 +31,11 @@ CK_RV
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     status = server_{{ f }}(&dercursorIn, &dercursorOut);
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
@@ -60,21 +54,13 @@ CK_RV
     );
 
     if (status != CKR_OK) {
-        server_End();
         return status;
     };
 
     free(dercursorOut.derptr);
 
     if (retval_pointed != CKR_OK) {
-        server_End();
         return retval_pointed;
-    };
-
-    status = server_End();
-    if (status != CKR_OK) {
-        server_End();
-        return status;
     };
 
     return CKR_OK;

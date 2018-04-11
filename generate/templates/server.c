@@ -12,24 +12,6 @@ const char path[] = LIBSOFTHSM2_LIBRARY;
 
 CK_FUNCTION_LIST_PTR function_list = NULL;
 
-
-CK_RV
-server_Begin(){
-    CK_RV status = cryptoki_loader(path, &function_list);
-
-    if (status != CKR_OK)
-        return status;
-
-    return CKR_OK;
-}
-
-
-CK_RV
-server_End(){
-    function_list = NULL;
-    return CKR_OK;
-}
-
 {% for call, return_ in zipped %}
 {% set f = call.type_name[:-5]|under %}
 CK_RV
@@ -38,15 +20,16 @@ server_{{ f }}(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     {% for type_, pointerized, identifier, other in extract_args(call, return_) -%}
     {{ initialise_unpack_placeholders(type_, identifier) }}
     {% endfor %}
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_{{ call.type_name|under }}(

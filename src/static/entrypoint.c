@@ -1,4 +1,5 @@
 #include "cryptoki.h"
+#include "stddef.h"
 
 // PKCS #11 function list
 static CK_FUNCTION_LIST functionList =
@@ -81,7 +82,7 @@ CK_RV
 C_GetFunctionList(
     CK_FUNCTION_LIST_PTR_PTR ppFunctionList
 ) {
-    if (ppFunctionList == NULL_PTR) return CKR_ARGUMENTS_BAD;
+    if (ppFunctionList == NULL) return CKR_ARGUMENTS_BAD;
 
     *ppFunctionList = &functionList;
 

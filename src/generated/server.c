@@ -13,24 +13,6 @@ const char path[] = LIBSOFTHSM2_LIBRARY;
 CK_FUNCTION_LIST_PTR function_list = NULL;
 
 
-CK_RV
-server_Begin(){
-    CK_RV status = cryptoki_loader(path, &function_list);
-
-    if (status != CKR_OK)
-        return status;
-
-    return CKR_OK;
-}
-
-
-CK_RV
-server_End(){
-    function_list = NULL;
-    return CKR_OK;
-}
-
-
 
 CK_RV
 server_C_CancelFunction(
@@ -38,14 +20,15 @@ server_C_CancelFunction(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CancelFunction_Call(
@@ -87,14 +70,15 @@ server_C_CloseAllSessions(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CloseAllSessions_Call(
@@ -136,14 +120,15 @@ server_C_CloseSession(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CloseSession_Call(
@@ -185,8 +170,11 @@ server_C_CopyObject(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -194,8 +182,6 @@ server_C_CopyObject(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CopyObject_Call(
@@ -250,16 +236,17 @@ server_C_CreateObject(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_CreateObject_Call(
@@ -311,8 +298,11 @@ server_C_Decrypt(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -320,8 +310,6 @@ server_C_Decrypt(
     CK_ULONG ulEncryptedDataLen = 0;
     CK_ULONG pulDataLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Decrypt_Call(
@@ -380,8 +368,11 @@ server_C_DecryptDigestUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -389,8 +380,6 @@ server_C_DecryptDigestUpdate(
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptDigestUpdate_Call(
@@ -449,15 +438,16 @@ server_C_DecryptFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulLastPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptFinal_Call(
@@ -509,16 +499,17 @@ server_C_DecryptInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptInit_Call(
@@ -566,8 +557,11 @@ server_C_DecryptUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -575,8 +569,6 @@ server_C_DecryptUpdate(
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptUpdate_Call(
@@ -635,8 +627,11 @@ server_C_DecryptVerifyUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -644,8 +639,6 @@ server_C_DecryptVerifyUpdate(
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DecryptVerifyUpdate_Call(
@@ -704,8 +697,11 @@ server_C_DeriveKey(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -714,8 +710,6 @@ server_C_DeriveKey(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulAttributeCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DeriveKey_Call(
@@ -773,15 +767,16 @@ server_C_DestroyObject(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DestroyObject_Call(
@@ -826,8 +821,11 @@ server_C_Digest(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -835,8 +833,6 @@ server_C_Digest(
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulDigestLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Digest_Call(
@@ -895,8 +891,11 @@ server_C_DigestEncryptUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -904,8 +903,6 @@ server_C_DigestEncryptUpdate(
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestEncryptUpdate_Call(
@@ -964,15 +961,16 @@ server_C_DigestFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulDigestLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestFinal_Call(
@@ -1024,15 +1022,16 @@ server_C_DigestInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestInit_Call(
@@ -1077,15 +1076,16 @@ server_C_DigestKey(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestKey_Call(
@@ -1130,16 +1130,17 @@ server_C_DigestUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_DigestUpdate_Call(
@@ -1188,8 +1189,11 @@ server_C_Encrypt(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -1197,8 +1201,6 @@ server_C_Encrypt(
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulEncryptedDataLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Encrypt_Call(
@@ -1257,15 +1259,16 @@ server_C_EncryptFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulEncryptedDataLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptFinal_Call(
@@ -1317,16 +1320,17 @@ server_C_EncryptInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptInit_Call(
@@ -1374,8 +1378,11 @@ server_C_EncryptUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -1383,8 +1390,6 @@ server_C_EncryptUpdate(
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_EncryptUpdate_Call(
@@ -1443,14 +1448,15 @@ server_C_Finalize(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_VOID_PTR pReserved = malloc(1024);
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Finalize_Call(
@@ -1494,15 +1500,16 @@ server_C_FindObjects(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG ulMaxObjectCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjects_Call(
@@ -1555,14 +1562,15 @@ server_C_FindObjectsFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjectsFinal_Call(
@@ -1604,16 +1612,17 @@ server_C_FindObjectsInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_FindObjectsInit_Call(
@@ -1663,8 +1672,11 @@ server_C_GenerateKey(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -1672,8 +1684,6 @@ server_C_GenerateKey(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateKey_Call(
@@ -1728,8 +1738,11 @@ server_C_GenerateKeyPair(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -1739,8 +1752,6 @@ server_C_GenerateKeyPair(
     CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = malloc(1024);
     CK_ULONG ulPrivateKeyAttributeCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateKeyPair_Call(
@@ -1805,15 +1816,16 @@ server_C_GenerateRandom(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG ulRandomLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GenerateRandom_Call(
@@ -1863,8 +1875,11 @@ server_C_GetAttributeValue(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -1872,8 +1887,6 @@ server_C_GetAttributeValue(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetAttributeValue_Call(
@@ -1926,14 +1939,15 @@ server_C_GetFunctionStatus(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetFunctionStatus_Call(
@@ -1975,13 +1989,14 @@ server_C_GetInfo(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetInfo_Call(
@@ -2024,15 +2039,16 @@ server_C_GetMechanismInfo(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     CK_MECHANISM_TYPE type = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetMechanismInfo_Call(
@@ -2081,15 +2097,16 @@ server_C_GetMechanismList(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     CK_ULONG pulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetMechanismList_Call(
@@ -2140,15 +2157,16 @@ server_C_GetObjectSize(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetObjectSize_Call(
@@ -2197,15 +2215,16 @@ server_C_GetOperationState(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulOperationStateLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetOperationState_Call(
@@ -2257,14 +2276,15 @@ server_C_GetSessionInfo(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSessionInfo_Call(
@@ -2310,14 +2330,15 @@ server_C_GetSlotInfo(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSlotInfo_Call(
@@ -2363,15 +2384,16 @@ server_C_GetSlotList(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_BBOOL tokenPresent = 0;
     CK_ULONG pulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetSlotList_Call(
@@ -2422,14 +2444,15 @@ server_C_GetTokenInfo(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_GetTokenInfo_Call(
@@ -2475,16 +2498,17 @@ server_C_InitPIN(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_UTF8CHAR_ARRAY pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_InitPIN_Call(
@@ -2532,8 +2556,11 @@ server_C_InitToken(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
@@ -2541,8 +2568,6 @@ server_C_InitToken(
     CK_ULONG ulPinLen = 0;
     UTF8String pLabel = malloc(1024);
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_InitToken_Call(
@@ -2593,11 +2618,14 @@ server_C_Initialize(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
-    CK_VOID_PTR pInitArgs = malloc(1024);
+    CK_C_INITIALIZE_ARGS pInitArgs;
     
 
 
@@ -2605,7 +2633,7 @@ server_C_Initialize(
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Initialize_Call(
         cursorIn,
-        pInitArgs
+        &pInitArgs
     );
 
     if (status != CKR_OK)
@@ -2618,7 +2646,7 @@ server_C_Initialize(
 
     retval = call_C_Initialize(
         &function_list,
-        pInitArgs  // CK_VOID_PTR
+        &pInitArgs  // CK_VOID_PTR
     );
 
     status = pack_C_Initialize_Return(
@@ -2644,8 +2672,11 @@ server_C_Login(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -2653,8 +2684,6 @@ server_C_Login(
     CK_UTF8CHAR_ARRAY pPin = malloc(1024);
     CK_ULONG ulPinLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Login_Call(
@@ -2705,14 +2734,15 @@ server_C_Logout(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Logout_Call(
@@ -2754,8 +2784,11 @@ server_C_OpenSession(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
@@ -2763,8 +2796,6 @@ server_C_OpenSession(
     ANY pApplication;
     CK_NOTIFY notify;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_OpenSession_Call(
@@ -2819,16 +2850,17 @@ server_C_SeedRandom(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSeed = malloc(1024);
     CK_ULONG ulSeedLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SeedRandom_Call(
@@ -2877,8 +2909,11 @@ server_C_SetAttributeValue(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -2886,8 +2921,6 @@ server_C_SetAttributeValue(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetAttributeValue_Call(
@@ -2938,8 +2971,11 @@ server_C_SetOperationState(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -2948,8 +2984,6 @@ server_C_SetOperationState(
     CK_OBJECT_HANDLE hEncryptionKey = 0;
     CK_OBJECT_HANDLE hAuthenticationKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetOperationState_Call(
@@ -3004,8 +3038,11 @@ server_C_SetPIN(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3014,8 +3051,6 @@ server_C_SetPIN(
     CK_UTF8CHAR_ARRAY pNewPin = malloc(1024);
     CK_ULONG ulNewPin = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SetPIN_Call(
@@ -3069,8 +3104,11 @@ server_C_Sign(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3078,8 +3116,6 @@ server_C_Sign(
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulSignatureLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Sign_Call(
@@ -3138,8 +3174,11 @@ server_C_SignEncryptUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3147,8 +3186,6 @@ server_C_SignEncryptUpdate(
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignEncryptUpdate_Call(
@@ -3207,15 +3244,16 @@ server_C_SignFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_ULONG pulSignatureLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignFinal_Call(
@@ -3267,16 +3305,17 @@ server_C_SignInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignInit_Call(
@@ -3324,8 +3363,11 @@ server_C_SignRecover(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3333,8 +3375,6 @@ server_C_SignRecover(
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulSignatureLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignRecover_Call(
@@ -3393,16 +3433,17 @@ server_C_SignRecoverInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignRecoverInit_Call(
@@ -3450,16 +3491,17 @@ server_C_SignUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_SignUpdate_Call(
@@ -3508,8 +3550,11 @@ server_C_UnwrapKey(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3520,8 +3565,6 @@ server_C_UnwrapKey(
     CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
     CK_ULONG ulAttributeCount = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_UnwrapKey_Call(
@@ -3586,8 +3629,11 @@ server_C_Verify(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3596,8 +3642,6 @@ server_C_Verify(
     CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_Verify_Call(
@@ -3653,16 +3697,17 @@ server_C_VerifyFinal(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pSignature = malloc(1024);
     CK_ULONG ulSignatureLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyFinal_Call(
@@ -3711,16 +3756,17 @@ server_C_VerifyInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyInit_Call(
@@ -3768,8 +3814,11 @@ server_C_VerifyRecover(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -3777,8 +3826,6 @@ server_C_VerifyRecover(
     CK_ULONG ulSignatureLen = 0;
     CK_ULONG pulDataLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyRecover_Call(
@@ -3837,16 +3884,17 @@ server_C_VerifyRecoverInit(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_MECHANISM_PTR pMechanism = malloc(1024);
     CK_OBJECT_HANDLE hKey = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyRecoverInit_Call(
@@ -3894,16 +3942,17 @@ server_C_VerifyUpdate(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_BYTE_ARRAY pPart = malloc(1024);
     CK_ULONG ulPartLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_VerifyUpdate_Call(
@@ -3952,15 +4001,16 @@ server_C_WaitForSlotEvent(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_FLAGS flags = 0;
     CK_VOID_PTR pReserved = malloc(1024);
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_WaitForSlotEvent_Call(
@@ -4011,8 +4061,11 @@ server_C_WrapKey(
         dercursor *CursorOut
 ){
 
-    if (function_list == NULL_PTR)
-        return CKR_KEEHIVE_SO_INIT_ERROR;
+    if (function_list == NULL) {
+        CK_RV status = cryptoki_loader(path, &function_list);
+        if (status != CKR_OK)
+            return status;
+    }
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
@@ -4021,8 +4074,6 @@ server_C_WrapKey(
     CK_OBJECT_HANDLE hKey = 0;
     CK_ULONG pulWrappedKeyLen = 0;
     
-
-
 
     // unpack the dercursor into the placeholders
     CK_RV status = unpack_C_WrapKey_Call(
