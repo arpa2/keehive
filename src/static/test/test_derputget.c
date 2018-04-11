@@ -84,14 +84,11 @@ void der_putget_CK_ATTRIBUTE_ARRAY(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
-    CK_ULONG ulCount_unpack = 0;
-
     CK_ATTRIBUTE_ARRAY array2 = malloc(count * sizeof(CK_ATTRIBUTE));
 
     dernode node = {.wire=cursor};
     int get_status = der_get_CK_ATTRIBUTE_ARRAY(&node, array2);
+    assert_int_equal(get_status, 0);
 
     assert_memory_equal(array, array2, count * sizeof(CK_MECHANISM_TYPE));
 
