@@ -685,7 +685,7 @@ C-FindObjects-Call ::= SEQUENCE {
 
 C-FindObjects-Return ::= SEQUENCE {
         retval             ACK-RV,
-        phObject       [1] ACK-OBJECT-HANDLE,
+        phObject       [1] ACK-OBJECT-HANDLE-ARRAY,
         pulObjectCount [3] ACK-ULONG
 }
 
@@ -950,6 +950,16 @@ C-VerifyFinal-Call ::= SEQUENCE {
 
 C-VerifyFinal-Return ::= SEQUENCE {
         retval ACK-RV
+}
+
+C-VerifyRecoverInit-Call ::= SEQUENCE {
+        hSession   [0] ACK-SESSION-HANDLE,
+        pMechanism [1] ACK-MECHANISM,
+        hKey       [2] ACK-OBJECT-HANDLE
+}
+
+C-VerifyRecoverInit-Return ::= SEQUENCE {
+        retval         ACK-RV
 }
 
 C-VerifyRecover-Call ::= SEQUENCE {
