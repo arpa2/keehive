@@ -24,9 +24,6 @@ void test_{{ f }}(void **state){
         {% endif -%}
         {% endfor %}
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 {% endfor %}
 

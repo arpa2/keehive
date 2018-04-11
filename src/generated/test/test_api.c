@@ -19,9 +19,6 @@ void test_C_CancelFunction(void **state){
     CK_RV status = C_CancelFunction(
         hSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -35,9 +32,6 @@ void test_C_CloseAllSessions(void **state){
     CK_RV status = C_CloseAllSessions(
         slotID
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -51,9 +45,6 @@ void test_C_CloseSession(void **state){
     CK_RV status = C_CloseSession(
         hSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -81,9 +72,6 @@ void test_C_CopyObject(void **state){
         ulCount,
         phObject
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -109,9 +97,6 @@ void test_C_CreateObject(void **state){
         ulCount,
         phObject
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -134,9 +119,6 @@ void test_C_Decrypt(void **state){
         pData,
         pulDataLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -159,9 +141,6 @@ void test_C_DecryptDigestUpdate(void **state){
         pPart,
         pulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -180,9 +159,6 @@ void test_C_DecryptFinal(void **state){
         pLastPart,
         pulLastPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -200,9 +176,6 @@ void test_C_DecryptInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -225,9 +198,6 @@ void test_C_DecryptUpdate(void **state){
         pPart,
         pulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -250,9 +220,6 @@ void test_C_DecryptVerifyUpdate(void **state){
         pPart,
         pulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -282,9 +249,6 @@ void test_C_DeriveKey(void **state){
         ulAttributeCount,
         phKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -300,9 +264,6 @@ void test_C_DestroyObject(void **state){
         hSession,
         hObject
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -325,9 +286,6 @@ void test_C_Digest(void **state){
         pDigest,
         pulDigestLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -350,9 +308,6 @@ void test_C_DigestEncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -371,9 +326,6 @@ void test_C_DigestFinal(void **state){
         pDigest,
         pulDigestLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -389,9 +341,6 @@ void test_C_DigestInit(void **state){
         hSession,
         pMechanism
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -407,9 +356,6 @@ void test_C_DigestKey(void **state){
         hSession,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -427,9 +373,6 @@ void test_C_DigestUpdate(void **state){
         pPart,
         ulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -452,9 +395,6 @@ void test_C_Encrypt(void **state){
         pEncryptedData,
         pulEncryptedDataLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -473,9 +413,6 @@ void test_C_EncryptFinal(void **state){
         pEncryptedData,
         pulEncryptedDataLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -493,9 +430,6 @@ void test_C_EncryptInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -518,9 +452,6 @@ void test_C_EncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -534,9 +465,6 @@ void test_C_Finalize(void **state){
     CK_RV status = C_Finalize(
         pReserved
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -557,9 +485,6 @@ void test_C_FindObjects(void **state){
         ulMaxObjectCount,
         pulObjectCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -573,9 +498,6 @@ void test_C_FindObjectsFinal(void **state){
     CK_RV status = C_FindObjectsFinal(
         hSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -598,9 +520,6 @@ void test_C_FindObjectsInit(void **state){
         pTemplate,
         ulCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -628,9 +547,6 @@ void test_C_GenerateKey(void **state){
         ulCount,
         phKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -670,9 +586,6 @@ void test_C_GenerateKeyPair(void **state){
         phPublicKey,
         phPrivateKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -690,9 +603,6 @@ void test_C_GenerateRandom(void **state){
         pSeed,
         ulRandomLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -717,9 +627,6 @@ void test_C_GetAttributeValue(void **state){
         pTemplate,
         ulCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -733,9 +640,6 @@ void test_C_GetFunctionStatus(void **state){
     CK_RV status = C_GetFunctionStatus(
         hSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -749,9 +653,6 @@ void test_C_GetInfo(void **state){
     CK_RV status = C_GetInfo(
         pInfo
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -769,9 +670,6 @@ void test_C_GetMechanismInfo(void **state){
         type,
         pInfo
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -790,9 +688,6 @@ void test_C_GetMechanismList(void **state){
         pMechanismList,
         pulCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -811,9 +706,6 @@ void test_C_GetObjectSize(void **state){
         hObject,
         pulSize
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -832,9 +724,6 @@ void test_C_GetOperationState(void **state){
         pOperationState,
         pulOperationStateLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -850,9 +739,6 @@ void test_C_GetSessionInfo(void **state){
         hSession,
         pInfo
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -868,9 +754,6 @@ void test_C_GetSlotInfo(void **state){
         slotID,
         pInfo
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -889,9 +772,6 @@ void test_C_GetSlotList(void **state){
         pSlotList,
         pulCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -907,9 +787,6 @@ void test_C_GetTokenInfo(void **state){
         slotID,
         pInfo
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -927,9 +804,6 @@ void test_C_InitPIN(void **state){
         pPin,
         ulPinLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -949,9 +823,6 @@ void test_C_InitToken(void **state){
         ulPinLen,
         pLabel
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -974,9 +845,6 @@ void test_C_Initialize(void **state){
     CK_RV status = C_Initialize(
         pInitArgs
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -996,9 +864,6 @@ void test_C_Login(void **state){
         pPin,
         ulPinLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1012,9 +877,6 @@ void test_C_Logout(void **state){
     CK_RV status = C_Logout(
         hSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1037,9 +899,6 @@ void test_C_OpenSession(void **state){
         notify,
         phSession
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1057,9 +916,6 @@ void test_C_SeedRandom(void **state){
         pSeed,
         ulSeedLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1084,9 +940,6 @@ void test_C_SetAttributeValue(void **state){
         pTemplate,
         ulCount
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1108,9 +961,6 @@ void test_C_SetOperationState(void **state){
         hEncryptionKey,
         hAuthenticationKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1132,9 +982,6 @@ void test_C_SetPIN(void **state){
         pNewPin,
         ulNewPin
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1157,9 +1004,6 @@ void test_C_Sign(void **state){
         pSignature,
         pulSignatureLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1182,9 +1026,6 @@ void test_C_SignEncryptUpdate(void **state){
         pEncryptedPart,
         pulEncryptedPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1203,9 +1044,6 @@ void test_C_SignFinal(void **state){
         pSignature,
         pulSignatureLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1223,9 +1061,6 @@ void test_C_SignInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1248,9 +1083,6 @@ void test_C_SignRecover(void **state){
         pSignature,
         pulSignatureLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1268,9 +1100,6 @@ void test_C_SignRecoverInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1288,9 +1117,6 @@ void test_C_SignUpdate(void **state){
         pPart,
         ulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1324,9 +1150,6 @@ void test_C_UnwrapKey(void **state){
         ulAttributeCount,
         phKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1348,9 +1171,6 @@ void test_C_Verify(void **state){
         pSignature,
         ulSignatureLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1368,9 +1188,6 @@ void test_C_VerifyFinal(void **state){
         pSignature,
         ulSignatureLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1388,9 +1205,6 @@ void test_C_VerifyInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1413,9 +1227,6 @@ void test_C_VerifyRecover(void **state){
         pData,
         pulDataLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1433,9 +1244,6 @@ void test_C_VerifyRecoverInit(void **state){
         pMechanism,
         hKey
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1453,9 +1261,6 @@ void test_C_VerifyUpdate(void **state){
         pPart,
         ulPartLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1473,9 +1278,6 @@ void test_C_WaitForSlotEvent(void **state){
         pSlot,
         pReserved
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
@@ -1500,9 +1302,6 @@ void test_C_WrapKey(void **state){
         pWrappedKey,
         pulWrappedKeyLen
     );
-
-    assert_int_equal(status, CKR_OK);
-
 };
 
 
