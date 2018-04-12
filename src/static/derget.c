@@ -28,6 +28,15 @@ der_get_ulong(
 };
 
 
+int der_get_CK_DATE(dercursor cursor, CK_DATE* ck_date) {
+    DER_OVLY_RemotePKCS11_ACK_DATE ack_date;
+    dercursor cursor_copy = cursor;
+    int status = der_unpack(&cursor_copy, ACK_DATE_packer, (dercursor *) &ack_date, REPEAT);
+    memcpy(ck_date->year, ack_date.year.derptr, 4);
+    memcpy(ck_date->month, ack_date.year.derptr, 2);
+    memcpy(ck_date->day, ack_date.year.derptr, 2);
+    return status;
+}
 
 /* when don't forget to free() every  .pValue in pTemplate when done */
 int

@@ -192,6 +192,31 @@ void der_putget_CK_ATTRIBUTE_ARRAY_BYTEARRAY(void **state) {
 };
 
 
+void der_putget_CK_ATTRIBUTE_ARRAY_DATE(void **state) {
+    CK_DATE pValue = {.day="01", .month="02", .year="2021"};
+    CK_ATTRIBUTE array1[] = {{.type=CKA_START_DATE, .pValue=&pValue, .ulValueLen=sizeof(CK_BBOOL)},};
+    CK_ULONG count = sizeof(array1) / sizeof(CK_ATTRIBUTE);
+
+    dercursor cursor;
+    CK_RV status = der_put_CK_ATTRIBUTE_ARRAY(array1, count, &cursor.derptr,  &cursor.derlen );
+    assert_int_equal(status, CKR_OK);
+
+    CK_ATTRIBUTE_ARRAY array2 = malloc(count * sizeof(CK_ATTRIBUTE));
+    dernode node = {.wire=cursor};
+    int get_status = der_get_CK_ATTRIBUTE_ARRAY(node, array2);
+    assert_int_equal(get_status, 0);
+
+    for (int i = 0; i < count; i++) {
+        assert_int_equal(array1[i].ulValueLen, array2[i].ulValueLen);
+        assert_int_equal(array1[i].type, array2[i].type);
+        assert_memory_equal(array1[i].pValue, array2[i].pValue, array1[i].ulValueLen);
+        free(array2[i].pValue);
+    };
+
+    free(array2);
+};
+
+
 void der_putget_CK_FLAGS_PTR(void **state) {
 
     CK_FLAGS flags = (CKF_OS_LOCKING_OK | CKF_CLOCK_ON_TOKEN);
@@ -214,6 +239,7 @@ int main(void) {
             cmocka_unit_test(der_putget_CK_ATTRIBUTE_ARRAY_BOOL),
             cmocka_unit_test(der_putget_CK_ATTRIBUTE_ARRAY_ULONG),
             cmocka_unit_test(der_putget_CK_ATTRIBUTE_ARRAY_BYTEARRAY),
+            cmocka_unit_test(der_putget_CK_ATTRIBUTE_ARRAY_DATE),
 
 
 

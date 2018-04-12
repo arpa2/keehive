@@ -693,14 +693,17 @@ const derwalk ulong_array_packer[] = {
         DER_PACK_END
 };
 
-// TODO: is this right?
 const derwalk ByteArray_packer[] = {
         DER_PACK_STORE | DER_TAG_INTEGER,
         DER_PACK_END
 };
 
-// TODO: is this right?
 const derwalk attribute_array_packer[] = {
         DER_PACK_STORE | DER_PACK_RemotePKCS11_ACK_ATTRIBUTE,
+        DER_PACK_END
+};
+
+const derwalk ACK_DATE_packer[] = {
+        DER_PACK_RemotePKCS11_ACK_DATE,
         DER_PACK_END
 };

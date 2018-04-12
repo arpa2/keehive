@@ -5,6 +5,7 @@
 #include "packer.h"
 #include "quick-der/api.h"
 #include "convert.h"
+#include "packer.h"
 
 
 /* use this to reset a der. */
@@ -14,20 +15,9 @@ const dercursor der_empty = {.derptr = NULL, .derlen = 0 };
 const dercursor der_null = {.derptr = (uint8_t *)"", .derlen = 0 };
 
 
-dercursor der_put_long(u_int8_t* der_buf_long, long int value)
-{
-    return der_put_int32(der_buf_long,(u_int32_t) value);
-};
-
-
 dercursor der_put_ulong(u_int8_t* der_buf_ulong, long int value)
 {
     return der_put_uint32(der_buf_ulong, (u_int32_t)value);
-};
-
-dercursor der_put_uint8(u_int8_t* der_buf_uint8, uint8_t value)
-{
-    return der_put_uint32(der_buf_uint8, (u_int32_t)value);
 };
 
 
@@ -367,6 +357,28 @@ der_put_CK_BBOOL_PTR(
     bool boolvalue = (*value == CK_TRUE);
     return der_put_bool (der_buf_bool, boolvalue);
 };
+
+
+dercursor
+der_put_CK_DATE(
+        CK_DATE ck_date,
+        uint8_t *buffer
+) {
+    DER_OVLY_RemotePKCS11_ACK_DATE ack_date;
+
+    dercursor year = { .derptr=ck_date.year, .derlen=4 };
+    dercursor month = { .derptr=ck_date.month, .derlen=2 };
+    dercursor day = { .derptr=ck_date.day, .derlen=2 };
+
+    ack_date.year = year;
+    ack_date.month = month;
+    ack_date.day = day;
+
+    dercursor cursor = {.derptr=buffer, .derlen=16};
+
+    cursor.derlen = der_pack(ACK_DATE_packer, (const dercursor *) &ack_date,  buffer + 16);
+    return cursor;
+}
 
 
 CK_RV

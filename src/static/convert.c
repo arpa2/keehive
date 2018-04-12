@@ -2,80 +2,57 @@
 #include "convert.h"
 #include "derget.h"
 
+func_tree_t functree;
 
-dercursor
-der_put_rfc2279_string(
-        const CK_ATTRIBUTE attribute,
-        uint8_t* buffer
-) {
+dercursor der_put_rfc2279_string(const CK_ATTRIBUTE attribute, uint8_t* buffer) {
     dercursor cursor = {.derptr=buffer, .derlen=attribute.ulValueLen};
     memcpy(cursor.derptr, attribute.pValue, attribute.ulValueLen);
     return cursor;
 }
 
-int
-der_get_rfc2279_string(
-        dercursor cursor,
-        CK_ATTRIBUTE* attribute
-) {
+int der_get_rfc2279_string(dercursor cursor, CK_ATTRIBUTE* attribute) {
     memcpy(attribute->pValue, cursor.derptr, cursor.derlen);
     return 0;
 }
 
-dercursor
-der_put_attribute_bool(
-        const CK_ATTRIBUTE attribute,
-        uint8_t* buffer
-) {
+dercursor der_put_attribute_bool(const CK_ATTRIBUTE attribute, uint8_t* buffer) {
     bool boolvalue = *(CK_BBOOL_PTR)attribute.pValue == CK_TRUE;
     return der_put_bool (buffer, boolvalue);
 }
 
-int
-der_get_attribute_bool(
-        dercursor cursor,
-        CK_ATTRIBUTE* attribute
-) {
+int der_get_attribute_bool(dercursor cursor, CK_ATTRIBUTE* attribute) {
     return der_get_CK_BBOOL_PTR(cursor, attribute->pValue);
 }
 
-dercursor
-der_put_attribute_long(
-        const CK_ATTRIBUTE attribute,
-        uint8_t* buffer
-) {
+dercursor der_put_attribute_long(const CK_ATTRIBUTE attribute, uint8_t* buffer) {
     return der_put_ulong(buffer, *(CK_ULONG_PTR)attribute.pValue);
 }
 
-int
-der_get_attribute_long(
-        dercursor cursor,
-        CK_ATTRIBUTE* attribute
-) {
+int der_get_attribute_long(dercursor cursor, CK_ATTRIBUTE* attribute) {
     return der_get_ulong(cursor, attribute->pValue);
 }
 
 
-dercursor
-der_put_attribute_byte_array(
-        const CK_ATTRIBUTE attribute,
-        uint8_t* buffer
-) {
+dercursor der_put_attribute_byte_array(const CK_ATTRIBUTE attribute, uint8_t* buffer) {
     dercursor cursor;
     der_put_CK_BYTE_ARRAY(attribute.pValue, &attribute.ulValueLen, &cursor.derptr, &cursor.derlen);
     return cursor;
 
 }
 
-int
-der_get_attribute_byte_array(
-        dercursor cursor,
-        CK_ATTRIBUTE* attribute
-) {
+int der_get_attribute_byte_array(dercursor cursor, CK_ATTRIBUTE* attribute) {
     return der_get_CK_BYTE_ARRAY(cursor, attribute->pValue);
 }
 
-func_tree_t functree;
+
+dercursor der_put_attribute_date(const CK_ATTRIBUTE attribute, uint8_t* buffer) {
+    return der_put_CK_DATE(*(CK_DATE *)attribute.pValue, buffer);
+}
+
+int der_get_attribute_date(dercursor cursor, CK_ATTRIBUTE* attribute) {
+    return der_get_CK_DATE(cursor, attribute->pValue);
+}
+
 
 
 func_t func_array[] = {
@@ -113,8 +90,8 @@ func_t func_array[] = {
         {.key=CKA_VERIFY, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_VERIFY_RECOVER,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_DERIVE,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_START_DATE, .put=NULL},  // CK_DATE
-        {.key=CKA_END_DATE, .put=NULL},  // CK_DATE
+        {.key=CKA_START_DATE, der_put_attribute_date, .get=der_get_attribute_date},
+        {.key=CKA_END_DATE, der_put_attribute_date, .get=der_get_attribute_date},
         {.key=CKA_MODULUS, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
         {.key=CKA_MODULUS_BITS,  .put=der_put_attribute_long, .get=der_get_attribute_long},  // not defined
         {.key=CKA_PUBLIC_EXPONENT, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer

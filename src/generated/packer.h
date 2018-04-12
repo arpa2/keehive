@@ -433,4 +433,6 @@ extern const derwalk attribute_array_packer[];
 
 extern const derwalk ulong_array_packer[];
 
+const derwalk ACK_DATE_packer[];
+
 #endif //KEEHIVE_PACKER_H
