@@ -5,4 +5,4 @@ services:
 install:
     - docker build . -t keehive
 script:
-    - true
+    - docker run keehive make test
