@@ -217,21 +217,6 @@ server_C_CopyObject(
 
 
     
-    // do the first call to determine size
-    retval = call_C_CopyObject(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        hObject,  // CK_OBJECT_HANDLE
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulCount,  // CK_ULONG
-        &phObject  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_CopyObject(
@@ -299,20 +284,6 @@ server_C_CreateObject(
     CK_OBJECT_HANDLE phObject = 0;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_CreateObject(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulCount,  // CK_ULONG
-        &phObject  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
 
     
 
@@ -396,7 +367,7 @@ server_C_Decrypt(
         );
 
     
-    
+    pData = malloc(pulDataLen * sizeof(CK_BYTE));
     
     
 
@@ -487,7 +458,7 @@ server_C_DecryptDigestUpdate(
         );
 
     
-    
+    pPart = malloc(pulPartLen * sizeof(CK_BYTE));
     
     
 
@@ -707,7 +678,7 @@ server_C_DecryptUpdate(
         );
 
     
-    
+    pPart = malloc(pulPartLen * sizeof(CK_BYTE));
     
     
 
@@ -798,7 +769,7 @@ server_C_DecryptVerifyUpdate(
         );
 
     
-    
+    pPart = malloc(pulPartLen * sizeof(CK_BYTE));
     
     
 
@@ -877,22 +848,6 @@ server_C_DeriveKey(
     CK_OBJECT_HANDLE phKey = 0;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_DeriveKey(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pMechanism,  // CK_MECHANISM_PTR
-        hBaseKey,  // CK_OBJECT_HANDLE
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulAttributeCount,  // CK_ULONG
-        &phKey  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
 
     
 
@@ -1028,22 +983,6 @@ server_C_Digest(
 
 
     
-    // do the first call to determine size
-    retval = call_C_Digest(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pData,  // CK_BYTE_ARRAY
-        ulDataLen,  // CK_ULONG
-        pDigest,  // CK_BYTE_ARRAY
-        &pulDigestLen  // CK_ULONG_PTR
-        );
-
-    
-    
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_Digest(
@@ -1130,7 +1069,7 @@ server_C_DigestEncryptUpdate(
         );
 
     
-    
+    pEncryptedPart = malloc(pulEncryptedPartLen * sizeof(CK_BYTE));
     
     
 
@@ -1390,18 +1329,6 @@ server_C_DigestUpdate(
 
 
     
-    // do the first call to determine size
-    retval = call_C_DigestUpdate(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pPart,  // CK_BYTE_ARRAY
-        ulPartLen  // CK_ULONG
-        );
-
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_DigestUpdate(
@@ -1481,7 +1408,7 @@ server_C_Encrypt(
         );
 
     
-    
+    pEncryptedData = malloc(pulEncryptedDataLen * sizeof(CK_BYTE));
     
     
 
@@ -1555,6 +1482,20 @@ server_C_EncryptFinal(
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_EncryptFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG_PTR
+        );
+
+    
+    pEncryptedData = malloc(pulEncryptedDataLen * sizeof(CK_BYTE));
+    
+    
 
     
 
@@ -1701,7 +1642,7 @@ server_C_EncryptUpdate(
         );
 
     
-    
+    pEncryptedPart = malloc(pulEncryptedPartLen * sizeof(CK_BYTE));
     
     
 
@@ -1832,6 +1773,21 @@ server_C_FindObjects(
     CK_ULONG pulObjectCount = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_FindObjects(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        phObject,  // CK_OBJECT_HANDLE_ARRAY
+        ulMaxObjectCount,  // CK_ULONG
+        &pulObjectCount  // CK_ULONG_PTR
+        );
+
+    
+    phObject = malloc(pulObjectCount * sizeof(CK_OBJECT_HANDLE));
+    
+    
 
     
 
@@ -1966,7 +1922,7 @@ server_C_FindObjectsInit(
         );
 
     
-    pTemplate = malloc(ulCount * sizeof(CK_ULONG));
+    pTemplate = malloc(0 /* todo: this is wrong, issue #6 */ * sizeof(CK_ATTRIBUTE));
     
 
     
@@ -2035,21 +1991,6 @@ server_C_GenerateKey(
     CK_OBJECT_HANDLE phKey = 0;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_GenerateKey(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pMechanism,  // CK_MECHANISM_PTR
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulCount,  // CK_ULONG
-        &phKey  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
 
     
 
@@ -2128,25 +2069,6 @@ server_C_GenerateKeyPair(
 
 
     
-    // do the first call to determine size
-    retval = call_C_GenerateKeyPair(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pMechanism,  // CK_MECHANISM_PTR
-        pPublicKeyTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulPublicKeyAttributeCount,  // CK_ULONG
-        pPrivateKeyTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulPrivateKeyAttributeCount,  // CK_ULONG
-        &phPublicKey,  // CK_OBJECT_HANDLE_PTR
-        &phPrivateKey  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_GenerateKeyPair(
@@ -2219,6 +2141,19 @@ server_C_GenerateRandom(
     CK_BYTE_ARRAY pSeed = NULL;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GenerateRandom(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSeed,  // CK_BYTE_ARRAY
+        ulRandomLen  // CK_ULONG
+        );
+
+    
+    pSeed = malloc(0 /* todo: this is wrong, issue #6 */  * sizeof(CK_BYTE));
+    
 
     
 
@@ -2299,7 +2234,7 @@ server_C_GetAttributeValue(
         );
 
     
-    pTemplate = malloc(ulCount * sizeof(CK_ULONG));
+    pTemplate = malloc(0 /* todo: this is wrong, issue #6 */  * sizeof(CK_ATTRIBUTE));
     
 
     
@@ -2542,6 +2477,20 @@ server_C_GetMechanismList(
 
 
     
+    // do the first call to determine size
+    retval = call_C_GetMechanismList(
+        &function_list,
+        slotID,  // CK_SLOT_ID
+        pMechanismList,  // CK_MECHANISM_TYPE_ARRAY
+        &pulCount  // CK_ULONG_PTR
+        );
+
+    
+    pMechanismList = malloc(pulCount * sizeof(CK_MECHANISM_TYPE));
+    
+    
+
+    
 
     // do the actual library call
     retval = call_C_GetMechanismList(
@@ -2668,6 +2617,20 @@ server_C_GetOperationState(
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GetOperationState(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pOperationState,  // CK_BYTE_ARRAY
+        &pulOperationStateLen  // CK_ULONG_PTR
+        );
+
+    
+    pOperationState = malloc(pulOperationStateLen * sizeof(CK_BYTE));
+    
+    
 
     
 
@@ -3373,18 +3336,6 @@ server_C_SeedRandom(
 
 
     
-    // do the first call to determine size
-    retval = call_C_SeedRandom(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pSeed,  // CK_BYTE_ARRAY
-        ulSeedLen  // CK_ULONG
-        );
-
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_SeedRandom(
@@ -3449,19 +3400,6 @@ server_C_SetAttributeValue(
     CK_RV retval;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_SetAttributeValue(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        hObject,  // CK_OBJECT_HANDLE
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulCount  // CK_ULONG
-        );
-
-    
-    
 
     
 
@@ -3531,20 +3469,6 @@ server_C_SetOperationState(
     CK_RV retval;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_SetOperationState(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pOperationState,  // CK_BYTE_ARRAY
-        ulOperationStateLen,  // CK_ULONG
-        hEncryptionKey,  // CK_OBJECT_HANDLE
-        hAuthenticationKey  // CK_OBJECT_HANDLE
-        );
-
-    
-    
 
     
 
@@ -3701,7 +3625,7 @@ server_C_Sign(
         );
 
     
-    
+    pSignature = malloc(pulSignatureLen * sizeof(CK_BYTE));
     
     
 
@@ -3792,7 +3716,7 @@ server_C_SignEncryptUpdate(
         );
 
     
-    
+    pEncryptedPart = malloc(pulEncryptedPartLen * sizeof(CK_BYTE));
     
     
 
@@ -3866,6 +3790,20 @@ server_C_SignFinal(
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SignFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+        );
+
+    
+    pSignature = malloc(pulSignatureLen * sizeof(CK_BYTE));
+    
+    
 
     
 
@@ -4012,7 +3950,7 @@ server_C_SignRecover(
         );
 
     
-    
+    pSignature = malloc(pulSignatureLen * sizeof(CK_BYTE));
     
     
 
@@ -4151,18 +4089,6 @@ server_C_SignUpdate(
 
 
     
-    // do the first call to determine size
-    retval = call_C_SignUpdate(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pPart,  // CK_BYTE_ARRAY
-        ulPartLen  // CK_ULONG
-        );
-
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_SignUpdate(
@@ -4234,24 +4160,6 @@ server_C_UnwrapKey(
     CK_OBJECT_HANDLE phKey = 0;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_UnwrapKey(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pMechanism,  // CK_MECHANISM_PTR
-        hUnwrappingKey,  // CK_OBJECT_HANDLE
-        pWrappedKey,  // CK_BYTE_ARRAY
-        ulWrappedKeyLen,  // CK_ULONG
-        pTemplate,  // CK_ATTRIBUTE_ARRAY
-        ulAttributeCount,  // CK_ULONG
-        &phKey  // CK_OBJECT_HANDLE_PTR
-        );
-
-    
-    
-    
 
     
 
@@ -4333,20 +4241,6 @@ server_C_Verify(
 
 
     
-    // do the first call to determine size
-    retval = call_C_Verify(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pData,  // CK_BYTE_ARRAY
-        ulDataLen,  // CK_ULONG
-        pSignature,  // CK_BYTE_ARRAY
-        ulSignatureLen  // CK_ULONG
-        );
-
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_Verify(
@@ -4414,18 +4308,6 @@ server_C_VerifyFinal(
     CK_RV retval;
     
 
-
-    
-    // do the first call to determine size
-    retval = call_C_VerifyFinal(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pSignature,  // CK_BYTE_ARRAY
-        ulSignatureLen  // CK_ULONG
-        );
-
-    
-    
 
     
 
@@ -4570,7 +4452,7 @@ server_C_VerifyRecover(
         );
 
     
-    
+    pData = malloc(pulDataLen * sizeof(CK_BYTE));
     
     
 
@@ -4709,18 +4591,6 @@ server_C_VerifyUpdate(
 
 
     
-    // do the first call to determine size
-    retval = call_C_VerifyUpdate(
-        &function_list,
-        hSession,  // CK_SESSION_HANDLE
-        pPart,  // CK_BYTE_ARRAY
-        ulPartLen  // CK_ULONG
-        );
-
-    
-    
-
-    
 
     // do the actual library call
     retval = call_C_VerifyUpdate(
@@ -4854,6 +4724,23 @@ server_C_WrapKey(
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_WrapKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hWrappingKey,  // CK_OBJECT_HANDLE
+        hKey,  // CK_OBJECT_HANDLE
+        pWrappedKey,  // CK_BYTE_ARRAY
+        &pulWrappedKeyLen  // CK_ULONG_PTR
+        );
+
+    
+    pWrappedKey = malloc(pulWrappedKeyLen * sizeof(CK_BYTE));
+    
+    
 
     
 

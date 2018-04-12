@@ -25,6 +25,9 @@ void softhsm(void **state) {
         CK_SLOT_INFO slot_info;
         status = C_GetSlotInfo(slotlist[i], &slot_info);
         assert_int_equal(status, 0);
+        CK_TOKEN_INFO token_info;
+        status = C_GetTokenInfo(slotlist[i], &token_info);
+        assert_int_equal(status, 0);
     }
 }
 
