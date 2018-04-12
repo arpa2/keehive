@@ -43,11 +43,29 @@ server_{{ f }}(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     {% for type_, pointerized, identifier, other in extract_args(return_, call) -%}
-    {% if not other %}{{ initialise_unpack_placeholders(type_, identifier) }}{% endif %}
+    {% if not other %}{{ initialise_unpack_placeholders(type_, identifier, malloc=False) }}{% endif %}
     {% endfor %}
 
+
+    {% if do_double_call(f) %}
+    // do the first call to determine size
+    retval = call_{{ f }}(
+        &function_list
+        {%- for type_, pointerized, value in combined_args(call, return_, disable_pointerisation=False) -%}
+        {%- if loop.first %},{% endif %}
+        {% if pointerized %}&{% endif %}{{ value }}{% if not loop.last %},{% endif %}  // {{ type_ }}
+        {%- endfor %}
+        );
+
+    {% for type_, pointerized, identifier, other in extract_args(return_, call) -%}
+    {{ get_size(f, identifier) }}
+    {% endfor %}
+
+    {% endif %}
+
+    // do the actual library call
     retval = call_{{ f }}(
         &function_list
         {%- for type_, pointerized, value in combined_args(call, return_, disable_pointerisation=False) -%}
@@ -56,6 +74,7 @@ server_{{ f }}(
         {%- endfor %}
     );
 
+    // pack the response
     status = pack_{{ f }}_Return(
         CursorOut
         {%- for type_, pointerized, value, other in extract_args(return_, call, False) -%}

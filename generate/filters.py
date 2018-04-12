@@ -300,7 +300,7 @@ def initialise_test(type_, identifier, function_name=None):
         return "{} {} = NULL;  /* todo: probably requires finetuning */".format(type_, identifier)
 
 
-def initialise_unpack_placeholders(type_, identifier):
+def initialise_unpack_placeholders(type_, identifier, malloc=True):
     """used to initialise the verification variables used in tests, typically set to something else than the test
     initialise variables :)"""
     if type_ == "CK_MECHANISM_TYPE_ARRAY":
@@ -310,8 +310,14 @@ def initialise_unpack_placeholders(type_, identifier):
         return "{} {} = 0;".format(type_, identifier)
     elif identifier == "pReserved":
         return "{} {} = NULL;".format(type_, identifier)
+    elif identifier == "pInitArgs":
+        return """CK_C_INITIALIZE_ARGS tmp;
+    CK_VOID_PTR pInitArgs = (CK_VOID_PTR)&tmp;"""
     elif type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ == "UTF8String":
-        return "{} {} = malloc(1024);".format(type_, identifier)
+        if malloc:
+            return "{} {} = malloc(1024);".format(type_, identifier)
+        else:
+            return "{} {} = NULL;".format(type_, identifier)
     else:
         return "{} {};".format(type_, identifier)
 
@@ -344,90 +350,127 @@ def depointerize(type_):
         raise Exception("dont know what to do with type '{}'".format(type_))
 
 
+unambiguous = {
+    "pPin": "ulPinLen",
+    "pOldPin": "ulOldLen",
+    "pNewPin": "ulNewPin",
+    "pLabel": "(sizeof(pLabel) / sizeof(UTF8String))",
+    "pLastPart": "pulLastPartLen",
+    "pDigest": "pulDigestLen"
+}
+ambiguous = {
+    ("C_DeriveKey_Call", "pTemplate"): "ulAttributeCount",
+    ("C_FindObjectsInit_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */",
+    ("C_GenerateKeyPair_Call", "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
+    ("C_GenerateKeyPair_Call", "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
+    ("C_GetAttributeValue_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */ ",
+    ("C_UnwrapKey_Call", "pTemplate"): "ulAttributeCount",
+    ("C_CopyObject_Call", "pTemplate"): "ulCount",
+    ("C_CreateObject_Call", "pTemplate"): "ulCount",
+    ("C_FindObjectsInit_Call", "pTemplate"): "ulCount",
+    ("C_GenerateKey_Call", "pTemplate"): "ulCount",
+    ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
+    ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
+
+    ("C_SeedRandom_Call", "pSeed"): "ulSeedLen",
+    ("C_GenerateRandom_Return", "pSeed"): "0 /* todo: this is wrong, issue #6 */ ",
+
+    ("C_Digest_Call", "pData"): "ulDataLen",
+    ("C_Encrypt_Call", "pData"): "ulDataLen",
+    ("C_Sign_Call", "pData"): "ulDataLen",
+    ("C_SignRecover_Call", "pData"): "ulDataLen",
+    ("C_Verify_Call", "pData"): "ulDataLen",
+
+    ("C_Decrypt_Return", "pData"): "pulDataLen",
+    ("C_VerifyRecover_Return", "pData"): "pulDataLen",
+
+    ("C_SignEncryptUpdate_Call", "pPart"): "ulPartLen",
+    ("C_SignUpdate_Call", "pPart"): "ulPartLen",
+    ("C_VerifyUpdate_Call", "pPart"): "ulPartLen",
+    ("C_DigestEncryptUpdate_Call", "pPart"): "ulPartLen",
+    ("C_DigestUpdate_Call", "pPart"): "ulPartLen",
+    ("C_EncryptUpdate_Call", "pPart"): "ulPartLen",
+    ("C_DecryptDigestUpdate_Return", "pPart"): "pulPartLen",
+    ("C_DecryptUpdate_Return", "pPart"): "pulPartLen",
+    ("C_DecryptVerifyUpdate_Return", "pPart"): "pulPartLen",
+
+    ('C_GetOperationState_Return', 'pOperationState'): "pulOperationStateLen",
+    ('C_SetOperationState_Call', 'pOperationState'): "ulOperationStateLen",
+
+    ('C_Sign_Return', 'pSignature'): "pulSignatureLen",
+    ('C_SignFinal_Return', 'pSignature'): "pulSignatureLen",
+    ('C_SignRecover_Return', 'pSignature'): "pulSignatureLen",
+    ('C_Verify_Call', 'pSignature'): "ulSignatureLen",
+    ('C_VerifyFinal_Call', 'pSignature'): "ulSignatureLen",
+    ('C_VerifyRecover_Call', 'pSignature'): "ulSignatureLen",
+
+    ('C_UnwrapKey_Call', 'pWrappedKey'): "ulWrappedKeyLen",
+    ('C_WrapKey_Return', 'pWrappedKey'): "pulWrappedKeyLen",
+
+    ('C_DecryptDigestUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+    ('C_DecryptUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+    ('C_DecryptVerifyUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
+    ('C_DigestEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+    ('C_EncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+    ('C_SignEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
+
+    ("C_Decrypt_Call", "pEncryptedData"): "ulEncryptedDataLen",
+    ('C_Encrypt_Return', 'pEncryptedData'): "pulEncryptedDataLen",
+    ('C_EncryptFinal_Return', 'pEncryptedData'): "pulEncryptedDataLen",
+
+    ('C_GetSlotList_Return', 'pSlotList'): "pulCount",
+
+    ('C_GetMechanismList_Return', 'pMechanismList'): "pulCount",
+
+    ('C_FindObjects_Return', 'phObject'): "pulObjectCount",
+
+}
+
+double_roundtrip = {
+
+    'C_DeriveKey': (('pTemplate', 'ulAttributeCount', 'CK_ULONG'),),
+    'C_GenerateKeyPair': (('pPublicKeyTemplate', 'ulPublicKeyAttributeCount', 'CK_ULONG'),
+                               ('pPrivateKeyTemplate', 'ulPrivateKeyAttributeCount', 'CK_ULONG'),),
+    'C_UnwrapKey': (('pTemplate', 'ulAttributeCount', 'CK_ULONG'),
+                         ('pWrappedKey', 'ulWrappedKeyLen', 'CK_ULONG'),),
+    'C_CopyObject': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_CreateObject': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_FindObjectsInit': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_GenerateKey': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_GetAttributeValue': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_SetAttributeValue': (('pTemplate', 'ulCount', 'CK_ULONG'),),
+    'C_SeedRandom': (('pSeed', 'ulSeedLen', 'CK_ULONG'),),
+    'C_Digest': (('pData', 'ulDataLen', 'CK_ULONG'),),
+    'C_Encrypt': (('pData', 'ulDataLen', 'CK_ULONG'),),
+    'C_Sign': (('pData', 'ulDataLen', 'CK_ULONG'),),
+    'C_SignRecover': (('pData', 'ulDataLen', 'CK_ULONG'),),
+    'C_SignEncryptUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_SignUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_VerifyUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_DigestEncryptUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_DigestUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_EncryptUpdate': (('pPart', 'ulPartLen', 'CK_ULONG'),),
+    'C_SetOperationState': (('pOperationState', 'ulOperationStateLen', 'CK_ULONG'),),
+    'C_Verify': (('pSignature', 'ulSignatureLen', 'CK_ULONG'),
+                      ('pData', 'ulDataLen', 'CK_ULONG'),),
+    'C_VerifyFinal': (('pSignature', 'ulSignatureLen', 'CK_ULONG'),),
+    'C_VerifyRecover': (('pSignature', 'ulSignatureLen', 'CK_ULONG'),),
+    'C_DecryptDigestUpdate': (('pEncryptedPart', 'ulEncryptedPartLen', 'CK_ULONG'),),
+    'C_DecryptUpdate': (('pEncryptedPart', 'ulEncryptedPartLen', 'CK_ULONG'),),
+    'C_DecryptVerifyUpdate': (('pEncryptedPart', 'ulEncryptedPartLen', 'CK_ULONG'),),
+    'C_Decrypt': (('pEncryptedData', 'ulEncryptedDataLen', 'CK_ULONG'),),
+    'C_GetSlotList':  (('pSlotList', "pulCount", "CK_SLOT_ID"),),
+}
+
+no_pointer = {
+    ("C_FindObjectsInit_Return", "pTemplate"): True,
+    ("C_GetAttributeValue_Return", "pTemplate"): True,
+    ("C_GenerateRandom_Return", "pSeed"): True,
+}
+
+
 def len_mapper(func, identifier, deref=False):
     """this is a map of structure names to a variable that contains the length"""
-    unambiguous = {
-        "pPin": "ulPinLen",
-        "pOldPin": "ulOldLen",
-        "pNewPin": "ulNewPin",
-        "pLabel": "(sizeof(pLabel) / sizeof(UTF8String))",
-        "pLastPart": "pulLastPartLen",
-        "pDigest": "pulDigestLen"
-    }
-    ambiguous = {
-        ("C_DeriveKey_Call", "pTemplate"): "ulAttributeCount",
-        ("C_FindObjectsInit_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */",
-        ("C_GenerateKeyPair_Call", "pPublicKeyTemplate"): "ulPublicKeyAttributeCount",
-        ("C_GenerateKeyPair_Call", "pPrivateKeyTemplate"): "ulPrivateKeyAttributeCount",
-        ("C_GetAttributeValue_Return", "pTemplate"): "0 /* todo: this is wrong, issue #6 */ ",
-        ("C_UnwrapKey_Call", "pTemplate"): "ulAttributeCount",
-        ("C_CopyObject_Call", "pTemplate"): "ulCount",
-        ("C_CreateObject_Call", "pTemplate"): "ulCount",
-        ("C_FindObjectsInit_Call", "pTemplate"): "ulCount",
-        ("C_GenerateKey_Call", "pTemplate"): "ulCount",
-        ("C_GetAttributeValue_Call", "pTemplate"): "ulCount",
-        ("C_SetAttributeValue_Call", "pTemplate"): "ulCount",
-
-        ("C_SeedRandom_Call", "pSeed"): "ulSeedLen",
-        ("C_GenerateRandom_Return", "pSeed"): "0 /* todo: this is wrong, issue #6 */ ",
-
-        ("C_Digest_Call", "pData"): "ulDataLen",
-        ("C_Encrypt_Call", "pData"): "ulDataLen",
-        ("C_Sign_Call", "pData"): "ulDataLen",
-        ("C_SignRecover_Call", "pData"): "ulDataLen",
-        ("C_Verify_Call", "pData"): "ulDataLen",
-
-        ("C_Decrypt_Return", "pData"): "pulDataLen",
-        ("C_VerifyRecover_Return", "pData"): "pulDataLen",
-
-        ("C_SignEncryptUpdate_Call", "pPart"): "ulPartLen",
-        ("C_SignUpdate_Call", "pPart"): "ulPartLen",
-        ("C_VerifyUpdate_Call", "pPart"): "ulPartLen",
-        ("C_DigestEncryptUpdate_Call", "pPart"): "ulPartLen",
-        ("C_DigestUpdate_Call", "pPart"): "ulPartLen",
-        ("C_EncryptUpdate_Call", "pPart"): "ulPartLen",
-        ("C_DecryptDigestUpdate_Return", "pPart"): "pulPartLen",
-        ("C_DecryptUpdate_Return", "pPart"): "pulPartLen",
-        ("C_DecryptVerifyUpdate_Return", "pPart"): "pulPartLen",
-
-        ('C_GetOperationState_Return', 'pOperationState'): "pulOperationStateLen",
-        ('C_SetOperationState_Call', 'pOperationState'): "ulOperationStateLen",
-
-        ('C_Sign_Return', 'pSignature'): "pulSignatureLen",
-        ('C_SignFinal_Return', 'pSignature'): "pulSignatureLen",
-        ('C_SignRecover_Return', 'pSignature'): "pulSignatureLen",
-        ('C_Verify_Call', 'pSignature'): "ulSignatureLen",
-        ('C_VerifyFinal_Call', 'pSignature'): "ulSignatureLen",
-        ('C_VerifyRecover_Call', 'pSignature'): "ulSignatureLen",
-
-        ('C_UnwrapKey_Call', 'pWrappedKey'): "ulWrappedKeyLen",
-        ('C_WrapKey_Return', 'pWrappedKey'): "pulWrappedKeyLen",
-
-        ('C_DecryptDigestUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
-        ('C_DecryptUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
-        ('C_DecryptVerifyUpdate_Call', 'pEncryptedPart'): "ulEncryptedPartLen",
-        ('C_DigestEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
-        ('C_EncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
-        ('C_SignEncryptUpdate_Return', 'pEncryptedPart'): "pulEncryptedPartLen",
-
-        ("C_Decrypt_Call", "pEncryptedData"): "ulEncryptedDataLen",
-        ('C_Encrypt_Return', 'pEncryptedData'): "pulEncryptedDataLen",
-        ('C_EncryptFinal_Return', 'pEncryptedData'): "pulEncryptedDataLen",
-
-        ('C_GetSlotList_Return', 'pSlotList'): "pulCount",
-
-        ('C_GetMechanismList_Return', 'pMechanismList'): "pulCount",
-
-        ('C_FindObjects_Return', 'phObject'): "pulObjectCount",
-
-    }
-
-    no_pointer = {
-        ("C_FindObjectsInit_Return", "pTemplate"): True,
-        ("C_GetAttributeValue_Return", "pTemplate"): True,
-        ("C_GenerateRandom_Return", "pSeed"): True,
-    }
-
     if identifier in unambiguous:
         answer = unambiguous[identifier]
     else:
@@ -437,3 +480,16 @@ def len_mapper(func, identifier, deref=False):
         answer = "*" + answer
 
     return answer
+
+
+def get_size(func, identifier):
+    x = []
+    if func in double_roundtrip:
+        for var, size, type in double_roundtrip[func]:
+            if var == identifier:
+                x.append("{} = malloc({} * sizeof({}));".format(var, size, type))
+    return "\n".join(x)
+
+
+def do_double_call(func):
+    return func in double_roundtrip

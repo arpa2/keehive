@@ -39,15 +39,20 @@ server_C_CancelFunction(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_CancelFunction(
         &function_list,
         hSession  // CK_SESSION_HANDLE
     );
 
+    // pack the response
     status = pack_C_CancelFunction_Return(
         CursorOut,
         &retval  // CK_RV
@@ -89,15 +94,20 @@ server_C_CloseAllSessions(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_CloseAllSessions(
         &function_list,
         slotID  // CK_SLOT_ID
     );
 
+    // pack the response
     status = pack_C_CloseAllSessions_Return(
         CursorOut,
         &retval  // CK_RV
@@ -139,15 +149,20 @@ server_C_CloseSession(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_CloseSession(
         &function_list,
         hSession  // CK_SESSION_HANDLE
     );
 
+    // pack the response
     status = pack_C_CloseSession_Return(
         CursorOut,
         &retval  // CK_RV
@@ -195,11 +210,30 @@ server_C_CopyObject(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phObject = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_CopyObject(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phObject  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_CopyObject(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -209,6 +243,7 @@ server_C_CopyObject(
         &phObject  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_CopyObject_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -259,11 +294,29 @@ server_C_CreateObject(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phObject = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_CreateObject(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phObject  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_CreateObject(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -272,6 +325,7 @@ server_C_CreateObject(
         &phObject  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_CreateObject_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -323,12 +377,32 @@ server_C_Decrypt(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_Decrypt(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedData,  // CK_BYTE_ARRAY
+        ulEncryptedDataLen,  // CK_ULONG
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_Decrypt(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -338,6 +412,7 @@ server_C_Decrypt(
         &pulDataLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_Decrypt_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -393,12 +468,32 @@ server_C_DecryptDigestUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DecryptDigestUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DecryptDigestUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -408,6 +503,7 @@ server_C_DecryptDigestUpdate(
         &pulPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DecryptDigestUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -459,12 +555,16 @@ server_C_DecryptFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pLastPart = malloc(1024);
+    CK_BYTE_ARRAY pLastPart = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DecryptFinal(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -472,6 +572,7 @@ server_C_DecryptFinal(
         &pulLastPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DecryptFinal_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -522,10 +623,14 @@ server_C_DecryptInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DecryptInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -533,6 +638,7 @@ server_C_DecryptInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_DecryptInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -582,12 +688,32 @@ server_C_DecryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DecryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DecryptUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -597,6 +723,7 @@ server_C_DecryptUpdate(
         &pulPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DecryptUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -652,12 +779,32 @@ server_C_DecryptVerifyUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DecryptVerifyUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        ulEncryptedPartLen,  // CK_ULONG
+        pPart,  // CK_BYTE_ARRAY
+        &pulPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DecryptVerifyUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -667,6 +814,7 @@ server_C_DecryptVerifyUpdate(
         &pulPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DecryptVerifyUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -724,11 +872,31 @@ server_C_DeriveKey(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DeriveKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hBaseKey,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulAttributeCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DeriveKey(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -739,6 +907,7 @@ server_C_DeriveKey(
         &phKey  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_DeriveKey_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -788,16 +957,21 @@ server_C_DestroyObject(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DestroyObject(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
         hObject  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_DestroyObject_Return(
         CursorOut,
         &retval  // CK_RV
@@ -846,12 +1020,32 @@ server_C_Digest(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pDigest = malloc(1024);
+    CK_BYTE_ARRAY pDigest = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_Digest(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_Digest(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -861,6 +1055,7 @@ server_C_Digest(
         &pulDigestLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_Digest_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -916,12 +1111,32 @@ server_C_DigestEncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DigestEncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DigestEncryptUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -931,6 +1146,7 @@ server_C_DigestEncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DigestEncryptUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -982,12 +1198,16 @@ server_C_DigestFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pDigest = malloc(1024);
+    CK_BYTE_ARRAY pDigest = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DigestFinal(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -995,6 +1215,7 @@ server_C_DigestFinal(
         &pulDigestLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_DigestFinal_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1043,16 +1264,21 @@ server_C_DigestInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DigestInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
         pMechanism  // CK_MECHANISM_PTR
     );
 
+    // pack the response
     status = pack_C_DigestInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -1097,16 +1323,21 @@ server_C_DigestKey(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_DigestKey(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_DigestKey_Return(
         CursorOut,
         &retval  // CK_RV
@@ -1153,10 +1384,26 @@ server_C_DigestUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_DigestUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_DigestUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1164,6 +1411,7 @@ server_C_DigestUpdate(
         ulPartLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_DigestUpdate_Return(
         CursorOut,
         &retval  // CK_RV
@@ -1214,12 +1462,32 @@ server_C_Encrypt(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_Encrypt(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pEncryptedData,  // CK_BYTE_ARRAY
+        &pulEncryptedDataLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_Encrypt(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1229,6 +1497,7 @@ server_C_Encrypt(
         &pulEncryptedDataLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_Encrypt_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1280,12 +1549,16 @@ server_C_EncryptFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_EncryptFinal(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1293,6 +1566,7 @@ server_C_EncryptFinal(
         &pulEncryptedDataLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_EncryptFinal_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1343,10 +1617,14 @@ server_C_EncryptInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_EncryptInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1354,6 +1632,7 @@ server_C_EncryptInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_EncryptInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -1403,12 +1682,32 @@ server_C_EncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_EncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_EncryptUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1418,6 +1717,7 @@ server_C_EncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_EncryptUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1467,16 +1767,21 @@ server_C_Finalize(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_Finalize(
         &function_list,
         pReserved  // ANY
     );
 
+    // pack the response
     status = pack_C_Finalize_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1521,12 +1826,16 @@ server_C_FindObjects(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_OBJECT_HANDLE_ARRAY phObject = malloc(1024);
+    CK_OBJECT_HANDLE_ARRAY phObject = NULL;
     CK_ULONG pulObjectCount = 0;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_FindObjects(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1535,6 +1844,7 @@ server_C_FindObjects(
         &pulObjectCount  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_FindObjects_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1581,15 +1891,20 @@ server_C_FindObjectsFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_FindObjectsFinal(
         &function_list,
         hSession  // CK_SESSION_HANDLE
     );
 
+    // pack the response
     status = pack_C_FindObjectsFinal_Return(
         CursorOut,
         &retval  // CK_RV
@@ -1635,11 +1950,28 @@ server_C_FindObjectsInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_FindObjectsInit(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+        );
+
+    
+    pTemplate = malloc(ulCount * sizeof(CK_ULONG));
+    
+
+    
+
+    // do the actual library call
     retval = call_C_FindObjectsInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1647,6 +1979,7 @@ server_C_FindObjectsInit(
         ulCount  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_FindObjectsInit_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1697,11 +2030,30 @@ server_C_GenerateKey(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GenerateKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_GenerateKey(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1711,6 +2063,7 @@ server_C_GenerateKey(
         &phKey  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_GenerateKey_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1767,12 +2120,35 @@ server_C_GenerateKeyPair(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phPublicKey = 0;
     CK_OBJECT_HANDLE phPrivateKey = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GenerateKeyPair(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        pPublicKeyTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulPublicKeyAttributeCount,  // CK_ULONG
+        pPrivateKeyTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulPrivateKeyAttributeCount,  // CK_ULONG
+        &phPublicKey,  // CK_OBJECT_HANDLE_PTR
+        &phPrivateKey  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_GenerateKeyPair(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1785,6 +2161,7 @@ server_C_GenerateKeyPair(
         &phPrivateKey  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_GenerateKeyPair_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1837,11 +2214,15 @@ server_C_GenerateRandom(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pSeed = malloc(1024);
+    CK_BYTE_ARRAY pSeed = NULL;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GenerateRandom(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1849,6 +2230,7 @@ server_C_GenerateRandom(
         ulRandomLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_GenerateRandom_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1900,11 +2282,29 @@ server_C_GetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GetAttributeValue(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+        );
+
+    
+    pTemplate = malloc(ulCount * sizeof(CK_ULONG));
+    
+
+    
+
+    // do the actual library call
     retval = call_C_GetAttributeValue(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -1913,6 +2313,7 @@ server_C_GetAttributeValue(
         ulCount  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_GetAttributeValue_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -1958,15 +2359,20 @@ server_C_GetFunctionStatus(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetFunctionStatus(
         &function_list,
         hSession  // CK_SESSION_HANDLE
     );
 
+    // pack the response
     status = pack_C_GetFunctionStatus_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2006,16 +2412,21 @@ server_C_GetInfo(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_INFO pInfo;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetInfo(
         &function_list,
         &pInfo  // CK_INFO_PTR
     );
 
+    // pack the response
     status = pack_C_GetInfo_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2060,11 +2471,15 @@ server_C_GetMechanismInfo(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_MECHANISM_INFO pInfo;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetMechanismInfo(
         &function_list,
         slotID,  // CK_SLOT_ID
@@ -2072,6 +2487,7 @@ server_C_GetMechanismInfo(
         &pInfo  // CK_MECHANISM_INFO_PTR
     );
 
+    // pack the response
     status = pack_C_GetMechanismInfo_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2118,12 +2534,16 @@ server_C_GetMechanismList(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList = malloc(1024);
+    CK_MECHANISM_TYPE_ARRAY pMechanismList = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetMechanismList(
         &function_list,
         slotID,  // CK_SLOT_ID
@@ -2131,6 +2551,7 @@ server_C_GetMechanismList(
         &pulCount  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_GetMechanismList_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2178,11 +2599,15 @@ server_C_GetObjectSize(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_ULONG pulSize = 0;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetObjectSize(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2190,6 +2615,7 @@ server_C_GetObjectSize(
         &pulSize  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_GetObjectSize_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2236,12 +2662,16 @@ server_C_GetOperationState(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pOperationState = malloc(1024);
+    CK_BYTE_ARRAY pOperationState = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetOperationState(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2249,6 +2679,7 @@ server_C_GetOperationState(
         &pulOperationStateLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_GetOperationState_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2295,17 +2726,22 @@ server_C_GetSessionInfo(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_SESSION_INFO pInfo;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetSessionInfo(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
         &pInfo  // CK_SESSION_INFO_PTR
     );
 
+    // pack the response
     status = pack_C_GetSessionInfo_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2349,17 +2785,22 @@ server_C_GetSlotInfo(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_SLOT_INFO pInfo;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetSlotInfo(
         &function_list,
         slotID,  // CK_SLOT_ID
         &pInfo  // CK_SLOT_INFO_PTR
     );
 
+    // pack the response
     status = pack_C_GetSlotInfo_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2405,12 +2846,30 @@ server_C_GetSlotList(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_SLOT_ID_ARRAY pSlotList = malloc(1024);
+    CK_SLOT_ID_ARRAY pSlotList = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_GetSlotList(
+        &function_list,
+        tokenPresent,  // CK_BBOOL
+        pSlotList,  // CK_SLOT_ID_ARRAY
+        &pulCount  // CK_ULONG_PTR
+        );
+
+    
+    pSlotList = malloc(pulCount * sizeof(CK_SLOT_ID));
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_GetSlotList(
         &function_list,
         tokenPresent,  // CK_BBOOL
@@ -2418,6 +2877,7 @@ server_C_GetSlotList(
         &pulCount  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_GetSlotList_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2463,17 +2923,22 @@ server_C_GetTokenInfo(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_TOKEN_INFO pInfo;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_GetTokenInfo(
         &function_list,
         slotID,  // CK_SLOT_ID
         &pInfo  // CK_TOKEN_INFO_PTR
     );
 
+    // pack the response
     status = pack_C_GetTokenInfo_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2521,10 +2986,14 @@ server_C_InitPIN(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_InitPIN(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2532,6 +3001,7 @@ server_C_InitPIN(
         ulPinLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_InitPIN_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2581,10 +3051,14 @@ server_C_InitToken(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_InitToken(
         &function_list,
         slotID,  // CK_SLOT_ID
@@ -2593,6 +3067,7 @@ server_C_InitToken(
         pLabel  // UTF8String
     );
 
+    // pack the response
     status = pack_C_InitToken_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2625,7 +3100,8 @@ server_C_Initialize(
     }
 
     // Create unpack variable placeholders
-    CK_VOID_PTR pInitArgs = malloc(1024);
+    CK_C_INITIALIZE_ARGS tmp;
+    CK_VOID_PTR pInitArgs = (CK_VOID_PTR)&tmp;
     
 
     // unpack the dercursor into the placeholders
@@ -2637,16 +3113,21 @@ server_C_Initialize(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_Initialize(
         &function_list,
         pInitArgs  // CK_VOID_PTR
     );
 
+    // pack the response
     status = pack_C_Initialize_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2695,10 +3176,14 @@ server_C_Login(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_Login(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2707,6 +3192,7 @@ server_C_Login(
         ulPinLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_Login_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2751,15 +3237,20 @@ server_C_Logout(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_Logout(
         &function_list,
         hSession  // CK_SESSION_HANDLE
     );
 
+    // pack the response
     status = pack_C_Logout_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2807,11 +3298,15 @@ server_C_OpenSession(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_SESSION_HANDLE phSession = 0;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_OpenSession(
         &function_list,
         slotID,  // CK_SLOT_ID
@@ -2821,6 +3316,7 @@ server_C_OpenSession(
         &phSession  // CK_SESSION_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_OpenSession_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -2871,10 +3367,26 @@ server_C_SeedRandom(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SeedRandom(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSeed,  // CK_BYTE_ARRAY
+        ulSeedLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SeedRandom(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2882,6 +3394,7 @@ server_C_SeedRandom(
         ulSeedLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_SeedRandom_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2932,10 +3445,27 @@ server_C_SetAttributeValue(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SetAttributeValue(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        hObject,  // CK_OBJECT_HANDLE
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulCount  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SetAttributeValue(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -2944,6 +3474,7 @@ server_C_SetAttributeValue(
         ulCount  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_SetAttributeValue_Return(
         CursorOut,
         &retval  // CK_RV
@@ -2996,10 +3527,28 @@ server_C_SetOperationState(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SetOperationState(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pOperationState,  // CK_BYTE_ARRAY
+        ulOperationStateLen,  // CK_ULONG
+        hEncryptionKey,  // CK_OBJECT_HANDLE
+        hAuthenticationKey  // CK_OBJECT_HANDLE
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SetOperationState(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3009,6 +3558,7 @@ server_C_SetOperationState(
         hAuthenticationKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_SetOperationState_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3063,10 +3613,14 @@ server_C_SetPIN(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_SetPIN(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3076,6 +3630,7 @@ server_C_SetPIN(
         ulNewPin  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_SetPIN_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3127,12 +3682,32 @@ server_C_Sign(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_Sign(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_Sign(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3142,6 +3717,7 @@ server_C_Sign(
         &pulSignatureLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_Sign_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3197,12 +3773,32 @@ server_C_SignEncryptUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SignEncryptUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen,  // CK_ULONG
+        pEncryptedPart,  // CK_BYTE_ARRAY
+        &pulEncryptedPartLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SignEncryptUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3212,6 +3808,7 @@ server_C_SignEncryptUpdate(
         &pulEncryptedPartLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_SignEncryptUpdate_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3263,12 +3860,16 @@ server_C_SignFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_SignFinal(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3276,6 +3877,7 @@ server_C_SignFinal(
         &pulSignatureLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_SignFinal_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3326,10 +3928,14 @@ server_C_SignInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_SignInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3337,6 +3943,7 @@ server_C_SignInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_SignInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3386,12 +3993,32 @@ server_C_SignRecover(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SignRecover(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        &pulSignatureLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SignRecover(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3401,6 +4028,7 @@ server_C_SignRecover(
         &pulSignatureLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_SignRecover_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3454,10 +4082,14 @@ server_C_SignRecoverInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_SignRecoverInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3465,6 +4097,7 @@ server_C_SignRecoverInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_SignRecoverInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3512,10 +4145,26 @@ server_C_SignUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_SignUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_SignUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3523,6 +4172,7 @@ server_C_SignUpdate(
         ulPartLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_SignUpdate_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3579,11 +4229,33 @@ server_C_UnwrapKey(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_OBJECT_HANDLE phKey = 0;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_UnwrapKey(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pMechanism,  // CK_MECHANISM_PTR
+        hUnwrappingKey,  // CK_OBJECT_HANDLE
+        pWrappedKey,  // CK_BYTE_ARRAY
+        ulWrappedKeyLen,  // CK_ULONG
+        pTemplate,  // CK_ATTRIBUTE_ARRAY
+        ulAttributeCount,  // CK_ULONG
+        &phKey  // CK_OBJECT_HANDLE_PTR
+        );
+
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_UnwrapKey(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3596,6 +4268,7 @@ server_C_UnwrapKey(
         &phKey  // CK_OBJECT_HANDLE_PTR
     );
 
+    // pack the response
     status = pack_C_UnwrapKey_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3654,10 +4327,28 @@ server_C_Verify(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_Verify(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_Verify(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3667,6 +4358,7 @@ server_C_Verify(
         ulSignatureLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_Verify_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3718,10 +4410,26 @@ server_C_VerifyFinal(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_VerifyFinal(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_VerifyFinal(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3729,6 +4437,7 @@ server_C_VerifyFinal(
         ulSignatureLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_VerifyFinal_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3777,10 +4486,14 @@ server_C_VerifyInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_VerifyInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3788,6 +4501,7 @@ server_C_VerifyInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_VerifyInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3837,12 +4551,32 @@ server_C_VerifyRecover(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = NULL;
     
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_VerifyRecover(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pSignature,  // CK_BYTE_ARRAY
+        ulSignatureLen,  // CK_ULONG
+        pData,  // CK_BYTE_ARRAY
+        &pulDataLen  // CK_ULONG_PTR
+        );
+
+    
+    
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_VerifyRecover(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3852,6 +4586,7 @@ server_C_VerifyRecover(
         &pulDataLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_VerifyRecover_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -3905,10 +4640,14 @@ server_C_VerifyRecoverInit(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_VerifyRecoverInit(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3916,6 +4655,7 @@ server_C_VerifyRecoverInit(
         hKey  // CK_OBJECT_HANDLE
     );
 
+    // pack the response
     status = pack_C_VerifyRecoverInit_Return(
         CursorOut,
         &retval  // CK_RV
@@ -3963,10 +4703,26 @@ server_C_VerifyUpdate(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     
 
+
+    
+    // do the first call to determine size
+    retval = call_C_VerifyUpdate(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pPart,  // CK_BYTE_ARRAY
+        ulPartLen  // CK_ULONG
+        );
+
+    
+    
+
+    
+
+    // do the actual library call
     retval = call_C_VerifyUpdate(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -3974,6 +4730,7 @@ server_C_VerifyUpdate(
         ulPartLen  // CK_ULONG
     );
 
+    // pack the response
     status = pack_C_VerifyUpdate_Return(
         CursorOut,
         &retval  // CK_RV
@@ -4020,12 +4777,16 @@ server_C_WaitForSlotEvent(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
     CK_SLOT_ID pSlot = 0;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_WaitForSlotEvent(
         &function_list,
         flags,  // CK_FLAGS
@@ -4033,6 +4794,7 @@ server_C_WaitForSlotEvent(
         &pReserved  // CK_VOID_PTR
     );
 
+    // pack the response
     status = pack_C_WaitForSlotEvent_Return(
         CursorOut,
         &retval,  // CK_RV
@@ -4086,12 +4848,16 @@ server_C_WrapKey(
     if (status != CKR_OK)
         return status;
 
-    // Cserver response variable placeholders
+    // Create server response variable placeholders
     CK_RV retval;
-    CK_BYTE_ARRAY pWrappedKey = malloc(1024);
+    CK_BYTE_ARRAY pWrappedKey = NULL;
     
     
 
+
+    
+
+    // do the actual library call
     retval = call_C_WrapKey(
         &function_list,
         hSession,  // CK_SESSION_HANDLE
@@ -4102,6 +4868,7 @@ server_C_WrapKey(
         &pulWrappedKeyLen  // CK_ULONG_PTR
     );
 
+    // pack the response
     status = pack_C_WrapKey_Return(
         CursorOut,
         &retval,  // CK_RV

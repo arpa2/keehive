@@ -14,8 +14,18 @@ void softhsm(void **state) {
     CK_RV status = cryptoki_loader(LIBSOFTHSM2_LIBRARY, &function_list);
     assert_int_equal(status, 0);
     CK_VOID_PTR pInitArgs = NULL;
-    CK_RV retval = (function_list->C_Initialize)(pInitArgs);
-    assert_int_equal(retval, 0);
+    status = (function_list->C_Initialize)(pInitArgs);
+    CK_ULONG slotsnum;
+    status = C_GetSlotList(CK_TRUE, NULL, &slotsnum);
+    assert_int_equal(status, 0);
+    CK_SLOT_ID_PTR slotlist = malloc(sizeof(CK_SLOT_ID) * slotsnum);
+    status = C_GetSlotList(CK_TRUE, slotlist, &slotsnum);
+    assert_int_equal(status, 0);
+    for(int i=0; i< slotsnum; i++) {
+        CK_SLOT_INFO slot_info;
+        status = C_GetSlotInfo(slotlist[i], &slot_info);
+        assert_int_equal(status, 0);
+    }
 }
 
 int main(void) {

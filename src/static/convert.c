@@ -90,17 +90,17 @@ func_t func_array[] = {
         {.key=CKA_VERIFY, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_VERIFY_RECOVER,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_DERIVE,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_START_DATE, der_put_attribute_date, .get=der_get_attribute_date},
-        {.key=CKA_END_DATE, der_put_attribute_date, .get=der_get_attribute_date},
-        {.key=CKA_MODULUS, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
-        {.key=CKA_MODULUS_BITS,  .put=der_put_attribute_long, .get=der_get_attribute_long},  // not defined
-        {.key=CKA_PUBLIC_EXPONENT, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
-        {.key=CKA_PRIVATE_EXPONENT, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
-        {.key=CKA_PRIME_1, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
-        {.key=CKA_PRIME_2, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
-        {.key=CKA_EXPONENT_1, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
-        {.key=CKA_EXPONENT_2, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
-        {.key=CKA_COEFFICIENT, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
+        {.key=CKA_START_DATE, .put=der_put_attribute_date, .get=der_get_attribute_date},
+        {.key=CKA_END_DATE, .put=der_put_attribute_date, .get=der_get_attribute_date},
+        {.key=CKA_MODULUS, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},  // Big integer
+        {.key=CKA_MODULUS_BITS,  .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},  // not defined
+        {.key=CKA_PUBLIC_EXPONENT, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // Big integer
+        {.key=CKA_PRIVATE_EXPONENT, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // Big integer
+        {.key=CKA_PRIME_1, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // Big integer
+        {.key=CKA_PRIME_2, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // Big integer
+        {.key=CKA_EXPONENT_1, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},  // Big integer
+        {.key=CKA_EXPONENT_2, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},  // Big integer
+        {.key=CKA_COEFFICIENT, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},  // Big integer
         {.key=CKA_PUBLIC_KEY_INFO, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
         {.key=CKA_PRIME, .put=der_put_attribute_long, .get=der_get_attribute_long},
         {.key=CKA_SUBPRIME, .put=der_put_attribute_long, .get=der_get_attribute_long},
