@@ -530,8 +530,7 @@ pack_C_Decrypt_Call(
             pEncryptedData,
             ulEncryptedDataLen,
             &pEncryptedData_innerlist,
-            &pEncryptedData_length,
-            ByteArray_packer);
+            &pEncryptedData_length);
 
     if (pEncryptedData_status != CKR_OK)
         return pEncryptedData_status;
@@ -606,8 +605,7 @@ pack_C_Decrypt_Return(
             pData,
             pulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -678,8 +676,7 @@ pack_C_DecryptDigestUpdate_Call(
             pEncryptedPart,
             ulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -754,8 +751,7 @@ pack_C_DecryptDigestUpdate_Return(
             pPart,
             pulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -873,8 +869,7 @@ pack_C_DecryptFinal_Return(
             pLastPart,
             pulLastPartLen,
             &pLastPart_innerlist,
-            &pLastPart_length,
-            ByteArray_packer);
+            &pLastPart_length);
 
     if (pLastPart_status != CKR_OK)
         return pLastPart_status;
@@ -1046,8 +1041,7 @@ pack_C_DecryptUpdate_Call(
             pEncryptedPart,
             ulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -1122,8 +1116,7 @@ pack_C_DecryptUpdate_Return(
             pPart,
             pulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -1194,8 +1187,7 @@ pack_C_DecryptVerifyUpdate_Call(
             pEncryptedPart,
             ulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -1270,8 +1262,7 @@ pack_C_DecryptVerifyUpdate_Return(
             pPart,
             pulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -1568,8 +1559,7 @@ pack_C_Digest_Call(
             pData,
             ulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -1644,8 +1634,7 @@ pack_C_Digest_Return(
             pDigest,
             pulDigestLen,
             &pDigest_innerlist,
-            &pDigest_length,
-            ByteArray_packer);
+            &pDigest_length);
 
     if (pDigest_status != CKR_OK)
         return pDigest_status;
@@ -1716,8 +1705,7 @@ pack_C_DigestEncryptUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -1792,8 +1780,7 @@ pack_C_DigestEncryptUpdate_Return(
             pEncryptedPart,
             pulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -1911,8 +1898,7 @@ pack_C_DigestFinal_Return(
             pDigest,
             pulDigestLen,
             &pDigest_innerlist,
-            &pDigest_length,
-            ByteArray_packer);
+            &pDigest_length);
 
     if (pDigest_status != CKR_OK)
         return pDigest_status;
@@ -2165,8 +2151,7 @@ pack_C_DigestUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -2277,8 +2262,7 @@ pack_C_Encrypt_Call(
             pData,
             ulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -2353,8 +2337,7 @@ pack_C_Encrypt_Return(
             pEncryptedData,
             pulEncryptedDataLen,
             &pEncryptedData_innerlist,
-            &pEncryptedData_length,
-            ByteArray_packer);
+            &pEncryptedData_length);
 
     if (pEncryptedData_status != CKR_OK)
         return pEncryptedData_status;
@@ -2472,8 +2455,7 @@ pack_C_EncryptFinal_Return(
             pEncryptedData,
             pulEncryptedDataLen,
             &pEncryptedData_innerlist,
-            &pEncryptedData_length,
-            ByteArray_packer);
+            &pEncryptedData_length);
 
     if (pEncryptedData_status != CKR_OK)
         return pEncryptedData_status;
@@ -2645,8 +2627,7 @@ pack_C_EncryptUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -2721,8 +2702,7 @@ pack_C_EncryptUpdate_Return(
             pEncryptedPart,
             pulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -3545,8 +3525,7 @@ pack_C_GenerateRandom_Return(
             pSeed,
             pulSeedLen,
             &pSeed_innerlist,
-            &pSeed_length,
-            ByteArray_packer);
+            &pSeed_length);
 
     if (pSeed_status != CKR_OK)
         return pSeed_status;
@@ -4310,8 +4289,7 @@ pack_C_GetOperationState_Return(
             pOperationState,
             pulOperationStateLen,
             &pOperationState_innerlist,
-            &pOperationState_length,
-            ByteArray_packer);
+            &pOperationState_length);
 
     if (pOperationState_status != CKR_OK)
         return pOperationState_status;
@@ -5471,8 +5449,7 @@ pack_C_SeedRandom_Call(
             pSeed,
             ulSeedLen,
             &pSeed_innerlist,
-            &pSeed_length,
-            ByteArray_packer);
+            &pSeed_length);
 
     if (pSeed_status != CKR_OK)
         return pSeed_status;
@@ -5701,8 +5678,7 @@ pack_C_SetOperationState_Call(
             pOperationState,
             ulOperationStateLen,
             &pOperationState_innerlist,
-            &pOperationState_length,
-            ByteArray_packer);
+            &pOperationState_length);
 
     if (pOperationState_status != CKR_OK)
         return pOperationState_status;
@@ -5943,8 +5919,7 @@ pack_C_Sign_Call(
             pData,
             ulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -6019,8 +5994,7 @@ pack_C_Sign_Return(
             pSignature,
             pulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -6091,8 +6065,7 @@ pack_C_SignEncryptUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -6167,8 +6140,7 @@ pack_C_SignEncryptUpdate_Return(
             pEncryptedPart,
             pulEncryptedPartLen,
             &pEncryptedPart_innerlist,
-            &pEncryptedPart_length,
-            ByteArray_packer);
+            &pEncryptedPart_length);
 
     if (pEncryptedPart_status != CKR_OK)
         return pEncryptedPart_status;
@@ -6286,8 +6258,7 @@ pack_C_SignFinal_Return(
             pSignature,
             pulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -6459,8 +6430,7 @@ pack_C_SignRecover_Call(
             pData,
             ulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -6535,8 +6505,7 @@ pack_C_SignRecover_Return(
             pSignature,
             pulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -6707,8 +6676,7 @@ pack_C_SignUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -6839,8 +6807,7 @@ pack_C_UnwrapKey_Call(
             pWrappedKey,
             ulWrappedKeyLen,
             &pWrappedKey_innerlist,
-            &pWrappedKey_length,
-            ByteArray_packer);
+            &pWrappedKey_length);
 
     if (pWrappedKey_status != CKR_OK)
         return pWrappedKey_status;
@@ -6985,8 +6952,7 @@ pack_C_Verify_Call(
             pData,
             ulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -7012,8 +6978,7 @@ pack_C_Verify_Call(
             pSignature,
             ulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -7123,8 +7088,7 @@ pack_C_VerifyFinal_Call(
             pSignature,
             ulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -7336,8 +7300,7 @@ pack_C_VerifyRecover_Call(
             pSignature,
             ulSignatureLen,
             &pSignature_innerlist,
-            &pSignature_length,
-            ByteArray_packer);
+            &pSignature_length);
 
     if (pSignature_status != CKR_OK)
         return pSignature_status;
@@ -7412,8 +7375,7 @@ pack_C_VerifyRecover_Return(
             pData,
             pulDataLen,
             &pData_innerlist,
-            &pData_length,
-            ByteArray_packer);
+            &pData_length);
 
     if (pData_status != CKR_OK)
         return pData_status;
@@ -7584,8 +7546,7 @@ pack_C_VerifyUpdate_Call(
             pPart,
             ulPartLen,
             &pPart_innerlist,
-            &pPart_length,
-            ByteArray_packer);
+            &pPart_length);
 
     if (pPart_status != CKR_OK)
         return pPart_status;
@@ -7874,8 +7835,7 @@ pack_C_WrapKey_Return(
             pWrappedKey,
             pulWrappedKeyLen,
             &pWrappedKey_innerlist,
-            &pWrappedKey_length,
-            ByteArray_packer);
+            &pWrappedKey_length);
 
     if (pWrappedKey_status != CKR_OK)
         return pWrappedKey_status;

@@ -27,7 +27,7 @@ der_put_attribute_bool(
         const CK_ATTRIBUTE attribute,
         uint8_t* buffer
 ) {
-    bool boolvalue = (CK_BBOOL)attribute.pValue == CK_TRUE;
+    bool boolvalue = *(CK_BBOOL_PTR)attribute.pValue == CK_TRUE;
     return der_put_bool (buffer, boolvalue);
 }
 
@@ -39,118 +39,153 @@ der_get_attribute_bool(
     return der_get_CK_BBOOL_PTR(cursor, attribute->pValue);
 }
 
+dercursor
+der_put_attribute_long(
+        const CK_ATTRIBUTE attribute,
+        uint8_t* buffer
+) {
+    return der_put_ulong(buffer, *(CK_ULONG_PTR)attribute.pValue);
+}
+
+int
+der_get_attribute_long(
+        dercursor cursor,
+        CK_ATTRIBUTE* attribute
+) {
+    return der_get_ulong(cursor, attribute->pValue);
+}
+
+
+dercursor
+der_put_attribute_byte_array(
+        const CK_ATTRIBUTE attribute,
+        uint8_t* buffer
+) {
+    dercursor cursor;
+    der_put_CK_BYTE_ARRAY(attribute.pValue, &attribute.ulValueLen, &cursor.derptr, &cursor.derlen);
+    return cursor;
+
+}
+
+int
+der_get_attribute_byte_array(
+        dercursor cursor,
+        CK_ATTRIBUTE* attribute
+) {
+    return der_get_CK_BYTE_ARRAY(cursor, attribute->pValue);
+}
 
 func_tree_t functree;
 
 
 func_t func_array[] = {
         {.key=CKA_TOKEN, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_CLASS, .put=NULL},
+        {.key=CKA_CLASS, .put=der_put_attribute_long, .get=der_get_attribute_long},
         {.key=CKA_PRIVATE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_LABEL, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
-        {.key=CKA_APPLICATION, .put=NULL},
-        {.key=CKA_VALUE, .put=NULL},
-        {.key=CKA_OBJECT_ID, .put=NULL},
-        {.key=CKA_CERTIFICATE_TYPE, .put=NULL},
-        {.key=CKA_ISSUER, .put=NULL},
-        {.key=CKA_SERIAL_NUMBER, .put=NULL},
-        {.key=CKA_AC_ISSUER, .put=NULL},
-        {.key=CKA_OWNER, .put=NULL},
-        {.key=CKA_ATTR_TYPES, .put=NULL},
-        {.key=CKA_TRUSTED, .put=NULL},
-        {.key=CKA_CERTIFICATE_CATEGORY, .put=NULL},
-        {.key=CKA_JAVA_MIDP_SECURITY_DOMAIN, .put=NULL},
-        {.key=CKA_URL, .put=NULL},
-        {.key=CKA_HASH_OF_SUBJECT_PUBLIC_KEY, .put=NULL},
-        {.key=CKA_HASH_OF_ISSUER_PUBLIC_KEY, .put=NULL},
-        {.key=CKA_NAME_HASH_ALGORITHM, .put=NULL},
-        {.key=CKA_CHECK_VALUE, .put=NULL},
-        {.key=CKA_KEY_TYPE, .put=NULL},
-        {.key=CKA_SUBJECT, .put=NULL},
-        {.key=CKA_ID, .put=NULL},
-        {.key=CKA_SENSITIVE, .put=NULL},
-        {.key=CKA_ENCRYPT, .put=NULL},
-        {.key=CKA_DECRYPT, .put=NULL},
-        {.key=CKA_WRAP, .put=NULL},
-        {.key=CKA_UNWRAP, .put=NULL},
-        {.key=CKA_SIGN, .put=NULL},
-        {.key=CKA_SIGN_RECOVER, .put=NULL},
-        {.key=CKA_VERIFY, .put=NULL},
-        {.key=CKA_VERIFY_RECOVER, .put=NULL},
-        {.key=CKA_DERIVE, .put=NULL},
-        {.key=CKA_START_DATE, .put=NULL},
-        {.key=CKA_END_DATE, .put=NULL},
-        {.key=CKA_MODULUS, .put=NULL},
-        {.key=CKA_MODULUS_BITS, .put=NULL},
-        {.key=CKA_PUBLIC_EXPONENT, .put=NULL},
-        {.key=CKA_PRIVATE_EXPONENT, .put=NULL},
-        {.key=CKA_PRIME_1, .put=NULL},
-        {.key=CKA_PRIME_2, .put=NULL},
-        {.key=CKA_EXPONENT_1, .put=NULL},
-        {.key=CKA_EXPONENT_2, .put=NULL},
-        {.key=CKA_COEFFICIENT, .put=NULL},
-        {.key=CKA_PUBLIC_KEY_INFO, .put=NULL},
-        {.key=CKA_PRIME, .put=NULL},
-        {.key=CKA_SUBPRIME, .put=NULL},
-        {.key=CKA_BASE, .put=NULL},
-        {.key=CKA_PRIME_BITS, .put=NULL},
-        {.key=CKA_SUBPRIME_BITS, .put=NULL},
-        {.key=CKA_SUB_PRIME_BITS, .put=NULL},
-        {.key=CKA_VALUE_BITS, .put=NULL},
-        {.key=CKA_VALUE_LEN, .put=NULL},
-        {.key=CKA_EXTRACTABLE, .put=NULL},
-        {.key=CKA_LOCAL, .put=NULL},
-        {.key=CKA_NEVER_EXTRACTABLE, .put=NULL},
-        {.key=CKA_ALWAYS_SENSITIVE, .put=NULL},
-        {.key=CKA_KEY_GEN_MECHANISM, .put=NULL},
+        {.key=CKA_APPLICATION, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
+        {.key=CKA_VALUE, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_OBJECT_ID, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_CERTIFICATE_TYPE, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_ISSUER, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_SERIAL_NUMBER, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_AC_ISSUER, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_OWNER, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_ATTR_TYPES, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_TRUSTED, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_CERTIFICATE_CATEGORY, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_JAVA_MIDP_SECURITY_DOMAIN, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_URL, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
+        {.key=CKA_HASH_OF_SUBJECT_PUBLIC_KEY, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_HASH_OF_ISSUER_PUBLIC_KEY, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_NAME_HASH_ALGORITHM, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_CHECK_VALUE, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_KEY_TYPE, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_SUBJECT, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_ID, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_SENSITIVE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_ENCRYPT, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_DECRYPT, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_WRAP, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_UNWRAP, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_SIGN, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_SIGN_RECOVER, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_VERIFY, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_VERIFY_RECOVER,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_DERIVE,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_START_DATE, .put=NULL},  // CK_DATE
+        {.key=CKA_END_DATE, .put=NULL},  // CK_DATE
+        {.key=CKA_MODULUS, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
+        {.key=CKA_MODULUS_BITS,  .put=der_put_attribute_long, .get=der_get_attribute_long},  // not defined
+        {.key=CKA_PUBLIC_EXPONENT, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
+        {.key=CKA_PRIVATE_EXPONENT, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
+        {.key=CKA_PRIME_1, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
+        {.key=CKA_PRIME_2, .put=der_put_attribute_long, .get=der_get_attribute_long}, // Big integer
+        {.key=CKA_EXPONENT_1, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
+        {.key=CKA_EXPONENT_2, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
+        {.key=CKA_COEFFICIENT, .put=der_put_attribute_long, .get=der_get_attribute_long},  // Big integer
+        {.key=CKA_PUBLIC_KEY_INFO, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array},
+        {.key=CKA_PRIME, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_SUBPRIME, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_BASE, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_PRIME_BITS,  .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_SUBPRIME_BITS,  .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_SUB_PRIME_BITS, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_VALUE_BITS, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_VALUE_LEN, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_EXTRACTABLE,  .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_LOCAL,.put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_NEVER_EXTRACTABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_ALWAYS_SENSITIVE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_KEY_GEN_MECHANISM, .put=der_put_attribute_long, .get=der_get_attribute_long},
         {.key=CKA_MODIFIABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_COPYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_DESTROYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_ECDSA_PARAMS, .put=NULL},
-        {.key=CKA_EC_PARAMS, .put=NULL},
-        {.key=CKA_EC_POINT, .put=NULL},
-        {.key=CKA_SECONDARY_AUTH, .put=NULL},
-        {.key=CKA_AUTH_PIN_FLAGS, .put=NULL},
-        {.key=CKA_ALWAYS_AUTHENTICATE, .put=NULL},
-        {.key=CKA_WRAP_WITH_TRUSTED, .put=NULL},
-        {.key=CKA_WRAP_TEMPLATE, .put=NULL},
-        {.key=CKA_UNWRAP_TEMPLATE, .put=NULL},
-        {.key=CKA_DERIVE_TEMPLATE, .put=NULL},
-        {.key=CKA_OTP_FORMAT, .put=NULL},
-        {.key=CKA_OTP_LENGTH, .put=NULL},
-        {.key=CKA_OTP_TIME_INTERVAL, .put=NULL},
-        {.key=CKA_OTP_USER_FRIENDLY_MODE, .put=NULL},
-        {.key=CKA_OTP_CHALLENGE_REQUIREMENT, .put=NULL},
-        {.key=CKA_OTP_TIME_REQUIREMENT, .put=NULL},
-        {.key=CKA_OTP_COUNTER_REQUIREMENT, .put=NULL},
-        {.key=CKA_OTP_PIN_REQUIREMENT, .put=NULL},
-        {.key=CKA_OTP_COUNTER, .put=NULL},
-        {.key=CKA_OTP_TIME, .put=NULL},
-        {.key=CKA_OTP_USER_IDENTIFIER, .put=NULL},
-        {.key=CKA_OTP_SERVICE_IDENTIFIER, .put=NULL},
-        {.key=CKA_OTP_SERVICE_LOGO, .put=NULL},
-        {.key=CKA_OTP_SERVICE_LOGO_TYPE, .put=NULL},
-        {.key=CKA_GOSTR3410_PARAMS, .put=NULL},
-        {.key=CKA_GOSTR3411_PARAMS, .put=NULL},
-        {.key=CKA_GOST28147_PARAMS, .put=NULL},
-        {.key=CKA_HW_FEATURE_TYPE, .put=NULL},
-        {.key=CKA_RESET_ON_INIT, .put=NULL},
-        {.key=CKA_HAS_RESET, .put=NULL},
-        {.key=CKA_PIXEL_X, .put=NULL},
-        {.key=CKA_PIXEL_Y, .put=NULL},
-        {.key=CKA_RESOLUTION, .put=NULL},
-        {.key=CKA_CHAR_ROWS, .put=NULL},
-        {.key=CKA_CHAR_COLUMNS, .put=NULL},
+        {.key=CKA_ECDSA_PARAMS, .put=NULL}, // type not defined
+        {.key=CKA_EC_PARAMS, .put=NULL}, // type not defined
+        {.key=CKA_EC_POINT, .put=NULL}, // type not defined
+        {.key=CKA_SECONDARY_AUTH, .put=NULL},  // type not defined
+        {.key=CKA_AUTH_PIN_FLAGS, .put=NULL}, // type not defined
+        {.key=CKA_ALWAYS_AUTHENTICATE,  .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_WRAP_WITH_TRUSTED,  .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_WRAP_TEMPLATE, .put=NULL}, // CK_ATTRIBUTE_PTR
+        {.key=CKA_UNWRAP_TEMPLATE, .put=NULL},  // CK_ATTRIBUTE_PTR
+        {.key=CKA_DERIVE_TEMPLATE, .put=NULL},  // type not defined
+        {.key=CKA_OTP_FORMAT, .put=NULL},  // type not defined
+        {.key=CKA_OTP_LENGTH, .put=NULL},  // type not defined
+        {.key=CKA_OTP_TIME_INTERVAL, .put=NULL},  // type not defined
+        {.key=CKA_OTP_USER_FRIENDLY_MODE, .put=NULL},  // type not defined
+        {.key=CKA_OTP_CHALLENGE_REQUIREMENT, .put=NULL},  // type not defined
+        {.key=CKA_OTP_TIME_REQUIREMENT, .put=NULL},  // type not defined
+        {.key=CKA_OTP_COUNTER_REQUIREMENT, .put=NULL},  // type not defined
+        {.key=CKA_OTP_PIN_REQUIREMENT, .put=NULL},  // type not defined
+        {.key=CKA_OTP_COUNTER, .put=NULL},  // type not defined
+        {.key=CKA_OTP_TIME, .put=NULL},  // type not defined
+        {.key=CKA_OTP_USER_IDENTIFIER, .put=NULL},  // type not defined
+        {.key=CKA_OTP_SERVICE_IDENTIFIER, .put=NULL},  // type not defined
+        {.key=CKA_OTP_SERVICE_LOGO, .put=NULL},  // type not defined
+        {.key=CKA_OTP_SERVICE_LOGO_TYPE, .put=NULL},  // type not defined
+        {.key=CKA_GOSTR3410_PARAMS, .put=NULL},  // type not defined
+        {.key=CKA_GOSTR3411_PARAMS, .put=NULL},  // type not defined
+        {.key=CKA_GOST28147_PARAMS, .put=NULL},  // type not defined
+        {.key=CKA_HW_FEATURE_TYPE, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_RESET_ON_INIT, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_HAS_RESET, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
+        {.key=CKA_PIXEL_X, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_PIXEL_Y, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_RESOLUTION, .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_CHAR_ROWS,  .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_CHAR_COLUMNS,  .put=der_put_attribute_long, .get=der_get_attribute_long},
         {.key=CKA_COLOR, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_BITS_PER_PIXEL, .put=NULL},
-        {.key=CKA_CHAR_SETS, .put=NULL},
-        {.key=CKA_ENCODING_METHODS, .put=NULL},
-        {.key=CKA_MIME_TYPES, .put=NULL},
-        {.key=CKA_MECHANISM_TYPE, .put=NULL},
-        {.key=CKA_REQUIRED_CMS_ATTRIBUTES, .put=NULL},
-        {.key=CKA_DEFAULT_CMS_ATTRIBUTES, .put=NULL},
-        {.key=CKA_SUPPORTED_CMS_ATTRIBUTES, .put=NULL},
-        {.key=CKA_ALLOWED_MECHANISMS, .put=NULL},
+        {.key=CKA_BITS_PER_PIXEL,  .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_CHAR_SETS,  .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
+        {.key=CKA_ENCODING_METHODS, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
+        {.key=CKA_MIME_TYPES, .put=der_put_rfc2279_string, .get=der_get_rfc2279_string},
+        {.key=CKA_MECHANISM_TYPE,  .put=der_put_attribute_long, .get=der_get_attribute_long},
+        {.key=CKA_REQUIRED_CMS_ATTRIBUTES, .put=NULL}, // type not defined
+        {.key=CKA_DEFAULT_CMS_ATTRIBUTES, .put=NULL}, // type not defined
+        {.key=CKA_SUPPORTED_CMS_ATTRIBUTES, .put=NULL}, // type not defined
+        {.key=CKA_ALLOWED_MECHANISMS, .put=NULL}, // CK_MECHANISM_TYPE _PTR
         {.key=CKA_VENDOR_DEFINED, .put=NULL}
 };
 

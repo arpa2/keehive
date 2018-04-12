@@ -64,8 +64,7 @@ pack_{{ f.type_name|under }}(
             {{ var }},
             {% if f.type_name.endswith('Return') %}p{% endif %}ul{{ var[1:] }}Len,
             &{{ var }}_innerlist,
-            &{{ var }}_length,
-            ByteArray_packer);
+            &{{ var }}_length);
 
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;

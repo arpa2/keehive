@@ -82,8 +82,7 @@ der_put_CK_BYTE_ARRAY(
         const CK_BYTE* byte_array,
         const CK_ULONG* count,
         uint8_t** pInnerlist,
-        size_t* pLength,
-        const derwalk* pack
+        size_t* pLength
 );
 
 

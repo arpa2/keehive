@@ -29,6 +29,7 @@ der_get_ulong(
 
 
 
+/* when don't forget to free() every  .pValue in pTemplate when done */
 int
 der_get_CK_ATTRIBUTE_ARRAY(
         ACK_ATTRIBUTE_ARRAY_t Ack_Attribute_Array, // a dercursor
@@ -67,7 +68,6 @@ der_get_CK_ATTRIBUTE_ARRAY(
             if (func->get == NULL)
                 return -1;
 
-            // todo: free this, also make sure ulValueLen is based on type size
             (pTemplate)[i].pValue = malloc(ulValueLen);
 
             status = (*func->get)(der_attribute.pValue.data, (CK_ATTRIBUTE_PTR)&(pTemplate)[i]);

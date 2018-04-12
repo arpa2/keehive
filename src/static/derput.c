@@ -81,8 +81,7 @@ der_put_CK_BYTE_ARRAY(
         const CK_BYTE* byte_array,
         const CK_ULONG* count,
         uint8_t** pInnerlist,
-        size_t* pLength,
-        const derwalk* pack
+        size_t* pLength
 ) {
     int i;
     der_buf_uchar_t buf = { 0 };
@@ -94,7 +93,7 @@ der_put_CK_BYTE_ARRAY(
     for (i = 0; i < *count; i++) {
         byte = byte_array[i];
         crs = der_put_uchar(buf, byte);
-        tmp = der_pack(pack, &crs, NULL);
+        tmp = der_pack(ByteArray_packer, &crs, NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen += tmp;
@@ -108,7 +107,7 @@ der_put_CK_BYTE_ARRAY(
         assert(innerlen >= 0);
         byte = byte_array[i];
         crs = der_put_uchar(buf, byte);
-        tmp = der_pack(pack, &crs, *pInnerlist + innerlen);
+        tmp = der_pack(ByteArray_packer, &crs, *pInnerlist + innerlen);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
         innerlen -= tmp;
