@@ -37,8 +37,4 @@ WORKDIR /code/build
 RUN cmake .. -DENABLE_TESTING=ON
 RUN make -j
 
-# required for the softhsm2 test suite
-RUN cp ../src/static/test/softhsm2/softhsm2.conf /code/build/src/static/test
-RUN mkdir /code/build/src/static/test/tokens
-
 #RUN make test
