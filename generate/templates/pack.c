@@ -4,6 +4,8 @@
 #include "derput.h"
 #include "packer.h"
 
+
+// todo: this is a hack to work around  issue #6
 CK_ULONG ulSeedLen = 0;
 CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
