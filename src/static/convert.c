@@ -118,9 +118,9 @@ func_t func_array[] = {
         {.key=CKA_MODIFIABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_COPYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
         {.key=CKA_DESTROYABLE, .put=der_put_attribute_bool, .get=der_get_attribute_bool},
-        {.key=CKA_ECDSA_PARAMS, .put=NULL}, // type not defined
-        {.key=CKA_EC_PARAMS, .put=NULL}, // type not defined
-        {.key=CKA_EC_POINT, .put=NULL}, // type not defined
+        {.key=CKA_ECDSA_PARAMS, .put=NULL},  // deprecated, type not defined in spec
+        {.key=CKA_EC_PARAMS, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // type not defined
+        {.key=CKA_EC_POINT, .put=der_put_attribute_byte_array, .get=der_get_attribute_byte_array}, // type not defined
         {.key=CKA_SECONDARY_AUTH, .put=NULL},  // type not defined
         {.key=CKA_AUTH_PIN_FLAGS, .put=NULL}, // type not defined
         {.key=CKA_ALWAYS_AUTHENTICATE,  .put=der_put_attribute_bool, .get=der_get_attribute_bool},
