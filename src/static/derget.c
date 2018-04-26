@@ -258,6 +258,8 @@ der_get_CK_INFO_PTR(
         ACK_INFO_t ack_info,
         CK_INFO_PTR ck_info
 ) {
+    if (ck_info == NULL)
+        return 0;
 
     int status = 0;
     status = status | der_get_CK_FLAGS_PTR(ack_info.flags, &ck_info->flags);

@@ -80,6 +80,9 @@ der_put_CK_BYTE_ARRAY(
     size_t innerlen = 0;
     size_t tmp = 0;
 
+    if (byte_array == NULL)
+        return CKR_OK;
+
     for (i = 0; i < *count; i++) {
         byte = byte_array[i];
         crs = der_put_uchar(buf, byte);
@@ -333,17 +336,21 @@ der_put_CK_MECHANISM_PTR(
         der_buf_ulong_t ulParameterLen_buf
 ) {
 
-    Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
-
-    if (pMechanism->pParameter == NULL) {
+    if (pMechanism == NULL) {
+        // no pMechanism supplied, afaik this is not allowed according to the spec, but done by softhswm :/
+        Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, CKM_VENDOR_DEFINED);
         Ack_Mechanism->pParameter.null = der_null;
+        Ack_Mechanism->ulParameterLen = der_put_ulong(ulParameterLen_buf, 0);
     } else {
-        // TODO: implement
-        return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        Ack_Mechanism->mechanism = der_put_ulong(mechanism_buf, pMechanism->mechanism);
+        if (pMechanism->pParameter == NULL) {
+            Ack_Mechanism->pParameter.null = der_null;
+        } else {
+            // TODO: implement
+            return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
+        }
+        Ack_Mechanism->ulParameterLen = der_put_ulong(ulParameterLen_buf, pMechanism->ulParameterLen);
     }
-
-
-    Ack_Mechanism->ulParameterLen = der_put_ulong(ulParameterLen_buf, pMechanism->ulParameterLen);
 
     return CKR_OK;
 };
