@@ -181,7 +181,7 @@ der_get_UTF8String(
         dercursor cursor,
         UTF8String pPin
 ) {
-    memcpy(pPin, cursor.derptr, cursor.derlen+1);
+    memcpy(pPin, cursor.derptr, cursor.derlen);
     return 0;
 };
 
@@ -372,34 +372,7 @@ der_get_CK_SLOT_ID_ARRAY(
         DER_OVLY_RemotePKCS11_C_GetSlotList_Return_pSlotList ack_slot_id_array,
         CK_SLOT_ID_ARRAY ck_slot_id_array
 ) {
-
-    dercursor iterator;
-    int status;
-    int i = 0;
-    unsigned char value;
-
-    ACK_SLOT_ID_t der_slot;
-    if (ck_slot_id_array == NULL) {
-        // upstream only wants to know the size
-        return 0;
-    }
-
-    if (der_iterate_first(&ack_slot_id_array.data.wire, &iterator)) {
-        do {
-            dercursor iterator_copy = iterator;
-            status = der_unpack(&iterator_copy, pSlotList_packer, &der_slot, REPEAT);
-            if (status == -1)
-                return -1;
-
-            status = der_get_uchar(der_slot, &value);
-            if (status == -1)
-                return -1;
-            (ck_slot_id_array)[i] = value;
-
-            i++;
-        } while (der_iterate_next(&iterator));
-    }
-    return 0;
+    return der_get_CK_ULONG_ARRAY(ack_slot_id_array.data, ck_slot_id_array);
 };
 
 
@@ -419,12 +392,12 @@ der_get_CK_ULONG_ARRAY(
     dercursor iterator;
     int status;
     int i = 0;
-    unsigned char value;
+    unsigned long value;
 
     ACK_ULONG_t der_object_handle;
     if (ck_ulong_array == NULL) {
-        // no memory allocated
-        return -1;
+        // no memory allocated, probably size query call
+        return 0;
     }
 
     if (der_iterate_first(&ack_ulong_array.wire, &iterator)) {
@@ -434,7 +407,7 @@ der_get_CK_ULONG_ARRAY(
             if (status == -1)
                 return -1;
 
-            status = der_get_uchar(der_object_handle, &value);
+            status = der_get_ulong(der_object_handle, &value);
             if (status == -1)
                 return -1;
             (ck_ulong_array)[i] = value;
