@@ -4,6 +4,8 @@
 #include "derput.h"
 #include "packer.h"
 
+
+// todo: this is a hack to work around  issue #6
 CK_ULONG ulSeedLen = 0;
 CK_ULONG_PTR pulSeedLen = &ulSeedLen;
 
@@ -288,19 +290,15 @@ pack_C_CopyObject_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_CopyObject_Call.pTemplate.wire.derptr,
+            &C_CopyObject_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_CopyObject_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_CopyObject_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -405,19 +403,15 @@ pack_C_CreateObject_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_CreateObject_Call.pTemplate.wire.derptr,
+            &C_CreateObject_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_CreateObject_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_CreateObject_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -1344,19 +1338,15 @@ pack_C_DeriveKey_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulAttributeCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_DeriveKey_Call.pTemplate.wire.derptr,
+            &C_DeriveKey_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_DeriveKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_DeriveKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)
@@ -3052,19 +3042,15 @@ pack_C_FindObjectsInit_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_FindObjectsInit_Call.pTemplate.wire.derptr,
+            &C_FindObjectsInit_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_FindObjectsInit_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_FindObjectsInit_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -3118,19 +3104,15 @@ pack_C_FindObjectsInit_Return(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             0 /* todo: this is wrong, issue #6 */,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_FindObjectsInit_Return.pTemplate.wire.derptr,
+            &C_FindObjectsInit_Return.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_FindObjectsInit_Return.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_FindObjectsInit_Return.pTemplate.wire.derlen = pTemplate_length;
 
 
     // END OF PACKING
@@ -3191,19 +3173,15 @@ pack_C_GenerateKey_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_GenerateKey_Call.pTemplate.wire.derptr,
+            &C_GenerateKey_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_GenerateKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_GenerateKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -3321,19 +3299,15 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pPublicKeyTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pPublicKeyTemplate_innerlist = NULL;
-    size_t pPublicKeyTemplate_length = 0;
     CK_RV pPublicKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pPublicKeyTemplate,
             *ulPublicKeyAttributeCount,
-            &pPublicKeyTemplate_innerlist,
-            &pPublicKeyTemplate_length);
+            &C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derptr,
+            &C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derlen
+    );
 
     if (pPublicKeyTemplate_status != CKR_OK)
         return pPublicKeyTemplate_status;
-
-    C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derptr = pPublicKeyTemplate_innerlist;
-    C_GenerateKeyPair_Call.pPublicKeyTemplate.wire.derlen = pPublicKeyTemplate_length;
 
 
     // PACKING ulPublicKeyAttributeCount (type CK_ULONG_PTR)
@@ -3346,19 +3320,15 @@ pack_C_GenerateKeyPair_Call(
     // PACKING pPrivateKeyTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pPrivateKeyTemplate_innerlist = NULL;
-    size_t pPrivateKeyTemplate_length = 0;
     CK_RV pPrivateKeyTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pPrivateKeyTemplate,
             *ulPrivateKeyAttributeCount,
-            &pPrivateKeyTemplate_innerlist,
-            &pPrivateKeyTemplate_length);
+            &C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derptr,
+            &C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derlen
+    );
 
     if (pPrivateKeyTemplate_status != CKR_OK)
         return pPrivateKeyTemplate_status;
-
-    C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derptr = pPrivateKeyTemplate_innerlist;
-    C_GenerateKeyPair_Call.pPrivateKeyTemplate.wire.derlen = pPrivateKeyTemplate_length;
 
 
     // PACKING ulPrivateKeyAttributeCount (type CK_ULONG_PTR)
@@ -3589,19 +3559,15 @@ pack_C_GetAttributeValue_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_GetAttributeValue_Call.pTemplate.wire.derptr,
+            &C_GetAttributeValue_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_GetAttributeValue_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_GetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -3655,19 +3621,15 @@ pack_C_GetAttributeValue_Return(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             0 /* todo: this is wrong, issue #6 */ ,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_GetAttributeValue_Return.pTemplate.wire.derptr,
+            &C_GetAttributeValue_Return.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_GetAttributeValue_Return.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_GetAttributeValue_Return.pTemplate.wire.derlen = pTemplate_length;
 
 
     // END OF PACKING
@@ -5560,19 +5522,15 @@ pack_C_SetAttributeValue_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_SetAttributeValue_Call.pTemplate.wire.derptr,
+            &C_SetAttributeValue_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_SetAttributeValue_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_SetAttributeValue_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulCount (type CK_ULONG_PTR)
@@ -6826,19 +6784,15 @@ pack_C_UnwrapKey_Call(
     // PACKING pTemplate (type CK_ATTRIBUTE_ARRAY)
 
 
-    uint8_t *pTemplate_innerlist = NULL;
-    size_t pTemplate_length = 0;
     CK_RV pTemplate_status = der_put_CK_ATTRIBUTE_ARRAY(
             pTemplate,
             *ulAttributeCount,
-            &pTemplate_innerlist,
-            &pTemplate_length);
+            &C_UnwrapKey_Call.pTemplate.wire.derptr,
+            &C_UnwrapKey_Call.pTemplate.wire.derlen
+    );
 
     if (pTemplate_status != CKR_OK)
         return pTemplate_status;
-
-    C_UnwrapKey_Call.pTemplate.wire.derptr = pTemplate_innerlist;
-    C_UnwrapKey_Call.pTemplate.wire.derlen = pTemplate_length;
 
 
     // PACKING ulAttributeCount (type CK_ULONG_PTR)

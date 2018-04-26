@@ -1942,7 +1942,7 @@ server_C_FindObjectsInit(
         );
 
     
-    pTemplate = malloc(0 /* todo: this is wrong, issue #6 */ * sizeof(CK_ATTRIBUTE));
+    pTemplate = malloc(ulCount * sizeof(CK_ATTRIBUTE));
     
 
     
@@ -2256,7 +2256,7 @@ server_C_GetAttributeValue(
         );
 
     
-    pTemplate = malloc(0 /* todo: this is wrong, issue #6 */  * sizeof(CK_ATTRIBUTE));
+    pTemplate = malloc(ulCount * sizeof(CK_ATTRIBUTE));
     
 
     
