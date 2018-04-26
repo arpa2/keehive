@@ -985,6 +985,22 @@ server_C_Digest(
 
 
     
+    // do the first call to determine size
+    retval = call_C_Digest(
+        &function_list,
+        hSession,  // CK_SESSION_HANDLE
+        pData,  // CK_BYTE_ARRAY
+        ulDataLen,  // CK_ULONG
+        pDigest,  // CK_BYTE_ARRAY
+        &pulDigestLen  // CK_ULONG_PTR
+        );
+
+    
+    pDigest = malloc(pulDigestLen * sizeof(CK_BYTE_ARRAY));
+    
+    
+
+    
 
     // do the actual library call
     retval = call_C_Digest(
