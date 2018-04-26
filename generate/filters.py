@@ -453,6 +453,7 @@ double_roundtrip = {
     'C_GetSlotList': (('pSlotList', 'pulCount', 'CK_SLOT_ID'),),
     'C_GetMechanismList': (('pMechanismList', 'pulCount', 'CK_MECHANISM_TYPE'),),
     'C_FindObjects': (('phObject', 'pulObjectCount', 'CK_OBJECT_HANDLE'),),
+    'C_Digest': (('pDigest', 'pulDigestLen', 'CK_BYTE_ARRAY'),),
 
 }
 
