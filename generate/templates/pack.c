@@ -75,19 +75,15 @@ pack_{{ f.type_name|under }}(
     {{ f.type_name|under }}.{{ var }}.derlen = {{ var }}_length;
 
 {% elif type == "CK_ATTRIBUTE_ARRAY" %}
-    uint8_t *{{ var }}_innerlist = NULL;
-    size_t {{ var }}_length = 0;
     CK_RV {{ var }}_status = der_put_{{ type }}(
             {{ var }},
             {{ len_mapper(f.type_name|under, var, True) }},
-            &{{ var }}_innerlist,
-            &{{ var }}_length);
+            &{{ f.type_name|under }}.{{ var }}.wire.derptr,
+            &{{ f.type_name|under }}.{{ var }}.wire.derlen
+    );
 
     if ({{ var }}_status != CKR_OK)
         return {{ var }}_status;
-
-    {{ f.type_name|under }}.{{ var }}.wire.derptr = {{ var }}_innerlist;
-    {{ f.type_name|under }}.{{ var }}.wire.derlen = {{ var }}_length;
 
 {% elif type == "CK_VOID_PTR" %}
     {{ f.type_name|under }}.{{ var }}.null = der_put_{{ type }}({{ var }});
