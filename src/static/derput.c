@@ -122,75 +122,60 @@ der_put_CK_ATTRIBUTE_ARRAY(
     init_func_tree();
 
     int i;
-    der_buf_uint32_t buf = { 0 };
-    dercursor crs;
+
     CK_ATTRIBUTE attribute;
-    size_t innerlen = 0;
     size_t tmp = 0;
     func_t* func;
+    size_t length_tmp = 0;
 
     der_buf_ulong_t type_buf[count];
     der_buf_ulong_t len_buf[count];
+    uint8_t* buf_buf[count];
 
-    ACK_ATTRIBUTE_t ack_attribute;
+    ACK_ATTRIBUTE_t ack_attribute[count];
 
     for (i = 0; i < count; i++) {
         attribute = pTemplate[i];
 
-        ack_attribute.type = der_put_ulong(type_buf[i], attribute.type);
-        ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
+        ack_attribute[i].type = der_put_ulong(type_buf[i], attribute.type);
+        ack_attribute[i].ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
 
         func = find_func(attribute.type);
         if (func->put == NULL)
             return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
 
         if (attribute.pValue == NULL) {
-            ack_attribute.pValue.null = der_null;
+            ack_attribute[i].pValue.null = der_null;
         } else {
             // todo: free this
-            uint8_t* buffer = malloc(attribute.ulValueLen);
-            if (buffer == NULL)
+            buf_buf[count] = malloc(attribute.ulValueLen);
+            if (buf_buf[count] == NULL)
                 return CKR_KEEHIVE_MEMORY_ERROR;
-            ack_attribute.pValue.data = (*func->put)(attribute, buffer);
-            //ack_attribute.pValue.data = der_put_rfc2279_string(&attribute, &buffer);
-            ack_attribute.pValue.null = der_empty;
+            ack_attribute[i].pValue.data = (*func->put)(attribute, buf_buf[count]);
+            ack_attribute[i].pValue.null = der_empty;
         }
 
-        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, NULL);
+        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute[i], NULL);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen += tmp;
+        length_tmp += tmp;
     }
-    *pLength = innerlen;
-    *pInnerlist = (uint8_t *)malloc(innerlen);
+
+    *pLength = length_tmp;
+    *pInnerlist = (uint8_t *)malloc(*pLength);
+
     if (*pInnerlist == NULL) {
         return CKR_KEEHIVE_MEMORY_ERROR;
     }
     while (i-- > 0) {
-        assert(innerlen >= 0);
-        attribute = pTemplate[i];
+        assert(length_tmp >= 0);
 
-        ack_attribute.type = der_put_ulong(type_buf[i], attribute.type);
-        ack_attribute.ulValueLen = der_put_ulong(len_buf[i], attribute.ulValueLen);
-
-        func = find_func(attribute.type);
-        if (func->put == NULL)
-            return CKR_KEEHIVE_NOT_IMPLEMENTED_ERROR;
-
-        if (attribute.pValue == NULL) {
-            ack_attribute.pValue.null = der_null;
-        } else {
-            // todo: free this
-            uint8_t* buffer = malloc(attribute.ulValueLen);
-            ack_attribute.pValue.data = (*func->put)(attribute, buffer);
-            ack_attribute.pValue.null = der_empty;
-        }
-        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute, *pInnerlist + innerlen);
+        tmp = der_pack(attribute_array_packer, (const dercursor *)&ack_attribute[i], *pInnerlist + length_tmp);
         if (tmp == 0)
             return CKR_KEEHIVE_DER_UNKNOWN_ERROR;
-        innerlen -= tmp;
+        length_tmp -= tmp;
     }
-    assert(innerlen == 0);
+    assert(length_tmp == 0);
 
     return CKR_OK;
 };
