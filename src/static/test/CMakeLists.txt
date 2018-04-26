@@ -18,3 +18,8 @@ add_executable(simple.test test_simple.c)
 add_dependencies(simple.test keehive)
 target_link_libraries(simple.test -ldl keehive ${KEEHIVE_TEST_LINK_LIRARIES})
 add_test(simple.test simple.test)
+
+
+# used during test run
+file(COPY softhsm2/softhsm2.conf DESTINATION ${PROJECT_BINARY_DIR}/src/static/test/)
+file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/src/static/test/tokens/)
