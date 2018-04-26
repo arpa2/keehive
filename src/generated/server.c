@@ -194,7 +194,7 @@ server_C_CopyObject(
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -264,7 +264,7 @@ server_C_CreateObject(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -331,7 +331,7 @@ server_C_Decrypt(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedData = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedDataLen = 0;
     CK_ULONG pulDataLen = 0;
     
@@ -422,7 +422,7 @@ server_C_DecryptDigestUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
@@ -579,7 +579,8 @@ server_C_DecryptInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -642,7 +643,7 @@ server_C_DecryptUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
@@ -733,7 +734,7 @@ server_C_DecryptVerifyUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pEncryptedPart = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen = 0;
     CK_ULONG pulPartLen = 0;
     
@@ -824,9 +825,10 @@ server_C_DeriveKey(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hBaseKey = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulAttributeCount = 0;
     
 
@@ -958,7 +960,7 @@ server_C_Digest(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulDigestLen = 0;
     
@@ -1033,7 +1035,7 @@ server_C_DigestEncryptUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
@@ -1190,7 +1192,8 @@ server_C_DigestInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     
 
     // unpack the dercursor into the placeholders
@@ -1308,7 +1311,7 @@ server_C_DigestUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     
 
@@ -1372,7 +1375,7 @@ server_C_Encrypt(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulEncryptedDataLen = 0;
     
@@ -1543,7 +1546,8 @@ server_C_EncryptInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -1606,7 +1610,7 @@ server_C_EncryptUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
@@ -1891,7 +1895,7 @@ server_C_FindObjectsInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -1969,8 +1973,9 @@ server_C_GenerateKey(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -2040,10 +2045,11 @@ server_C_GenerateKeyPair(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
+    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPublicKeyAttributeCount = 0;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPrivateKeyAttributeCount = 0;
     
 
@@ -2201,7 +2207,7 @@ server_C_GetAttributeValue(
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -2934,7 +2940,7 @@ server_C_InitPIN(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pPin = malloc(1024);
+    CK_UTF8CHAR_ARRAY pPin = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen = 0;
     
 
@@ -2997,9 +3003,9 @@ server_C_InitToken(
 
     // Create unpack variable placeholders
     CK_SLOT_ID slotID = 0;
-    UTF8String pPin = malloc(1024);
+    UTF8String pPin = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen = 0;
-    UTF8String pLabel = malloc(1024);
+    CK_UTF8CHAR pLabel[249]; // todo: this should be 32, but if lower then 249 we get stack smashing error?
     
 
     // unpack the dercursor into the placeholders
@@ -3123,7 +3129,7 @@ server_C_Login(
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_USER_TYPE userType = 0;
-    CK_UTF8CHAR_ARRAY pPin = malloc(1024);
+    CK_UTF8CHAR_ARRAY pPin = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen = 0;
     
 
@@ -3315,7 +3321,7 @@ server_C_SeedRandom(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSeed = malloc(1024);
+    CK_BYTE_ARRAY pSeed = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSeedLen = 0;
     
 
@@ -3380,7 +3386,7 @@ server_C_SetAttributeValue(
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
     CK_OBJECT_HANDLE hObject = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount = 0;
     
 
@@ -3446,7 +3452,7 @@ server_C_SetOperationState(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pOperationState = malloc(1024);
+    CK_BYTE_ARRAY pOperationState = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulOperationStateLen = 0;
     CK_OBJECT_HANDLE hEncryptionKey = 0;
     CK_OBJECT_HANDLE hAuthenticationKey = 0;
@@ -3518,9 +3524,9 @@ server_C_SetPIN(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_UTF8CHAR_ARRAY pOldPin = malloc(1024);
+    CK_UTF8CHAR_ARRAY pOldPin = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulOldLen = 0;
-    CK_UTF8CHAR_ARRAY pNewPin = malloc(1024);
+    CK_UTF8CHAR_ARRAY pNewPin = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulNewPin = 0;
     
 
@@ -3589,7 +3595,7 @@ server_C_Sign(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulSignatureLen = 0;
     
@@ -3680,7 +3686,7 @@ server_C_SignEncryptUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     CK_ULONG pulEncryptedPartLen = 0;
     
@@ -3851,7 +3857,8 @@ server_C_SignInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -3914,7 +3921,7 @@ server_C_SignRecover(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen = 0;
     CK_ULONG pulSignatureLen = 0;
     
@@ -4005,7 +4012,8 @@ server_C_SignRecoverInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -4068,7 +4076,7 @@ server_C_SignUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     
 
@@ -4132,11 +4140,12 @@ server_C_UnwrapKey(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hUnwrappingKey = 0;
-    CK_BYTE_ARRAY pWrappedKey = malloc(1024);
+    CK_BYTE_ARRAY pWrappedKey = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulWrappedKeyLen = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulAttributeCount = 0;
     
 
@@ -4216,9 +4225,9 @@ server_C_Verify(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pData = malloc(1024);
+    CK_BYTE_ARRAY pData = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen = 0;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen = 0;
     
 
@@ -4289,7 +4298,7 @@ server_C_VerifyFinal(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen = 0;
     
 
@@ -4353,7 +4362,8 @@ server_C_VerifyInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -4416,7 +4426,7 @@ server_C_VerifyRecover(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pSignature = malloc(1024);
+    CK_BYTE_ARRAY pSignature = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen = 0;
     CK_ULONG pulDataLen = 0;
     
@@ -4507,7 +4517,8 @@ server_C_VerifyRecoverInit(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hKey = 0;
     
 
@@ -4570,7 +4581,7 @@ server_C_VerifyUpdate(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_BYTE_ARRAY pPart = malloc(1024);
+    CK_BYTE_ARRAY pPart = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen = 0;
     
 
@@ -4699,7 +4710,8 @@ server_C_WrapKey(
 
     // Create unpack variable placeholders
     CK_SESSION_HANDLE hSession = 0;
-    CK_MECHANISM_PTR pMechanism = malloc(1024);
+    CK_MECHANISM pMechanism_pointed;
+    CK_MECHANISM_PTR pMechanism = &pMechanism_pointed; /* we do this funny to simplify code generation */
     CK_OBJECT_HANDLE hWrappingKey = 0;
     CK_OBJECT_HANDLE hKey = 0;
     CK_ULONG pulWrappedKeyLen = 0;

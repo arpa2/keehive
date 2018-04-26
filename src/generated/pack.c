@@ -4933,7 +4933,7 @@ pack_C_InitToken_Call(
     // PACKING pLabel (type UTF8String)
 
 
-    CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, (sizeof(pLabel) / sizeof(UTF8String)));
+    CK_RV pLabel_status = der_put_UTF8String(&C_InitToken_Call.pLabel, pLabel, (32 * sizeof(UTF8String)));
     if (pLabel_status != CKR_OK)
         return pLabel_status;
 

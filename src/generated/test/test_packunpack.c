@@ -262,7 +262,7 @@ void test_pack_C_CopyObject_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -370,7 +370,7 @@ void test_pack_C_CreateObject_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -471,7 +471,7 @@ void test_pack_C_Decrypt_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedDataLen_unpack = 0;
     CK_ULONG pulDataLen_unpack = 0;
     
@@ -525,7 +525,7 @@ void test_pack_C_Decrypt_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulDataLen_unpack = 0;
     
 
@@ -578,7 +578,7 @@ void test_pack_C_DecryptDigestUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -632,7 +632,7 @@ void test_pack_C_DecryptDigestUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -725,7 +725,7 @@ void test_pack_C_DecryptFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pLastPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pLastPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulLastPartLen_unpack = 0;
     
 
@@ -776,7 +776,7 @@ void test_pack_C_DecryptInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -866,7 +866,7 @@ void test_pack_C_DecryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -920,7 +920,7 @@ void test_pack_C_DecryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -973,7 +973,7 @@ void test_pack_C_DecryptVerifyUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulEncryptedPartLen_unpack = 0;
     CK_ULONG pulPartLen_unpack = 0;
     
@@ -1027,7 +1027,7 @@ void test_pack_C_DecryptVerifyUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulPartLen_unpack = 0;
     
 
@@ -1087,9 +1087,9 @@ void test_pack_C_DeriveKey_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hBaseKey_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulAttributeCount_unpack = 0;
     
 
@@ -1279,7 +1279,7 @@ void test_pack_C_Digest_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulDigestLen_unpack = 0;
     
@@ -1333,7 +1333,7 @@ void test_pack_C_Digest_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pDigest_unpack = malloc(1024);
+    CK_BYTE_ARRAY pDigest_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulDigestLen_unpack = 0;
     
 
@@ -1386,7 +1386,7 @@ void test_pack_C_DigestEncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -1440,7 +1440,7 @@ void test_pack_C_DigestEncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -1533,7 +1533,7 @@ void test_pack_C_DigestFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pDigest_unpack = malloc(1024);
+    CK_BYTE_ARRAY pDigest_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulDigestLen_unpack = 0;
     
 
@@ -1582,7 +1582,7 @@ void test_pack_C_DigestInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_DigestInit_Call(
@@ -1744,7 +1744,7 @@ void test_pack_C_DigestUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -1832,7 +1832,7 @@ void test_pack_C_Encrypt_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
@@ -1886,7 +1886,7 @@ void test_pack_C_Encrypt_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
@@ -1979,7 +1979,7 @@ void test_pack_C_EncryptFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulEncryptedDataLen_unpack = 0;
     
 
@@ -2030,7 +2030,7 @@ void test_pack_C_EncryptInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -2120,7 +2120,7 @@ void test_pack_C_EncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -2174,7 +2174,7 @@ void test_pack_C_EncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -2220,7 +2220,7 @@ void test_pack_C_Finalize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    CK_VOID_PTR pReserved_unpack = malloc(1024);
+    CK_VOID_PTR pReserved_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_Finalize_Call(
@@ -2347,7 +2347,7 @@ void test_pack_C_FindObjects_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_OBJECT_HANDLE_ARRAY phObject_unpack = malloc(1024);
+    CK_OBJECT_HANDLE_ARRAY phObject_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulObjectCount_unpack = 0;
     
 
@@ -2478,7 +2478,7 @@ void test_pack_C_FindObjectsInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -2536,7 +2536,7 @@ void test_pack_C_FindObjectsInit_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_FindObjectsInit_Return(
@@ -2595,8 +2595,8 @@ void test_pack_C_GenerateKey_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -2717,10 +2717,10 @@ void test_pack_C_GenerateKeyPair_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
-    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
+    CK_ATTRIBUTE_ARRAY pPublicKeyTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPublicKeyAttributeCount_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pPrivateKeyTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPrivateKeyAttributeCount_unpack = 0;
     
 
@@ -2886,7 +2886,7 @@ void test_pack_C_GenerateRandom_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pSeed_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSeed_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_GenerateRandom_Return(
@@ -2940,7 +2940,7 @@ void test_pack_C_GetAttributeValue_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -3002,7 +3002,7 @@ void test_pack_C_GetAttributeValue_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_GetAttributeValue_Return(
@@ -3340,7 +3340,7 @@ void test_pack_C_GetMechanismList_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack = malloc(1024);
+    CK_MECHANISM_TYPE_ARRAY pMechanismList_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulCount_unpack = 0;
     
 
@@ -3522,7 +3522,7 @@ void test_pack_C_GetOperationState_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pOperationState_unpack = malloc(1024);
+    CK_BYTE_ARRAY pOperationState_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulOperationStateLen_unpack = 0;
     
 
@@ -3788,7 +3788,7 @@ void test_pack_C_GetSlotList_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_SLOT_ID_ARRAY pSlotList_unpack = malloc(1024);
+    CK_SLOT_ID_ARRAY pSlotList_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulCount_unpack = 0;
     
 
@@ -3960,7 +3960,7 @@ void test_pack_C_InitPIN_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_UTF8CHAR_ARRAY pPin_unpack = malloc(1024);
+    CK_UTF8CHAR_ARRAY pPin_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen_unpack = 0;
     
 
@@ -4048,9 +4048,9 @@ void test_pack_C_InitToken_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SLOT_ID slotID_unpack = 0;
-    UTF8String pPin_unpack = malloc(1024);
+    UTF8String pPin_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen_unpack = 0;
-    UTF8String pLabel_unpack = malloc(1024);
+    UTF8String pLabel_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_InitToken_Call(
@@ -4075,7 +4075,7 @@ void test_pack_C_InitToken_Call(void **state) {
     assert_int_equal(ulPinLen, ulPinLen_unpack);
 
 
-    assert_memory_equal(pLabel, pLabel_unpack, (sizeof(pLabel) / sizeof(UTF8String)));
+    assert_memory_equal(pLabel, pLabel_unpack, (32 * sizeof(UTF8String)));
 
 
 
@@ -4143,7 +4143,7 @@ void test_pack_C_Initialize_Call(void **state) {
 
     assert_int_equal(status, CKR_OK);
 
-    CK_VOID_PTR pInitArgs_unpack = malloc(1024);
+    CK_VOID_PTR pInitArgs_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_Initialize_Call(
@@ -4231,7 +4231,7 @@ void test_pack_C_Login_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_USER_TYPE userType_unpack = 0;
-    CK_UTF8CHAR_ARRAY pPin_unpack = malloc(1024);
+    CK_UTF8CHAR_ARRAY pPin_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPinLen_unpack = 0;
     
 
@@ -4493,7 +4493,7 @@ void test_pack_C_SeedRandom_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSeed_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSeed_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSeedLen_unpack = 0;
     
 
@@ -4587,7 +4587,7 @@ void test_pack_C_SetAttributeValue_Call(void **state) {
 
     CK_SESSION_HANDLE hSession_unpack = 0;
     CK_OBJECT_HANDLE hObject_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulCount_unpack = 0;
     
 
@@ -4687,7 +4687,7 @@ void test_pack_C_SetOperationState_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pOperationState_unpack = malloc(1024);
+    CK_BYTE_ARRAY pOperationState_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulOperationStateLen_unpack = 0;
     CK_OBJECT_HANDLE hEncryptionKey_unpack = 0;
     CK_OBJECT_HANDLE hAuthenticationKey_unpack = 0;
@@ -4787,9 +4787,9 @@ void test_pack_C_SetPIN_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_UTF8CHAR_ARRAY pOldPin_unpack = malloc(1024);
+    CK_UTF8CHAR_ARRAY pOldPin_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulOldLen_unpack = 0;
-    CK_UTF8CHAR_ARRAY pNewPin_unpack = malloc(1024);
+    CK_UTF8CHAR_ARRAY pNewPin_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulNewPin_unpack = 0;
     
 
@@ -4885,7 +4885,7 @@ void test_pack_C_Sign_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulSignatureLen_unpack = 0;
     
@@ -4939,7 +4939,7 @@ void test_pack_C_Sign_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -4992,7 +4992,7 @@ void test_pack_C_SignEncryptUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
@@ -5046,7 +5046,7 @@ void test_pack_C_SignEncryptUpdate_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pEncryptedPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulEncryptedPartLen_unpack = 0;
     
 
@@ -5139,7 +5139,7 @@ void test_pack_C_SignFinal_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -5190,7 +5190,7 @@ void test_pack_C_SignInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -5280,7 +5280,7 @@ void test_pack_C_SignRecover_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen_unpack = 0;
     CK_ULONG pulSignatureLen_unpack = 0;
     
@@ -5334,7 +5334,7 @@ void test_pack_C_SignRecover_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulSignatureLen_unpack = 0;
     
 
@@ -5385,7 +5385,7 @@ void test_pack_C_SignRecoverInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -5473,7 +5473,7 @@ void test_pack_C_SignUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -5572,11 +5572,11 @@ void test_pack_C_UnwrapKey_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hUnwrappingKey_unpack = 0;
-    CK_BYTE_ARRAY pWrappedKey_unpack = malloc(1024);
+    CK_BYTE_ARRAY pWrappedKey_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulWrappedKeyLen_unpack = 0;
-    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024);
+    CK_ATTRIBUTE_ARRAY pTemplate_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulAttributeCount_unpack = 0;
     
 
@@ -5697,9 +5697,9 @@ void test_pack_C_Verify_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulDataLen_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen_unpack = 0;
     
 
@@ -5793,7 +5793,7 @@ void test_pack_C_VerifyFinal_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen_unpack = 0;
     
 
@@ -5879,7 +5879,7 @@ void test_pack_C_VerifyInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -5969,7 +5969,7 @@ void test_pack_C_VerifyRecover_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pSignature_unpack = malloc(1024);
+    CK_BYTE_ARRAY pSignature_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulSignatureLen_unpack = 0;
     CK_ULONG pulDataLen_unpack = 0;
     
@@ -6023,7 +6023,7 @@ void test_pack_C_VerifyRecover_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pData_unpack = malloc(1024);
+    CK_BYTE_ARRAY pData_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulDataLen_unpack = 0;
     
 
@@ -6074,7 +6074,7 @@ void test_pack_C_VerifyRecoverInit_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hKey_unpack = 0;
     
 
@@ -6162,7 +6162,7 @@ void test_pack_C_VerifyUpdate_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_BYTE_ARRAY pPart_unpack = malloc(1024);
+    CK_BYTE_ARRAY pPart_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG ulPartLen_unpack = 0;
     
 
@@ -6246,7 +6246,7 @@ void test_pack_C_WaitForSlotEvent_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_FLAGS flags_unpack = 0;
-    CK_VOID_PTR pReserved_unpack = malloc(1024);
+    CK_VOID_PTR pReserved_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_WaitForSlotEvent_Call(
@@ -6292,7 +6292,7 @@ void test_pack_C_WaitForSlotEvent_Return(void **state) {
 
     CK_RV retval_unpack;
     CK_SLOT_ID pSlot_unpack = 0;
-    CK_VOID_PTR pReserved_unpack = malloc(1024);
+    CK_VOID_PTR pReserved_unpack = malloc(1024); /* todo: fix this somehow */
     
 
     status = unpack_C_WaitForSlotEvent_Return(
@@ -6347,7 +6347,7 @@ void test_pack_C_WrapKey_Call(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_SESSION_HANDLE hSession_unpack = 0;
-    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024);
+    CK_MECHANISM_PTR pMechanism_unpack = malloc(1024); /* todo: fix this somehow */
     CK_OBJECT_HANDLE hWrappingKey_unpack = 0;
     CK_OBJECT_HANDLE hKey_unpack = 0;
     CK_ULONG pulWrappedKeyLen_unpack = 0;
@@ -6408,7 +6408,7 @@ void test_pack_C_WrapKey_Return(void **state) {
     assert_int_equal(status, CKR_OK);
 
     CK_RV retval_unpack;
-    CK_BYTE_ARRAY pWrappedKey_unpack = malloc(1024);
+    CK_BYTE_ARRAY pWrappedKey_unpack = malloc(1024); /* todo: fix this somehow */
     CK_ULONG pulWrappedKeyLen_unpack = 0;
     
 

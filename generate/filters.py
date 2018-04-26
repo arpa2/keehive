@@ -313,9 +313,14 @@ def initialise_unpack_placeholders(type_, identifier, malloc=True):
     elif identifier == "pInitArgs":
         return """CK_C_INITIALIZE_ARGS tmp;
     CK_VOID_PTR pInitArgs = (CK_VOID_PTR)&tmp;"""
+    elif identifier == "pMechanism":
+        return """CK_MECHANISM {identifier}_pointed;
+    CK_MECHANISM_PTR {identifier} = &{identifier}_pointed; /* we do this funny to simplify code generation */""".format(identifier=identifier)
+    elif identifier == "pLabel":
+        return "CK_UTF8CHAR pLabel[249]; // todo: this should be 32, but if lower then 249 we get stack smashing error?"
     elif type_.endswith("_PTR") or type_.endswith("_ARRAY") or type_ == "UTF8String":
         if malloc:
-            return "{} {} = malloc(1024);".format(type_, identifier)
+            return "{} {} = malloc(1024); /* todo: fix this somehow */".format(type_, identifier)
         else:
             return "{} {} = NULL;".format(type_, identifier)
     else:
@@ -354,7 +359,7 @@ unambiguous = {
     "pPin": "ulPinLen",
     "pOldPin": "ulOldLen",
     "pNewPin": "ulNewPin",
-    "pLabel": "(sizeof(pLabel) / sizeof(UTF8String))",
+    "pLabel": "(32 * sizeof(UTF8String))",
     "pLastPart": "pulLastPartLen",
     "pDigest": "pulDigestLen"
 }
