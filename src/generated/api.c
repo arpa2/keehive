@@ -1654,7 +1654,8 @@ C_GetAttributeValue(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    
+    if (pTemplate == NULL)
+        return CKR_ARGUMENTS_BAD;
 
     status = pack_C_GetAttributeValue_Call(
         &dercursorIn,
@@ -1860,7 +1861,8 @@ C_GetMechanismList(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    
+    if (pulCount == NULL | pMechanismList == NULL)
+        return CKR_ARGUMENTS_BAD;
 
     status = pack_C_GetMechanismList_Call(
         &dercursorIn,
@@ -2071,7 +2073,8 @@ C_GetSlotInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    
+    if (pInfo == NULL)
+        return CKR_ARGUMENTS_BAD;
 
     status = pack_C_GetSlotInfo_Call(
         &dercursorIn,
@@ -2123,8 +2126,9 @@ C_GetSlotList(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
+    if (pulCount == NULL)
+        return CKR_ARGUMENTS_BAD;
     
-
     status = pack_C_GetSlotList_Call(
         &dercursorIn,
         &tokenPresent,
@@ -2176,7 +2180,9 @@ C_GetTokenInfo(
     dercursor dercursorIn;
     dercursor dercursorOut;
 
-    
+
+    if (pInfo == NULL)
+        return CKR_ARGUMENTS_BAD;
 
     status = pack_C_GetTokenInfo_Call(
         &dercursorIn,
