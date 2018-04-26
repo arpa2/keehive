@@ -432,8 +432,8 @@ ambiguous = {
 }
 
 double_roundtrip = {
-    'C_FindObjectsInit': (('pTemplate', '0 /* todo: this is wrong, issue #6 */', 'CK_ATTRIBUTE'),),
-    'C_GetAttributeValue': (('pTemplate', '0 /* todo: this is wrong, issue #6 */ ', 'CK_ATTRIBUTE'),),
+    'C_FindObjectsInit': (('pTemplate', 'ulCount', 'CK_ATTRIBUTE'),),
+    'C_GetAttributeValue': (('pTemplate', 'ulCount', 'CK_ATTRIBUTE'),),
     'C_GenerateRandom': (('pSeed', '0 /* todo: this is wrong, issue #6 */ ', 'CK_BYTE'),),
     'C_Decrypt': (('pData', 'pulDataLen', 'CK_BYTE'),),
     'C_VerifyRecover': (('pData', 'pulDataLen', 'CK_BYTE'),),
